@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("day", String.valueOf(month));
         Log.d("day", String.valueOf(yearinteger));
 
+
         /********************************/
         /*** next Step Save variables ***/
         /********************************/
