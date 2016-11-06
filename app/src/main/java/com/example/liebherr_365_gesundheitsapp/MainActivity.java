@@ -8,7 +8,9 @@ import android.widget.DatePicker;
 import android.widget.NumberPicker;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
+
     //       .-..-..---. .-..-.
     //       : :; :: .--': :: :
     //       :    :: `;  : :: :
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     // Speer       Christopher
     // Wangler     Niklas
 
+    private DBHelperDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +51,11 @@ public class MainActivity extends AppCompatActivity {
     //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
 
-
         //Datepicker
         DatePicker date = (DatePicker) findViewById(R.id.dp);
         int dayinteger = date.getDayOfMonth();
         int monthinteger = date.getMonth() + 1;
         int yearinteger = date.getYear();
-
 
         //Numberpicker
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
@@ -67,6 +68,26 @@ public class MainActivity extends AppCompatActivity {
         // call function integertofloat
         float weight = integertofloat(integervalue, afterkommavalue);
 
+        // new weightdateobject with values
+        weightdata wd = new weightdata(weight, dayinteger, monthinteger, yearinteger);
+
+        // new DBHelperDataSource
+        dataSource = new DBHelperDataSource(this);
+
+        Log.d("opensql", "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        //call function insertdata
+        dataSource.insertdata(wd);
+
+        Log.d("closesql", "Die Datenquelle wird geschlossen.");
+        dataSource.close();
+
+        // call function getData
+        String sqlvalue = dataSource.getData();
+        Log.d("sqlvalue", sqlvalue);
+
+        /*
         //display weight and month on console
         Log.d("weight", String.valueOf(weight));
 
@@ -77,11 +98,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("day", String.valueOf(dayinteger));
         Log.d("day", String.valueOf(month));
         Log.d("day", String.valueOf(yearinteger));
-
-
-        /********************************/
-        /*** next Step Save variables ***/
-        /********************************/
+        */
     }
 
     //function integer values -> float integervalue,afterkommavalue
