@@ -1,9 +1,11 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
 
@@ -25,12 +27,30 @@ public class MainActivity extends AppCompatActivity {
     // Speer       Christopher
     // Wangler     Niklas
 
+
+
+
     private DBHelperDataSource dataSource;
+    Button btnNotification;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Button wird festgelegt (saveButton)
+        btnNotification = (Button) findViewById(R.id.saveButton);
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+
+            //service wir gestarten mit dem klick auf den Button
+            @Override
+            public void onClick(View view) {
+                Intent startNotificationsServiceIntent = new Intent(MainActivity.this, Notification.class);
+                startService(startNotificationsServiceIntent);
+            }
+        });
+
 
         //Intialize integer and aftkomma as numberpicker to use functions
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
