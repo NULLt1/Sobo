@@ -13,6 +13,7 @@ public class weightquery {
             COLUMN_WEIGHT + " FLOAT, " +
             COLUMN_BMI + " FLOAT)";
 
+
     private static final String DELETE_DB = "DELETE * FROM " + DB_NAME;
     private static final String DROP_DB = "DROP TABLE " + DB_NAME;
 

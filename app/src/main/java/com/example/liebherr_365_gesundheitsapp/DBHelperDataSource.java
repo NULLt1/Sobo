@@ -38,13 +38,10 @@ public class DBHelperDataSource {
         Cursor c = database.rawQuery("SELECT * FROM " + weightquery.getDbName(), null);
         c.moveToFirst();
         s = "Gewicht: ";
-        s += c.getString(c.getColumnIndex("weight"));
-        s += " // Tag: ";
-        s += c.getString(c.getColumnIndex("day"));
-        s += " // Monat: ";
-        s += c.getString(c.getColumnIndex("month"));
-        s += " // Jahr: ";
-        s += c.getString(c.getColumnIndex("year"));
+        s += c.getString(c.getColumnIndex(weightquery.getColumnWeight()));
+        s += " // Datum: ";
+        s += c.getString(c.getColumnIndex(weightquery.getColumnDate()));
+
         dbHelper.close();
         return s;
     }
