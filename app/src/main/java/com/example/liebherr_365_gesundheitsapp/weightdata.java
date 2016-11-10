@@ -9,7 +9,6 @@ public class weightdata {
         this.weight = weight;
         this.date = date;
         this.bmi = bmi;
-
     }
 
     public float getWeight() {

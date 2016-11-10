@@ -14,7 +14,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Create Table weight with values: weight,day,month,year
-
         db.execSQL(weightquery.getCreateDb());
     }
 

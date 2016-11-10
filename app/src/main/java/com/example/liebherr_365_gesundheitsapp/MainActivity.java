@@ -1,6 +1,5 @@
 package com.example.liebherr_365_gesundheitsapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // NOTIFICATION
+        /*
         //Button wird festgelegt (saveButton)
         btnNotification = (Button) findViewById(R.id.saveButton);
         btnNotification.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 startService(startNotificationsServiceIntent);
             }
         });
+        */
 
 
         //Intialize integer and aftkomma as numberpicker to use functions
@@ -66,14 +72,23 @@ public class MainActivity extends AppCompatActivity {
         integer.setWrapSelectorWheel(false);
     }
 
+
     //function saveweight onklick @+id/saveButton
+
     public void saveweight(View view) {
 
         //Datepicker
         DatePicker date = (DatePicker) findViewById(R.id.dp);
         int dayinteger = date.getDayOfMonth();
-        int monthinteger = date.getMonth() + 1;
-        int yearinteger = date.getYear();
+        int monthinteger = date.getMonth();
+        int yearinteger = date.getYear() - 1900;
+
+        // bmi placeholder
+        float bmi = 24;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
+
 
         //Numberpicker
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
@@ -87,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         float weight = integertofloat(integervalue, afterkommavalue);
 
         // new weightdateobject with values
-        weightdata wd = new weightdata(weight, dayinteger, monthinteger, yearinteger);
+        weightdata wd = new weightdata(weight, formateddate, bmi);
 
         // new DBHelperDataSource
         dataSource = new DBHelperDataSource(this);

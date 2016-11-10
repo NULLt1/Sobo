@@ -34,7 +34,8 @@ public class DBHelperDataSource {
     public String getData() {
         database = dbHelper.getReadableDatabase();
         String s;
-        Cursor c = database.rawQuery("SELECT * FROM " + weightquery.getColumnWeight(), null);
+
+        Cursor c = database.rawQuery("SELECT * FROM " + weightquery.getDbName(), null);
         c.moveToFirst();
         s = "Gewicht: ";
         s += c.getString(c.getColumnIndex("weight"));
@@ -50,6 +51,7 @@ public class DBHelperDataSource {
 
     //function insert data into database
     public void insertdata(weightdata wd) {
+
         ContentValues values = new ContentValues();
         values.put(weightquery.getColumnWeight(), wd.getWeight());
         values.put(weightquery.getColumnDate(), wd.getDate());
