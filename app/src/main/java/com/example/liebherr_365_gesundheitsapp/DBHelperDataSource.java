@@ -1,10 +1,13 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DBHelperDataSource {
 
@@ -48,11 +51,25 @@ public class DBHelperDataSource {
 
     //function insert data into database
     public void insertdata(weightdata wd) {
-
         ContentValues values = new ContentValues();
         values.put(weightquery.getColumnWeight(), wd.getWeight());
         values.put(weightquery.getColumnDate(), wd.getDate());
         values.put(weightquery.getColumnBmi(), wd.getBmi());
         database.insert(weightquery.getDbName(), null, values);
     }
+
+   /* public boolean datealreadysaved(weightdata wd) {
+        String date = wd.getDate();
+        boolean result;
+
+        //Todo:  Function fertigstellen ( Marvin )
+        Cursor cursor = database.query(weightquery.getDbName(),weightquery.getColumnDate(),null,null,null,null);
+
+        int
+        while(cursor.moveToNext()) {
+            if (cursor.getString()== wd.getDate()) ; //add the item
+        }
+
+        return true;
+    }*/
 }

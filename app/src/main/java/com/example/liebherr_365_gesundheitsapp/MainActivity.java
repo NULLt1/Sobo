@@ -1,5 +1,8 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -110,8 +113,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("opensql", "Die Datenquelle wird geöffnet.");
         dataSource.open();
 
-        //call function insertdata
-        dataSource.insertdata(wd);
+        try {
+            //call function insertdata
+            dataSource.insertdata(wd);
+        } catch (Exception e) {
+            alertdialog();
+            e.printStackTrace();
+        }
 
         Log.d("closesql", "Die Datenquelle wird geschlossen.");
         dataSource.close();
@@ -133,6 +141,31 @@ public class MainActivity extends AppCompatActivity {
         Log.d("day", String.valueOf(yearinteger));
         */
     }
+
+    public void alertdialog() {
+        final Context context = this;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Achtung!");
+        builder.setMessage("Zu diesem Datum existiert schon ein Gewicht");
+        builder.setPositiveButton("Ändern",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //action
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.setNegativeButton("Abbruch",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int d) {
+                        //action
+                        dialog.dismiss();
+                    }
+                });
+    }
+
 
     //function integer values -> float integervalue,afterkommavalue
     public float integertofloat(int integervalue, int afterkommavalue) {
@@ -169,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
                 return "November";
             case 12:
                 return "Dezember";
-
         }
         return "a";
     }
