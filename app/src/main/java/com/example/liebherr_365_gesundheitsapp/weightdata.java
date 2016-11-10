@@ -2,30 +2,25 @@ package com.example.liebherr_365_gesundheitsapp;
 
 public class weightdata {
     private float weight;
-    private int day;
-    private int month;
-    private int year;
+    private String date;
+    private float bmi;
 
-    public weightdata(float weight, int day, int month, int year) {
+    public weightdata(float weight, String date, float bmi) {
         this.weight = weight;
-        this.day = day;
-        this.month = month;
-        this.year = year;
+        this.date = date;
+        this.bmi = bmi;
+
     }
 
     public float getWeight() {
         return weight;
     }
 
-    public int getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public int getMonth() {
-        return month;
-    }
-
-    public int getYear() {
-        return year;
+    public float getBmi() {
+        return bmi;
     }
 }
