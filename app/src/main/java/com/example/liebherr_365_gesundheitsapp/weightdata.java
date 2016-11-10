@@ -28,5 +28,4 @@ public class weightdata {
     public int getYear() {
         return year;
     }
-
 }

@@ -1,6 +1,5 @@
 package com.example.liebherr_365_gesundheitsapp;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

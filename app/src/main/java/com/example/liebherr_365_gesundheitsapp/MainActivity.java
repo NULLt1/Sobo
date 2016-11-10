@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     // Wangler     Niklas
 
 
-
-
     private DBHelperDataSource dataSource;
     Button btnNotification;
 

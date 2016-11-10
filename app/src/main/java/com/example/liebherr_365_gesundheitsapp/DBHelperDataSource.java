@@ -55,7 +55,6 @@ public class DBHelperDataSource {
         values.put("DAY", wd.getDay());
         values.put("MONTH", wd.getMonth());
         values.put("YEAR", wd.getYear());
-        long newRowId = database.insert("WEIGHT", null, values);
+        database.insert("WEIGHT", null, values);
     }
-
 }
