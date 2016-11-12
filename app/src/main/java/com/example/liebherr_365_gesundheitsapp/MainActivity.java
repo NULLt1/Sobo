@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //action
+                        // TODO: Daten in Datenbank ändern
                         dialog.dismiss();
                     }
                 });
