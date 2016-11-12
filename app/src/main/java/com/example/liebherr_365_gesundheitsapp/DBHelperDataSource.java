@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DBHelperDataSource {
 
@@ -58,18 +59,21 @@ public class DBHelperDataSource {
         database.insert(weightquery.getDbName(), null, values);
     }
 
-   /* public boolean datealreadysaved(weightdata wd) {
+    //function datealreadysaved
+    public boolean datealreadysaved(weightdata wd) {
         String date = wd.getDate();
-        boolean result;
+        boolean result = false;
 
-        //Todo:  Function fertigstellen ( Marvin )
-        Cursor cursor = database.query(weightquery.getDbName(),weightquery.getColumnDate(),null,null,null,null);
+        String query = "SELECT * FROM " + weightquery.getDbName();
+        Cursor databaseweightresult = database.rawQuery(query, null);
 
-        int
-        while(cursor.moveToNext()) {
-            if (cursor.getString()== wd.getDate()) ; //add the item
+        databaseweightresult.moveToFirst();
+        while (databaseweightresult.moveToNext()) {
+            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
+            if (date.equals(databasedate)) {
+                result = true;
+            }
         }
-
-        return true;
-    }*/
+        return result;
+    }
 }

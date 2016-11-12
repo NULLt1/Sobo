@@ -113,12 +113,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d("opensql", "Die Datenquelle wird geöffnet.");
         dataSource.open();
 
-        try {
-            //call function insertdata
-            dataSource.insertdata(wd);
-        } catch (Exception e) {
+        // call function datealreadysaved and react on result
+        boolean datealreadyexisting = dataSource.datealreadysaved(wd);
+        Log.d("result", String.valueOf(datealreadyexisting));
+        if (datealreadyexisting) {
+            //call alertdialog
+            // TODO: Alertdialog anpassen
             alertdialog();
-            e.printStackTrace();
+        } else {
+            dataSource.insertdata(wd);
         }
 
         Log.d("closesql", "Die Datenquelle wird geschlossen.");
@@ -145,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
     public void alertdialog() {
         final Context context = this;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Achtung!");
-        builder.setMessage("Zu diesem Datum existiert schon ein Gewicht");
-        builder.setPositiveButton("Ändern",
+        alertDialogBuilder.setTitle("Achtung!");
+        alertDialogBuilder.setMessage("Zu diesem Datum existiert schon ein Gewicht");
+        alertDialogBuilder.setPositiveButton("Ändern",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //action
@@ -157,13 +160,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        builder.setNegativeButton("Abbruch",
+        alertDialogBuilder.setNegativeButton("Abbruch",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int d) {
                         //action
                         dialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
