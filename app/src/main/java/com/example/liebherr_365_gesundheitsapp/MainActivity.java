@@ -118,8 +118,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("result", String.valueOf(datealreadyexisting));
         if (datealreadyexisting) {
             //call alertdialog
-            // TODO: Alertdialog anpassen
-            alertdialog();
+            alertdialog(wd);
         } else {
             dataSource.insertdata(wd);
         }
@@ -130,22 +129,10 @@ public class MainActivity extends AppCompatActivity {
         // call function getData
         String sqlvalue = dataSource.getData();
         Log.d("sqlvalue", sqlvalue);
-
-        /*
-        //display weight and month on console
-        Log.d("weight", String.valueOf(weight));
-
-        // call function monthinegertostring
-        String month = monthinegertostring(monthinteger);
-
-        //console out with debug
-        Log.d("day", String.valueOf(dayinteger));
-        Log.d("day", String.valueOf(month));
-        Log.d("day", String.valueOf(yearinteger));
-        */
     }
 
-    public void alertdialog() {
+    //alertdialog
+    public void alertdialog(final weightdata wd) {
         final Context context = this;
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -156,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //action
-                        // TODO: Daten in Datenbank ändern
+                        Log.d("Ausgbabe", "Ändern");
+                        //call function updatedata
+                        dataSource.updatedata(wd);
                         dialog.dismiss();
                     }
                 });

@@ -55,6 +55,31 @@ public class DBHelperDataSource {
         database.insert(weightquery.getDbName(), null, values);
     }
 
+    //function update data in database
+    public void updatedata(weightdata wd) {
+        String date = wd.getDate();
+        boolean result = false;
+
+        database = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(weightquery.getColumnWeight(), wd.getWeight());
+        values.put(weightquery.getColumnDate(), wd.getDate());
+        values.put(weightquery.getColumnBmi(), wd.getBmi());
+
+        String query = "SELECT * FROM " + weightquery.getDbName();
+        Cursor databaseweightresult = database.rawQuery(query, null);
+
+        databaseweightresult.moveToFirst();
+        while (databaseweightresult.moveToNext()) {
+            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
+            if (date.equals(databasedate)) {
+                database.update(weightquery.getDbName(), values, weightquery.getColumnDate() + "=" + date, null);
+            }
+        }
+        dbHelper.close();
+    }
+
     //function datealreadysaved
     public boolean datealreadysaved(weightdata wd) {
         String date = wd.getDate();
