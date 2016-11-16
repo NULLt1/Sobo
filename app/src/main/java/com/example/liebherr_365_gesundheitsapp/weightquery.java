@@ -7,13 +7,15 @@ public class weightquery {
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_WEIGHT = "weight";
     private static final String COLUMN_BMI = "bmi";
-
+    private static final String[] COLUMNS = {
+            COLUMN_DATE, COLUMN_WEIGHT, COLUMN_BMI
+    };
     private static final String CREATE_DB = "CREATE TABLE " + DB_NAME + " (" +
             COLUMN_DATE + " TEXT PRIMARY KEY, " +
             COLUMN_WEIGHT + " FLOAT, " +
             COLUMN_BMI + " FLOAT)";
 
-
+    private static final String GET_DATA = "SELECT * FROM " +DB_NAME;
     private static final String DELETE_DB = "DELETE * FROM " + DB_NAME;
     private static final String DROP_DB = "DROP TABLE " + DB_NAME;
 
@@ -46,11 +48,18 @@ public class weightquery {
         return COLUMN_BMI;
     }
 
+    public static String[] getColumns() {
+        return COLUMNS;
+    }
+
     public static String getDeleteDb() {
         return DELETE_DB;
     }
 
     public static String getDropDb() {
         return DROP_DB;
+    }
+    public static String getGetData(){
+       return GET_DATA;
     }
 }

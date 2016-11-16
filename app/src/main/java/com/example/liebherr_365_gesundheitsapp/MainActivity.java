@@ -3,6 +3,7 @@ package com.example.liebherr_365_gesundheitsapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         // bmi placeholder
         float bmi = 24;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
 
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         float weight = integertofloat(integervalue, afterkommavalue);
 
         // new weightdateobject with values
-        weightdata wd = new weightdata(weight, formateddate, bmi);
+        Weightdata wd = new Weightdata(weight, formateddate, bmi);
 
         // new DBHelperDataSource
         dataSource = new DBHelperDataSource(this);
@@ -125,14 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("closesql", "Die Datenquelle wird geschlossen.");
         dataSource.close();
-
-        // call function getData
-        String sqlvalue = dataSource.getData();
-        Log.d("sqlvalue", sqlvalue);
+        Intent intent = new Intent(MainActivity.this, ListViewTable.class);
+        startActivity(intent);
     }
 
     //alertdialog
-    public void alertdialog(final weightdata wd) {
+    public void alertdialog(final Weightdata wd) {
         final Context context = this;
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

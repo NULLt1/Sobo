@@ -19,7 +19,9 @@
         <service
             android:name=".Notification"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".ListViewTable"></activity>
     </application>
 
 </manifest>
