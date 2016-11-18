@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveweight(View view) {
 
+
+
+
         //Datepicker
         DatePicker date = (DatePicker) findViewById(R.id.dp);
         int dayinteger = date.getDayOfMonth();
@@ -126,8 +129,14 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("closesql", "Die Datenquelle wird geschlossen.");
         dataSource.close();
+
+        //Creatiing new intent, which navigates to Listviewtable on call
         Intent intent = new Intent(MainActivity.this, ListViewTable.class);
         startActivity(intent);
+
+        //call function notification
+        //Todo: Hier wird die Notification aufgerufen
+        //notification();  ~~~~~~~~~auskommentiert~~~~~~~~~~
     }
 
     //alertdialog
@@ -160,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public void notification(int time) {
+        //Todo:realisieren des Aufrufs nach ablauf von time
+        //wait(time);
+    }
 
     //function integer values -> float integervalue,afterkommavalue
     public float integertofloat(int integervalue, int afterkommavalue) {
