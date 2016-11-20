@@ -19,6 +19,7 @@ public class DBHelperDataSource {
     public DBHelperDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new DBHelper(context);
+
     }
 
     public void open() {
@@ -30,6 +31,12 @@ public class DBHelperDataSource {
     public void close() {
         dbHelper.close();
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
+    }
+
+    public void deletedb() {
+        database = dbHelper.getWritableDatabase();
+        database.delete(weightquery.getDbName(), null, null);
+        dbHelper.close();
     }
 
     //function insert data into database
@@ -46,24 +53,36 @@ public class DBHelperDataSource {
         String date = wd.getDate();
         boolean result = false;
 
-        database = dbHelper.getWritableDatabase();
+        Cursor cursor = database.query(weightquery.getDbName(),
+                weightquery.getColumns(), null, null, null, null, weightquery.getColumnDate());
+
+        cursor.moveToFirst();
+        Weightdata weightdatadatabase;
 
         ContentValues values = new ContentValues();
         values.put(weightquery.getColumnWeight(), wd.getWeight());
-        values.put(weightquery.getColumnDate(), wd.getDate());
-        values.put(weightquery.getColumnBmi(), wd.getBmi());
 
-        String query = "SELECT * FROM " + weightquery.getDbName();
-        Cursor databaseweightresult = database.rawQuery(query, null);
+        while (!cursor.isAfterLast()) {
+            weightdatadatabase = cursorToWeightdata(cursor);
+            if (date.equals(weightdatadatabase.getDate())) {
+                Log.d("******", "GEFUNDEN");
+                Log.d("******", String.valueOf(wd.getWeight()));
+                Log.d("******", String.valueOf(wd.getDate()));
+                Log.d("******", String.valueOf(wd.getBmi()));
 
-        databaseweightresult.moveToFirst();
-        while (databaseweightresult.moveToNext()) {
-            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
-            if (date.equals(databasedate)) {
-                database.update(weightquery.getDbName(), values, weightquery.getColumnDate() + "=" + date, null);
+                Log.d("******values******", values.getAsString("weight"));
+
+                String where = weightquery.getColumnDate() + "=" + date;
+                Log.d("******where******", where);
+
+                //TODO: UPDATE VON ROW ERFOLGT NICHT
+                database.update(weightquery.getDbName(), values, where, null);
+
+                Log.d("******", "AUSGEFÜHRT");
             }
+            cursor.moveToNext();
         }
-        dbHelper.close();
+        cursor.close();
     }
 
     private Weightdata cursorToWeightdata(Cursor cursor) {
@@ -104,21 +123,34 @@ public class DBHelperDataSource {
     //function datealreadysaved
     public boolean datealreadysaved(Weightdata wd) {
         String date = wd.getDate();
+        Log.d("function", "er hat den fehler gefunden!");
 
         boolean result = false;
 
-        String query = "SELECT * FROM " + weightquery.getDbName();
+        String query = "SELECT " + weightquery.getColumnDate() + " FROM " + weightquery.getDbName();
+        Log.d("query", query);
         Cursor databaseweightresult = database.rawQuery(query, null);
-
-        databaseweightresult.moveToFirst();
-        while (databaseweightresult.moveToNext()) {
+        int count = databaseweightresult.getCount();
+        Log.d("Count", String.valueOf(count));
+        if (count == 0) {
+            result = false;
+        } else {
+            databaseweightresult.moveToFirst();
             String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
-            Log.d("wd.Date", date);
-            Log.d("db.date", databasedate);
             if (date.equals(databasedate)) {
                 result = true;
             }
+            Log.d("TEST", String.valueOf(count));
+            while (databaseweightresult.moveToNext()) {
+                databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
+                Log.d("wd.Date", date);
+                Log.d("db.date", databasedate);
+                if (date.equals(databasedate)) {
+                    result = true;
+                }
+            }
         }
+        databaseweightresult.close();
         return result;
     }
 }

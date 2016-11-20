@@ -1,6 +1,7 @@
 package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,11 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.NumberPicker;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -35,30 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private DBHelperDataSource dataSource;
-    Button btnNotification;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // NOTIFICATION
-        /*
-        //Button wird festgelegt (saveButton)
-        btnNotification = (Button) findViewById(R.id.saveButton);
-        btnNotification.setOnClickListener(new View.OnClickListener() {
-
-            //service wir gestarten mit dem klick auf den Button
-            @Override
-            public void onClick(View view) {
-                Intent startNotificationsServiceIntent = new Intent(MainActivity.this, Notification.class);
-                startService(startNotificationsServiceIntent);
-            }
-        });
-        */
-
+        //Set date Button with current date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
+        String actualdate = dateFormat.format(new java.util.Date());
+        Button button = (Button) findViewById(R.id.buttondate);
+        button.setText(actualdate);
 
         //Intialize integer and aftkomma as numberpicker to use functions
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
@@ -76,26 +64,33 @@ public class MainActivity extends AppCompatActivity {
         integer.setWrapSelectorWheel(false);
     }
 
+    public void deleteweightdb(View view) {
+        dataSource = new DBHelperDataSource(this);
+        dataSource.deletedb();
+
+    }
 
     //function saveweight onklick @+id/saveButton
-
     public void saveweight(View view) {
 
+        //get date from buttondate
+        Button button = (Button) findViewById(R.id.buttondate);
+        String buttonText = (String) button.getText();
 
-
-
-        //Datepicker
-        DatePicker date = (DatePicker) findViewById(R.id.dp);
-        int dayinteger = date.getDayOfMonth();
-        int monthinteger = date.getMonth();
-        int yearinteger = date.getYear() - 1900;
+        //convert datestrings to int
+        int dayinteger = Integer.parseInt(buttonText.substring(0, 2));
+        int monthinteger = Integer.parseInt(buttonText.substring(3, 5)) - 1;
+        int yearinteger = Integer.parseInt(buttonText.substring(6)) - 1900;
 
         // bmi placeholder
         float bmi = 24;
 
+        Log.d("month", String.valueOf(monthinteger));
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
 
+        Log.d("formatedate", formateddate);
 
         //Numberpicker
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
@@ -122,25 +117,34 @@ public class MainActivity extends AppCompatActivity {
         Log.d("result", String.valueOf(datealreadyexisting));
         if (datealreadyexisting) {
             //call alertdialog
-            alertdialog(wd);
+            alertdialogalreadysaved(wd);
+
         } else {
             dataSource.insertdata(wd);
+
+            Log.d("closesql", "Die Datenquelle wird geschlossen.");
+            dataSource.close();
+
+            //Creatiing new intent, which navigates to Listviewtable on call
+            Intent intent = new Intent(MainActivity.this, ListViewTable.class);
+            startActivity(intent);
         }
 
-        Log.d("closesql", "Die Datenquelle wird geschlossen.");
-        dataSource.close();
-
-        //Creatiing new intent, which navigates to Listviewtable on call
-        Intent intent = new Intent(MainActivity.this, ListViewTable.class);
-        startActivity(intent);
 
         //call function notification
         //Todo: Hier wird die Notification aufgerufen
-        //notification();  ~~~~~~~~~auskommentiert~~~~~~~~~~
+        //notification();  ~~~~~~~~~auskommentiert~~~~~~~~~~*/
     }
 
-    //alertdialog
-    public void alertdialog(final Weightdata wd) {
+    //function showDatePickerDialog
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+
+    //alertdialogalreadysaved
+    public void alertdialogalreadysaved(final Weightdata wd) {
         final Context context = this;
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -154,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Ausgbabe", "Ändern");
                         //call function updatedata
                         dataSource.updatedata(wd);
+                        Log.d("closesql", "Die Datenquelle wird geschlossen.");
+                        dataSource.close();
+                        //Creatiing new intent, which navigates to Listviewtable on call
+                        Intent intent = new Intent(MainActivity.this, ListViewTable.class);
+                        startActivity(intent);
                         dialog.dismiss();
                     }
                 });

@@ -2,5 +2,6 @@
     <string name="app_name">Liebherr-365-Gesundheitsapp</string>
     <string name="kg">kg</string>
     <string name="speichern">Speichern</string>
+    <string name="Datenbankleeren">Datenbank leeren</string>
     <string name="komma">,</string>
 </resources>

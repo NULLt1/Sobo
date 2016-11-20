@@ -15,7 +15,7 @@ public class weightquery {
             COLUMN_WEIGHT + " FLOAT, " +
             COLUMN_BMI + " FLOAT)";
 
-    private static final String GET_DATA = "SELECT * FROM " +DB_NAME;
+    private static final String GET_DATA = "SELECT * FROM " + DB_NAME;
     private static final String DELETE_DB = "DELETE * FROM " + DB_NAME;
     private static final String DROP_DB = "DROP TABLE " + DB_NAME;
 
@@ -59,7 +59,8 @@ public class weightquery {
     public static String getDropDb() {
         return DROP_DB;
     }
-    public static String getGetData(){
-       return GET_DATA;
+
+    public static String getGetData() {
+        return GET_DATA;
     }
 }

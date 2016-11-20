@@ -21,4 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Placeholder 4 action
     }
+
+    public void deleteweightdb(SQLiteDatabase db) {
+        db.rawQuery("DELETE FROM " + weightquery.getDbName(), null);
+    }
 }
