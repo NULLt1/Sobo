@@ -21,7 +21,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ListViewTable"></activity>
+        <activity android:name=".ListViewTable" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
