@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("formatedate", formateddate);
 
+
         //Numberpicker
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
         NumberPicker afterkomma = (NumberPicker) findViewById(R.id.afterkomma);
