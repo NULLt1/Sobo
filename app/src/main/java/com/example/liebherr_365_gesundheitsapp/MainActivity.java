@@ -4,9 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -77,8 +81,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //function saveweight onklick @+id/saveButton
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return
+                        super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
 
         //Datepicker
@@ -87,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
         int monthinteger = date.getMonth();
         int yearinteger = date.getYear() - 1900;
 
-        // bmi placeholder
-        float bmi = 24;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
@@ -104,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
 
         // call function integertofloat
         float weight = integertofloat(integervalue, afterkommavalue);
+        Log.d("bmi",Float.toString(calcBmi(weight)));
 
         // new weightdateobject with values
-        Weightdata wd = new Weightdata(weight, formateddate, bmi);
+        Weightdata wd = new Weightdata(weight, formateddate, calcBmi(weight));
 
         // new DBHelperDataSource
         dataSource = new DBHelperDataSource(this);
@@ -198,5 +221,15 @@ public class MainActivity extends AppCompatActivity {
                 return "Dezember";
         }
         return "a";
+    }
+
+    public float calcBmi(float weight) {
+        SharedPreferences heightPref = PreferenceManager.getDefaultSharedPreferences(this);
+        float height = Float.parseFloat(heightPref.getString("height", "180"));
+
+        height /= 100.0;
+        float bmi = weight / height / height;
+
+        return bmi;
     }
 }

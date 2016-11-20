@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <EditTextPreference
+        android:defaultValue="73"
+        android:enabled="true"
+        android:inputType="number"
+        android:key="height"
+        android:persistent="true"
+        android:summary="Größe in cm"
+        android:title="Größe" />
+
+
+</PreferenceScreen>
