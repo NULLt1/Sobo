@@ -60,29 +60,15 @@ public class DBHelperDataSource {
         Weightdata weightdatadatabase;
 
         ContentValues values = new ContentValues();
+        values.put(weightquery.getColumnDate(), wd.getDate());
         values.put(weightquery.getColumnWeight(), wd.getWeight());
+        values.put(weightquery.getColumnBmi(), wd.getBmi());
+        String where = weightquery.getColumnDate() + "=" + date;
+        Log.d("******where******", where);
 
-        while (!cursor.isAfterLast()) {
-            weightdatadatabase = cursorToWeightdata(cursor);
-            if (date.equals(weightdatadatabase.getDate())) {
-                Log.d("******", "GEFUNDEN");
-                Log.d("******", String.valueOf(wd.getWeight()));
-                Log.d("******", String.valueOf(wd.getDate()));
-                Log.d("******", String.valueOf(wd.getBmi()));
+        //TODO: UPDATE VON ROW ERFOLGT NICHT
+        database.replace(weightquery.getDbName(), null, values);
 
-                Log.d("******values******", values.getAsString("weight"));
-
-                String where = weightquery.getColumnDate() + "=" + date;
-                Log.d("******where******", where);
-
-                //TODO: UPDATE VON ROW ERFOLGT NICHT
-                database.update(weightquery.getDbName(), values, where, null);
-
-                Log.d("******", "AUSGEFÜHRT");
-            }
-            cursor.moveToNext();
-        }
-        cursor.close();
     }
 
     private Weightdata cursorToWeightdata(Cursor cursor) {
