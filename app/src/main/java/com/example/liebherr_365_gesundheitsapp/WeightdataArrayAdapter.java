@@ -2,6 +2,8 @@ package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static com.example.liebherr_365_gesundheitsapp.BmiCalculator.getMaxRecBmi;
+import static com.example.liebherr_365_gesundheitsapp.BmiCalculator.getMinRecBmi;
 
 /**
  * Created by Jan on 16.11.2016.
@@ -60,6 +65,16 @@ public class WeightdataArrayAdapter extends ArrayAdapter<Weightdata> {
         textViewDate.setText(dateString);
         textViewWeight.setText(String.format("%.01f", weightdata.getWeight()));
         textViewBmi.setText(String.format("%.01f", weightdata.getBmi()));
+
+
+        if (getMinRecBmi() > weightdata.getBmi()) {
+            textViewBmi.setTextColor(Color.RED);
+        } else if (getMaxRecBmi() < weightdata.getBmi()) {
+            textViewBmi.setTextColor(Color.RED);
+        } else {
+            textViewBmi.setTextColor(Color.GREEN);
+        }
+
 
         return view;
     }

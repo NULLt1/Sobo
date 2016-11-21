@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Set interger Value 40-100
         integer.setMinValue(40);
-        integer.setMaxValue(100);
+        integer.setMaxValue(150);
 
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
+
+        BmiCalculator.setRecBmi(this);
     }
 
     public void deleteweightdb(View view) {
@@ -126,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
         // call function integertofloat
         float weight = integertofloat(integervalue, afterkommavalue);
-        Log.d("bmi",Float.toString(calcBmi(weight)));
+        Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
 
         // new weightdateobject with values
-        Weightdata wd = new Weightdata(weight, formateddate, calcBmi(weight));
+        Weightdata wd = new Weightdata(weight, formateddate, BmiCalculator.calculateBmi(this, weight));
 
         // new DBHelperDataSource
         dataSource = new DBHelperDataSource(this);
@@ -247,13 +249,4 @@ public class MainActivity extends AppCompatActivity {
         return "a";
     }
 
-    public float calcBmi(float weight) {
-        SharedPreferences heightPref = PreferenceManager.getDefaultSharedPreferences(this);
-        float height = Float.parseFloat(heightPref.getString("height", "180"));
-
-        height /= 100.0;
-        float bmi = weight / height / height;
-
-        return bmi;
-    }
 }
