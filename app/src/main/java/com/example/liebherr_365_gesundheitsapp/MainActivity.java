@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Set interger Value 40-100
         integer.setMinValue(40);
-        integer.setMaxValue(100);
+        integer.setMaxValue(150);
 
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
+
+        BmiCalculator.setRecBmi(this);
     }
 
     public void deleteweightdb(View view) {
@@ -125,12 +127,12 @@ public class MainActivity extends AppCompatActivity {
             int integervalue = integer.getValue();
             int afterkommavalue = afterkomma.getValue();
 
-            // call function integertofloat
-            float weight = integertofloat(integervalue, afterkommavalue);
-            Log.d("bmi", Float.toString(calcBmi(weight)));
+        // call function integertofloat
+        float weight = integertofloat(integervalue, afterkommavalue);
+        Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
 
-            // new weightdateobject with values
-            Weightdata wd = new Weightdata(weight, formateddate, calcBmi(weight));
+        // new weightdateobject with values
+        Weightdata wd = new Weightdata(weight, formateddate, BmiCalculator.calculateBmi(this, weight));
 
             // new DBHelperDataSource
             dataSource = new DBHelperDataSource(this);
