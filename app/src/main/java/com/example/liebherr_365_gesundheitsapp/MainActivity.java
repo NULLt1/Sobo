@@ -151,8 +151,11 @@ public class MainActivity extends AppCompatActivity {
             dataSource.close();
 
             //Creatiing new intent, which navigates to Listviewtable on call
+            //TODO: GRAFIK AUFRUFEN
             Intent intent = new Intent(MainActivity.this, ListViewTable.class);
             startActivity(intent);
+
+
         }
 
 
@@ -185,7 +188,9 @@ public class MainActivity extends AppCompatActivity {
                         dataSource.updatedata(wd);
                         Log.d("closesql", "Die Datenquelle wird geschlossen.");
                         dataSource.close();
+
                         //Creatiing new intent, which navigates to Listviewtable on call
+                        //TODO: GRAFIK AUFRUFEN
                         Intent intent = new Intent(MainActivity.this, ListViewTable.class);
                         startActivity(intent);
                         dialog.dismiss();
