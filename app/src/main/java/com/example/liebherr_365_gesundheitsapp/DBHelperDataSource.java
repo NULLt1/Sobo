@@ -50,25 +50,11 @@ public class DBHelperDataSource {
 
     //function update data in database
     public void updatedata(Weightdata wd) {
-        String date = wd.getDate();
-        boolean result = false;
-
-        Cursor cursor = database.query(weightquery.getDbName(),
-                weightquery.getColumns(), null, null, null, null, weightquery.getColumnDate());
-
-        cursor.moveToFirst();
-        Weightdata weightdatadatabase;
-
         ContentValues values = new ContentValues();
         values.put(weightquery.getColumnDate(), wd.getDate());
         values.put(weightquery.getColumnWeight(), wd.getWeight());
         values.put(weightquery.getColumnBmi(), wd.getBmi());
-        String where = weightquery.getColumnDate() + "=" + date;
-        Log.d("******where******", where);
-
-        //TODO: UPDATE VON ROW ERFOLGT NICHT
         database.replace(weightquery.getDbName(), null, values);
-
     }
 
     private Weightdata cursorToWeightdata(Cursor cursor) {
@@ -99,25 +85,19 @@ public class DBHelperDataSource {
             weightdataList.add(weightdata);
             cursor.moveToNext();
         }
-
         cursor.close();
-
-
         return weightdataList;
     }
 
     //function datealreadysaved
     public boolean datealreadysaved(Weightdata wd) {
         String date = wd.getDate();
-        Log.d("function", "er hat den fehler gefunden!");
 
         boolean result = false;
 
         String query = "SELECT " + weightquery.getColumnDate() + " FROM " + weightquery.getDbName();
-        Log.d("query", query);
         Cursor databaseweightresult = database.rawQuery(query, null);
         int count = databaseweightresult.getCount();
-        Log.d("Count", String.valueOf(count));
         if (count == 0) {
             result = false;
         } else {
@@ -129,8 +109,6 @@ public class DBHelperDataSource {
             Log.d("TEST", String.valueOf(count));
             while (databaseweightresult.moveToNext()) {
                 databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
-                Log.d("wd.Date", date);
-                Log.d("db.date", databasedate);
                 if (date.equals(databasedate)) {
                     result = true;
                 }

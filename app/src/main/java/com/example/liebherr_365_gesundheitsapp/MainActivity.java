@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         // call function integertofloat
         float weight = integertofloat(integervalue, afterkommavalue);
-        Log.d("bmi",Float.toString(calcBmi(weight)));
+        Log.d("bmi", Float.toString(calcBmi(weight)));
 
         // new weightdateobject with values
         Weightdata wd = new Weightdata(weight, formateddate, calcBmi(weight));
@@ -216,6 +216,16 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
+    public float calcBmi(float weight) {
+        SharedPreferences heightPref = PreferenceManager.getDefaultSharedPreferences(this);
+        float height = Float.parseFloat(heightPref.getString("height", "180"));
+
+        height /= 100.0;
+        float bmi = weight / height / height;
+
+        return bmi;
+    }
+
     //function monthinteger to string
     public String monthinegertostring(int dayinteger) {
         switch (dayinteger) {
@@ -245,15 +255,5 @@ public class MainActivity extends AppCompatActivity {
                 return "Dezember";
         }
         return "a";
-    }
-
-    public float calcBmi(float weight) {
-        SharedPreferences heightPref = PreferenceManager.getDefaultSharedPreferences(this);
-        float height = Float.parseFloat(heightPref.getString("height", "180"));
-
-        height /= 100.0;
-        float bmi = weight / height / height;
-
-        return bmi;
     }
 }
