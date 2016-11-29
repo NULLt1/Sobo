@@ -107,14 +107,12 @@ public class MainActivity extends AppCompatActivity {
         int monthinteger = Integer.parseInt(buttonText.substring(3, 5)) - 1;
         int yearinteger = Integer.parseInt(buttonText.substring(6)) - 1900;
 
-
         Log.d("month", String.valueOf(monthinteger));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
 
         Log.d("formatedate", formateddate);
-
 
         //Numberpicker
         NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
@@ -150,11 +148,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d("closesql", "Die Datenquelle wird geschlossen.");
             dataSource.close();
 
+            /*
             //Creatiing new intent, which navigates to Listviewtable on call
-            //TODO: GRAFIK AUFRUFEN
             Intent intent = new Intent(MainActivity.this, ListViewTable.class);
             startActivity(intent);
+            */
 
+            //Creatiing new intent, which navigates to ViewGraph on call
+            Intent intent = new Intent(MainActivity.this, ViewGraph.class);
+            startActivity(intent);
 
         }
 
@@ -189,10 +191,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("closesql", "Die Datenquelle wird geschlossen.");
                         dataSource.close();
 
+                        /*
                         //Creatiing new intent, which navigates to Listviewtable on call
-                        //TODO: GRAFIK AUFRUFEN
                         Intent intent = new Intent(MainActivity.this, ListViewTable.class);
                         startActivity(intent);
+                        */
+
+                        //Creatiing new intent, which navigates to ViewGraph on call
+                        Intent intent = new Intent(MainActivity.this, ViewGraph.class);
+                        startActivity(intent);
+
                         dialog.dismiss();
                     }
                 });

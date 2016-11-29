@@ -8,13 +8,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public DBHelper(Context context) {
-        super(context, weightquery.getDbName(), null, weightquery.getDbVersion());
+        super(context, Weightquery.getDbName(), null, Weightquery.getDbVersion());
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Create Table weight with values: weight,day,month,year
-        db.execSQL(weightquery.getCreateDb());
+        db.execSQL(Weightquery.getCreateDb());
     }
 
     @Override
@@ -23,6 +23,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void deleteweightdb(SQLiteDatabase db) {
-        db.rawQuery("DELETE FROM " + weightquery.getDbName(), null);
+        db.rawQuery("DELETE FROM " + Weightquery.getDbName(), null);
     }
 }

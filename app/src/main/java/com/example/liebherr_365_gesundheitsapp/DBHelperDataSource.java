@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,32 +36,32 @@ public class DBHelperDataSource {
 
     public void deletedb() {
         database = dbHelper.getWritableDatabase();
-        database.delete(weightquery.getDbName(), null, null);
+        database.delete(Weightquery.getDbName(), null, null);
         dbHelper.close();
     }
 
     //function insert data into database
     public void insertdata(Weightdata wd) {
         ContentValues values = new ContentValues();
-        values.put(weightquery.getColumnWeight(), wd.getWeight());
-        values.put(weightquery.getColumnDate(), wd.getDate());
-        values.put(weightquery.getColumnBmi(), wd.getBmi());
-        database.insert(weightquery.getDbName(), null, values);
+        values.put(Weightquery.getColumnWeight(), wd.getWeight());
+        values.put(Weightquery.getColumnDate(), wd.getDate());
+        values.put(Weightquery.getColumnBmi(), wd.getBmi());
+        database.insert(Weightquery.getDbName(), null, values);
     }
 
     //function update data in database
     public void updatedata(Weightdata wd) {
         ContentValues values = new ContentValues();
-        values.put(weightquery.getColumnDate(), wd.getDate());
-        values.put(weightquery.getColumnWeight(), wd.getWeight());
-        values.put(weightquery.getColumnBmi(), wd.getBmi());
-        database.replace(weightquery.getDbName(), null, values);
+        values.put(Weightquery.getColumnDate(), wd.getDate());
+        values.put(Weightquery.getColumnWeight(), wd.getWeight());
+        values.put(Weightquery.getColumnBmi(), wd.getBmi());
+        database.replace(Weightquery.getDbName(), null, values);
     }
 
     private Weightdata cursorToWeightdata(Cursor cursor) {
-        int idDate = cursor.getColumnIndex(weightquery.getColumnDate());
-        int idWeight = cursor.getColumnIndex(weightquery.getColumnWeight());
-        int idBmi = cursor.getColumnIndex(weightquery.getColumnBmi());
+        int idDate = cursor.getColumnIndex(Weightquery.getColumnDate());
+        int idWeight = cursor.getColumnIndex(Weightquery.getColumnWeight());
+        int idBmi = cursor.getColumnIndex(Weightquery.getColumnBmi());
 
         String date = cursor.getString(idDate);
         float weight = cursor.getFloat(idWeight);
@@ -71,11 +72,31 @@ public class DBHelperDataSource {
         return weightdata;
     }
 
+    public Weightdata[] getAllDataasarray() {
+        Cursor cursor = database.query(Weightquery.getDbName(),
+                Weightquery.getColumns(), null, null, null, null, Weightquery.getColumnDate());
+
+        int size = cursor.getCount();
+        Weightdata[] alldata = new Weightdata[size];
+
+        cursor.moveToFirst();
+        int counter = 0;
+
+        while (!cursor.isAfterLast()) {
+            alldata[counter] = cursorToWeightdata(cursor);
+            cursor.moveToNext();
+            counter++;
+        }
+        cursor.close();
+        return alldata;
+    }
+
+
     public List<Weightdata> getAllData() {
         List<Weightdata> weightdataList = new ArrayList<>();
 
-        Cursor cursor = database.query(weightquery.getDbName(),
-                weightquery.getColumns(), null, null, null, null, weightquery.getColumnDate());
+        Cursor cursor = database.query(Weightquery.getDbName(),
+                Weightquery.getColumns(), null, null, null, null, Weightquery.getColumnDate());
 
         cursor.moveToFirst();
         Weightdata weightdata;
@@ -95,20 +116,20 @@ public class DBHelperDataSource {
 
         boolean result = false;
 
-        String query = "SELECT " + weightquery.getColumnDate() + " FROM " + weightquery.getDbName();
+        String query = "SELECT " + Weightquery.getColumnDate() + " FROM " + Weightquery.getDbName();
         Cursor databaseweightresult = database.rawQuery(query, null);
         int count = databaseweightresult.getCount();
         if (count == 0) {
             result = false;
         } else {
             databaseweightresult.moveToFirst();
-            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
+            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(Weightquery.getColumnDate()));
             if (date.equals(databasedate)) {
                 result = true;
             }
             Log.d("TEST", String.valueOf(count));
             while (databaseweightresult.moveToNext()) {
-                databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(weightquery.getColumnDate()));
+                databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(Weightquery.getColumnDate()));
                 if (date.equals(databasedate)) {
                     result = true;
                 }
