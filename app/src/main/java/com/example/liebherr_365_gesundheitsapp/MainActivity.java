@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public void deleteweightdb(View view) {
         dataSource = new DBHelperDataSource(this);
         dataSource.deletedb();
+
     }
 
     @Override
@@ -250,16 +251,6 @@ public class MainActivity extends AppCompatActivity {
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
         return result;
-    }
-
-    public float calcBmi(float weight) {
-        SharedPreferences heightPref = PreferenceManager.getDefaultSharedPreferences(this);
-        float height = Float.parseFloat(heightPref.getString("height", "180"));
-
-        height /= 100.0;
-        float bmi = weight / height / height;
-
-        return bmi;
     }
 
     //function monthinteger to string
