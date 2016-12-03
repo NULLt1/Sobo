@@ -1,5 +1,9 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.util.Log;
+
+import java.sql.Date;
+
 public class Weightdata {
     private float weight;
     private String date;
@@ -21,5 +25,15 @@ public class Weightdata {
 
     public float getBmi() {
         return bmi;
+    }
+
+    public Date getDateasDate() {
+        //convert datestrings to int
+        int yearinteger = Integer.parseInt(date.substring(0, 4));
+        int monthinteger = Integer.parseInt(date.substring(5, 7));
+        int dayinteger = Integer.parseInt(date.substring(8));
+
+
+        return new Date(yearinteger, monthinteger, dayinteger);
     }
 }

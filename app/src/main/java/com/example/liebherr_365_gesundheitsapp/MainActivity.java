@@ -107,24 +107,26 @@ public class MainActivity extends AppCompatActivity {
         //convert datestrings to int
         int dayinteger = Integer.parseInt(buttonText.substring(0, 2));
         int monthinteger = Integer.parseInt(buttonText.substring(3, 5)) - 1;
-        int yearinteger = Integer.parseInt(buttonText.substring(6)) - 1900;
+        int yearinteger = Integer.parseInt(buttonText.substring(6));
 
+        // exclude years smaller then 2016
+        if (yearinteger < 2016) {
+            alertdialogwrongdatum();
+        } else {
+            yearinteger = yearinteger - 1900;
 
-        Log.d("month", String.valueOf(monthinteger));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
+            Log.d("formateddate", formateddate);
 
-        Log.d("formatedate", formateddate);
+            //Numberpicker
+            NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
+            NumberPicker afterkomma = (NumberPicker) findViewById(R.id.afterkomma);
 
-
-        //Numberpicker
-        NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
-        NumberPicker afterkomma = (NumberPicker) findViewById(R.id.afterkomma);
-
-        // get values of Numberpicker
-        int integervalue = integer.getValue();
-        int afterkommavalue = afterkomma.getValue();
+            // get values of Numberpicker
+            int integervalue = integer.getValue();
+            int afterkommavalue = afterkomma.getValue();
 
         // call function integertofloat
         float weight = integertofloat(integervalue, afterkommavalue);
@@ -133,31 +135,37 @@ public class MainActivity extends AppCompatActivity {
         // new weightdateobject with values
         Weightdata wd = new Weightdata(weight, formateddate, BmiCalculator.calculateBmi(this, weight));
 
-        // new DBHelperDataSource
-        dataSource = new DBHelperDataSource(this);
+            // new DBHelperDataSource
+            dataSource = new DBHelperDataSource(this);
 
-        Log.d("opensql", "Die Datenquelle wird geöffnet.");
-        dataSource.open();
+            Log.d("opensql", "Die Datenquelle wird geöffnet.");
+            dataSource.open();
 
-        // call function datealreadysaved and react on result
-        boolean datealreadyexisting = dataSource.datealreadysaved(wd);
-        Log.d("result", String.valueOf(datealreadyexisting));
-        if (datealreadyexisting) {
-            //call alertdialog
-            alertdialogalreadysaved(wd);
+            // call function datealreadysaved and react on result
+            boolean datealreadyexisting = dataSource.datealreadysaved(wd);
+            Log.d("result", String.valueOf(datealreadyexisting));
+            if (datealreadyexisting) {
+                //call alertdialog
+                alertdialogalreadysaved(wd);
 
-        } else {
-            dataSource.insertdata(wd);
+            } else {
+                dataSource.insertdata(wd);
 
-            Log.d("closesql", "Die Datenquelle wird geschlossen.");
-            dataSource.close();
+                Log.d("closesql", "Die Datenquelle wird geschlossen.");
+                dataSource.close();
 
-            //Creatiing new intent, which navigates to Listviewtable on call
-            Intent intent = new Intent(MainActivity.this, ListViewTable.class);
-            startActivity(intent);
+                /*
+                //Creatiing new intent, which navigates to Listviewtable on call
+                Intent intent = new Intent(MainActivity.this, ListViewTable.class);
+                startActivity(intent);
+                */
+
+                //Creatiing new intent, which navigates to ViewGraph on call
+                Intent intent = new Intent(MainActivity.this, ViewGraph.class);
+                startActivity(intent);
+
+            }
         }
-
-
         //call function notification
         //Todo: Hier wird die Notification aufgerufen
         //notification();  ~~~~~~~~~auskommentiert~~~~~~~~~~*/
@@ -187,14 +195,41 @@ public class MainActivity extends AppCompatActivity {
                         dataSource.updatedata(wd);
                         Log.d("closesql", "Die Datenquelle wird geschlossen.");
                         dataSource.close();
+
+                        /*
                         //Creatiing new intent, which navigates to Listviewtable on call
                         Intent intent = new Intent(MainActivity.this, ListViewTable.class);
                         startActivity(intent);
+                        */
+
+                        //Creatiing new intent, which navigates to ViewGraph on call
+                        Intent intent = new Intent(MainActivity.this, ViewGraph.class);
+                        startActivity(intent);
+
                         dialog.dismiss();
                     }
                 });
 
         alertDialogBuilder.setNegativeButton("Abbruch",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int d) {
+                        //action
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    //alertdialogwrongdatum
+    public void alertdialogwrongdatum() {
+        final Context context = this;
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setTitle("Achtung!");
+        alertDialogBuilder.setMessage("Dieses Datum ist nicht zulässig");
+        alertDialogBuilder.setNegativeButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int d) {
                         //action
@@ -247,15 +282,5 @@ public class MainActivity extends AppCompatActivity {
                 return "Dezember";
         }
         return "a";
-    }
-
-    public float calcBmi(float weight) {
-        SharedPreferences heightPref = PreferenceManager.getDefaultSharedPreferences(this);
-        float height = Float.parseFloat(heightPref.getString("height", "180"));
-
-        height /= 100.0;
-        float bmi = weight / height / height;
-
-        return bmi;
     }
 }

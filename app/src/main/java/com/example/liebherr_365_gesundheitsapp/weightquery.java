@@ -1,6 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp;
 
-public class weightquery {
+public class Weightquery {
     //private string
     private static final String DB_NAME = "weightdb";
     private static final int DB_Version = 3;
@@ -19,7 +19,7 @@ public class weightquery {
     private static final String DELETE_DB = "DELETE * FROM " + DB_NAME;
     private static final String DROP_DB = "DROP TABLE " + DB_NAME;
 
-    public weightquery() {
+    public Weightquery() {
 
     }
 
