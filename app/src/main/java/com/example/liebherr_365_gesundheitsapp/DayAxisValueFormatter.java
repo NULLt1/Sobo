@@ -1,5 +1,7 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
@@ -73,11 +75,11 @@ public class DayAxisValueFormatter implements IAxisValueFormatter {
         // month is 0-based
 
         if (month == 1) {
-            int x400 = month % 400;
+            int x400 = year % 400;
             if (x400 < 0) {
                 x400 = -x400;
             }
-            boolean is29 = (month % 4) == 0 && x400 != 100 && x400 != 200 && x400 != 300;
+            boolean is29 = (year % 4) == 0 && x400 != 100 && x400 != 200 && x400 != 300;
 
             return is29 ? 29 : 28;
         }
