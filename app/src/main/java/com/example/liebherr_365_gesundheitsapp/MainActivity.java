@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
 
-        BmiCalculator.setRecBmi(this);
+        BmiCalculator.setRecBmi();
 
         // start notification oncreate
         AlarmManager alarmMgr;
