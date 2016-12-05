@@ -26,6 +26,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
-    </application>
 
+
+    </application>
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

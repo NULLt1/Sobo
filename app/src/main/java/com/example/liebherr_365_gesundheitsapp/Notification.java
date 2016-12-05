@@ -28,7 +28,7 @@ public class Notification extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Ausführung der Notification
-        displayNotification("liebherr_365", "Gewicht wurde Gespeichert");
+        displayNotification("liebherr_365", "Gewicht eintragen");
         stopSelf();
         //Hier wird die Nofification ausgesendet
         return super.onStartCommand(intent, flags, startId);
@@ -44,23 +44,22 @@ public class Notification extends Service {
 
         //Nofification Einstellungen, Atribute der Notification
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
-            .setContentTitle(title)
-            .setContentText(text)
-            .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 //.setLargeIcon(BitmapFactory.decodeResource(R.mipmap.xyz))
-            .setColor(getResources().getColor(R.color.colorAccent))
-            .setVibrate(new long[]{0, 300, 300, 300})
+                .setColor(getResources().getColor(R.color.colorAccent))
+                .setVibrate(new long[]{0, 300, 300, 300})
                 //.setSound()
-            .setLights(Color.WHITE, 1000, 5000)
+                .setLights(Color.WHITE, 1000, 5000)
                 //.setWhen(System.currentTimeMillis())
-            .setContentIntent(notificationPendingIntent)
-            .setAutoCancel(true)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setStyle(new NotificationCompat.BigTextStyle() .bigText(text));
+                .setContentIntent(notificationPendingIntent)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setStyle(new NotificationCompat.BigTextStyle() .bigText(text));
 
         //Notification anzeigen, jede Notification braucht eine eigene ID
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification.build());
-
     }
 }

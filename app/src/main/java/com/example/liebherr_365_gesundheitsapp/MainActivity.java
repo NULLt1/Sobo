@@ -1,13 +1,13 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -18,12 +18,11 @@ import android.widget.NumberPicker;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
-
     //       .-..-..---. .-..-.
     //       : :; :: .--': :: :
     //       :    :: `;  : :: :
@@ -68,6 +67,40 @@ public class MainActivity extends AppCompatActivity {
         integer.setWrapSelectorWheel(false);
 
         BmiCalculator.setRecBmi(this);
+
+        // start notification oncreate
+        AlarmManager alarmMgr;
+        PendingIntent alarmIntent;
+
+        alarmMgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(MainActivity.this, Notification.class);
+        alarmIntent = PendingIntent.getService(MainActivity.this, 0, intent, 0);
+
+        // call notification all minute -> works
+        //alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 60 * 1000, alarmIntent);
+
+        // call notification on defined time and repeat all 20 minutes -> works
+        /*
+        // Set the alarm to start at 8:30 a.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 57);
+
+        // setRepeating() lets you specify a precise custom interval--in this case,
+        // 20 minutes.
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
+        */
+
+        // call notification on defined time
+        Calendar calender = Calendar.getInstance();
+        calender.setTimeInMillis(System.currentTimeMillis());
+        calender.set(Calendar.HOUR_OF_DAY, 15);
+        calender.set(Calendar.MINUTE, 21);
+
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
+
     }
 
     public void deleteweightdb(View view) {
@@ -128,12 +161,12 @@ public class MainActivity extends AppCompatActivity {
             int integervalue = integer.getValue();
             int afterkommavalue = afterkomma.getValue();
 
-        // call function integertofloat
-        float weight = integertofloat(integervalue, afterkommavalue);
-        Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
+            // call function integertofloat
+            float weight = integertofloat(integervalue, afterkommavalue);
+            Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
 
-        // new weightdateobject with values
-        Weightdata wd = new Weightdata(weight, formateddate, BmiCalculator.calculateBmi(this, weight));
+            // new weightdateobject with values
+            Weightdata wd = new Weightdata(weight, formateddate, BmiCalculator.calculateBmi(this, weight));
 
             // new DBHelperDataSource
             dataSource = new DBHelperDataSource(this);
