@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         integer.setWrapSelectorWheel(false);
 
         BmiCalculator.setRecBmi();
-
+        SavedSharedPrefrences.setSharedPreferences(this);
         // start notification oncreate
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
     }
 
+
     public void deleteweightdb(View view) {
         dataSource = new DBHelperDataSource(this);
         dataSource.deletedb();
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
+        SavedSharedPrefrences.setSharedPreferences(this);
 
         //get date from buttondate
         Button button = (Button) findViewById(R.id.buttondate);
