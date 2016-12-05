@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         Calendar calender = Calendar.getInstance();
         calender.setTimeInMillis(System.currentTimeMillis());
         calender.set(Calendar.HOUR_OF_DAY, 15);
-        calender.set(Calendar.MINUTE, 21);
+        calender.set(Calendar.MINUTE, 33);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
 

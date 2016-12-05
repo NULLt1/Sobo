@@ -28,7 +28,7 @@ public class Notification extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Ausführung der Notification
-        displayNotification("liebherr_365", "Gewicht eintragen");
+        displayNotification("liebherr_365", "Wiegen nicht vergessen");
         stopSelf();
         //Hier wird die Nofification ausgesendet
         return super.onStartCommand(intent, flags, startId);
@@ -46,7 +46,7 @@ public class Notification extends Service {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.waage)
                 //.setLargeIcon(BitmapFactory.decodeResource(R.mipmap.xyz))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setVibrate(new long[]{0, 300, 300, 300})
