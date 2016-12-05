@@ -10,6 +10,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class DBHelperDataSource {
 
     private static final String LOG_TAG = DBHelperDataSource.class.getSimpleName();
@@ -137,5 +139,39 @@ public class DBHelperDataSource {
         }
         databaseweightresult.close();
         return result;
+    }
+
+    public String getMaxDate() {
+        String maxDate = "";
+        String query = "SELECT MAX(" + Weightquery.getColumnDate() + ") FROM " + Weightquery.getDbName();
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            maxDate = cursor.getString(0);
+
+        }
+        cursor.close();
+        return maxDate;
+    }
+
+    public String getMinDate() {
+        String minDate = "";
+        String query = "SELECT MIN(" + Weightquery.getColumnDate() + ") FROM " + Weightquery.getDbName();
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            minDate = cursor.getString(0);
+        }
+        cursor.close();
+        return minDate;
+    }
+    public Weightdata[] getRecommendedValues(float weight){
+        int size=2;
+
+        Weightdata[] weightdataArray = new Weightdata[size];
+        weightdataArray[0]= new Weightdata(weight,getMinDate(),0.0f);
+        weightdataArray[1]= new Weightdata(weight,getMaxDate(),0.0f);
+
+        return weightdataArray;
     }
 }

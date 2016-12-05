@@ -12,22 +12,25 @@ import android.util.Log;
 public class BmiCalculator {
     private static float minRecBmi;
     private static float maxRecBmi;
+    private static float minRecWeight;
+    private static float maxRecWeight;
     private static float bmi;
+    private static float height;
 
     public static float calculateBmi(Context context, float weight) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        float height = Float.parseFloat(sharedPreferences.getString("height", "180"));
+        height = Float.parseFloat(sharedPreferences.getString("height", "180"));
 
         height /= 100.0;
         float bmi = weight / height / height;
-
+        calculateRecWeight();
         return bmi;
     }
 
-    public static void setRecBmi(Context context) {
+    public static void setRecBmi() {
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int age = Integer.parseInt(sharedPreferences.getString("age", "19"));
+
+        int age = SavedSharedPrefrences.getAge();
 
         if (age < 25) {
             minRecBmi = 19;
@@ -58,5 +61,21 @@ public class BmiCalculator {
 
     public static float getMaxRecBmi() {
         return maxRecBmi;
+    }
+
+    public static void calculateRecWeight() {
+        minRecWeight = Math.round(getMinRecBmi() * height * height);
+        maxRecWeight = Math.round(getMaxRecBmi() * height * height);
+
+        Log.d("***** Min WEight***", Float.toString(minRecWeight));
+        Log.d("***** Max WEight***", Float.toString(maxRecWeight));
+    }
+
+    public static float getMinRecWeight() {
+        return minRecWeight;
+    }
+
+    public static float getMaxRecWeight() {
+        return maxRecWeight;
     }
 }

@@ -1,27 +1,11 @@
 package com.example.liebherr_365_gesundheitsapp;
 
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBar;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
-import android.view.MenuItem;
-
-import java.util.List;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -34,12 +18,60 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
+        SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
+        EditTextPreference editTextPref = (EditTextPreference) findPreference("height");
 
+        //Set summary text for the user settings
+        editTextPref.setSummary(sp.getString("height", null) + " cm");
+        editTextPref = (EditTextPreference) findPreference("age");
+        editTextPref.setSummary(sp.getString("age", null) + " Jahre");
+        editTextPref = (EditTextPreference) findPreference("weightgoal");
+        editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+    }
+
+    @Override
+    public void onPause() {
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        String value = "";
+
+        Preference pref = findPreference(key);
+        if (pref instanceof EditTextPreference) {
+            EditTextPreference etp = (EditTextPreference) pref;
+            switch (etp.getKey()) {
+                case "height":
+                    value = " cm";
+                    break;
+                case "age":
+                    value = " Jahre";
+                    break;
+                case "weightgoal":
+                    value = " kg";
+                    break;
+                default:
+                    value = "";
+
+            }
+            pref.setSummary(etp.getText() + value);
+        }
     }
 }
