@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -43,6 +44,17 @@ public class ViewGraph extends AppCompatActivity {
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
+
+        YAxis yAxisleft = chart.getAxisLeft();
+        yAxisleft.setTextSize(12f); // set the text size
+        yAxisleft.setAxisMinimum(40f); // start at zero
+        yAxisleft.setGranularity(1f); // only intervals of 1 kg
+
+        YAxis yAxisright = chart.getAxisRight();
+        yAxisright.setDrawLabels(false);
+        yAxisright.setAxisMinimum(40f); // start at zero
+        yAxisright.setGranularity(1f); // only intervals of 1 kg
+
 
         Weightdata[] alldata = database.getAllDataasarray();
         int length = alldata.length;

@@ -100,13 +100,11 @@ public class MainActivity extends AppCompatActivity {
         calender.set(Calendar.MINUTE, 33);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
-
     }
 
     public void deleteweightdb(View view) {
         dataSource = new DBHelperDataSource(this);
         dataSource.deletedb();
-
     }
 
     @Override
@@ -199,9 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        //call function notification
-        //Todo: Hier wird die Notification aufgerufen
-        //notification();  ~~~~~~~~~auskommentiert~~~~~~~~~~*/
     }
 
     //function showDatePickerDialog
@@ -271,11 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-    }
-
-    public void notification(int time) {
-        //Todo:realisieren des Aufrufs nach ablauf von time
-        //wait(time);
     }
 
     //function integer values -> float integervalue,afterkommavalue
