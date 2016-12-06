@@ -2,7 +2,7 @@
 
 
     <EditTextPreference
-        android:defaultValue="null"
+        android:defaultValue="180"
         android:enabled="true"
         android:inputType="number"
         android:key="height"
@@ -11,7 +11,7 @@
         android:title="Größe"
         android:id="@+id/EditTextPreferenceHeight" />
     <EditTextPreference
-        android:defaultValue="null"
+        android:defaultValue="180"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:title="Alter"
@@ -21,7 +21,7 @@
         android:numeric="integer"
         android:id="@+id/EditTextPreferenceAge" />
     <EditTextPreference
-        android:defaultValue="null"
+        android:defaultValue="180"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:title="Zielgewicht"

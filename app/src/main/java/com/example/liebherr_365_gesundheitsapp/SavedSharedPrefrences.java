@@ -16,26 +16,20 @@ public class SavedSharedPrefrences {
 
     public static void setSharedPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        age = Integer.parseInt(sharedPreferences.getString("height", null));
-        weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", null));
-        age = Integer.parseInt(sharedPreferences.getString("age",null));
+        age = Integer.parseInt(sharedPreferences.getString("height", "180"));
+        weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", "70"));
+        age = Integer.parseInt(sharedPreferences.getString("age", "18"));
     }
 
     public static int getHeight() {
-
-
-        return age;
+        return height;
     }
 
     public static int getWeightGoal() {
-
-
         return weightgoal;
     }
 
     public static int getAge() {
-
-
         return age;
     }
 
