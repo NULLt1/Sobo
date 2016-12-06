@@ -47,6 +47,16 @@ public class ViewGraph extends AppCompatActivity {
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
 
+        YAxis yAxisleft = chart.getAxisLeft();
+        yAxisleft.setTextSize(12f); // set the text size
+        yAxisleft.setAxisMinimum(40f); // start at 40S
+        yAxisleft.setGranularity(1f); // only intervals of 1 kg
+
+        YAxis yAxisright = chart.getAxisRight();
+        yAxisright.setDrawLabels(false);
+        yAxisright.setAxisMinimum(40f); // start at zero
+        yAxisright.setGranularity(1f); // only intervals of 1 kg
+
         Weightdata[] alldata = database.getAllDataasarray();
         int length = alldata.length;
 
@@ -59,8 +69,8 @@ public class ViewGraph extends AppCompatActivity {
         LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
         List<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
-        dataSets.add(showRecommendedWeight(BmiCalculator.getMinRecWeight(),"empfohlenes Minimalgewicht"));
-        dataSets.add(showRecommendedWeight(BmiCalculator.getMaxRecWeight(),"empfohlenes Maximalgewicht"));
+        dataSets.add(showRecommendedWeight(BmiCalculator.getMinRecWeight(), "empfohlenes Minimalgewicht"));
+        dataSets.add(showRecommendedWeight(BmiCalculator.getMaxRecWeight(), "empfohlenes Maximalgewicht"));
         dataSets.add(showWeightGoal());
 
         LineData lineData = new LineData(dataSets);
@@ -71,7 +81,7 @@ public class ViewGraph extends AppCompatActivity {
         Log.d("**** Min Date ****", database.getMinDate());
     }
 
-    private LineDataSet showRecommendedWeight(float weight,String label) {
+    private LineDataSet showRecommendedWeight(float weight, String label) {
         Weightdata[] recWeight = database.getRecommendedValues(weight);
         List<Entry> entries = new ArrayList<>();
         int length = recWeight.length;
@@ -80,18 +90,18 @@ public class ViewGraph extends AppCompatActivity {
         }
         LineDataSet dataSet = new LineDataSet(entries, label); // add entries to dataset
 
-
-
         return dataSet;
     }
-    private LineDataSet showWeightGoal(){
+
+    private LineDataSet showWeightGoal() {
         Weightdata[] weightGoal = database.getRecommendedValues(SavedSharedPrefrences.getWeightGoal());
         List<Entry> entries = new ArrayList<>();
-        int length= weightGoal.length;
+        int length = weightGoal.length;
         for (int counter = 0; counter < length; counter++) {
             entries.add(new Entry(weightGoal[counter].getDays(), weightGoal[counter].getWeight()));
         }
         LineDataSet dataSet = new LineDataSet(entries, "Gewichtsziel"); // add entries to dataset
+
         return dataSet;
     }
 }
