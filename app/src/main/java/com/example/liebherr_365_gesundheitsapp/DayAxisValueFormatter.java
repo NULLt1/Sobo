@@ -34,14 +34,14 @@ public class DayAxisValueFormatter implements IAxisValueFormatter {
         String yearName = String.valueOf(year);
 
         if (chart.getVisibleXRange() > 30 * 6) {
-
             return monthName + " " + yearName;
         } else {
 
             int dayOfMonth = determineDayOfMonth(days, month + 12 * (year - 2016));
 
-            String appendix = "th";
+            String appendix = ".";
 
+            /*
             switch (dayOfMonth) {
                 case 1:
                     appendix = "st";
@@ -65,7 +65,9 @@ public class DayAxisValueFormatter implements IAxisValueFormatter {
                     appendix = "st";
                     break;
             }
+            */
 
+            //TODO 01.01 ...usw!
             return dayOfMonth == 0 ? "" : dayOfMonth + appendix + " " + monthName;
         }
     }

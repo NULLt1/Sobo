@@ -2,6 +2,7 @@ package com.example.liebherr_365_gesundheitsapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -11,6 +12,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,30 +47,51 @@ public class ViewGraph extends AppCompatActivity {
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
 
-        YAxis yAxisleft = chart.getAxisLeft();
-        yAxisleft.setTextSize(12f); // set the text size
-        yAxisleft.setAxisMinimum(40f); // start at 40S
-        yAxisleft.setGranularity(1f); // only intervals of 1 kg
-
-        YAxis yAxisright = chart.getAxisRight();
-        yAxisright.setDrawLabels(false);
-        yAxisright.setAxisMinimum(40f); // start at zero
-        yAxisright.setGranularity(1f); // only intervals of 1 kg
-
-
         Weightdata[] alldata = database.getAllDataasarray();
         int length = alldata.length;
 
-        List<Entry> entries = new ArrayList<Entry>();
+        List<Entry> entries = new ArrayList<>();
 
         for (int counter = 0; counter < length; counter++) {
             entries.add(new Entry(alldata[counter].getDays(), alldata[counter].getWeight()));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+        dataSets.add(showRecommendedWeight(BmiCalculator.getMinRecWeight(),"empfohlenes Minimalgewicht"));
+        dataSets.add(showRecommendedWeight(BmiCalculator.getMaxRecWeight(),"empfohlenes Maximalgewicht"));
+        dataSets.add(showWeightGoal());
 
-        LineData lineData = new LineData(dataSet);
+        LineData lineData = new LineData(dataSets);
         chart.setData(lineData);
         chart.invalidate(); // refresh
+        Log.d("*** Weight Goal", String.valueOf(SavedSharedPrefrences.getWeightGoal()));
+        Log.d("**** Max Date ****", database.getMaxDate());
+        Log.d("**** Min Date ****", database.getMinDate());
+    }
+
+    private LineDataSet showRecommendedWeight(float weight,String label) {
+        Weightdata[] recWeight = database.getRecommendedValues(weight);
+        List<Entry> entries = new ArrayList<>();
+        int length = recWeight.length;
+        for (int counter = 0; counter < length; counter++) {
+            entries.add(new Entry(recWeight[counter].getDays(), recWeight[counter].getWeight()));
+        }
+        LineDataSet dataSet = new LineDataSet(entries, label); // add entries to dataset
+
+
+
+        return dataSet;
+    }
+    private LineDataSet showWeightGoal(){
+        Weightdata[] weightGoal = database.getRecommendedValues(SavedSharedPrefrences.getWeightGoal());
+        List<Entry> entries = new ArrayList<>();
+        int length= weightGoal.length;
+        for (int counter = 0; counter < length; counter++) {
+            entries.add(new Entry(weightGoal[counter].getDays(), weightGoal[counter].getWeight()));
+        }
+        LineDataSet dataSet = new LineDataSet(entries, "Gewichtsziel"); // add entries to dataset
+        return dataSet;
     }
 }

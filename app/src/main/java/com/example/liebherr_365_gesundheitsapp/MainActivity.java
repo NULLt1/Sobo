@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         integer.setMinValue(40);
         integer.setMaxValue(150);
 
+        integer.setValue(60);
+        //TODO BUFIXING!
+
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         BmiCalculator.setRecBmi();
         SavedSharedPrefrences.setSharedPreferences(this);
+
         // start notification oncreate
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
         */
 
-        // call notification on defined time
+        // call notification at defined time
         Calendar calender = Calendar.getInstance();
         calender.setTimeInMillis(System.currentTimeMillis());
         calender.set(Calendar.HOUR_OF_DAY, 15);
@@ -102,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
     }
-
 
     public void deleteweightdb(View view) {
         dataSource = new DBHelperDataSource(this);
@@ -208,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-
     //alertdialogalreadysaved
     public void alertdialogalreadysaved(final Weightdata wd) {
         final Context context = this;
@@ -277,36 +279,5 @@ public class MainActivity extends AppCompatActivity {
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
         return result;
-    }
-
-    //function monthinteger to string
-    public String monthinegertostring(int dayinteger) {
-        switch (dayinteger) {
-            case 1:
-                return "Januar";
-            case 2:
-                return "Februar";
-            case 3:
-                return "März";
-            case 4:
-                return "April";
-            case 5:
-                return "Mai";
-            case 6:
-                return "Juni";
-            case 7:
-                return "Juli";
-            case 8:
-                return "August";
-            case 9:
-                return "September";
-            case 10:
-                return "Oktober";
-            case 11:
-                return "November";
-            case 12:
-                return "Dezember";
-        }
-        return "a";
     }
 }
