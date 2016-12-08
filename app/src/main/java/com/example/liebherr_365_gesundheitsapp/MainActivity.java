@@ -60,9 +60,12 @@ public class MainActivity extends AppCompatActivity {
         integer.setMinValue(40);
         integer.setMaxValue(150);
 
-        integer.setValue(60);
         //TODO BUFIXING!
+        dataSource = new DBHelperDataSource(this);
+        dataSource.open();
+        integer.setValue( dataSource.getLatestWeight());
 
+        dataSource.close();
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
@@ -203,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
     }
 
     //function showDatePickerDialog

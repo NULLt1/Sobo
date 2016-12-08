@@ -141,37 +141,19 @@ public class DBHelperDataSource {
         return result;
     }
 
-    public String getMaxDate() {
-        String maxDate = "";
-        String query = "SELECT MAX(" + Weightquery.getColumnDate() + ") FROM " + Weightquery.getDbName();
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor.getCount() != 0) {
-            cursor.moveToFirst();
-            maxDate = cursor.getString(0);
+    public int getLatestWeight() {
 
-        }
-        cursor.close();
-        return maxDate;
+        String queryMaxDate = "(SELECT MAX(" + Weightquery.getColumnDate() + ") from " + Weightquery.getDbName() + ")";
+        String queryWhere = Weightquery.getColumnDate() + " = " + queryMaxDate;
+
+        Cursor cursor = database.query(Weightquery.getDbName(), Weightquery.getColumns(), queryWhere, null, null, null, null);
+        cursor.moveToFirst();
+        int WeightID=cursor.getColumnIndex(Weightquery.getColumnWeight());
+        int lastWeight=cursor.getInt(WeightID);
+
+        return lastWeight;
+
     }
 
-    public String getMinDate() {
-        String minDate = "";
-        String query = "SELECT MIN(" + Weightquery.getColumnDate() + ") FROM " + Weightquery.getDbName();
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor.getCount() != 0) {
-            cursor.moveToFirst();
-            minDate = cursor.getString(0);
-        }
-        cursor.close();
-        return minDate;
-    }
-    public Weightdata[] getRecommendedValues(float weight){
-        int size=2;
 
-        Weightdata[] weightdataArray = new Weightdata[size];
-        weightdataArray[0]= new Weightdata(weight,getMinDate(),0.0f);
-        weightdataArray[1]= new Weightdata(weight,getMaxDate(),0.0f);
-
-        return weightdataArray;
-    }
 }

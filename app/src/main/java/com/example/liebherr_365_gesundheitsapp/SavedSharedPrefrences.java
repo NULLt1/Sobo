@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
  */
 
 public class SavedSharedPrefrences {
-    private static int weightgoal;
+    private static float weightgoal;
     private static int height;
     private static int age;
 
@@ -25,7 +25,7 @@ public class SavedSharedPrefrences {
         return height;
     }
 
-    public static int getWeightGoal() {
+    public static float getWeightGoal() {
         return weightgoal;
     }
 
