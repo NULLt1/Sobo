@@ -75,7 +75,6 @@ public class ViewGraph extends AppCompatActivity {
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Gewicht"); // add entries to dataset
-        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
         dataSet.setColor(Color.BLACK);
         dataSet.setLineWidth(2f);
         List<ILineDataSet> dataSets = new ArrayList<>();
@@ -88,9 +87,6 @@ public class ViewGraph extends AppCompatActivity {
         dataSet.setColor(Color.BLACK);
 
         // add Data to dataSets
-        dataSets.add(showRecommendedWeight(BmiCalculator.getMinRecWeight(), "empfohlenes Minimalgewicht"));
-        dataSets.add(showRecommendedWeight(BmiCalculator.getMaxRecWeight(), "empfohlenes Maximalgewicht"));
-        dataSets.add(showWeightGoal());
         dataSets.add(dataSet);
 
         //style legend
@@ -111,70 +107,38 @@ public class ViewGraph extends AppCompatActivity {
 
         chart.setData(lineData);
         chart.invalidate(); // refresh
-        Log.d("*** Weight Goal", String.valueOf(SavedSharedPrefrences.getWeightGoal()));
-        Log.d("**** Max Date ****", database.getMaxDate());
-        Log.d("**** Min Date ****", database.getMinDate());
-    }
-
-    private LineDataSet showRecommendedWeight(float weight, String label) {
-        Weightdata[] recWeight = database.getRecommendedValues(weight);
-        List<Entry> entries = new ArrayList<>();
-
-        //TODO: FÜLLEN
-        Log.d("XXXXXXX", String.valueOf(recWeight[1].getWeight()));
-
-        int length = recWeight.length;
-
-        Log.d("length", String.valueOf(length));
-        for (int counter = 0; counter < length; counter++) {
-            entries.add(new Entry(recWeight[counter].getDays(), recWeight[counter].getWeight()));
-        }
-        LineDataSet dataSet = new LineDataSet(entries, label); // add entries to dataset
+        drawWeightGoal(chart);
         drawZone(chart);
-        showWeightGoal(chart);
+
     }
 
-        //style RecommendedWeight
-        dataSet.setDrawValues(false);
-        dataSet.setDrawCircles(false);
-        dataSet.setLineWidth(100f);
+    private void drawWeightGoal(LineChart chart) {
 
-        dataSet.setFillAlpha(10);
-        return dataSet;
-    }
-    private void showWeightGoal(LineChart chart) {
-        float weightGoal=SavedSharedPrefrences.getWeightGoal();
+        float weightGoal = SavedSharedPrefrences.getWeightGoal();
 
+        LimitLine ll = new LimitLine(weightGoal, "");
+        ll.setLineColor(Color.RED);
+        ll.setLineWidth(10f);
 
-        LimitLine llWeightGoal = new LimitLine(weightGoal,"Zielgewicht");
-        llWeightGoal.setLineColor(Color.RED);
-        llWeightGoal.setTextColor(Color.BLACK);
-        llWeightGoal.setLineWidth(2f);
         chart.getAxisLeft().setDrawLimitLinesBehindData(true);
-        chart.getAxisLeft().addLimitLine(llWeightGoal);
-
+        chart.getAxisLeft().addLimitLine(ll);
     }
 
-        //style WeightGoal
-        dataSet.setDrawValues(false);
-        dataSet.setDrawCircles(false);
-
-        return dataSet;
     private void drawZone(LineChart chart) {
 
         float lowerLimit = BmiCalculator.getMinRecWeight();
         float upperLimit = BmiCalculator.getMaxRecWeight();
-        float increment=((upperLimit-lowerLimit)/100);
+        float increment = ((upperLimit - lowerLimit) / 100);
 
 
-        for(int i = 0; i<100;i++) {
+        for (int i = 0; i < 100; i++) {
             LimitLine ll = new LimitLine(lowerLimit, "");
-            ll.setLineColor(ContextCompat.getColor(this,R.color.colorLightGreen));
+            ll.setLineColor(ContextCompat.getColor(this, R.color.colorLightGreen));
             ll.setLineWidth(10f);
 
             chart.getAxisLeft().setDrawLimitLinesBehindData(true);
             chart.getAxisLeft().addLimitLine(ll);
-            lowerLimit= lowerLimit+increment;
+            lowerLimit = lowerLimit + increment;
         }
     }
 }
