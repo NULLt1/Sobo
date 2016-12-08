@@ -101,11 +101,12 @@ public class MainActivity extends AppCompatActivity {
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
         */
 
+        //TODO: NACH 3 Tagen ohne Aufruf Notification ausgeben
         // call notification at defined time
         Calendar calender = Calendar.getInstance();
         calender.setTimeInMillis(System.currentTimeMillis());
         calender.set(Calendar.HOUR_OF_DAY, 15);
-        calender.set(Calendar.MINUTE, 33);
+        calender.set(Calendar.MINUTE, 16);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
     }

@@ -6,14 +6,10 @@ import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-/**
- * Created by mpadmin on 27.11.2016.
- */
-
 public class DayAxisValueFormatter implements IAxisValueFormatter {
 
     protected String[] mMonths = new String[]{
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
+            "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"
     };
 
     private BarLineChartBase<?> chart;
@@ -68,7 +64,7 @@ public class DayAxisValueFormatter implements IAxisValueFormatter {
             */
 
             //TODO 01.01 ...usw!
-            return dayOfMonth == 0 ? "" : dayOfMonth + appendix + " " + monthName;
+            return dayOfMonth == 0 ? "" : dayOfMonth + appendix + monthName;
         }
     }
 
