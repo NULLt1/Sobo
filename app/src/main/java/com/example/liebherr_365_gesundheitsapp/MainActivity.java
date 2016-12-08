@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     // Speer       Christopher
     // Wangler     Niklas
 
-
+//nothing
     private DBHelperDataSource dataSource;
 
     @Override
