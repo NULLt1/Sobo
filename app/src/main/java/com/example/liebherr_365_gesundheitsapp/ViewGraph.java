@@ -45,6 +45,8 @@ public class ViewGraph extends AppCompatActivity {
     //function showAllListEntries
     private void showAllListEntries() {
         LineChart chart = (LineChart) findViewById(R.id.chart);
+        chart.setScaleEnabled(false);
+
 
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
 
@@ -92,10 +94,9 @@ public class ViewGraph extends AppCompatActivity {
         //style legend
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.SQUARE);
-        legend.setTextSize(9);
+        legend.setTextSize(15);
         legend.setTextColor(Color.GRAY);
         legend.setForm(Legend.LegendForm.LINE);
-        dataSets.add(dataSet);
 
         LineData lineData = new LineData(dataSets);
 
@@ -118,9 +119,9 @@ public class ViewGraph extends AppCompatActivity {
 
         LimitLine ll = new LimitLine(weightGoal, "");
         ll.setLineColor(Color.RED);
-        ll.setLineWidth(10f);
+        ll.setLineWidth(2f);
 
-        chart.getAxisLeft().setDrawLimitLinesBehindData(true);
+        chart.getAxisLeft().setDrawLimitLinesBehindData(false);
         chart.getAxisLeft().addLimitLine(ll);
     }
 
@@ -128,10 +129,10 @@ public class ViewGraph extends AppCompatActivity {
 
         float lowerLimit = BmiCalculator.getMinRecWeight();
         float upperLimit = BmiCalculator.getMaxRecWeight();
-        float increment = ((upperLimit - lowerLimit) / 100);
+        float increment = ((upperLimit - lowerLimit) / 1000);
 
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             LimitLine ll = new LimitLine(lowerLimit, "");
             ll.setLineColor(ContextCompat.getColor(this, R.color.colorLightGreen));
             ll.setLineWidth(10f);
