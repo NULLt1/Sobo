@@ -1,35 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <EditTextPreference
+        android:id="@+id/EditTextPreferenceHeight"
         android:defaultValue="180"
         android:enabled="true"
         android:inputType="number"
         android:key="height"
         android:persistent="true"
         android:summary="Größe in cm"
-        android:title="Größe"
-        android:id="@+id/EditTextPreferenceHeight" />
+        android:title="Größe" />
     <EditTextPreference
+        android:id="@+id/EditTextPreferenceAge"
         android:defaultValue="180"
-        android:selectAllOnFocus="true"
         android:inputType="number"
-        android:title="Alter"
-        android:summary="Alter in Jahren"
         android:key="age"
-        android:persistent="true"
         android:numeric="integer"
-        android:id="@+id/EditTextPreferenceAge" />
-    <EditTextPreference
-        android:defaultValue="180"
+        android:persistent="true"
         android:selectAllOnFocus="true"
+        android:summary="Alter in Jahren"
+        android:title="Alter" />
+    <EditTextPreference
+        android:id="@+id/EditTextPreferenceWeightGoal"
+        android:defaultValue="180"
         android:inputType="number"
-        android:title="Zielgewicht"
-        android:summary="Zielgewicht"
         android:key="weightgoal"
-        android:persistent="true"
         android:numeric="integer"
-        android:id="@+id/EditTextPreferenceWeightGoal" />
-
-
+        android:persistent="true"
+        android:selectAllOnFocus="true"
+        android:summary="Zielgewicht"
+        android:title="Zielgewicht" />
 </PreferenceScreen>

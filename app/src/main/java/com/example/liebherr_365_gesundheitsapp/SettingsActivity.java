@@ -33,8 +33,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         editTextPref.setSummary(sp.getString("age", null) + " Jahre");
         editTextPref = (EditTextPreference) findPreference("weightgoal");
         editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
-
-
     }
 
     @Override

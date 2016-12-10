@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     // Speer       Christopher
     // Wangler     Niklas
 
-//nothing
+    //nothing
     private DBHelperDataSource dataSource;
 
     @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO BUFIXING!
         dataSource = new DBHelperDataSource(this);
         dataSource.open();
-        integer.setValue( dataSource.getLatestWeight());
+        integer.setValue(dataSource.getLatestWeight());
 
         dataSource.close();
         //Set afterkomma Value 0-9
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
         */
 
-        //TODO: NACH 3 Tagen ohne Aufruf Notification ausgeben
+        //TODO: NACH 3 Tagen ohne Aufruf Notification ausgeben + auslagern
         // call notification at defined time
         Calendar calender = Calendar.getInstance();
         calender.setTimeInMillis(System.currentTimeMillis());

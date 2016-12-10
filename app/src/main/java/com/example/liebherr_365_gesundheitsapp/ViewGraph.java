@@ -1,9 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp;
 
 import android.graphics.Color;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,10 +22,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mpadmin on 26.11.2016.
- */
-
 public class ViewGraph extends AppCompatActivity {
     DBHelperDataSource database;
 
@@ -47,7 +40,6 @@ public class ViewGraph extends AppCompatActivity {
         LineChart chart = (LineChart) findViewById(R.id.chart);
         chart.setScaleEnabled(false);
 
-
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
 
         XAxis xAxis = chart.getXAxis();
@@ -55,6 +47,7 @@ public class ViewGraph extends AppCompatActivity {
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(7);
+        xAxis.setTextSize(12f);
         xAxis.setValueFormatter(xAxisFormatter);
 
         YAxis yAxisleft = chart.getAxisLeft();
