@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         BmiCalculator.setRecBmi();
         SavedSharedPrefrences.setSharedPreferences(this);
 
+        //Set Text Weightdifference
+        Button buttonWeightDifference = (Button) findViewById(R.id.buttonWeightDifference);
+        setButtonWeightDifferenceText(buttonWeightDifference);
         // start notification oncreate
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
@@ -284,5 +288,21 @@ public class MainActivity extends AppCompatActivity {
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
         return result;
+    }
+
+    private void setButtonWeightDifferenceText(Button button) {
+        String text = "";
+        dataSource.open();
+        float weightDifference = BmiCalculator.calculateWeightDifference(dataSource);
+        dataSource.close();
+        if (weightDifference > 0) {
+            text = weightDifference + "kg Über dem Wunschgewicht";
+        } else if (weightDifference < 0) {
+            weightDifference = weightDifference * -1;
+            text = weightDifference + "kg unter dem Wunschgewicht";
+        } else {
+            text = "Wunschgewicht erreicht!";
+        }
+        button.setText(text);
     }
 }
