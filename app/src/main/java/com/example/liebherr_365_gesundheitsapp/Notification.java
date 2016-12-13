@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -35,7 +34,7 @@ public class Notification extends Service {
     private void displayNotification(String title, String text) {
 
         // get to MainAcitvity.class
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        Intent notificationIntent = new Intent(this, ModulWeight.class);
 
         PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 

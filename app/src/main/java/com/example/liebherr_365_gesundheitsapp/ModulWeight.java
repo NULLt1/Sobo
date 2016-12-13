@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class ModulWeight extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     //       .-..-..---. .-..-.
     //       : :; :: .--': :: :
@@ -84,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
 
-        alarmMgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+        alarmMgr = (AlarmManager) ModulWeight.this.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(MainActivity.this, Notification.class);
-        alarmIntent = PendingIntent.getService(MainActivity.this, 0, intent, 0);
+        Intent intent = new Intent(ModulWeight.this, Notification.class);
+        alarmIntent = PendingIntent.getService(ModulWeight.this, 0, intent, 0);
 
         // call notification all minute -> works
         //alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 60 * 1000, alarmIntent);
@@ -201,12 +201,12 @@ public class MainActivity extends AppCompatActivity {
 
                 /*
                 //Creatiing new intent, which navigates to Listviewtable on call
-                Intent intent = new Intent(MainActivity.this, ListViewTable.class);
+                Intent intent = new Intent(ModulWeight.this, ListViewTable.class);
                 startActivity(intent);
                 */
 
                 //Creatiing new intent, which navigates to ViewGraph on call
-                Intent intent = new Intent(MainActivity.this, ViewGraph.class);
+                Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
                 startActivity(intent);
 
             }
@@ -240,12 +240,12 @@ public class MainActivity extends AppCompatActivity {
 
                         /*
                         //Creatiing new intent, which navigates to Listviewtable on call
-                        Intent intent = new Intent(MainActivity.this, ListViewTable.class);
+                        Intent intent = new Intent(ModulWeight.this, ListViewTable.class);
                         startActivity(intent);
                         */
 
                         //Creatiing new intent, which navigates to ViewGraph on call
-                        Intent intent = new Intent(MainActivity.this, ViewGraph.class);
+                        Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
                         startActivity(intent);
 
                         dialog.dismiss();
