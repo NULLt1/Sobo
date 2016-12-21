@@ -128,6 +128,8 @@ public class DBHelperDataSourceData {
     public boolean datealreadysaved(Data wd) {
         String date = wd.getDate();
 
+        //TODO: TESTEN
+
         boolean result = false;
 
         String query = "SELECT " + DataQuery.getColumnDate() + " FROM " +
