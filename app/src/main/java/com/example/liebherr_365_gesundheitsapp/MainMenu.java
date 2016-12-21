@@ -20,6 +20,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MainMenu extends AppCompatActivity {
+    //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    //       .-..-..---. .-..-.
+    //       : :; :: .--': :: :
+    //       :    :: `;  : :: :
+    //       : :: :: :   : :; :
+    //       :_;:_;:_;   `.__.'
+    //
+    // This project was developed during our project studies.
+    // Wintersemster 16/17
+    // Bussmann    Jan
+    // Hug         Melissa
+    // Otec        Marvin
+    // Speer       Christopher
+    // Wangler     Niklas
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide

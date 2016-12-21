@@ -24,22 +24,7 @@ import java.util.Locale;
 import Database.*;
 
 public class ModulWeight extends AppCompatActivity {
-    //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    //       .-..-..---. .-..-.
-    //       : :; :: .--': :: :
-    //       :    :: `;  : :: :
-    //       : :: :: :   : :; :
-    //       :_;:_;:_;   `.__.'
-    //
-    // This project was developed during our project studies.
-    // Wintersemster 16/17
-    // Bussmann    Jan
-    // Hug         Melissa
-    // Otec        Marvin
-    // Speer       Christopher
-    // Wangler     Niklas
-
-    //nothing
+    // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
 
     @Override
