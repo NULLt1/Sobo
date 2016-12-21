@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import Database.*;
+
 public class ModulWeight extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     //       .-..-..---. .-..-.
@@ -38,7 +40,7 @@ public class ModulWeight extends AppCompatActivity {
     // Wangler     Niklas
 
     //nothing
-    private DBHelperDataSource dataSource;
+    private DBHelperDataSourceData dataSourceData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,15 @@ public class ModulWeight extends AppCompatActivity {
         integer.setMinValue(40);
         integer.setMaxValue(150);
 
-        //TODO BUFIXING!
-        dataSource = new DBHelperDataSource(this);
+        //get latestweight and set picker
+        /*
+        //TODO FIX function latestweight!
+        dataSource = new DBHelperDataSourceData(this);
         dataSource.open();
         integer.setValue(dataSource.getLatestWeight());
-
         dataSource.close();
+        */
+
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
@@ -114,8 +119,8 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     public void deleteweightdb(View view) {
-        dataSource = new DBHelperDataSource(this);
-        dataSource.deletedb();
+        dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData.deletedb();
     }
 
     @Override
@@ -176,26 +181,27 @@ public class ModulWeight extends AppCompatActivity {
             Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
 
             // new weightdateobject with values
-            Weightdata wd = new Weightdata(weight, formateddate, BmiCalculator.calculateBmi(this, weight));
+            String modulweight = String.valueOf(R.string.modulweight);
+            Data wd = new Data(modulweight, formateddate, weight);
 
             // new DBHelperDataSource
-            dataSource = new DBHelperDataSource(this);
+            dataSourceData = new DBHelperDataSourceData(this);
 
-            Log.d("opensql", "Die Datenquelle wird geöffnet.");
-            dataSource.open();
+            Log.d("opensql", "<DATA>Die Datenquelle wird geöffnet.<DATA>");
+            dataSourceData.open();
 
             // call function datealreadysaved and react on result
-            boolean datealreadyexisting = dataSource.datealreadysaved(wd);
+            boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
             Log.d("result", String.valueOf(datealreadyexisting));
             if (datealreadyexisting) {
                 //call alertdialog
                 alertdialogalreadysaved(wd);
 
             } else {
-                dataSource.insertdata(wd);
+                dataSourceData.insertdata(wd);
 
-                Log.d("closesql", "Die Datenquelle wird geschlossen.");
-                dataSource.close();
+                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                dataSourceData.close();
 
                 /*
                 //Creatiing new intent, which navigates to Listviewtable on call
@@ -219,7 +225,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //alertdialogalreadysaved
-    public void alertdialogalreadysaved(final Weightdata wd) {
+    public void alertdialogalreadysaved(final Data wd) {
         final Context context = this;
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -232,9 +238,9 @@ public class ModulWeight extends AppCompatActivity {
                         //action
                         Log.d("Ausgbabe", "Ändern");
                         //call function updatedata
-                        dataSource.updatedata(wd);
-                        Log.d("closesql", "Die Datenquelle wird geschlossen.");
-                        dataSource.close();
+                        dataSourceData.updatedata(wd);
+                        Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                        dataSourceData.close();
 
                         /*
                         //Creatiing new intent, which navigates to Listviewtable on call
@@ -290,9 +296,9 @@ public class ModulWeight extends AppCompatActivity {
 
     private void setButtonWeightDifferenceText(Button button) {
         String text = "";
-        dataSource.open();
-        float weightDifference = BmiCalculator.calculateWeightDifference(dataSource);
-        dataSource.close();
+        dataSourceData.open();
+        float weightDifference = BmiCalculator.calculateWeightDifference(dataSourceData);
+        dataSourceData.close();
         if (weightDifference > 0) {
             text = weightDifference + "kg Über dem Wunschgewicht";
         } else if (weightDifference < 0) {
