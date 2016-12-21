@@ -35,7 +35,7 @@ public class DBHelperDataSourceModules {
     }
 
     //function changemodulstatus
-    public void changemodulstatus() {
-
+    public void changemodulstatus(String modul) {
+        //TODO: realisieren
     }
 }
