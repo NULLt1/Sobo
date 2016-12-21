@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import Database.DBHelperDataSourceData;
+
 /**
  * Created by Jan on 21.11.2016.
  */
@@ -79,9 +81,9 @@ public class BmiCalculator {
         return maxRecWeight;
     }
 
-    public static float calculateWeightDifference (DBHelperDataSource db){
-        int currentWeight = db.getLatestWeight();
-        float weightDifference=currentWeight - SavedSharedPrefrences.getWeightGoal();
+    public static float calculateWeightDifference(DBHelperDataSourceData db) {
+        int currentWeight = db.getLatestEntry();
+        float weightDifference = currentWeight - SavedSharedPrefrences.getWeightGoal();
         return weightDifference;
     }
 
