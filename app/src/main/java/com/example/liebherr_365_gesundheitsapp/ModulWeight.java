@@ -139,6 +139,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
 
+
     //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
         SavedSharedPrefrences.setSharedPreferences(this);
