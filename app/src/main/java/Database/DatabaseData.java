@@ -1,17 +1,15 @@
 package Database;
 
-public class Data {
+public class DatabaseData {
     private String modul;
     private String date;
     private float physicalvalues;
-    private String type;
 
-    //constructor Data
-    public Data(String modul, String date, float physicalvalues, String type) {
+    //constructor DatabaseData
+    public DatabaseData(String modul, String date, float physicalvalues) {
         this.modul = modul;
         this.date = date;
         this.physicalvalues = physicalvalues;
-        this.type = type;
     }
 
     //function get modul
@@ -27,10 +25,6 @@ public class Data {
     //function get physicalvalues
     public float getPhysicalvalues() {
         return physicalvalues;
-    }
-
-    public String getType() {
-        return type;
     }
 
     //function getDays for ViewGraph

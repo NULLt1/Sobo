@@ -144,7 +144,6 @@ public class ModulWeight extends AppCompatActivity {
     }
 
 
-
     //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
         SavedSharedPrefrences.setSharedPreferences(this);
@@ -181,9 +180,12 @@ public class ModulWeight extends AppCompatActivity {
             float weight = integertofloat(integervalue, afterkommavalue);
             Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
 
+            //type declaration
+            String type = "kg";
+
             // new weightdateobject with values
             String modulweight = String.valueOf(R.string.modulweight);
-            Data wd = new Data(modulweight, formateddate, weight);
+            Data wd = new Data(modulweight, formateddate, weight, type);
 
             // new DBHelperDataSource
             dataSourceData = new DBHelperDataSourceData(this);
