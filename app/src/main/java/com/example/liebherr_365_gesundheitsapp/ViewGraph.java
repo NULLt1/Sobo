@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -22,17 +21,20 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import Database.DBHelperDataSourceData;
+import Database.Data;
+
 public class ViewGraph extends AppCompatActivity {
-    DBHelperDataSource database;
+    DBHelperDataSourceData databaseData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_graph);
-        database = new DBHelperDataSource(this);
-        database.open();
+        databaseData = new DBHelperDataSourceData(this);
+        databaseData.open();
         showAllListEntries();
-        database.close();
+        databaseData.close();
     }
 
     //function showAllListEntries
@@ -60,13 +62,13 @@ public class ViewGraph extends AppCompatActivity {
         //yAxisright.setAxisMinimum(40f); // start at 40
         yAxisright.setGranularity(1f); // only intervals of 1 kg
 
-        Weightdata[] alldata = database.getAllDataasarray();
+        Data[] alldata = databaseData.getAllDataasarray();
         int length = alldata.length;
 
         List<Entry> entries = new ArrayList<>();
 
         for (int counter = 0; counter < length; counter++) {
-            entries.add(new Entry(alldata[counter].getDays(), alldata[counter].getWeight()));
+            entries.add(new Entry(alldata[counter].getDays(), alldata[counter].getPhysicalvalues()));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Gewicht"); // add entries to dataset
