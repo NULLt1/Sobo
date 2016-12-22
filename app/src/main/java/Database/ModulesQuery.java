@@ -16,9 +16,8 @@ public class ModulesQuery {
 
     // String create table modules
     private static final String CREATE_DB_MODULES = "CREATE TABLE " + DB_NAME + " (" +
-            COLUMN_ID + " INT NOT NULL AUTO_INCREMENT, " +
             COLUMN_NAME + " TEXT, " +
-            COLUMN_MODUL + " TEXT PRIMARY KEY," +
+            COLUMN_MODUL + " VARCHAR(20) PRIMARY KEY," +
             COLUMN_FLAG + " BOOLEAN);";
 
     private static final String GET_DATA_MODULES = "SELECT * FROM " + DB_NAME;
