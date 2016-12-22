@@ -24,13 +24,13 @@ public class Tab3 extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3, container, false);
 
-fillListView();
+fillListView(rootView);
 
 
         return rootView;
     }
-public void fillListView(){
-    ListView listViewModules = (ListView) getView().findViewById(R.id.listViewModules);
+public void fillListView(View view){
+    ListView listViewModules = (ListView) view.findViewById(R.id.listViewModules);
 // Setup cursor adapter using cursor from last step
     ModulesCursorAdapter cursorAdapter = new ModulesCursorAdapter(getActivity(),dataSourceModules.getAllDataCursor() );
 // Attach cursor adapter to the ListView

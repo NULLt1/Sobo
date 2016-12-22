@@ -15,11 +15,6 @@ public class DBHelperDataSourceModules {
     public DBHelperDataSourceModules(Context context) {
         Log.d(LOG_TAG, "<MODULES>Unsere DataSource erzeugt jetzt den dbHelper.<MODULES>");
         dbHelperModules = new DBHelperModules(context);
-
-        //TODO: Hier verbessern /Löschen
-        databaseModules=dbHelperModules.getWritableDatabase();
-        dbHelperModules.defaultValues(databaseModules);
-
     }
 
     public void open() {
