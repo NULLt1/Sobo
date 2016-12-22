@@ -32,7 +32,7 @@ public class ModulesCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return LayoutInflater.from(context).inflate(R.layout.selection_modules_row, parent, false);
     }
-
+//dffsdfds
     // The bindView method is used to bind all data to a given view
     // such as setting the text on a TextView.
     @Override
