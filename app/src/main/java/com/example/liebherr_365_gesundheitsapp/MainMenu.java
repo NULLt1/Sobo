@@ -19,6 +19,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import Database.DBHelperDataSourceData;
+import Database.DBHelperDataSourceModules;
+
 public class MainMenu extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     //       .-..-..---. .-..-.
@@ -48,13 +51,13 @@ public class MainMenu extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+    private DBHelperDataSourceModules db;
     private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db= new DBHelperDataSourceModules(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three

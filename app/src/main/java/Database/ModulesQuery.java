@@ -11,16 +11,16 @@ public class ModulesQuery {
     private static final String COLUMN_FLAG = "FLAG";
 
     //Flag for modules
-    private static boolean FLAG_TRUE = true;
-    private static boolean FLAG_FALSE = false;
+    private static int FLAG_TRUE = 1;
+    private static int FLAG_FALSE = 0;
 
     // String create table modules
     private static final String CREATE_DB_MODULES = "CREATE TABLE " + DB_NAME + " (" +
             COLUMN_ID + " INT NOT NULL AUTO_INCREMENT, " +
             COLUMN_NAME + " TEXT, " +
             COLUMN_MODUL + " TEXT PRIMARY KEY," +
-            COLUMN_FLAG + " BOOLEAN);";
-
+            COLUMN_FLAG + " INT);";
+    private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME;
     // default mensa string FLAG_TRUE!
     private static final String DEFAULT_MENSA = "INSERT INTO " + DB_NAME + " (" +
             COLUMN_NAME + "," + COLUMN_MODUL + "," + COLUMN_FLAG + ") VALUES (" +
@@ -51,5 +51,17 @@ public class ModulesQuery {
 
     public static String getDefaultWeight() {
         return DEFAULT_WEIGHT;
+    }
+
+    public static String getColumnName() {
+        return COLUMN_NAME;
+    }
+
+    public static String getColumnFlag() {
+        return COLUMN_FLAG;
+    }
+
+    public static String getSelectAllData() {
+        return SELECT_ALL_DATA;
     }
 }

@@ -3,6 +3,7 @@ package Database;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DBHelperModules extends SQLiteOpenHelper {
 
@@ -31,8 +32,10 @@ public class DBHelperModules extends SQLiteOpenHelper {
     //function defaultValues -> fills database with default values
     public void defaultValues(SQLiteDatabase db) {
         // default mensa
+        Log.d("*** MENSA  ***", ModulesQuery.getDefaultMensa());
         db.execSQL(ModulesQuery.getDefaultMensa());
         // default weight
+        Log.d("*** MENSA  ***", ModulesQuery.getDefaultWeight());
         db.execSQL(ModulesQuery.getDefaultWeight());
         //TODO Insert more modules -> new strings in ModulesQuery required
     }
