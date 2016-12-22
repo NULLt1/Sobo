@@ -14,9 +14,6 @@ public class DBHelperModules extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ModulesQuery.getCreateDb());
-
-        // call function defaultValues
-        defaultValues(db);
     }
 
     @Override
@@ -26,14 +23,5 @@ public class DBHelperModules extends SQLiteOpenHelper {
 
     public void deleteweightdb(SQLiteDatabase db) {
         db.rawQuery("DELETE FROM " + ModulesQuery.getDbName(), null);
-    }
-
-    //function defaultValues -> fills database with default values
-    public void defaultValues(SQLiteDatabase db) {
-        // default mensa
-        db.execSQL(ModulesQuery.getDefaultMensa());
-        // default weight
-        db.execSQL(ModulesQuery.getDefaultWeight());
-        //TODO Insert more modules -> new strings in ModulesQuery required
     }
 }

@@ -21,16 +21,6 @@ public class ModulesQuery {
             COLUMN_MODUL + " TEXT PRIMARY KEY," +
             COLUMN_FLAG + " BOOLEAN);";
 
-    // default mensa string FLAG_TRUE!
-    private static final String DEFAULT_MENSA = "INSERT INTO " + DB_NAME + " (" +
-            COLUMN_NAME + "," + COLUMN_MODUL + "," + COLUMN_FLAG + ") VALUES (" +
-            R.string.namemensa + "," + R.string.modulmensa + "," + FLAG_TRUE + ");";
-
-    // default mensa string FLAG_FALSE!
-    private static final String DEFAULT_WEIGHT = "INSERT INTO " + DB_NAME + " (" +
-            COLUMN_NAME + "," + COLUMN_MODUL + "," + COLUMN_FLAG + ") VALUES (" +
-            R.string.nameweight + "," + R.string.modulweight + "," + FLAG_FALSE + ");";
-
     private static final String GET_DATA_MODULES = "SELECT * FROM " + DB_NAME;
 
     public static String getCreateDb() {
@@ -45,11 +35,15 @@ public class ModulesQuery {
         return DB_VERSION;
     }
 
-    public static String getDefaultMensa() {
-        return DEFAULT_MENSA;
+    public static String getColumnName() {
+        return COLUMN_NAME;
     }
 
-    public static String getDefaultWeight() {
-        return DEFAULT_WEIGHT;
+    public static String getColumnModul() {
+        return COLUMN_MODUL;
+    }
+
+    public static String getColumnFlag() {
+        return COLUMN_FLAG;
     }
 }

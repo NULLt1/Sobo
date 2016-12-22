@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import Database.DBHelperDataSourceData;
+import Database.DBHelperDataSourceModules;
 
 public class MainMenu extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -50,6 +54,9 @@ public class MainMenu extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+
+    private DBHelperDataSourceModules dataSourceModules;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +71,26 @@ public class MainMenu extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //TODO: FUNCTION TESTEN
+
+        dataSourceModules = new DBHelperDataSourceModules(this);
+
+        Log.d("opensql", "<DATA>Die Datenquelle wird geöffnet.<DATA>");
+        dataSourceModules.open();
+
+        /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
+
+        dataSourceModules.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
+        dataSourceModules.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
