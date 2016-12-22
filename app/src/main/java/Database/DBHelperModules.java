@@ -14,6 +14,7 @@ public class DBHelperModules extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("Datenbank wird angelegt", "sdsd ");
         db.execSQL(ModulesQuery.getCreateDb());
 
         // call function defaultValues

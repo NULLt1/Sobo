@@ -56,6 +56,9 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db= new DBHelperDataSourceModules(this);
+        db.open();
+        db.deletedb();
+        db.close();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

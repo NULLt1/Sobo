@@ -15,6 +15,7 @@ public class DBHelperDataSourceModules {
     public DBHelperDataSourceModules(Context context) {
         Log.d(LOG_TAG, "<MODULES>Unsere DataSource erzeugt jetzt den dbHelper.<MODULES>");
         dbHelperModules = new DBHelperModules(context);
+
     }
 
     public void open() {
@@ -30,6 +31,7 @@ public class DBHelperDataSourceModules {
     }
 
     public void deletedb() {
+        Log.d(LOG_TAG, "<MODULES>Die Modul-DB wird gelöscht <MODULES>");
         databaseModules = dbHelperModules.getWritableDatabase();
         databaseModules.delete(ModulesQuery.getDbName(), null, null);
         dbHelperModules.close();
@@ -44,6 +46,7 @@ public class DBHelperDataSourceModules {
     }
     public Cursor getAllDataCursor(){
         databaseModules = dbHelperModules.getWritableDatabase();
+
         Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(),null);
         dbHelperModules.close();
         return cursor;
