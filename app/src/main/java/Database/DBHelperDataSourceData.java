@@ -48,7 +48,7 @@ public class DBHelperDataSourceData {
         values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
         values.put(DataQuery.getColumnType(), data.getType());
 
-        databaseData.insert(ModulesQuery.getDbName(), null, values);
+        databaseData.insert(DataQuery.getDbName(), null, values);
     }
 
     //function update data in database
