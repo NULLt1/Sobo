@@ -5,7 +5,7 @@ import com.example.liebherr_365_gesundheitsapp.R;
 public class ModulesQuery {
     private static final String DB_NAME = "MODULES";
     private static final int DB_VERSION = 3;
-    private static final String COLUMN_ID = "ID";
+    private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME = "NAME";
     private static final String COLUMN_MODUL = "MODUL";
     private static final String COLUMN_FLAG = "FLAG";
@@ -16,7 +16,7 @@ public class ModulesQuery {
 
     // String create table modules
     private static final String CREATE_DB_MODULES = "CREATE TABLE " + DB_NAME + " (" +
-            COLUMN_ID + " INT NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
+            COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_NAME + " TEXT, " +
             COLUMN_MODUL + " VARCHAR(20) UNIQUE, " +
             COLUMN_FLAG + " BOOLEAN);";

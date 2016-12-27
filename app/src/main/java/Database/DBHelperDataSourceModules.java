@@ -56,10 +56,7 @@ public class DBHelperDataSourceModules {
         dbHelperModules.close();
     }
     public Cursor getAllDataCursor(){
-        databaseModules = dbHelperModules.getWritableDatabase();
-
         Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(),null);
-        dbHelperModules.close();
         return cursor;
     }
 }

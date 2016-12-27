@@ -23,6 +23,7 @@ import Database.DBHelperDataSourceData;
 import Database.DBHelperDataSourceModules;
 
 public class MainMenu extends AppCompatActivity {
+
     //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     //       .-..-..---. .-..-.
     //       : :; :: .--': :: :
@@ -57,8 +58,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         db= new DBHelperDataSourceModules(this);
         db.open();
-        db.deletedb();
-        db.close();
+
 
 
 
@@ -69,8 +69,9 @@ public class MainMenu extends AppCompatActivity {
 
         /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
 
-        db.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
-        db.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
+
+        //db.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
+        //db.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
         //----------------------------------------------------------------
         //----------------------------------------------------------------
         //----------------------------------------------------------------
@@ -115,6 +116,7 @@ public class MainMenu extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -162,4 +164,5 @@ public class MainMenu extends AppCompatActivity {
             return null;
         }
     }
+
 }
