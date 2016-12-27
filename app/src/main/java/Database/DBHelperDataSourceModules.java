@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.liebherr_365_gesundheitsapp.R;
+
 public class DBHelperDataSourceModules {
     private static final String LOG_TAG = DBHelperDataSourceData.class.getSimpleName();
 
