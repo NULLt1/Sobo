@@ -57,5 +57,5 @@ public class ModulesCursorAdapter extends CursorAdapter {
         // Populate fields with extracted properties
         textViewModuleName.setText(modulName);
 
-    }
+    }//merge
 }
