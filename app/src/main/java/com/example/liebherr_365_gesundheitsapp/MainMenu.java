@@ -59,6 +59,24 @@ public class MainMenu extends AppCompatActivity {
         db.open();
         db.deletedb();
         db.close();
+
+
+
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //TODO: BITTE DIE FUNKTION ZUR EINGABE DER MODULE TESTEN!
+
+        /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
+
+        db.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
+        db.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

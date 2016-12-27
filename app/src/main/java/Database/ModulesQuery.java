@@ -16,20 +16,13 @@ public class ModulesQuery {
 
     // String create table modules
     private static final String CREATE_DB_MODULES = "CREATE TABLE " + DB_NAME + " (" +
-            COLUMN_ID + " INT AUTOINCREMENT, " +
+            COLUMN_ID + " NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
             COLUMN_NAME + " TEXT, " +
-            COLUMN_MODUL + " TEXT PRIMARY KEY," +
-            COLUMN_FLAG + " INT);";
+            COLUMN_MODUL + " VARCHAR(20) UNIQUE, " +
+            COLUMN_FLAG + " BOOLEAN);";
+
     private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME;
     // default mensa string FLAG_TRUE!
-    private static final String DEFAULT_MENSA = "INSERT INTO " + DB_NAME + " (" +
-            COLUMN_NAME + "," + COLUMN_MODUL + "," + COLUMN_FLAG + ") VALUES (" +
-            R.string.namemensa + "," + R.string.modulmensa + "," + FLAG_TRUE + ");";
-
-    // default mensa string FLAG_FALSE!
-    private static final String DEFAULT_WEIGHT = "INSERT INTO " + DB_NAME + " (" +
-            COLUMN_NAME + "," + COLUMN_MODUL + "," + COLUMN_FLAG + ") VALUES (" +
-            R.string.nameweight + "," + R.string.modulweight + "," + FLAG_FALSE + ");";
 
     private static final String GET_DATA_MODULES = "SELECT * FROM " + DB_NAME;
 
@@ -45,16 +38,12 @@ public class ModulesQuery {
         return DB_VERSION;
     }
 
-    public static String getDefaultMensa() {
-        return DEFAULT_MENSA;
-    }
-
-    public static String getDefaultWeight() {
-        return DEFAULT_WEIGHT;
-    }
-
     public static String getColumnName() {
         return COLUMN_NAME;
+    }
+
+    public static String getColumnModul() {
+        return COLUMN_MODUL;
     }
 
     public static String getColumnFlag() {
@@ -64,4 +53,6 @@ public class ModulesQuery {
     public static String getSelectAllData() {
         return SELECT_ALL_DATA;
     }
+
+
 }

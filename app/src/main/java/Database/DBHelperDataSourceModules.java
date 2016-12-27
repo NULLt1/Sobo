@@ -37,6 +37,17 @@ public class DBHelperDataSourceModules {
         dbHelperModules.close();
     }
 
+    //function add modul to database modules
+    public void insertdefaultmodules(String modul, String name, boolean flag) {
+        ContentValues values = new ContentValues();
+
+        values.put(ModulesQuery.getColumnName(), name);
+        values.put(ModulesQuery.getColumnModul(), modul);
+        values.put(ModulesQuery.getColumnFlag(), String.valueOf(flag));
+
+        databaseModules.insert(ModulesQuery.getDbName(), null, values);
+    }
+
     //function changemodulstatus
     public void changemodulstatus(String modul) {
         //TODO: Fertig machen
