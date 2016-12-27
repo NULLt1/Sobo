@@ -21,6 +21,8 @@ public class ModulesQuery {
             COLUMN_MODUL + " VARCHAR(20) UNIQUE, " +
             COLUMN_FLAG + " BOOLEAN);";
 
+    private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME;
+
     private static final String GET_DATA_MODULES = "SELECT * FROM " + DB_NAME;
 
     public static String getCreateDb() {
@@ -49,5 +51,9 @@ public class ModulesQuery {
 
     public static String getColumnFlag() {
         return COLUMN_FLAG;
+    }
+
+    public static String getSelectAllData() {
+        return SELECT_ALL_DATA;
     }
 }
