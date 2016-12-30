@@ -13,10 +13,6 @@ import com.example.liebherr_365_gesundheitsapp.viewAdapter.ModulesCursorAdapterS
 
 import Database.DBHelperDataSourceModules;
 
-/**
- * Created by Jan on 13.12.2016.
- */
-
 public class Tab3 extends Fragment {
     DBHelperDataSourceModules dataSourceModules;
 
