@@ -54,7 +54,6 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
             switchModuleStatus.setChecked(false);
         }
 
-
         // Populate fields with extracted properties
         textViewModuleName.setText(modulName);
         switchModuleStatus.setTag(cursor.getPosition());

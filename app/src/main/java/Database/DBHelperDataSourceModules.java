@@ -40,7 +40,7 @@ public class DBHelperDataSourceModules {
     }
 
     //function add modul to database modules
-    public void insertdefaultmodules(String modul, String name, boolean flag) {
+    public void insertdefaultmodules(String name, String modul, boolean flag) {
         ContentValues values = new ContentValues();
 
         values.put(ModulesQuery.getColumnName(), name);
@@ -54,11 +54,12 @@ public class DBHelperDataSourceModules {
     public void changemodulstatus(String modul) {
         //TODO: Fertig machen
         databaseModules = dbHelperModules.getWritableDatabase();
-       // databaseModules.update(ModulesQuery.getDbName(), null, );
+        // databaseModules.update(ModulesQuery.getDbName(), null, );
         dbHelperModules.close();
     }
-    public Cursor getAllDataCursor(){
-        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(),null);
+
+    public Cursor getAllDataCursor() {
+        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(), null);
         return cursor;
     }
 }

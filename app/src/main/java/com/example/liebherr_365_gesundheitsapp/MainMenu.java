@@ -54,13 +54,13 @@ public class MainMenu extends AppCompatActivity {
      */
     private DBHelperDataSourceModules db;
     private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        db= new DBHelperDataSourceModules(this);
+        db = new DBHelperDataSourceModules(this);
         db.open();
-
-
-
+        db.insertdefaultmodules("Mensa", "ModulMensa", true);
+        db.close();
 
         //----------------------------------------------------------------
         //----------------------------------------------------------------
@@ -75,7 +75,6 @@ public class MainMenu extends AppCompatActivity {
         //----------------------------------------------------------------
         //----------------------------------------------------------------
         //----------------------------------------------------------------
-
 
 
         super.onCreate(savedInstanceState);
