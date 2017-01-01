@@ -2,8 +2,11 @@ package Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.example.liebherr_365_gesundheitsapp.R;
 
 public class DBHelperDataSourceModules {
     private static final String LOG_TAG = DBHelperDataSourceData.class.getSimpleName();
@@ -20,6 +23,7 @@ public class DBHelperDataSourceModules {
     public void open() {
         Log.d(LOG_TAG, "<MODULES>Eine Referenz auf die Datenbank wird jetzt angefragt.<MODULES>");
         databaseModules = dbHelperModules.getWritableDatabase();
+
         Log.d(LOG_TAG, "<MODULES>Datenbank-Referenz erhalten. Pfad zur Datenbank: " + databaseModules.getPath() + "<MODULES>");
     }
 
@@ -29,13 +33,33 @@ public class DBHelperDataSourceModules {
     }
 
     public void deletedb() {
+        Log.d(LOG_TAG, "<MODULES>Die Modul-DB wird gelöscht <MODULES>");
         databaseModules = dbHelperModules.getWritableDatabase();
         databaseModules.delete(ModulesQuery.getDbName(), null, null);
         dbHelperModules.close();
     }
 
-    //function changemodulstatus
-    public void changemodulstatus() {
+    //function add modul to database modules
+    public void insertdefaultmodules(String name, String modul, boolean flag) {
+        ContentValues values = new ContentValues();
 
+        values.put(ModulesQuery.getColumnName(), name);
+        values.put(ModulesQuery.getColumnModul(), modul);
+        values.put(ModulesQuery.getColumnFlag(), String.valueOf(flag));
+
+        databaseModules.insert(ModulesQuery.getDbName(), null, values);
+    }
+
+    //function changemodulstatus
+    public void changemodulstatus(String modul) {
+        //TODO: Fertig machen
+        databaseModules = dbHelperModules.getWritableDatabase();
+        // databaseModules.update(ModulesQuery.getDbName(), null, );
+        dbHelperModules.close();
+    }
+
+    public Cursor getAllDataCursor() {
+        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(), null);
+        return cursor;
     }
 }

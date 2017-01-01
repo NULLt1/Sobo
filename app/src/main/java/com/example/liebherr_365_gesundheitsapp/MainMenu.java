@@ -19,7 +19,25 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import Database.DBHelperDataSourceData;
+import Database.DBHelperDataSourceModules;
+//s
 public class MainMenu extends AppCompatActivity {
+
+    //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    //       .-..-..---. .-..-.
+    //       : :; :: .--': :: :
+    //       :    :: `;  : :: :
+    //       : :: :: :   : :; :
+    //       :_;:_;:_;   `.__.'
+    //
+    // This project was developed during our project studies.
+    // Wintersemster 16/17
+    // Bussmann    Jan
+    // Hug         Melissa
+    // Otec        Marvin
+    // Speer       Christopher
+    // Wangler     Niklas
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,13 +52,33 @@ public class MainMenu extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+    private DBHelperDataSourceModules db;
     private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new DBHelperDataSourceModules(this);
+        db.open();
+        db.insertdefaultmodules("Mensa", "ModulMensa", true);
+        db.close();
+
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //TODO: BITTE DIE FUNKTION ZUR EINGABE DER MODULE TESTEN!
+
+        /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
+
+
+        //db.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
+        //db.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+        //----------------------------------------------------------------
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -77,6 +115,7 @@ public class MainMenu extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -124,4 +163,5 @@ public class MainMenu extends AppCompatActivity {
             return null;
         }
     }
+
 }

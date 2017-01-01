@@ -46,8 +46,9 @@ public class DBHelperDataSourceData {
         values.put(DataQuery.getColumnModul(), data.getModul());
         values.put(DataQuery.getColumnDate(), data.getDate());
         values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
+        values.put(DataQuery.getColumnType(), data.getType());
 
-        databaseData.insert(ModulesQuery.getDbName(), null, values);
+        databaseData.insert(DataQuery.getDbName(), null, values);
     }
 
     //function update data in database
@@ -57,6 +58,7 @@ public class DBHelperDataSourceData {
         values.put(DataQuery.getColumnModul(), data.getModul());
         values.put(DataQuery.getColumnDate(), data.getDate());
         values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
+        values.put(DataQuery.getColumnType(), data.getType());
 
         databaseData.replace(ModulesQuery.getDbName(), null, values);
     }
@@ -68,12 +70,14 @@ public class DBHelperDataSourceData {
         int idModul = cursor.getColumnIndex(DataQuery.getColumnModul());
         int idDate = cursor.getColumnIndex(DataQuery.getColumnDate());
         int idWeight = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+        int idType = cursor.getColumnIndex(DataQuery.getColumnType());
 
-        String modul = cursor.getString(idDate);
+        String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
         float physicalvalues = cursor.getFloat(idWeight);
+        String type = cursor.getString(idType);
 
-        data = new Data(modul, date, physicalvalues);
+        data = new Data(modul, date, physicalvalues, type);
 
         return data;
     }
@@ -123,6 +127,8 @@ public class DBHelperDataSourceData {
     //function datealreadysaved
     public boolean datealreadysaved(Data wd) {
         String date = wd.getDate();
+
+        //TODO: TESTEN
 
         boolean result = false;
 

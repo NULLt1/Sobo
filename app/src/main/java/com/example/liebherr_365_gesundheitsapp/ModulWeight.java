@@ -24,22 +24,7 @@ import java.util.Locale;
 import Database.*;
 
 public class ModulWeight extends AppCompatActivity {
-    //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    //       .-..-..---. .-..-.
-    //       : :; :: .--': :: :
-    //       :    :: `;  : :: :
-    //       : :: :: :   : :; :
-    //       :_;:_;:_;   `.__.'
-    //
-    // This project was developed during our project studies.
-    // Wintersemster 16/17
-    // Bussmann    Jan
-    // Hug         Melissa
-    // Otec        Marvin
-    // Speer       Christopher
-    // Wangler     Niklas
-
-    //nothing
+    // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
 
     @Override
@@ -144,7 +129,6 @@ public class ModulWeight extends AppCompatActivity {
     }
 
 
-
     //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
         SavedSharedPrefrences.setSharedPreferences(this);
@@ -181,9 +165,12 @@ public class ModulWeight extends AppCompatActivity {
             float weight = integertofloat(integervalue, afterkommavalue);
             Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
 
+            //type declaration
+            String type = "kg";
+
             // new weightdateobject with values
             String modulweight = String.valueOf(R.string.modulweight);
-            Data wd = new Data(modulweight, formateddate, weight);
+            Data wd = new Data(modulweight, formateddate, weight, type);
 
             // new DBHelperDataSource
             dataSourceData = new DBHelperDataSourceData(this);

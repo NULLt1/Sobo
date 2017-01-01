@@ -41,6 +41,10 @@ public class DataQuery {
         return COLUMN_PHYSICAL_VALUES;
     }
 
+    public static String getColumnType() {
+        return COLUMN_TYPE;
+    }
+
     public static String[] getColumns() {
         return COLUMNS;
     }

@@ -81,9 +81,9 @@ public class BmiCalculator {
         return maxRecWeight;
     }
 
-    public static float calculateWeightDifference(DBHelperDataSourceData db) {
+    public static float calculateWeightDifference (DBHelperDataSourceData db){
         int currentWeight = db.getLatestEntry();
-        float weightDifference = currentWeight - SavedSharedPrefrences.getWeightGoal();
+        float weightDifference=currentWeight - SavedSharedPrefrences.getWeightGoal();
         return weightDifference;
     }
 
