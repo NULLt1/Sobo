@@ -48,7 +48,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
         Switch switchModuleStatus = (Switch) view.findViewById(R.id.switchModuleStatus);
 
         // Extract properties from cursor
-        String modulName = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnName()));
+        final String modulName = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnName()));
         String modulFlag = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnFlag()));
         
         if (modulFlag.equals("true")) {
@@ -58,6 +58,15 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
         {
             switchModuleStatus.setChecked(false);
         }
+
+        switchModuleStatus.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
+                if (isChecked){
+                    Log.d("***CHECK CHANGED***", modulName);
+                }
+            }
+        }) ;
 
         // Populate fields with extracted properties
         textViewModuleName.setText(modulName);
