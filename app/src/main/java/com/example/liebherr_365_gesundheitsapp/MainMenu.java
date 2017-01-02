@@ -59,7 +59,8 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         db = new DBHelperDataSourceModules(this);
         db.open();
-        db.insertdefaultmodules("Mensa", "ModulMensa", true);
+        db.insertdefaultmodules("Mensa", "ModulWeight", true);
+        db.insertdefaultmodules("Gewicht", "ModulWeight", false);
         db.close();
 
         //----------------------------------------------------------------
@@ -70,8 +71,7 @@ public class MainMenu extends AppCompatActivity {
         /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
 
 
-        //db.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
-        //db.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
+
         //----------------------------------------------------------------
         //----------------------------------------------------------------
         //----------------------------------------------------------------

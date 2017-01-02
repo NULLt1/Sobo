@@ -23,6 +23,7 @@ public class Tab3 extends Fragment {
         View rootView = inflater.inflate(R.layout.tab3, container, false);
 
         fillListView(rootView);
+        /**
         int position = (Integer) getView().getTag();
         Switch mySwitch = (Switch) getView().findViewWithTag(position);
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -38,6 +39,7 @@ public class Tab3 extends Fragment {
                 }
             }
         });
+         **/
         return rootView;
     }
 

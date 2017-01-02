@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 import Database.ModulesQuery;
 
@@ -33,12 +34,15 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return LayoutInflater.from(context).inflate(R.layout.selection_modules_row, parent, false);
     }
-//dffsdfds
+
     // The bindView method is used to bind all data to a given view
     // such as setting the text on a TextView.
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        
+        int position=(Integer) view.getTag();
 
+        Log.d("position", String.valueOf(position));
         // Find fields to populate in inflated template
         TextView textViewModuleName = (TextView) view.findViewById(R.id.textViewModuleName);
         Switch switchModuleStatus = (Switch) view.findViewById(R.id.switchModuleStatus);
@@ -46,6 +50,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
         // Extract properties from cursor
         String modulName = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnName()));
         String modulFlag = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnFlag()));
+        
         if (modulFlag.equals("true")) {
             switchModuleStatus.setChecked(true);
         }
@@ -56,7 +61,17 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
 
         // Populate fields with extracted properties
         textViewModuleName.setText(modulName);
-        switchModuleStatus.setTag(cursor.getPosition());
+        //switchModuleStatus.setTag(cursor.getPosition());
+    }
+    @Override
+    public View getView(int position, View convertview, ViewGroup arg2) {
+        if (convertview == null) {
+            LayoutInflater inflater = LayoutInflater.from(arg2.getContext());
+            convertview = inflater.inflate(R.layout.selection_modules_row,
+                    null);
+        }
+        convertview.setTag(position);
+        return super.getView(position, convertview, arg2);
     }
 
 }

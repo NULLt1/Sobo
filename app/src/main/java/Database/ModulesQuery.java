@@ -24,6 +24,8 @@ public class ModulesQuery {
     private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME;
     // default mensa string FLAG_TRUE!
 
+    private static final String SELECT_SELECTED_DATA = "SELECT * FROM " + DB_NAME + " WHERE " + COLUMN_FLAG + " = 'true'";
+
     private static final String GET_DATA_MODULES = "SELECT * FROM " + DB_NAME;
 
     public static String getCreateDb() {
@@ -54,5 +56,9 @@ public class ModulesQuery {
         return SELECT_ALL_DATA;
     }
 
+    public static String getSelectSelectedData() {
+        return SELECT_SELECTED_DATA;
+    }
 
+    ;
 }

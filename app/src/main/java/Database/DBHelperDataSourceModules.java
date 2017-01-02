@@ -62,4 +62,8 @@ public class DBHelperDataSourceModules {
         Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(), null);
         return cursor;
     }
+    public Cursor getSelectedDataCursor() {
+        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectSelectedData(), null);
+        return cursor;
+    }
 }
