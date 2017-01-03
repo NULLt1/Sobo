@@ -14,11 +14,11 @@ public class DBHelperDataSourceData {
     private static final String LOG_TAG = DBHelperDataSourceData.class.getSimpleName();
 
     private SQLiteDatabase databaseData;
-    private DBHelperModules dbHelperData;
+    private DBHelperData dbHelperData;
 
     public DBHelperDataSourceData(Context context) {
         Log.d(LOG_TAG, "<DATA>Unsere DataSource erzeugt jetzt den dbHelper.<DATA>");
-        dbHelperData = new DBHelperModules(context);
+        dbHelperData = new DBHelperData(context);
 
     }
 
