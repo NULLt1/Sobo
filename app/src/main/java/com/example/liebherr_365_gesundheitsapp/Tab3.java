@@ -31,12 +31,12 @@ public class Tab3 extends Fragment {
         dataSourceModules = new DBHelperDataSourceModules(getActivity());
         dataSourceModules.open();
         ListView listViewModules = (ListView) view.findViewById(R.id.listViewModules);
-// Setup cursor adapter using cursor from last step
+
+        // Setup cursor adapter using cursor from last step
         ModulesCursorAdapterSwitch cursorAdapter = new ModulesCursorAdapterSwitch(getActivity(), dataSourceModules.getAllDataCursor());
-// Attach cursor adapter to the ListView
+
+        // Attach cursor adapter to the ListView
         listViewModules.setAdapter(cursorAdapter);
         dataSourceModules.close();
     }
-
-
 }

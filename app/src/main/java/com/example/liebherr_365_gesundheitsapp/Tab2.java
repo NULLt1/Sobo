@@ -12,10 +12,6 @@ import com.example.liebherr_365_gesundheitsapp.viewAdapter.ModulesCursorAdapterS
 
 import Database.DBHelperDataSourceModules;
 
-/**
- * Created by Jan on 13.12.2016.
- */
-
 public class Tab2 extends Fragment {
     DBHelperDataSourceModules dataSourceModules;
 
@@ -31,8 +27,10 @@ public class Tab2 extends Fragment {
         dataSourceModules = new DBHelperDataSourceModules(getActivity());
         dataSourceModules.open();
         ListView listViewModules = (ListView) view.findViewById(R.id.listViewModuleButtons);
+
         // Setup cursor adapter using cursor from last step
         ModulesCursorAdapterButtons cursorAdapter = new ModulesCursorAdapterButtons(getActivity(), dataSourceModules.getSelectedDataCursor());
+
         // Attach cursor adapter to the ListView
         listViewModules.setAdapter(cursorAdapter);
         dataSourceModules.close();

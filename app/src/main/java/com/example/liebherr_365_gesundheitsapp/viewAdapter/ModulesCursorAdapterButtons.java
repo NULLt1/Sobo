@@ -18,10 +18,6 @@ import Database.ModulesQuery;
 
 import static java.security.AccessController.getContext;
 
-/**
- * Created by Jan Bussmann on 27.12.2016.
- */
-
 public class ModulesCursorAdapterButtons  extends CursorAdapter{
     private Context FinalContext;
     public ModulesCursorAdapterButtons(Context context, Cursor cursor) {

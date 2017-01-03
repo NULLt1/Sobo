@@ -67,7 +67,12 @@ public class ModulWeight extends AppCompatActivity {
 
         //Set Text Weightdifference
         Button buttonWeightDifference = (Button) findViewById(R.id.buttonWeightDifference);
-        setButtonWeightDifferenceText(buttonWeightDifference);
+
+        //TODO FIX
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //setButtonWeightDifferenceText(buttonWeightDifference);
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         // start notification oncreate
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;

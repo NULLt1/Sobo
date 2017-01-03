@@ -32,14 +32,11 @@ public class DBHelperDataSourceModules {
     }
 
     public void deletedb() {
-        Log.d(LOG_TAG, "<MODULES>Die Modul-DB wird gelöscht <MODULES>");
-        databaseModules = dbHelperModules.getWritableDatabase();
         databaseModules.delete(ModulesQuery.getDbName(), null, null);
-        dbHelperModules.close();
     }
 
     //function add modul to database modules
-    public void insertdefaultmodules(String name, String modul, boolean flag) {
+    public void insertmodules(String name, String modul, boolean flag) {
         ContentValues values = new ContentValues();
 
         values.put(ModulesQuery.getColumnName(), name);
@@ -49,10 +46,17 @@ public class DBHelperDataSourceModules {
         databaseModules.insert(ModulesQuery.getDbName(), null, values);
     }
 
+    //function insertdefaultmodules
+    public void insertdefaultmodules() {
+        Cursor cursor = getAllDataCursor();
+        if (cursor.getCount() == 0) {
+            insertmodules("Mensa", "ModulMensa", true);
+            insertmodules("Gewicht", "ModulWeight", false);
+        }
+    }
+
     //function changemodulstatus
     public void changemodulstatus(String modul, boolean flag) {
-        Log.d("MODUL", modul);
-        Log.d("FLAG", String.valueOf(flag));
         databaseModules.execSQL("UPDATE " + ModulesQuery.getDbName() + " SET " + ModulesQuery.getColumnFlag() + "='" + flag + "' WHERE " + ModulesQuery.getColumnName() + "='" + modul + "'");
     }
 
