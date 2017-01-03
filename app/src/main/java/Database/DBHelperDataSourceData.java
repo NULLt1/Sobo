@@ -59,7 +59,7 @@ public class DBHelperDataSourceData {
         values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
         values.put(DataQuery.getColumnType(), data.getType());
 
-        databaseData.replace(ModulesQuery.getDbName(), null, values);
+        databaseData.replace(DataQuery.getDbName(), null, values);
     }
 
     //function cursorToWeightdata
@@ -130,38 +130,30 @@ public class DBHelperDataSourceData {
 
     //function datealreadysaved
     public boolean datealreadysaved(Data wd) {
-
-        Log.d("TEST", "REACHED");
-
-
+        boolean result = false;
         String date = wd.getDate();
 
-        //TODO: TESTEN
-
-        boolean result = false;
-
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " +
-                DataQuery.getDbName() + " WHERE " +
-                DataQuery.getColumnModul() + "='ModulWeight';";
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "=" + wd.getModul();
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
+
         int count = databaseweightresult.getCount();
+
         if (count == 0) {
             result = false;
         } else {
             databaseweightresult.moveToFirst();
-            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
-            if (date.equals(databasedate)) {
+            int iddate = databaseweightresult.getColumnIndex(DataQuery.getColumnDate());
+            String datefound = databaseweightresult.getString(iddate);
+            if (date.equals(datefound)) {
                 result = true;
             }
-            Log.d("TEST", String.valueOf(count));
             while (databaseweightresult.moveToNext()) {
-                databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
-                if (date.equals(databasedate)) {
+                datefound = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
+                if (date.equals(datefound)) {
                     result = true;
                 }
             }
         }
-        databaseweightresult.close();
         return result;
     }
 

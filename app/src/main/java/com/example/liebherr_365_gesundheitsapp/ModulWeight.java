@@ -79,6 +79,8 @@ public class ModulWeight extends AppCompatActivity {
         //setButtonWeightDifferenceText(buttonWeightDifference);
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+        /*////////////////////////////////////////////////////////////////////////////////
         // start notification oncreate
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
@@ -87,6 +89,8 @@ public class ModulWeight extends AppCompatActivity {
 
         Intent intent = new Intent(ModulWeight.this, Notification.class);
         alarmIntent = PendingIntent.getService(ModulWeight.this, 0, intent, 0);
+        ////////////////////////////////////////////////////////////////////////////////*/
+
 
         // call notification all minute -> works
         //alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 60 * 1000, alarmIntent);
@@ -104,6 +108,8 @@ public class ModulWeight extends AppCompatActivity {
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
         */
 
+
+         /*////////////////////////////////////////////////////////////////////////////////
         //TODO: NACH 3 Tagen ohne Aufruf Notification ausgeben + auslagern
         // call notification at defined time
         Calendar calender = Calendar.getInstance();
@@ -112,6 +118,7 @@ public class ModulWeight extends AppCompatActivity {
         calender.set(Calendar.MINUTE, 16);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
+        ////////////////////////////////////////////////////////////////////////////////*/
     }
 
     public void deleteweightdb(View view) {
@@ -211,8 +218,8 @@ public class ModulWeight extends AppCompatActivity {
                 */
 
                 //Creatiing new intent, which navigates to ViewGraph on call
-                Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
-                startActivity(intent);
+                //Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
+                //startActivity(intent);
 
             }
         }
@@ -250,8 +257,8 @@ public class ModulWeight extends AppCompatActivity {
                         */
 
                         //Creatiing new intent, which navigates to ViewGraph on call
-                        Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
+                        //startActivity(intent);
 
                         dialog.dismiss();
                     }
