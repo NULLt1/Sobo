@@ -19,7 +19,6 @@ public class DBHelperDataSourceData {
     public DBHelperDataSourceData(Context context) {
         Log.d(LOG_TAG, "<DATA>Unsere DataSource erzeugt jetzt den dbHelper.<DATA>");
         dbHelperData = new DBHelperData(context);
-
     }
 
     public void open() {
@@ -35,6 +34,7 @@ public class DBHelperDataSourceData {
 
     public void deletedb() {
         databaseData.delete(DataQuery.getDbName(), null, null);
+        //databaseData.execSQL("DROP TABLE IF EXISTS " + DataQuery.getDbName());
         Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
@@ -71,10 +71,15 @@ public class DBHelperDataSourceData {
         int idWeight = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
         int idType = cursor.getColumnIndex(DataQuery.getColumnType());
 
+        Log.d("idModul", String.valueOf(idModul));
+        Log.d("idDate", String.valueOf(idDate));
+        Log.d("idWeight", String.valueOf(idWeight));
+        Log.d("idType", String.valueOf(idType));
+
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
         float physicalvalues = cursor.getFloat(idWeight);
-//        String type = cursor.getString(idType);
+        //String type = cursor.getString(idType);
 
         data = new Data(modul, date, physicalvalues, "kg");
 

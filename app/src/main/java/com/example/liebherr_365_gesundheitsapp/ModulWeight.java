@@ -29,6 +29,12 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData.open();
+
+        dataSourceData.close();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modul_weight);
 

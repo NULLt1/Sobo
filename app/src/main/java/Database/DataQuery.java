@@ -2,7 +2,7 @@ package Database;
 
 public class DataQuery {
     private static final String DB_NAME = "DATA";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     private static final String COLUMN_MODUL = "MODUL";
     private static final String COLUMN_DATE = "DATE";
     private static final String COLUMN_PHYSICAL_VALUES = "PHYSICAL_VALUES";
@@ -14,7 +14,7 @@ public class DataQuery {
     // String create table data
     private static final String CREATE_DB_DATA = "CREATE TABLE " + DB_NAME
             + " (" +
-            COLUMN_MODUL + " TEXT, " +
+            COLUMN_MODUL + " VARCHAR(25), " +
             COLUMN_DATE + " TEXT, " +
             COLUMN_PHYSICAL_VALUES + " FLOAT," +
             COLUMN_TYPE + " TEXT, FOREIGN KEY (" +
