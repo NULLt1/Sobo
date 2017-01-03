@@ -15,10 +15,10 @@ public class DBHelperData extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            Log.d("$$$$", "Die Tabelle wird mit SQL-Befehl: " + DataQuery.getCreateDb() + " angelegt.");
+            Log.d("", "<DATA>Die Tabelle wird mit SQL-Befehl: " + DataQuery.getCreateDb() + " angelegt.<DATA>");
             db.execSQL(DataQuery.getCreateDb());
         } catch (Exception ex) {
-            Log.e("$$$$", "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
+            Log.e("", "<DATA>Fehler beim Anlegen der Tabelle: " + ex.getMessage() + "<DATA>");
         }
     }
 

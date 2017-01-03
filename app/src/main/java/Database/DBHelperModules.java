@@ -3,6 +3,7 @@ package Database;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DBHelperModules extends SQLiteOpenHelper {
 
@@ -13,7 +14,12 @@ public class DBHelperModules extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ModulesQuery.getCreateDb());
+        try {
+            Log.d("", "<MODULES>Die Tabelle wird mit SQL-Befehl: " + ModulesQuery.getCreateDb() + " angelegt.<MODULES>");
+            db.execSQL(ModulesQuery.getCreateDb());
+        } catch (Exception ex) {
+            Log.e("", "<MODULES>Fehler beim Anlegen der Tabelle: " + ex.getMessage() + "<MODULES>");
+        }
     }
 
     @Override
