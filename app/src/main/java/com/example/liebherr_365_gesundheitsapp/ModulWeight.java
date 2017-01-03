@@ -186,6 +186,8 @@ public class ModulWeight extends AppCompatActivity {
             // call function datealreadysaved and react on result
             boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
             Log.d("result", String.valueOf(datealreadyexisting));
+
+
             if (datealreadyexisting) {
                 //call alertdialog
                 alertdialogalreadysaved(wd);

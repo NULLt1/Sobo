@@ -74,9 +74,9 @@ public class DBHelperDataSourceData {
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
         float physicalvalues = cursor.getFloat(idWeight);
-        String type = cursor.getString(idType);
+//        String type = cursor.getString(idType);
 
-        data = new Data(modul, date, physicalvalues, type);
+        data = new Data(modul, date, physicalvalues, "kg");
 
         return data;
     }
@@ -125,6 +125,10 @@ public class DBHelperDataSourceData {
 
     //function datealreadysaved
     public boolean datealreadysaved(Data wd) {
+
+        Log.d("TEST", "REACHED");
+
+
         String date = wd.getDate();
 
         //TODO: TESTEN
