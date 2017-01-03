@@ -34,9 +34,8 @@ public class DBHelperDataSourceData {
     }
 
     public void deletedb() {
-        databaseData = dbHelperData.getWritableDatabase();
-        databaseData.delete(ModulesQuery.getDbName(), null, null);
-        dbHelperData.close();
+        databaseData.delete(DataQuery.getDbName(), null, null);
+        Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
     //function insert data into database

@@ -110,7 +110,9 @@ public class ModulWeight extends AppCompatActivity {
 
     public void deleteweightdb(View view) {
         dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData.open();
         dataSourceData.deletedb();
+        dataSourceData.close();
     }
 
     @Override
@@ -179,8 +181,6 @@ public class ModulWeight extends AppCompatActivity {
 
             // new DBHelperDataSource
             dataSourceData = new DBHelperDataSourceData(this);
-
-            Log.d("opensql", "<DATA>Die Datenquelle wird geöffnet.<DATA>");
             dataSourceData.open();
 
             // call function datealreadysaved and react on result
