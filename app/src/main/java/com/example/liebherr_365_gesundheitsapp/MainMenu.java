@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import Database.DBHelperDataSourceData;
 import Database.DBHelperDataSourceModules;
+
 //s
 public class MainMenu extends AppCompatActivity {
 
@@ -57,25 +59,12 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // fill database with defaultmodules
         db = new DBHelperDataSourceModules(this);
         db.open();
-        db.insertdefaultmodules("Mensa", "ModulMensa", true);
+        // call function insertdefaultmodules
+        db.insertdefaultmodules();
         db.close();
-
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-        //TODO: BITTE DIE FUNKTION ZUR EINGABE DER MODULE TESTEN!
-
-        /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
-
-
-        //db.insertdefaultmodules(String.valueOf(R.string.namemensa), String.valueOf(R.string.modulmensa), true);
-        //db.insertdefaultmodules(String.valueOf(R.string.nameweight), String.valueOf(R.string.modulweight), false);
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);

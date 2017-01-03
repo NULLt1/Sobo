@@ -20,8 +20,4 @@ public class DBHelperModules extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Placeholder 4 action
     }
-
-    public void deleteweightdb(SQLiteDatabase db) {
-        db.rawQuery("DELETE FROM " + ModulesQuery.getDbName(), null);
-    }
 }

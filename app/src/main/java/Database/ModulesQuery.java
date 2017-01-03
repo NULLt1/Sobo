@@ -10,10 +10,6 @@ public class ModulesQuery {
     private static final String COLUMN_MODUL = "MODUL";
     private static final String COLUMN_FLAG = "FLAG";
 
-    //Flag for modules
-    private static int FLAG_TRUE = 1;
-    private static int FLAG_FALSE = 0;
-
     // String create table modules
     private static final String CREATE_DB_MODULES = "CREATE TABLE " + DB_NAME + " (" +
             COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
@@ -22,9 +18,8 @@ public class ModulesQuery {
             COLUMN_FLAG + " BOOLEAN);";
 
     private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME;
-    // default mensa string FLAG_TRUE!
 
-    private static final String GET_DATA_MODULES = "SELECT * FROM " + DB_NAME;
+    private static final String SELECT_SELECTED_DATA = "SELECT * FROM " + DB_NAME + " WHERE " + COLUMN_FLAG + " = 'true'";
 
     public static String getCreateDb() {
         return CREATE_DB_MODULES;
@@ -54,5 +49,9 @@ public class ModulesQuery {
         return SELECT_ALL_DATA;
     }
 
+    public static String getSelectSelectedData() {
+        return SELECT_SELECTED_DATA;
+    }
 
+    ;
 }

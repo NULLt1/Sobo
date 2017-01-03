@@ -23,21 +23,7 @@ public class Tab3 extends Fragment {
         View rootView = inflater.inflate(R.layout.tab3, container, false);
 
         fillListView(rootView);
-        int position = (Integer) getView().getTag();
-        Switch mySwitch = (Switch) getView().findViewWithTag(position);
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
-                    //TODO: Switch Funktion einbauen
-                    Log.d("Schalter", "betätigt");
-                } else {
-
-                }
-            }
-        });
         return rootView;
     }
 
@@ -45,12 +31,12 @@ public class Tab3 extends Fragment {
         dataSourceModules = new DBHelperDataSourceModules(getActivity());
         dataSourceModules.open();
         ListView listViewModules = (ListView) view.findViewById(R.id.listViewModules);
-// Setup cursor adapter using cursor from last step
+
+        // Setup cursor adapter using cursor from last step
         ModulesCursorAdapterSwitch cursorAdapter = new ModulesCursorAdapterSwitch(getActivity(), dataSourceModules.getAllDataCursor());
-// Attach cursor adapter to the ListView
+
+        // Attach cursor adapter to the ListView
         listViewModules.setAdapter(cursorAdapter);
         dataSourceModules.close();
     }
-
-
 }
