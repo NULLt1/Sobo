@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.CompoundButton;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
@@ -17,13 +18,11 @@ public class DBHelperDataSourceModules {
     public DBHelperDataSourceModules(Context context) {
         Log.d(LOG_TAG, "<MODULES>Unsere DataSource erzeugt jetzt den dbHelper.<MODULES>");
         dbHelperModules = new DBHelperModules(context);
-
     }
 
     public void open() {
         Log.d(LOG_TAG, "<MODULES>Eine Referenz auf die Datenbank wird jetzt angefragt.<MODULES>");
         databaseModules = dbHelperModules.getWritableDatabase();
-
         Log.d(LOG_TAG, "<MODULES>Datenbank-Referenz erhalten. Pfad zur Datenbank: " + databaseModules.getPath() + "<MODULES>");
     }
 
@@ -51,17 +50,17 @@ public class DBHelperDataSourceModules {
     }
 
     //function changemodulstatus
-    public void changemodulstatus(String modul) {
-        //TODO: Fertig machen
-        databaseModules = dbHelperModules.getWritableDatabase();
-        // databaseModules.update(ModulesQuery.getDbName(), null, );
-        dbHelperModules.close();
+    public void changemodulstatus(String modul, boolean flag) {
+        Log.d("MODUL", modul);
+        Log.d("FLAG", String.valueOf(flag));
+        databaseModules.execSQL("UPDATE " + ModulesQuery.getDbName() + " SET " + ModulesQuery.getColumnFlag() + "='" + flag + "' WHERE " + ModulesQuery.getColumnName() + "='" + modul + "'");
     }
 
     public Cursor getAllDataCursor() {
         Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(), null);
         return cursor;
     }
+
     public Cursor getSelectedDataCursor() {
         Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectSelectedData(), null);
         return cursor;

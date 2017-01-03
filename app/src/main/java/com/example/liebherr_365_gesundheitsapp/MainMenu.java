@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import Database.DBHelperDataSourceData;
 import Database.DBHelperDataSourceModules;
+
 //s
 public class MainMenu extends AppCompatActivity {
 
@@ -59,22 +60,14 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         db = new DBHelperDataSourceModules(this);
         db.open();
-        db.insertdefaultmodules("Mensa", "ModulWeight", true);
-        db.insertdefaultmodules("Gewicht", "ModulWeight", false);
+        //function to fill database if empty
+
+
         db.close();
 
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-        //TODO: BITTE DIE FUNKTION ZUR EINGABE DER MODULE TESTEN!
-
-        /* Hier ist die Function insertdefaultmodules für die mensa und das ModulWeight ;-) */
-
-
-
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
-        //----------------------------------------------------------------
+        //db.deletedb();
+        //db.insertdefaultmodules("Mensa", "ModulMensa", true);
+        //db.insertdefaultmodules("Gewicht", "ModulWeight", false);
 
 
         super.onCreate(savedInstanceState);

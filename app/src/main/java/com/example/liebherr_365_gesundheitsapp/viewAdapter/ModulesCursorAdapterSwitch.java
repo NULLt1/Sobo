@@ -17,13 +17,13 @@ import com.example.liebherr_365_gesundheitsapp.R;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import Database.DBHelperDataSourceModules;
 import Database.ModulesQuery;
 
-/**
- * Created by Jan on 18.12.2016.
- */
-
 public class ModulesCursorAdapterSwitch extends CursorAdapter {
+    private DBHelperDataSourceModules db;
+
+
     public ModulesCursorAdapterSwitch(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
@@ -38,9 +38,9 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
     // The bindView method is used to bind all data to a given view
     // such as setting the text on a TextView.
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        
-        int position=(Integer) view.getTag();
+    public void bindView(View view, final Context context, Cursor cursor) {
+
+        int position = (Integer) view.getTag();
 
         Log.d("position", String.valueOf(position));
         // Find fields to populate in inflated template
@@ -50,28 +50,40 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
         // Extract properties from cursor
         final String modulName = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnName()));
         String modulFlag = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnFlag()));
-        
+
         if (modulFlag.equals("true")) {
             switchModuleStatus.setChecked(true);
-        }
-        else
-        {
+        } else {
             switchModuleStatus.setChecked(false);
         }
 
-        switchModuleStatus.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
+        switchModuleStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
-                if (isChecked){
-                    Log.d("***CHECK CHANGED***", modulName);
+                // >>>> turn modul on <<<<
+                if (isChecked) {
+                    db = new DBHelperDataSourceModules(context);
+                    db.open();
+                    //call function changemodulstatus
+                    db.changemodulstatus(modulName, true);
+                    db.close();
+                }
+                // >>>> tunr modul off <<<<
+                else {
+                    db = new DBHelperDataSourceModules(context);
+                    db.open();
+                    //call function changemodulstatus
+                    db.changemodulstatus(modulName, false);
+                    db.close();
                 }
             }
-        }) ;
+        });
 
         // Populate fields with extracted properties
         textViewModuleName.setText(modulName);
         //switchModuleStatus.setTag(cursor.getPosition());
     }
+
     @Override
     public View getView(int position, View convertview, ViewGroup arg2) {
         if (convertview == null) {

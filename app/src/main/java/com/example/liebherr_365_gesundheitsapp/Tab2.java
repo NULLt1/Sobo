@@ -31,9 +31,9 @@ public class Tab2 extends Fragment {
         dataSourceModules = new DBHelperDataSourceModules(getActivity());
         dataSourceModules.open();
         ListView listViewModules = (ListView) view.findViewById(R.id.listViewModuleButtons);
-// Setup cursor adapter using cursor from last step
+        // Setup cursor adapter using cursor from last step
         ModulesCursorAdapterButtons cursorAdapter = new ModulesCursorAdapterButtons(getActivity(), dataSourceModules.getSelectedDataCursor());
-// Attach cursor adapter to the ListView
+        // Attach cursor adapter to the ListView
         listViewModules.setAdapter(cursorAdapter);
         dataSourceModules.close();
     }
