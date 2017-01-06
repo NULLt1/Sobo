@@ -1,6 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
-import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -11,11 +11,10 @@ import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
 
+import com.example.liebherr_365_gesundheitsapp.MainMenu;
 import com.example.liebherr_365_gesundheitsapp.R;
-
-import java.util.List;
-import java.util.zip.Inflater;
 
 import Database.DBHelperDataSourceModules;
 import Database.ModulesQuery;
@@ -38,7 +37,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
     // The bindView method is used to bind all data to a given view
     // such as setting the text on a TextView.
     @Override
-    public void bindView(View view, final Context context, Cursor cursor) {
+    public void bindView(final View view, final Context context, Cursor cursor) {
 
         int position = (Integer) view.getTag();
 
@@ -68,7 +67,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
                     db.changemodulstatus(modulName, true);
                     db.close();
                 }
-                // >>>> tunr modul off <<<<
+                // >>>> turn modul off <<<<
                 else {
                     db = new DBHelperDataSourceModules(context);
                     db.open();

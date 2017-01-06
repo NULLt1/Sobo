@@ -14,12 +14,11 @@ public class DBHelperDataSourceData {
     private static final String LOG_TAG = DBHelperDataSourceData.class.getSimpleName();
 
     private SQLiteDatabase databaseData;
-    private DBHelperModules dbHelperData;
+    private DBHelperData dbHelperData;
 
     public DBHelperDataSourceData(Context context) {
         Log.d(LOG_TAG, "<DATA>Unsere DataSource erzeugt jetzt den dbHelper.<DATA>");
-        dbHelperData = new DBHelperModules(context);
-
+        dbHelperData = new DBHelperData(context);
     }
 
     public void open() {
@@ -34,9 +33,9 @@ public class DBHelperDataSourceData {
     }
 
     public void deletedb() {
-        databaseData = dbHelperData.getWritableDatabase();
-        databaseData.delete(ModulesQuery.getDbName(), null, null);
-        dbHelperData.close();
+        databaseData.delete(DataQuery.getDbName(), null, null);
+        //databaseData.execSQL("DROP TABLE IF EXISTS " + DataQuery.getDbName());
+        Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
     //function insert data into database
@@ -60,7 +59,7 @@ public class DBHelperDataSourceData {
         values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
         values.put(DataQuery.getColumnType(), data.getType());
 
-        databaseData.replace(ModulesQuery.getDbName(), null, values);
+        databaseData.replace(DataQuery.getDbName(), null, values);
     }
 
     //function cursorToWeightdata
@@ -72,12 +71,17 @@ public class DBHelperDataSourceData {
         int idWeight = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
         int idType = cursor.getColumnIndex(DataQuery.getColumnType());
 
+        Log.d("idModul", String.valueOf(idModul));
+        Log.d("idDate", String.valueOf(idDate));
+        Log.d("idWeight", String.valueOf(idWeight));
+        Log.d("idType", String.valueOf(idType));
+
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
         float physicalvalues = cursor.getFloat(idWeight);
-        String type = cursor.getString(idType);
+        //String type = cursor.getString(idType);
 
-        data = new Data(modul, date, physicalvalues, type);
+        data = new Data(modul, date, physicalvalues, "kg");
 
         return data;
     }
@@ -126,34 +130,30 @@ public class DBHelperDataSourceData {
 
     //function datealreadysaved
     public boolean datealreadysaved(Data wd) {
+        boolean result = false;
         String date = wd.getDate();
 
-        //TODO: TESTEN
-
-        boolean result = false;
-
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " +
-                DataQuery.getDbName() + " WHERE " +
-                DataQuery.getColumnModul() + "='ModulWeight';";
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "=" + wd.getModul();
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
+
         int count = databaseweightresult.getCount();
+
         if (count == 0) {
             result = false;
         } else {
             databaseweightresult.moveToFirst();
-            String databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
-            if (date.equals(databasedate)) {
+            int iddate = databaseweightresult.getColumnIndex(DataQuery.getColumnDate());
+            String datefound = databaseweightresult.getString(iddate);
+            if (date.equals(datefound)) {
                 result = true;
             }
-            Log.d("TEST", String.valueOf(count));
             while (databaseweightresult.moveToNext()) {
-                databasedate = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
-                if (date.equals(databasedate)) {
+                datefound = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
+                if (date.equals(datefound)) {
                     result = true;
                 }
             }
         }
-        databaseweightresult.close();
         return result;
     }
 

@@ -33,6 +33,7 @@ public class DBHelperDataSourceModules {
 
     public void deletedb() {
         databaseModules.delete(ModulesQuery.getDbName(), null, null);
+        Log.d(LOG_TAG, "<MODULES>Datenbank gelöscht<MODULES>");
     }
 
     //function add modul to database modules

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ModulesCursorAdapterButtons;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.ModulesCursorAdapterSwitch;
 
 import Database.DBHelperDataSourceModules;
 
