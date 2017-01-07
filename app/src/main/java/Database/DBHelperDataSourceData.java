@@ -38,7 +38,7 @@ public class DBHelperDataSourceData {
         Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
-    //function insert data into database
+    //function insertdata into database
     public void insertdata(Data data) {
         ContentValues values = new ContentValues();
 
@@ -50,16 +50,17 @@ public class DBHelperDataSourceData {
         databaseData.insert(DataQuery.getDbName(), null, values);
     }
 
-    //function update data in database
+    //function deletesingledata in database
+    public void deletesingledata(Data data) {
+        String date = "'" + data.getDate() + "'";
+        databaseData.delete(DataQuery.getDbName(), DataQuery.getColumnDate() + "=" + date, null);
+    }
+
+    //function updatedata in database
     public void updatedata(Data data) {
-        ContentValues values = new ContentValues();
-
-        values.put(DataQuery.getColumnModul(), data.getModul());
-        values.put(DataQuery.getColumnDate(), data.getDate());
-        values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
-        values.put(DataQuery.getColumnType(), data.getType());
-
-        databaseData.replace(DataQuery.getDbName(), null, values);
+        //call function deletedata
+        deletesingledata(data);
+        insertdata(data);
     }
 
     //function cursorToWeightdata
@@ -70,11 +71,6 @@ public class DBHelperDataSourceData {
         int idDate = cursor.getColumnIndex(DataQuery.getColumnDate());
         int idWeight = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
         int idType = cursor.getColumnIndex(DataQuery.getColumnType());
-
-        Log.d("idModul", String.valueOf(idModul));
-        Log.d("idDate", String.valueOf(idDate));
-        Log.d("idWeight", String.valueOf(idWeight));
-        Log.d("idType", String.valueOf(idType));
 
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
@@ -159,20 +155,18 @@ public class DBHelperDataSourceData {
 
     //function getLatestWeight
     public int getLatestEntry() {
-
-        //TODO -----> QUERY an neue Datenbank anpassen <----
-
-        String queryMaxDate = "(SELECT MAX(" + DataQuery.getColumnDate() + ") from " + ModulesQuery.getDbName() + ")";
+        String queryMaxDate = "(SELECT MAX(" + DataQuery.getColumnDate() + ") from " + DataQuery.getDbName() + ")";
         String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate;
 
         Cursor cursor = databaseData.query(DataQuery.getDbName(), DataQuery.getColumns(), queryWhere, null, null, null, null);
         cursor.moveToFirst();
-        int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
-        int lastWeight = cursor.getInt(WeightID);
+        if (cursor.getCount() == 0) {
+            return 0;
+        } else {
+            int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+            int lastWeight = cursor.getInt(WeightID);
 
-        return lastWeight;
-
+            return lastWeight;
+        }
     }
-
-
 }

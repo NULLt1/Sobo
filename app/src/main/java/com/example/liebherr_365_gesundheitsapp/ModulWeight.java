@@ -53,13 +53,14 @@ public class ModulWeight extends AppCompatActivity {
         integer.setMaxValue(150);
 
         //get latestweight and set picker
-        /*
-        //TODO FIX function latestweight!
-        dataSource = new DBHelperDataSourceData(this);
-        dataSource.open();
-        integer.setValue(dataSource.getLatestWeight());
-        dataSource.close();
-        */
+        dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData.open();
+        int lastentry = dataSourceData.getLatestEntry();
+        if(lastentry!=0){
+            integer.setValue(lastentry);
+        }
+        dataSourceData.close();
+
 
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
@@ -211,19 +212,11 @@ public class ModulWeight extends AppCompatActivity {
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
 
-                /*
-                //Creatiing new intent, which navigates to Listviewtable on call
-                Intent intent = new Intent(ModulWeight.this, ListViewTable.class);
-                startActivity(intent);
-                */
-
                 //Creatiing new intent, which navigates to ViewGraph on call
-                //Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
-                //startActivity(intent);
-
+                Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
+                startActivity(intent);
             }
         }
-
     }
 
     //function showDatePickerDialog
@@ -250,15 +243,9 @@ public class ModulWeight extends AppCompatActivity {
                         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                         dataSourceData.close();
 
-                        /*
-                        //Creatiing new intent, which navigates to Listviewtable on call
-                        Intent intent = new Intent(ModulWeight.this, ListViewTable.class);
-                        startActivity(intent);
-                        */
-
                         //Creatiing new intent, which navigates to ViewGraph on call
-                        //Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
+                        startActivity(intent);
 
                         dialog.dismiss();
                     }
