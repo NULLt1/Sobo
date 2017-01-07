@@ -52,8 +52,10 @@ public class DBHelperDataSourceData {
 
     //function deletesingledata in database
     public void deletesingledata(Data data) {
-        String date = "'" + data.getDate() + "'";
-        databaseData.delete(DataQuery.getDbName(), DataQuery.getColumnDate() + "=" + date, null);
+        String modul = data.getModul();
+        String date = data.getDate();
+        String[] values = new String[]{modul,date};
+        databaseData.delete(DataQuery.getDbName(),DataQuery.getColumnModul()+"=? and "+DataQuery.getColumnDate()+"=?",values);
     }
 
     //function updatedata in database
