@@ -33,7 +33,6 @@ public class ModulWeight extends AppCompatActivity {
         dataSourceData.open();
         dataSourceData.close();
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modul_weight);
 
