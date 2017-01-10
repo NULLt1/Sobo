@@ -31,7 +31,6 @@ public class ModulWeight extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
-
         dataSourceData.close();
 
 
