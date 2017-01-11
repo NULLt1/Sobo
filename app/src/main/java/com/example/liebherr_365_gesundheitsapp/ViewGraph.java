@@ -1,9 +1,12 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -35,6 +38,17 @@ public class ViewGraph extends AppCompatActivity {
         databaseData.open();
         showAllListEntries();
         databaseData.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //function showAllListEntries

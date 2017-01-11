@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,11 +56,12 @@ public class ModulWeight extends AppCompatActivity {
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
         int lastentry = dataSourceData.getLatestEntry();
-        if(lastentry!=0){
+        if (lastentry != 0) {
             integer.setValue(lastentry);
         }
         dataSourceData.close();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
@@ -120,6 +123,7 @@ public class ModulWeight extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////*/
     }
 
+
     public void deleteweightdb(View view) {
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
@@ -141,9 +145,11 @@ public class ModulWeight extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
             default:
-                return
-                        super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
     }
 
