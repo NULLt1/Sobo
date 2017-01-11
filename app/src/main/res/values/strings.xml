@@ -6,6 +6,9 @@
     <string name="komma">,</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="plus">+</string>
+    <string name="diagramm">Diagramm</string>
+
     <!-- Strings Modul Name -->
     <string name="namemensa">Mensa</string>
     <string name="nameweight">Gewicht</string>

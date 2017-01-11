@@ -21,7 +21,7 @@ public class DatePickerFragment extends DialogFragment
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
 
-        String buttonText = (String) ((TextView) getActivity().findViewById(R.id.buttondate)).getText();
+        String buttonText = (String) ((TextView) getActivity().findViewById(R.id.plus)).getText();
         Log.d("buttonText", buttonText);
 
         //convert datestrings to int
@@ -54,6 +54,6 @@ public class DatePickerFragment extends DialogFragment
         } else {
             monthstring = String.valueOf(month);
         }
-        ((TextView) getActivity().findViewById(R.id.buttondate)).setText(daystring + "." + monthstring + "." + year);
+        ((TextView) getActivity().findViewById(R.id.plus)).setText(daystring + "." + monthstring + "." + year);
     }
 }

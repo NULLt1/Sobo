@@ -7,9 +7,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -35,9 +39,11 @@ public class ModulWeight extends AppCompatActivity {
         dataSourceData.open();
         dataSourceData.close();
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modul_weight);
 
+        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Set date Button with current date
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
@@ -60,8 +66,12 @@ public class ModulWeight extends AppCompatActivity {
             integer.setValue(lastentry);
         }
         dataSourceData.close();
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+        // set up navigation enabled
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
@@ -75,6 +85,8 @@ public class ModulWeight extends AppCompatActivity {
 
         //Set Text Weightdifference
         Button buttonWeightDifference = (Button) findViewById(R.id.buttonWeightDifference);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 
         //TODO FIX
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -153,14 +165,24 @@ public class ModulWeight extends AppCompatActivity {
         }
     }
 
+    //function saveweight onklick @+id/viewgraph
+    public void viewgraph(View view) {
+        //Creatiing new intent, which navigates to ViewGraph on call
+        Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
+        startActivity(intent);
+    }
 
     //function saveweight onklick @+id/saveButton
     public void saveweight(View view) {
         SavedSharedPrefrences.setSharedPreferences(this);
 
+
+        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         //get date from buttondate
         Button button = (Button) findViewById(R.id.buttondate);
         String buttonText = (String) button.getText();
+
 
         //convert datestrings to int
         int dayinteger = Integer.parseInt(buttonText.substring(0, 2));
@@ -221,6 +243,7 @@ public class ModulWeight extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     }
 
     //function showDatePickerDialog
