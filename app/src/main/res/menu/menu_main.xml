@@ -7,4 +7,10 @@
         android:orderInCategory="100"
         android:title="Einstellungen"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_mail"
+        android:icon="@mipmap/mail1"
+        android:title="Erfassungsbogen"
+        app:showAsAction="always" />
+
 </menu>
