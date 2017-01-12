@@ -36,6 +36,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     }
 
     @Override
+    protected void OnCreate(Bundle savedInstanceState) {
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);

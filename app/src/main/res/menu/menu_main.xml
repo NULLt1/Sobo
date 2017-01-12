@@ -8,7 +8,7 @@
         android:title="Einstellungen"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_mail"
+        android:id="@+id/recording"
         android:icon="@mipmap/mail1"
         android:title="Erfassungsbogen"
         app:showAsAction="always" />
