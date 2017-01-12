@@ -8,19 +8,34 @@
     <NumberPicker
         android:id="@+id/integer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:gravity="left|center"
+        android:text="@string/komma"
+        android:textSize="18sp" />
 
     <NumberPicker
         android:id="@+id/afterkomma"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="180dp"
+        android:id="@+id/textView2"
+        android:layout_width="25dp"
         android:layout_height="match_parent"
-        android:id="@+id/textView2" />
+        android:gravity="left|center"
+        android:text="@string/kg"
+        android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:onClick="save"
+        android:text="@string/speichern" />
 </LinearLayout>

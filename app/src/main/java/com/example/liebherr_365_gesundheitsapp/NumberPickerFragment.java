@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -23,12 +24,19 @@ public class NumberPickerFragment extends DialogFragment {
     int day;
     int month;
     int year;
+    int intergervalue;
+    int afterkommavalue;
 
+    public NumberPickerFragment() {
+
+    }
+
+    //TODO: getArguments() !?!??!
     public NumberPickerFragment(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
-        Log.d("~~~~~~~~~~~~","~~~~~~~~~~");
+        Log.d("~~~~~~~~~~~~", "~~~~~~~~~~");
     }
 
     @Override
@@ -70,6 +78,23 @@ public class NumberPickerFragment extends DialogFragment {
 
         // inform the dialog it has a custom View
         builder.setView(view);
+
+        // setOnClickListener on Button save
+        Button button = (Button) view.findViewById(R.id.save);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //TODO: WERTE SPEICHERN -> CHANGELISTENER AUF DEN NUMBERPICKER
+                Log.d("SAVED", "SAVED");
+                Log.d("SAVED", String.valueOf(day));
+                Log.d("SAVED", String.valueOf(month));
+                Log.d("SAVED", String.valueOf(year));
+
+
+            }
+        });
+
         return view;
     }
 }
