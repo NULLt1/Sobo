@@ -25,9 +25,9 @@ public class DatePickerFragment extends DialogFragment
         Log.d("buttonText", buttonText);
 
         //convert datestrings to int
-        int day = Integer.parseInt(buttonText.substring(0, 2));
-        int month = Integer.parseInt(buttonText.substring(3, 5)) - 1;
-        int year = Integer.parseInt(buttonText.substring(6));
+        int day = Integer.parseInt(actualdate.substring(0, 2));
+        int month = Integer.parseInt(actualdate.substring(3, 5)) - 1;
+        int year = Integer.parseInt(actualdate.substring(6));
 
         Log.d("dayfromdialog", String.valueOf(day));
         Log.d("monthfromdialog", String.valueOf(month));

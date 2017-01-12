@@ -172,10 +172,12 @@ public class ModulWeight extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //function saveweight onklick @+id/saveButton
-    public void saveweight(View view) {
+    //function newweight onklick @+id/saveButton
+    public void newweight(View view) {
         SavedSharedPrefrences.setSharedPreferences(this);
 
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

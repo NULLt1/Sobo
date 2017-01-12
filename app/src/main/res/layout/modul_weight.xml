@@ -2,6 +2,7 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1">
@@ -14,13 +15,15 @@
         android:layout_marginTop="115dp"
         android:onClick="viewgraph"
         android:text="@string/diagramm"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:fontFamily="sans-serif" />
 
     <Button
         android:id="@+id/plus"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/viewgraph"
+        android:onClick="newweight"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_bg_round"
         android:drawableBottom="@drawable/ic_add_black_24dp"
