@@ -13,6 +13,7 @@ import java.util.Locale;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
+    int year, month, day;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,21 +40,22 @@ public class DatePickerFragment extends DialogFragment
 
     //function onDateSet
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // rewrite the buttondate
-        month += 1;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        DialogFragment newFragment = new NumberPickerFragment(day,month,year);
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
 
-        String daystring;
-        String monthstring;
-        if (day < 10) {
-            daystring = "0" + String.valueOf(day);
-        } else {
-            daystring = String.valueOf(day);
-        }
-        if (month < 10) {
-            monthstring = "0" + String.valueOf(month);
-        } else {
-            monthstring = String.valueOf(month);
-        }
-        ((TextView) getActivity().findViewById(R.id.plus)).setText(daystring + "." + monthstring + "." + year);
+    public int getDay() {
+        return day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
     }
 }
