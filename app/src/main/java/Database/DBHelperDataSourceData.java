@@ -54,8 +54,8 @@ public class DBHelperDataSourceData {
     public void deletesingledata(Data data) {
         String modul = data.getModul();
         String date = data.getDate();
-        String[] values = new String[]{modul,date};
-        databaseData.delete(DataQuery.getDbName(),DataQuery.getColumnModul()+"=? and "+DataQuery.getColumnDate()+"=?",values);
+        String[] values = new String[]{modul, date};
+        databaseData.delete(DataQuery.getDbName(), DataQuery.getColumnModul() + "=? and " + DataQuery.getColumnDate() + "=?", values);
     }
 
     //function updatedata in database
@@ -82,6 +82,11 @@ public class DBHelperDataSourceData {
         data = new Data(modul, date, physicalvalues, "kg");
 
         return data;
+    }
+
+    public Cursor getPreparedCursorForWeightList() {
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='ModulWeight' ORDER BY " + DataQuery.getColumnDate() + " DESC LIMIT 5";
+        return databaseData.rawQuery(query, null);
     }
 
     //function getAllDataasarray
