@@ -34,7 +34,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/plus"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/listview" />
 </RelativeLayout>
 
 

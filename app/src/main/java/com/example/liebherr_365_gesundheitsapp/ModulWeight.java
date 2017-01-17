@@ -14,13 +14,19 @@ import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.NumberPicker;
+
+import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -35,13 +41,18 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.modul_weight);
+
+        ListView weightlist = (ListView) findViewById(R.id.listview);
+
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
+//      CursorAdapterWeight adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
+//      weightlist.setAdapter(adapter);
         dataSourceData.close();
 
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.modul_weight);
+
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Set date Button with current date

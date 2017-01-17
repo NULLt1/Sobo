@@ -85,7 +85,7 @@ public class DBHelperDataSourceData {
     }
 
     public Cursor getPreparedCursorForWeightList() {
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='ModulWeight' ORDER BY " + DataQuery.getColumnDate() + " DESC LIMIT 5";
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='ModulWeight' ORDER BY " + DataQuery.getColumnId() + " DESC LIMIT 5";
         return databaseData.rawQuery(query, null);
     }
 

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import Database.DBHelperDataSourceData;
 import Database.DBHelperDataSourceModules;
+import Database.DataQuery;
 
 //s
 public class MainMenu extends AppCompatActivity {
@@ -59,6 +60,7 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("xx", DataQuery.getCreateDb());
         // fill database with defaultmodules
         db = new DBHelperDataSourceModules(this);
         db.open();
