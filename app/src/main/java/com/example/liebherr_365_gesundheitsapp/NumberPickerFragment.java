@@ -57,6 +57,22 @@ public class NumberPickerFragment extends DialogFragment {
         NumberPicker integer = (NumberPicker) view.findViewById(R.id.integer);
         NumberPicker afterkomma = (NumberPicker) view.findViewById(R.id.afterkomma);
 
+        // setOnValueChangedListener on NumberPucker integer
+        integer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+                intergervalue = newValue;
+            }
+        });
+
+        // setOnValueChangedListener on NumberPucker integer
+        afterkomma.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+                afterkommavalue = newValue;
+            }
+        });
+
         //Set interger Value 40-100
         integer.setMinValue(40);
         integer.setMaxValue(150);
@@ -90,8 +106,8 @@ public class NumberPickerFragment extends DialogFragment {
                 Log.d("SAVED", String.valueOf(day));
                 Log.d("SAVED", String.valueOf(month));
                 Log.d("SAVED", String.valueOf(year));
-
-
+                Log.d("SAVED", String.valueOf(intergervalue));
+                Log.d("SAVED", String.valueOf(afterkommavalue));
             }
         });
 
