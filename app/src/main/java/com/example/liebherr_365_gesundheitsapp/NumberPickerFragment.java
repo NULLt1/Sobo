@@ -83,6 +83,7 @@ public class NumberPickerFragment extends DialogFragment {
         int lastentry = dataSourceData.getLatestEntry();
         if (lastentry != 0) {
             integer.setValue(lastentry);
+            intergervalue = lastentry;
         }
         dataSourceData.close();
         //Set afterkomma Value 0-9
