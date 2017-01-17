@@ -38,5 +38,8 @@ public class Tab3 extends Fragment {
         // Attach cursor adapter to the ListView
         listViewModules.setAdapter(cursorAdapter);
         dataSourceModules.close();
+
+
     }
+
 }

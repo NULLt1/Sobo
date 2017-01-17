@@ -18,11 +18,12 @@ public class DBHelperDataSourceModules {
     public DBHelperDataSourceModules(Context context) {
         Log.d(LOG_TAG, "<MODULES>Unsere DataSource erzeugt jetzt den dbHelper.<MODULES>");
         dbHelperModules = new DBHelperModules(context);
+        databaseModules = dbHelperModules.getReadableDatabase();
     }
 
     public void open() {
         Log.d(LOG_TAG, "<MODULES>Eine Referenz auf die Datenbank wird jetzt angefragt.<MODULES>");
-        databaseModules = dbHelperModules.getWritableDatabase();
+
         Log.d(LOG_TAG, "<MODULES>Datenbank-Referenz erhalten. Pfad zur Datenbank: " + databaseModules.getPath() + "<MODULES>");
     }
 

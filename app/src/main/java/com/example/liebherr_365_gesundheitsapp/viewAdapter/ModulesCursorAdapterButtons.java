@@ -57,7 +57,5 @@ public class ModulesCursorAdapterButtons  extends CursorAdapter{
             e.printStackTrace();
         }
         button.setText(modulName);
-
-
     }
 }
