@@ -3,6 +3,7 @@ package com.example.liebherr_365_gesundheitsapp;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,12 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import Database.DBHelperDataSourceData;
+import Database.Data;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by mpadmin on 12.01.2017.
@@ -24,7 +31,7 @@ public class NumberPickerFragment extends DialogFragment {
     int day;
     int month;
     int year;
-    int intergervalue;
+    int integervalue;
     int afterkommavalue;
 
     public NumberPickerFragment() {
@@ -44,12 +51,16 @@ public class NumberPickerFragment extends DialogFragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
+
         // get context
         context = getActivity().getApplicationContext();
+
         // make dialog object
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         // get the layout inflater
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         // inflate our custom layout for the dialog to a View
         View view = li.inflate(R.layout.numberpicker, null);
 
@@ -61,7 +72,7 @@ public class NumberPickerFragment extends DialogFragment {
         integer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
-                intergervalue = newValue;
+                integervalue = newValue;
             }
         });
 
@@ -83,7 +94,9 @@ public class NumberPickerFragment extends DialogFragment {
         int lastentry = dataSourceData.getLatestEntry();
         if (lastentry != 0) {
             integer.setValue(lastentry);
-            intergervalue = lastentry;
+            integervalue = lastentry;
+        } else {
+            integervalue = integer.getValue();
         }
         dataSourceData.close();
         //Set afterkomma Value 0-9
@@ -101,17 +114,56 @@ public class NumberPickerFragment extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // exclude years smaller then 2016
+                if (year < 2016) {
+                    //TODO REALISIEREN
+                } else {
+                    //TODO ABFRAGE DATEALREADYEXISTS
+                    year = year - 1900;
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String formateddate = sdf.format(new Date(year, month, day));
 
-                //TODO: WERTE SPEICHERN -> CHANGELISTENER AUF DEN NUMBERPICKER
-                Log.d("SAVED", "SAVED");
-                Log.d("SAVED", String.valueOf(day));
-                Log.d("SAVED", String.valueOf(month));
-                Log.d("SAVED", String.valueOf(year));
-                Log.d("SAVED", String.valueOf(intergervalue));
-                Log.d("SAVED", String.valueOf(afterkommavalue));
+                    // call function integertofloat
+                    float weight = integertofloat(integervalue, afterkommavalue);
+
+                    //type declaration
+                    String type = "kg";
+
+                    // new weightdateobject with values
+                    String modulweight = "ModulWeight";
+                    Data wd = new Data(modulweight, formateddate, weight, type);
+
+                    // new DBHelperDataSource
+                    dataSourceData = new DBHelperDataSourceData(context);
+                    dataSourceData.open();
+
+                    // call function datealreadysaved and react on result
+                    //boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
+                    //Log.d("result", String.valueOf(datealreadyexisting));
+
+                    Log.d("SAVED", String.valueOf(modulweight));
+                    Log.d("SAVED", String.valueOf(formateddate));
+                    Log.d("SAVED", String.valueOf(weight));
+                    Log.d("SAVED", String.valueOf(type));
+
+                    dataSourceData.insertdata(wd);
+
+                    Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                    dataSourceData.close();
+
+                    //close NumberPickerFragment
+                    getDialog().dismiss();
+                }
             }
         });
-
         return view;
+    }
+
+    //function integer values -> float integervalue,afterkommavalue
+    public float integertofloat(int integervalue, int afterkommavalue) {
+        float result = 0;
+        result += (float) integervalue;
+        result += ((float) afterkommavalue / 10);
+        return result;
     }
 }

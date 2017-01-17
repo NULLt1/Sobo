@@ -1,8 +1,8 @@
 package Database;
 
 public class DataQuery {
-    private static final String DB_NAME = "DATA";
-    private static final int DB_VERSION = 4;
+    private static final String DB_NAME = "DATA4";
+    private static final int DB_VERSION = 5;
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_MODUL = "MODUL";
     private static final String COLUMN_DATE = "DATE";

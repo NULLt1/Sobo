@@ -33,8 +33,8 @@ public class DBHelperDataSourceData {
     }
 
     public void deletedb() {
-        databaseData.delete(DataQuery.getDbName(), null, null);
-        //databaseData.execSQL("DROP TABLE IF EXISTS " + DataQuery.getDbName());
+        //databaseData.delete(DataQuery.getDbName(), null, null);
+        databaseData.execSQL("DROP TABLE IF EXISTS " + DataQuery.getDbName());
         Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
@@ -85,7 +85,7 @@ public class DBHelperDataSourceData {
     }
 
     public Cursor getPreparedCursorForWeightList() {
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='ModulWeight' ORDER BY " + DataQuery.getColumnId() + " DESC LIMIT 5";
+        String query = "SELECT * FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='ModulWeight' ORDER BY " + DataQuery.getColumnId() + " DESC LIMIT 5";
         return databaseData.rawQuery(query, null);
     }
 

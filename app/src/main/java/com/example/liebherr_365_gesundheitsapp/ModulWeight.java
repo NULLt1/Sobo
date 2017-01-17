@@ -47,8 +47,9 @@ public class ModulWeight extends AppCompatActivity {
 
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
-//      CursorAdapterWeight adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
-//      weightlist.setAdapter(adapter);
+        //dataSourceData.deletedb();
+        CursorAdapterWeight adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
+        weightlist.setAdapter(adapter);
         dataSourceData.close();
 
         super.onCreate(savedInstanceState);
