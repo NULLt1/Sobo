@@ -136,7 +136,7 @@ public class DBHelperDataSourceData {
         boolean result = false;
         String date = wd.getDate();
 
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "=" + wd.getModul();
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + wd.getModul()+"'";
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
 
         int count = databaseweightresult.getCount();

@@ -30,8 +30,6 @@ public class NumberPickerFragment extends DialogFragment {
     int integervalue;
     int afterkommavalue;
 
-    //TODO: getArguments() !?!??!
-
     @Override
     public View onCreateView(
             LayoutInflater inflater,
@@ -114,11 +112,10 @@ public class NumberPickerFragment extends DialogFragment {
                     // create new WrongDatumFragment
                     DialogFragment WrongDatumFragment = new WrongDatumFragment();
 
-                    // open NumberPickerFragment
+                    // open WrongDatumFragment
                     WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
                     getDialog().dismiss();
                 } else {
-                    //TODO ABFRAGE DATEALREADYEXISTS
                     year = year - 1900;
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String formateddate = sdf.format(new Date(year, month, day));
@@ -138,13 +135,15 @@ public class NumberPickerFragment extends DialogFragment {
                     dataSourceData.open();
 
                     // call function datealreadysaved and react on result
-                    //boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
-                    //Log.d("result", String.valueOf(datealreadyexisting));
+                    boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
+                    if (datealreadyexisting){
+                        // create new ChangeDataFragment
+                        DialogFragment ChangeDataFragment = new ChangeDataFragment();
 
-                    Log.d("SAVED", String.valueOf(modulweight));
-                    Log.d("SAVED", String.valueOf(formateddate));
-                    Log.d("SAVED", String.valueOf(weight));
-                    Log.d("SAVED", String.valueOf(type));
+                        // open ChangeDataFragment
+                        ChangeDataFragment.show(getFragmentManager(), "changeData");
+                        getDialog().dismiss();
+                    }
 
                     dataSourceData.insertdata(wd);
 
