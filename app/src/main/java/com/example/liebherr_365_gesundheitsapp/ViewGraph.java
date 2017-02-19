@@ -53,19 +53,25 @@ public class ViewGraph extends AppCompatActivity {
 
     //function showAllListEntries
     private void showAllListEntries() {
+        // Intialize Linechart
         LineChart chart = (LineChart) findViewById(R.id.chart);
+
+        // setScaleEnabled -> false
         chart.setScaleEnabled(false);
 
+        // new DayAxisValueFormatter
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
 
+        // style xAxis
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(7);
-        xAxis.setTextSize(12f);
+        xAxis.setTextSize(12f); // set the text size
         xAxis.setValueFormatter(xAxisFormatter);
 
+        //style yAxis
         YAxis yAxisleft = chart.getAxisLeft();
         yAxisleft.setTextSize(12f); // set the text size
         //yAxisleft.setAxisMinimum(40f); // start at 40

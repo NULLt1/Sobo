@@ -13,12 +13,11 @@ import java.util.Locale;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
-    int year, month, day;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
 
+        // Use the current date as the default date in the picker
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
 
@@ -40,22 +39,19 @@ public class DatePickerFragment extends DialogFragment
 
     //function onDateSet
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        DialogFragment newFragment = new NumberPickerFragment(day,month,year);
-        newFragment.show(getFragmentManager(), "datePicker");
-    }
+        // create new NumberPickerFragment
+        DialogFragment NumberPickerFragment = new NumberPickerFragment();
 
-    public int getDay() {
-        return day;
-    }
+        // create bundle and fill with values
+        Bundle bundle = new Bundle();
+        bundle.putString("day", String.valueOf(day));
+        bundle.putString("month", String.valueOf(month));
+        bundle.putString("year", String.valueOf(year));
 
-    public int getMonth() {
-        return month;
-    }
+        // setArguments to NumberPickerFragment
+        NumberPickerFragment.setArguments(bundle);
 
-    public int getYear() {
-        return year;
+        // open NumberPickerFragment
+        NumberPickerFragment.show(getFragmentManager(), "datePicker");
     }
 }
