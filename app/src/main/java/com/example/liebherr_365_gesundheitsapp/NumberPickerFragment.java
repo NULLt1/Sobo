@@ -30,10 +30,6 @@ public class NumberPickerFragment extends DialogFragment {
     int integervalue;
     int afterkommavalue;
 
-    public NumberPickerFragment() {
-
-    }
-
     //TODO: getArguments() !?!??!
 
     @Override
@@ -41,6 +37,15 @@ public class NumberPickerFragment extends DialogFragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
+
+        // get values from bundle
+        Bundle bundle = this.getArguments();
+        day = bundle.getInt("day", 0);
+        month = bundle.getInt("month", 0);
+        year = bundle.getInt("year", 0);
+        Log.d("day", String.valueOf(day));
+        Log.d("month", String.valueOf(month));
+        Log.d("year", String.valueOf(year));
 
         // get context
         context = getActivity().getApplicationContext();
@@ -106,7 +111,12 @@ public class NumberPickerFragment extends DialogFragment {
             public void onClick(View view) {
                 // exclude years smaller then 2016
                 if (year < 2016) {
-                    //TODO REALISIEREN
+                    // create new WrongDatumFragment
+                    DialogFragment WrongDatumFragment = new WrongDatumFragment();
+
+                    // open NumberPickerFragment
+                    WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
+                    getDialog().dismiss();
                 } else {
                     //TODO ABFRAGE DATEALREADYEXISTS
                     year = year - 1900;

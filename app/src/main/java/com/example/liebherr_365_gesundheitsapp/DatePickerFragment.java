@@ -29,10 +29,6 @@ public class DatePickerFragment extends DialogFragment
         int month = Integer.parseInt(actualdate.substring(3, 5)) - 1;
         int year = Integer.parseInt(actualdate.substring(6));
 
-        Log.d("dayfromdialog", String.valueOf(day));
-        Log.d("monthfromdialog", String.valueOf(month));
-        Log.d("yearfromdialog", String.valueOf(year));
-
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
@@ -44,14 +40,14 @@ public class DatePickerFragment extends DialogFragment
 
         // create bundle and fill with values
         Bundle bundle = new Bundle();
-        bundle.putString("day", String.valueOf(day));
-        bundle.putString("month", String.valueOf(month));
-        bundle.putString("year", String.valueOf(year));
+        bundle.putInt("day", day);
+        bundle.putInt("month", month);
+        bundle.putInt("year", year);
 
         // setArguments to NumberPickerFragment
         NumberPickerFragment.setArguments(bundle);
 
         // open NumberPickerFragment
-        NumberPickerFragment.show(getFragmentManager(), "datePicker");
+        NumberPickerFragment.show(getFragmentManager(), "numberPicker");
     }
 }

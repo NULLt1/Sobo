@@ -192,13 +192,6 @@ public class ModulWeight extends AppCompatActivity {
         newFragment.show(getFragmentManager(), "datePicker");
 
         DatePickerFragment fragment = new DatePickerFragment();
-        int day = fragment.getDay();
-        int month = fragment.getMonth();
-        int year = fragment.getYear();
-
-        Log.d("day", String.valueOf(day));
-        Log.d("month", String.valueOf(month));
-        Log.d("year", String.valueOf(year));
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         //get date from buttondate
