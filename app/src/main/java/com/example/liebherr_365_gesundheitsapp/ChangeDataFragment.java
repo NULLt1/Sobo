@@ -25,6 +25,7 @@ public class ChangeDataFragment extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //TODO: GEWICHT ÜBERSCHREIBEN
+
                         //action
                         Log.d("Ausgbabe", "Ändern");
                         //call function updatedata
