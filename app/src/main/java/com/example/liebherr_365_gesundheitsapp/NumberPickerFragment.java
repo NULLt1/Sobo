@@ -41,9 +41,6 @@ public class NumberPickerFragment extends DialogFragment {
         day = bundle.getInt("day", 0);
         month = bundle.getInt("month", 0);
         year = bundle.getInt("year", 0);
-        Log.d("day", String.valueOf(day));
-        Log.d("month", String.valueOf(month));
-        Log.d("year", String.valueOf(year));
 
         // get context
         context = getActivity().getApplicationContext();
@@ -116,6 +113,7 @@ public class NumberPickerFragment extends DialogFragment {
                     WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
                     getDialog().dismiss();
                 } else {
+                    // formate date
                     year = year - 1900;
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String formateddate = sdf.format(new Date(year, month, day));
@@ -123,11 +121,13 @@ public class NumberPickerFragment extends DialogFragment {
                     // call function integertofloat
                     float weight = integertofloat(integervalue, afterkommavalue);
 
-                    //type declaration
+                    // type declaration
                     String type = "kg";
 
-                    // new weightdateobject with values
+                    // modul declaration
                     String modulweight = "ModulWeight";
+
+                    // new weightdateobject with values
                     Data wd = new Data(modulweight, formateddate, weight, type);
 
                     // new DBHelperDataSource
@@ -136,9 +136,21 @@ public class NumberPickerFragment extends DialogFragment {
 
                     // call function datealreadysaved and react on result
                     boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
-                    if (datealreadyexisting){
+                    if (datealreadyexisting) {
                         // create new ChangeDataFragment
                         DialogFragment ChangeDataFragment = new ChangeDataFragment();
+
+                        // create bundle and fill with values
+                        Bundle bundle = new Bundle();
+                        bundle.putString("modul", modulweight);
+                        bundle.putInt("day", day);
+                        bundle.putInt("month", month);
+                        bundle.putInt("year", year);
+                        bundle.putFloat("weight", weight);
+                        bundle.putString("type", type);
+
+                        // setArguments to NumberPickerFragment
+                        ChangeDataFragment.setArguments(bundle);
 
                         // open ChangeDataFragment
                         ChangeDataFragment.show(getFragmentManager(), "changeData");
