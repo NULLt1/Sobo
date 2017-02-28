@@ -89,6 +89,7 @@ public class NumberPickerFragment extends DialogFragment {
             integervalue = integer.getValue();
         }
         dataSourceData.close();
+
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
@@ -104,67 +105,57 @@ public class NumberPickerFragment extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // exclude years smaller then 2016
-                if (year < 2016) {
-                    // create new WrongDatumFragment
-                    DialogFragment WrongDatumFragment = new WrongDatumFragment();
+                // formate date
+                year = year - 1900;
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String formateddate = sdf.format(new Date(year, month, day));
 
-                    // open WrongDatumFragment
-                    WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
-                    getDialog().dismiss();
-                } else {
-                    // formate date
-                    year = year - 1900;
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    String formateddate = sdf.format(new Date(year, month, day));
+                // call function integertofloat
+                float weight = integertofloat(integervalue, afterkommavalue);
 
-                    // call function integertofloat
-                    float weight = integertofloat(integervalue, afterkommavalue);
+                // type declaration
+                String type = "kg";
 
-                    // type declaration
-                    String type = "kg";
+                // modul declaration
+                String modulweight = "ModulWeight";
 
-                    // modul declaration
-                    String modulweight = "ModulWeight";
+                // new weightdateobject with values
+                Data wd = new Data(modulweight, formateddate, weight, type);
 
-                    // new weightdateobject with values
-                    Data wd = new Data(modulweight, formateddate, weight, type);
+                // new DBHelperDataSource
+                dataSourceData = new DBHelperDataSourceData(context);
+                dataSourceData.open();
 
-                    // new DBHelperDataSource
-                    dataSourceData = new DBHelperDataSourceData(context);
-                    dataSourceData.open();
+                // call function datealreadysaved and react on result
+                boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
+                if (datealreadyexisting) {
+                    // create new ChangeDataFragment
+                    DialogFragment ChangeDataFragment = new ChangeDataFragment();
 
-                    // call function datealreadysaved and react on result
-                    boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
-                    if (datealreadyexisting) {
-                        // create new ChangeDataFragment
-                        DialogFragment ChangeDataFragment = new ChangeDataFragment();
+                    // create bundle and fill with values
+                    Bundle bundle = new Bundle();
+                    bundle.putString("modul", modulweight);
+                    bundle.putInt("day", day);
+                    bundle.putInt("month", month);
+                    bundle.putInt("year", year);
+                    bundle.putFloat("weight", weight);
+                    bundle.putString("type", type);
 
-                        // create bundle and fill with values
-                        Bundle bundle = new Bundle();
-                        bundle.putString("modul", modulweight);
-                        bundle.putInt("day", day);
-                        bundle.putInt("month", month);
-                        bundle.putInt("year", year);
-                        bundle.putFloat("weight", weight);
-                        bundle.putString("type", type);
+                    // setArguments to NumberPickerFragment
+                    ChangeDataFragment.setArguments(bundle);
 
-                        // setArguments to NumberPickerFragment
-                        ChangeDataFragment.setArguments(bundle);
-
-                        // open ChangeDataFragment
-                        ChangeDataFragment.show(getFragmentManager(), "changeData");
-                        getDialog().dismiss();
-                    }
-
-                    dataSourceData.insertdata(wd);
-
-                    Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
-                    dataSourceData.close();
-
-                    //close NumberPickerFragment
+                    // open ChangeDataFragment
+                    ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
                 }
+
+                dataSourceData.insertdata(wd);
+
+                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                dataSourceData.close();
+
+                //close NumberPickerFragment
+                getDialog().dismiss();
             }
         });
         return view;

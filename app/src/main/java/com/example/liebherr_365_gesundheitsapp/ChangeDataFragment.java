@@ -14,10 +14,6 @@ import java.text.SimpleDateFormat;
 import Database.DBHelperDataSourceData;
 import Database.Data;
 
-/**
- * Created by mpadmin on 19.02.2017.
- */
-
 public class ChangeDataFragment extends DialogFragment {
     Context context;
     private DBHelperDataSourceData dataSourceData;
@@ -26,7 +22,7 @@ public class ChangeDataFragment extends DialogFragment {
         // get context
         context = getActivity().getApplicationContext();
 
-        // get values from bundle
+        // initialize bundle
         final Bundle bundle = this.getArguments();
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -36,6 +32,7 @@ public class ChangeDataFragment extends DialogFragment {
         alertDialogBuilder.setPositiveButton("Ändern",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // get values from bundle
                         String modulweight = bundle.getString("type");
                         int day = bundle.getInt("day", 0);
                         int month = bundle.getInt("month", 0);

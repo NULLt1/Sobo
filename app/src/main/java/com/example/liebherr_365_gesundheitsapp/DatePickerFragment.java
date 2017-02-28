@@ -35,19 +35,29 @@ public class DatePickerFragment extends DialogFragment
 
     //function onDateSet
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // create new NumberPickerFragment
-        DialogFragment NumberPickerFragment = new NumberPickerFragment();
+        // exclude years smaller then 2016
+        if (year < 2016) {
+            // create new WrongDatumFragment
+            DialogFragment WrongDatumFragment = new WrongDatumFragment();
 
-        // create bundle and fill with values
-        Bundle bundle = new Bundle();
-        bundle.putInt("day", day);
-        bundle.putInt("month", month);
-        bundle.putInt("year", year);
+            // open WrongDatumFragment
+            WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
+            getDialog().dismiss();
+        } else {
+            // create new NumberPickerFragment
+            DialogFragment NumberPickerFragment = new NumberPickerFragment();
 
-        // setArguments to NumberPickerFragment
-        NumberPickerFragment.setArguments(bundle);
+            // create bundle and fill with values
+            Bundle bundle = new Bundle();
+            bundle.putInt("day", day);
+            bundle.putInt("month", month);
+            bundle.putInt("year", year);
 
-        // open NumberPickerFragment
-        NumberPickerFragment.show(getFragmentManager(), "numberPicker");
+            // setArguments to NumberPickerFragment
+            NumberPickerFragment.setArguments(bundle);
+
+            // open NumberPickerFragment
+            NumberPickerFragment.show(getFragmentManager(), "numberPicker");
+        }
     }
 }
