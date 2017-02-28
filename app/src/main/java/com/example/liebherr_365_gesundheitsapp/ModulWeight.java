@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
@@ -41,6 +42,8 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SavedSharedPrefrences.setSharedPreferences(this);
+
         setContentView(R.layout.modul_weight);
 
         ListView weightlist = (ListView) findViewById(R.id.listview);
@@ -54,34 +57,17 @@ public class ModulWeight extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //Set date Button with current date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
-        String actualdate = dateFormat.format(new java.util.Date());
-        Button button = (Button) findViewById(R.id.buttondate);
-        button.setText(actualdate);
-
-        //Intialize integer and aftkomma as numberpicker to use functions
-        NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
-        NumberPicker afterkomma = (NumberPicker) findViewById(R.id.afterkomma);
-
-        //Set interger Value 40-100
-        integer.setMinValue(40);
-        integer.setMaxValue(150);
-
-        //get latestweight and set picker
-        dataSourceData = new DBHelperDataSourceData(this);
-        dataSourceData.open();
-        int lastentry = dataSourceData.getLatestEntry();
-        if (lastentry != 0) {
-            integer.setValue(lastentry);
-        }
-        dataSourceData.close();
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
         // set up navigation enabled
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        BmiCalculator.setRecBmi();
+
+        // set text weightgoal
+        float weightgoal = SavedSharedPrefrences.getWeightGoal();
+        String weightgoalstring = String.valueOf(weightgoal);
+        TextView text = (TextView) findViewById(R.id.weightgoal);
+        text.setText(weightgoalstring);
+
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -92,8 +78,7 @@ public class ModulWeight extends AppCompatActivity {
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
 
-        BmiCalculator.setRecBmi();
-        SavedSharedPrefrences.setSharedPreferences(this);
+
 
         //Set Text Weightdifference
         Button buttonWeightDifference = (Button) findViewById(R.id.buttonWeightDifference);
@@ -186,8 +171,6 @@ public class ModulWeight extends AppCompatActivity {
 
     //function newweight onklick @+id/saveButton
     public void newweight(View view) {
-        SavedSharedPrefrences.setSharedPreferences(this);
-
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
 

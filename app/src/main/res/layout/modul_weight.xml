@@ -34,12 +34,56 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30px"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="140dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="viewgraph"
         android:text="@string/diagramm"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toEndOf="@+id/viewgraph"
+        android:layout_toRightOf="@+id/viewgraph"
+        android:gravity="center"
+        android:text="kg\nZielgewicht" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewgraph"
+        android:layout_marginBottom="65dp"
+        android:layout_toLeftOf="@+id/viewgraph"
+        android:layout_toStartOf="@+id/viewgraph"
+        android:gravity="center"
+        android:text="kg\nStartgewicht" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_toLeftOf="@+id/viewgraph"
+        android:layout_toStartOf="@+id/viewgraph"
+        android:gravity="center"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/weightgoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_toRightOf="@+id/viewgraph"
+        android:gravity="center"
+        android:text="XXX" />
 </RelativeLayout>
 
 
