@@ -9,16 +9,16 @@ import android.preference.PreferenceManager;
  */
 
 public class SavedSharedPrefrences {
-    private static float weightgoal;
     private static int height;
+    private static float weightgoal;
     private static int age;
 
 
     public static void setSharedPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        height = Integer.parseInt(sharedPreferences.getString("height", "180"));
-        weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", "70"));
-        age = Integer.parseInt(sharedPreferences.getString("age", "18"));
+        height = Integer.parseInt(sharedPreferences.getString("height", String.valueOf(18)));
+        weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", String.valueOf(18)));
+        age = Integer.parseInt(sharedPreferences.getString("age", String.valueOf(18)));
     }
 
     public static int getHeight() {

@@ -33,7 +33,7 @@ public class ChangeDataFragment extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // get values from bundle
-                        String modulweight = bundle.getString("type");
+                        String modulweight = bundle.getString("modul");
                         int day = bundle.getInt("day", 0);
                         int month = bundle.getInt("month", 0);
                         int year = bundle.getInt("year", 0);
@@ -41,7 +41,6 @@ public class ChangeDataFragment extends DialogFragment {
                         String type = bundle.getString("type");
 
                         // formate date
-                        year = year - 1900;
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         String formateddate = sdf.format(new Date(year, month, day));
 

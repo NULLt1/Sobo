@@ -12,7 +12,7 @@
     <string name="diagramm">Diagramm</string>
     <string name="zielgewicht">kg\nZielgewicht</string>
     <string name="startgewicht">kg\nStartgewicht</string>
-    <string name="zero">0.0</string>
+    <string name="zero">-.-</string>
     <string name="seventyfive">75.0</string>
 
     <!-- Strings Modul Name -->

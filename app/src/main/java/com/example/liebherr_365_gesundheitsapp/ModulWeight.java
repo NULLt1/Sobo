@@ -50,6 +50,8 @@ public class ModulWeight extends AppCompatActivity {
 
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
+
+        // getFirstWeight
         float firstweight = dataSourceData.getFirstWeight();
 
         CursorAdapterWeight adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
@@ -76,30 +78,6 @@ public class ModulWeight extends AppCompatActivity {
             TextView textfirstweight = (TextView) findViewById(R.id.firstweight);
             textfirstweight.setText(firstweighstring);
         }
-
-
-
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        //Set afterkomma Value 0-9
-        afterkomma.setMinValue(0);
-        afterkomma.setMaxValue(9);
-
-        //wrap@ getMinValue() || getMaxValue()
-        integer.setWrapSelectorWheel(false);
-
-
-
-        //Set Text Weightdifference
-        Button buttonWeightDifference = (Button) findViewById(R.id.buttonWeightDifference);
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-
-        //TODO FIX
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //setButtonWeightDifferenceText(buttonWeightDifference);
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
         /*////////////////////////////////////////////////////////////////////////////////
         // start notification oncreate
@@ -153,7 +131,6 @@ public class ModulWeight extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -172,7 +149,7 @@ public class ModulWeight extends AppCompatActivity {
         }
     }
 
-    //function saveweight onklick @+id/viewgraph
+    //function viewgraph onklick @+id/viewgraph
     public void viewgraph(View view) {
         //Creatiing new intent, which navigates to ViewGraph on call
         Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
@@ -183,160 +160,5 @@ public class ModulWeight extends AppCompatActivity {
     public void newweight(View view) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
-
-        DatePickerFragment fragment = new DatePickerFragment();
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        //get date from buttondate
-        Button button = (Button) findViewById(R.id.buttondate);
-        String buttonText = (String) button.getText();
-
-
-        //convert datestrings to int
-        int dayinteger = Integer.parseInt(buttonText.substring(0, 2));
-        int monthinteger = Integer.parseInt(buttonText.substring(3, 5)) - 1;
-        int yearinteger = Integer.parseInt(buttonText.substring(6));
-
-        // exclude years smaller then 2016
-        if (yearinteger < 2016) {
-            alertdialogwrongdatum();
-        } else {
-            yearinteger = yearinteger - 1900;
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String formateddate = sdf.format(new Date(yearinteger, monthinteger, dayinteger));
-
-            Log.d("formateddate", formateddate);
-
-            //Numberpicker
-            NumberPicker integer = (NumberPicker) findViewById(R.id.integer);
-            NumberPicker afterkomma = (NumberPicker) findViewById(R.id.afterkomma);
-
-            // get values of Numberpicker
-            int integervalue = integer.getValue();
-            int afterkommavalue = afterkomma.getValue();
-
-            // call function integertofloat
-            float weight = integertofloat(integervalue, afterkommavalue);
-            Log.d("bmi", Float.toString(BmiCalculator.calculateBmi(this, weight)));
-
-            //type declaration
-            String type = "kg";
-
-            // new weightdateobject with values
-            String modulweight = String.valueOf(R.string.modulweight);
-            Data wd = new Data(modulweight, formateddate, weight, type);
-
-            // new DBHelperDataSource
-            dataSourceData = new DBHelperDataSourceData(this);
-            dataSourceData.open();
-
-            // call function datealreadysaved and react on result
-            boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
-            Log.d("result", String.valueOf(datealreadyexisting));
-
-
-            if (datealreadyexisting) {
-                //call alertdialog
-                alertdialogalreadysaved(wd);
-
-            } else {
-                dataSourceData.insertdata(wd);
-
-                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
-                dataSourceData.close();
-
-                //Creatiing new intent, which navigates to ViewGraph on call
-                Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
-                startActivity(intent);
-            }
-        }
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    }
-
-    //function showDatePickerDialog
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    //alertdialogalreadysaved
-    public void alertdialogalreadysaved(final Data wd) {
-        final Context context = this;
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        alertDialogBuilder.setTitle("Achtung!");
-        alertDialogBuilder.setMessage("Zu diesem Datum existiert schon ein Gewicht");
-        alertDialogBuilder.setPositiveButton("Ändern",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //action
-                        Log.d("Ausgbabe", "Ändern");
-                        //call function updatedata
-                        dataSourceData.updatedata(wd);
-                        Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
-                        dataSourceData.close();
-
-                        //Creatiing new intent, which navigates to ViewGraph on call
-                        Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
-                        startActivity(intent);
-
-                        dialog.dismiss();
-                    }
-                });
-
-        alertDialogBuilder.setNegativeButton("Abbruch",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int d) {
-                        //action
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    //alertdialogwrongdatum
-    public void alertdialogwrongdatum() {
-        final Context context = this;
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        alertDialogBuilder.setTitle("Achtung!");
-        alertDialogBuilder.setMessage("Dieses Datum ist nicht zulässig");
-        alertDialogBuilder.setNegativeButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int d) {
-                        //action
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    //function integer values -> float integervalue,afterkommavalue
-    public float integertofloat(int integervalue, int afterkommavalue) {
-        float result = 0;
-        result += (float) integervalue;
-        result += ((float) afterkommavalue / 10);
-        return result;
-    }
-
-    private void setButtonWeightDifferenceText(Button button) {
-        String text = "";
-        dataSourceData.open();
-        float weightDifference = BmiCalculator.calculateWeightDifference(dataSourceData);
-        dataSourceData.close();
-        if (weightDifference > 0) {
-            text = weightDifference + "kg Über dem Wunschgewicht";
-        } else if (weightDifference < 0) {
-            weightDifference = weightDifference * -1;
-            text = weightDifference + "kg unter dem Wunschgewicht";
-        } else {
-            text = "Wunschgewicht erreicht!";
-        }
-        button.setText(text);
     }
 }

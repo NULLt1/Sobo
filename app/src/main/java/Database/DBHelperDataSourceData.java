@@ -40,6 +40,8 @@ public class DBHelperDataSourceData {
 
     //function insertdata into database
     public void insertdata(Data data) {
+        Log.d("INSERT", "INSERT");
+
         ContentValues values = new ContentValues();
 
         values.put(DataQuery.getColumnModul(), data.getModul());
@@ -52,16 +54,22 @@ public class DBHelperDataSourceData {
 
     //function deletesingledata in database
     public void deletesingledata(Data data) {
+        Log.d("DELETE", "DELETE");
         String modul = data.getModul();
+        Log.d("MODUL", modul);
         String date = data.getDate();
+        Log.d("DATE", date);
         String[] values = new String[]{modul, date};
         databaseData.delete(DataQuery.getDbName(), DataQuery.getColumnModul() + "=? and " + DataQuery.getColumnDate() + "=?", values);
+        Log.d("DELETED", "DELETED");
     }
 
     //function updatedata in database
     public void updatedata(Data data) {
+        Log.d("UPDATE", "UPDATE");
         //call function deletedata
         deletesingledata(data);
+        //call function insertdata
         insertdata(data);
     }
 

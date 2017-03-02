@@ -122,12 +122,14 @@ public class NumberPickerFragment extends DialogFragment {
                 // new weightdateobject with values
                 Data wd = new Data(modulweight, formateddate, weight, type);
 
+
                 // new DBHelperDataSource
                 dataSourceData = new DBHelperDataSourceData(context);
                 dataSourceData.open();
-
                 // call function datealreadysaved and react on result
                 boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
+                dataSourceData.close();
+
                 if (datealreadyexisting) {
                     // create new ChangeDataFragment
                     DialogFragment ChangeDataFragment = new ChangeDataFragment();
@@ -147,15 +149,19 @@ public class NumberPickerFragment extends DialogFragment {
                     // open ChangeDataFragment
                     ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
+                } else {
+
+                    // new DBHelperDataSource
+                    dataSourceData = new DBHelperDataSourceData(context);
+                    dataSourceData.open();
+                    dataSourceData.insertdata(wd);
+
+                    Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                    dataSourceData.close();
+
+                    //close NumberPickerFragment
+                    getDialog().dismiss();
                 }
-
-                dataSourceData.insertdata(wd);
-
-                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
-                dataSourceData.close();
-
-                //close NumberPickerFragment
-                getDialog().dismiss();
             }
         });
         return view;
