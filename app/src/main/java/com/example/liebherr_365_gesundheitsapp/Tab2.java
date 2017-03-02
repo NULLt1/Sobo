@@ -24,7 +24,7 @@ import Database.ModulesQuery;
 public class Tab2 extends Fragment {
     DBHelperDataSourceModules dataSourceModules;
     Cursor cursor;
-   public static GridViewAdapter gridViewAdapter = null;
+    public static GridViewAdapter gridViewAdapter = null;
     Context context = null;
 
     @Override
@@ -51,7 +51,7 @@ public class Tab2 extends Fragment {
                 cursor.moveToPosition(position);
                 try {
                     final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
-                    final Class<?> act = Class.forName(context.getPackageName() + modulPath);
+                    final Class<?> act = Class.forName(context.getPackageName() + "/" + modulPath + ".class");
 
                     Intent intent = new Intent(getActivity(), act);
                     startActivity(intent);

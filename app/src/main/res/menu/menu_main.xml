@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/recording"
-        android:icon="@mipmap/mail1"
+        android:icon="@mipmap/mail"
         android:title="Erfassungsbogen"
         app:showAsAction="always" />
 
