@@ -83,7 +83,8 @@
         android:layout_alignRight="@+id/textView4"
         android:layout_toRightOf="@+id/viewgraph"
         android:gravity="center"
-        android:text="XXX" />
+        android:text="XXX"
+        android:textSize="18sp" />
 </RelativeLayout>
 
 
