@@ -63,7 +63,7 @@
         android:text="@string/startgewicht" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/firstweight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView3"
@@ -80,7 +80,7 @@
         android:id="@+id/weightgoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignBottom="@+id/firstweight"
         android:layout_alignEnd="@+id/textView4"
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignRight="@+id/textView4"

@@ -13,33 +13,30 @@
             android:id="@+id/datum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20px"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="20px"
-            android:text="TextView"
+            android:paddingTop="8dp"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20px"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="20px"
-            android:text="TextView"
+            android:paddingTop="8dp"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/difference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20px"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="20px"
-            android:text="TextView"
+            android:paddingTop="8dp"
             android:textSize="18sp" />
     </LinearLayout>
 

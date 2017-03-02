@@ -136,7 +136,7 @@ public class DBHelperDataSourceData {
         boolean result = false;
         String date = wd.getDate();
 
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + wd.getModul()+"'";
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + wd.getModul() + "'";
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
 
         int count = databaseweightresult.getCount();
@@ -172,6 +172,23 @@ public class DBHelperDataSourceData {
         } else {
             int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
             int lastWeight = cursor.getInt(WeightID);
+
+            return lastWeight;
+        }
+    }
+
+    // function getFirstWeight
+    public float getFirstWeight() {
+        String queryMaxDate = "(SELECT MIN(" + DataQuery.getColumnDate() + ") from " + DataQuery.getDbName() + ")";
+        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate;
+
+        Cursor cursor = databaseData.query(DataQuery.getDbName(), DataQuery.getColumns(), queryWhere, null, null, null, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() == 0) {
+            return 0;
+        } else {
+            int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+            float lastWeight = cursor.getFloat(WeightID);
 
             return lastWeight;
         }

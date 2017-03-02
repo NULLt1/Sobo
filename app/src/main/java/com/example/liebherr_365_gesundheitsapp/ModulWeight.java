@@ -50,7 +50,8 @@ public class ModulWeight extends AppCompatActivity {
 
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
-        //dataSourceData.deletedb();
+        float firstweight = dataSourceData.getFirstWeight();
+
         CursorAdapterWeight adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
         weightlist.setAdapter(adapter);
         dataSourceData.close();
@@ -65,8 +66,17 @@ public class ModulWeight extends AppCompatActivity {
         // set text weightgoal
         float weightgoal = SavedSharedPrefrences.getWeightGoal();
         String weightgoalstring = String.valueOf(weightgoal);
-        TextView text = (TextView) findViewById(R.id.weightgoal);
-        text.setText(weightgoalstring);
+        TextView textweighgoal = (TextView) findViewById(R.id.weightgoal);
+        textweighgoal.setText(weightgoalstring);
+
+
+        // set text weightstart
+        if (firstweight != 0) {
+            String firstweighstring = String.valueOf(firstweight);
+            TextView textfirstweight = (TextView) findViewById(R.id.firstweight);
+            textfirstweight.setText(firstweighstring);
+        }
+
 
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
