@@ -15,16 +15,19 @@ import android.support.v4.app.Fragment;
 
 import com.example.liebherr_365_gesundheitsapp.MainMenu;
 import com.example.liebherr_365_gesundheitsapp.R;
+import com.example.liebherr_365_gesundheitsapp.Tab2;
 
 import Database.DBHelperDataSourceModules;
 import Database.ModulesQuery;
 
 public class ModulesCursorAdapterSwitch extends CursorAdapter {
     private DBHelperDataSourceModules db;
+    private Context mContext;
 
 
     public ModulesCursorAdapterSwitch(Context context, Cursor cursor) {
         super(context, cursor, 0);
+        mContext=context;
     }
 
     // The newView method is used to inflate a new view and return it,
@@ -32,6 +35,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return LayoutInflater.from(context).inflate(R.layout.selection_modules_row, parent, false);
+
     }
 
     // The bindView method is used to bind all data to a given view
@@ -75,6 +79,11 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
                     db.changemodulstatus(modulName, false);
                     db.close();
                 }
+                db = new DBHelperDataSourceModules(context);
+                    Cursor cursor = db.getSelectedDataCursor();
+                    Tab2.gridViewAdapter.updateView(cursor);
+
+
             }
         });
 

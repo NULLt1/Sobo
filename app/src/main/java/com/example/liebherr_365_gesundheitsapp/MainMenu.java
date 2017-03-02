@@ -1,5 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -101,6 +102,14 @@ public class MainMenu extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.recording) {
+
+            Intent intent = new Intent(this, Recording.class);
+            startActivity(intent);
             return true;
         }
 
