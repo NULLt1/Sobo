@@ -1,13 +1,19 @@
 <resources>
     <string name="app_name">Sobo</string>
-    <string name="kg">kg</string>
+
     <string name="speichern">Speichern</string>
     <string name="Datenbankleeren">Datenbank leeren</string>
     <string name="komma">,</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Strings ModulWeight -->
+    <string name="kg">kg</string>
     <string name="plus">+</string>
     <string name="diagramm">Diagramm</string>
+    <string name="zielgewicht">kg\nZielgewicht</string>
+    <string name="startgewicht">kg\nStartgewicht</string>
+    <string name="zero">0.0</string>
+    <string name="seventyfive">75.0</string>
 
     <!-- Strings Modul Name -->
     <string name="namemensa">Mensa</string>
