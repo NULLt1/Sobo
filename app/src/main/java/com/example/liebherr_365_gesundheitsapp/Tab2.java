@@ -51,7 +51,7 @@ public class Tab2 extends Fragment {
                 cursor.moveToPosition(position);
                 try {
                     final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
-                    final Class<?> act = Class.forName(context.getPackageName() + "/" + modulPath + ".class");
+                    final Class<?> act = Class.forName(context.getPackageName() + modulPath);
 
                     Intent intent = new Intent(getActivity(), act);
                     startActivity(intent);
