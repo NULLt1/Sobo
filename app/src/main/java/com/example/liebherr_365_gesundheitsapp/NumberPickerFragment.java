@@ -159,7 +159,7 @@ public class NumberPickerFragment extends DialogFragment {
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
-
+                    //TODO: REFRESH LIST
                     //close NumberPickerFragment
                     getDialog().dismiss();
                 }

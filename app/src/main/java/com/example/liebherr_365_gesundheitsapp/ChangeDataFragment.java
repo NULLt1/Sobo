@@ -57,6 +57,7 @@ public class ChangeDataFragment extends DialogFragment {
 
                         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                         dataSourceData.close();
+                        //TODO: REFRESH LIST
 
                         dialog.dismiss();
                     }
