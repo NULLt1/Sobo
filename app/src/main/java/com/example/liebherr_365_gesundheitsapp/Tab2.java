@@ -51,9 +51,7 @@ public class Tab2 extends Fragment {
                 cursor.moveToPosition(position);
                 try {
                     final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
-
-                    //TODO: NOT WORKING
-                    final Class<?> act = Class.forName(context.getPackageName() + modulPath);
+                    final Class<?> act = Class.forName(context.getPackageName() + "." + modulPath);
 
                     Intent intent = new Intent(getActivity(), act);
                     startActivity(intent);
@@ -66,12 +64,4 @@ public class Tab2 extends Fragment {
 
 
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("****Test", "on resume");
-
-    }
-
 }

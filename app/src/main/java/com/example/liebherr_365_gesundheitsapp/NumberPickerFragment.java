@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
+
 import Database.DBHelperDataSourceData;
+import Database.DBHelperDataSourceModules;
 import Database.Data;
 
 import java.sql.Date;
@@ -78,7 +83,8 @@ public class NumberPickerFragment extends DialogFragment {
         //Set interger Value 40-100
         integer.setMinValue(40);
         integer.setMaxValue(150);
-
+        integer.setBackgroundColor(Color.GRAY);
+        integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         //get latestweight and set picker
         dataSourceData = new DBHelperDataSourceData(context);
         dataSourceData.open();
@@ -94,7 +100,8 @@ public class NumberPickerFragment extends DialogFragment {
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
-
+        afterkomma.setBackgroundColor(Color.GRAY);
+        afterkomma.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
 
@@ -156,10 +163,17 @@ public class NumberPickerFragment extends DialogFragment {
                     dataSourceData = new DBHelperDataSourceData(context);
                     dataSourceData.open();
                     dataSourceData.insertdata(wd);
+                    ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+
+
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
                     //TODO: REFRESH LIST
+
+
+
+
                     //close NumberPickerFragment
                     getDialog().dismiss();
                 }

@@ -18,7 +18,7 @@ import Database.DataQuery;
  */
 
 public class CursorAdapterWeight extends CursorAdapter {
-
+    private Cursor mCursor;
 
     public CursorAdapterWeight(Context context, Cursor cursor) {
         super(context, cursor, 0);

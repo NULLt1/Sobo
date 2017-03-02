@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -39,6 +40,7 @@ import Database.*;
 public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
+    public static CursorAdapterWeight  adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,8 @@ public class ModulWeight extends AppCompatActivity {
         // getFirstWeight
         float firstweight = dataSourceData.getFirstWeight();
 
-        CursorAdapterWeight adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
+        adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
+
         weightlist.setAdapter(adapter);
         dataSourceData.close();
 
@@ -173,4 +176,5 @@ public class ModulWeight extends AppCompatActivity {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
+
 }
