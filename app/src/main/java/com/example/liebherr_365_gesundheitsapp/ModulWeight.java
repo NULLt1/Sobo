@@ -77,6 +77,18 @@ public class ModulWeight extends AppCompatActivity {
             String firstweighstring = String.valueOf(firstweight);
             TextView textfirstweight = (TextView) findViewById(R.id.firstweight);
             textfirstweight.setText(firstweighstring);
+            String weightdifferncestring;
+            float weightdiffernce;
+            if (firstweight < weightgoal) {
+                weightdiffernce = weightgoal - firstweight;
+                weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
+            } else {
+                weightdiffernce = firstweight - weightgoal;
+                weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
+            }
+
+            TextView textweightdiffernce = (TextView) findViewById(R.id.weightdifference);
+            textweightdiffernce.setText(weightdifferncestring);
         }
 
         /*////////////////////////////////////////////////////////////////////////////////

@@ -88,6 +88,17 @@
         android:gravity="center"
         android:text="@string/seventyfive"
         android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/weightdifference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/weightgoal"
+        android:layout_alignTop="@+id/weightgoal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/zero"
+        android:textSize="20sp" />
 </RelativeLayout>
 
 
