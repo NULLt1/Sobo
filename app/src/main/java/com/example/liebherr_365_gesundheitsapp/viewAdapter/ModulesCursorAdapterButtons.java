@@ -9,14 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
 import Database.ModulesQuery;
-
-import static java.security.AccessController.getContext;
 
 public class ModulesCursorAdapterButtons  extends CursorAdapter{
     private Context FinalContext;

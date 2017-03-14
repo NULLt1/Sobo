@@ -1,7 +1,5 @@
 package Database;
 
-import com.example.liebherr_365_gesundheitsapp.R;
-
 public class ModulesQuery {
     private static final String DB_NAME = "MODULES";
     private static final int DB_VERSION = 3;

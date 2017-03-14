@@ -3,7 +3,7 @@
     package="com.example.liebherr_365_gesundheitsapp">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -43,6 +43,7 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".Recording" />
+        <activity android:name=".ModulMensa"></activity>
     </application>
 
 </manifest>

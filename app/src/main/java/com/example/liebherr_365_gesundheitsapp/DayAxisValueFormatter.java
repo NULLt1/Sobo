@@ -1,7 +1,5 @@
 package com.example.liebherr_365_gesundheitsapp;
 
-import android.util.Log;
-
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;

@@ -1,6 +1,5 @@
 package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -11,9 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
 
-import com.example.liebherr_365_gesundheitsapp.MainMenu;
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.Tab2;
 

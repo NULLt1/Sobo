@@ -3,8 +3,6 @@ package com.example.liebherr_365_gesundheitsapp;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,14 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
-
-import Database.DBHelperDataSourceData;
-import Database.DBHelperDataSourceModules;
-import Database.Data;
-
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+
+import Database.DBHelperDataSourceData;
+import Database.Data;
 
 /**
  * Created by mpadmin on 12.01.2017.
