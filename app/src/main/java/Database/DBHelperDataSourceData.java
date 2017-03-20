@@ -169,9 +169,9 @@ public class DBHelperDataSourceData {
     }
 
     //function getLatestWeight
-    public int getLatestEntry() {
+    public int getLatestEntry(String modulname) {
         String queryMaxDate = "(SELECT MAX(" + DataQuery.getColumnDate() + ") from " + DataQuery.getDbName() + ")";
-        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate;
+        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate + " AND " + DataQuery.getColumnModul() + " ='" + modulname + "'";
 
         Cursor cursor = databaseData.query(DataQuery.getDbName(), DataQuery.getColumns(), queryWhere, null, null, null, null);
         cursor.moveToFirst();

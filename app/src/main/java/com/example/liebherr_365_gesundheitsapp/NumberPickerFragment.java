@@ -88,7 +88,7 @@ public class NumberPickerFragment extends DialogFragment {
         //get latestweight and set picker
         dataSourceData = new DBHelperDataSourceData(context);
         dataSourceData.open();
-        int lastentry = dataSourceData.getLatestEntry();
+        int lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
         if (lastentry != 0) {
             integer.setValue(lastentry);
             integervalue = lastentry;
@@ -166,12 +166,9 @@ public class NumberPickerFragment extends DialogFragment {
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
 
-
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
                     //TODO: REFRESH LIST
-
-
 
 
                     //close NumberPickerFragment
