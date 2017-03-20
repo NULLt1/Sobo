@@ -178,10 +178,10 @@ public class DBHelperDataSourceData {
         if (cursor.getCount() == 0) {
             return 0;
         } else {
-            int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
-            int lastWeight = cursor.getInt(WeightID);
+            int ID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+            int value = cursor.getInt(ID);
 
-            return lastWeight;
+            return value;
         }
     }
 
