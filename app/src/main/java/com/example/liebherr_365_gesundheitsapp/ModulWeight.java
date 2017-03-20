@@ -40,7 +40,7 @@ import Database.*;
 public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
-    public static CursorAdapterWeight  adapter;
+    public static CursorAdapterWeight adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,6 @@ public class ModulWeight extends AppCompatActivity {
         String weightgoalstring = String.valueOf(weightgoal);
         TextView textweighgoal = (TextView) findViewById(R.id.weightgoal);
         textweighgoal.setText(weightgoalstring);
-
 
         // set text weightstart
         if (firstweight != 0) {

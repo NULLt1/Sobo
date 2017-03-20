@@ -11,7 +11,7 @@
         android:title="Größe" />
     <EditTextPreference
         android:id="@+id/EditTextPreferenceAge"
-        android:defaultValue="180"
+        android:defaultValue="20"
         android:inputType="number"
         android:key="age"
         android:numeric="integer"
@@ -21,7 +21,7 @@
         android:title="Alter" />
     <EditTextPreference
         android:id="@+id/EditTextPreferenceWeightGoal"
-        android:defaultValue="180"
+        android:defaultValue="80"
         android:inputType="number"
         android:key="weightgoal"
         android:numeric="integer"

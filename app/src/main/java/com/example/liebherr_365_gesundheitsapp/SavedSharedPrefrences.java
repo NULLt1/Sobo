@@ -2,7 +2,10 @@ package com.example.liebherr_365_gesundheitsapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Created by Jan on 05.12.2016.
@@ -20,6 +23,7 @@ public class SavedSharedPrefrences {
         weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", String.valueOf(18)));
         age = Integer.parseInt(sharedPreferences.getString("age", String.valueOf(18)));
     }
+
 
     public static int getHeight() {
         return height;
