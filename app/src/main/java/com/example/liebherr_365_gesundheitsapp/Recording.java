@@ -20,6 +20,7 @@ public class Recording extends Activity{
 
         weight = (Button) findViewById(R.id.a);
 
+        //new shit
         weight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
