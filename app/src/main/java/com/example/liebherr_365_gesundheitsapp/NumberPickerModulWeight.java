@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
  * Created by mpadmin on 12.01.2017.
  */
 
-public class NumberPickerFragment extends DialogFragment {
+public class NumberPickerModulWeight extends DialogFragment {
     Context context;
     private DBHelperDataSourceData dataSourceData;
     int day;
@@ -151,7 +151,7 @@ public class NumberPickerFragment extends DialogFragment {
                     bundle.putFloat("weight", weight);
                     bundle.putString("type", type);
 
-                    // setArguments to NumberPickerFragment
+                    // setArguments to NumberPickerModulWeight
                     ChangeDataFragment.setArguments(bundle);
 
                     // open ChangeDataFragment
@@ -174,7 +174,7 @@ public class NumberPickerFragment extends DialogFragment {
 
 
 
-                    //close NumberPickerFragment
+                    //close NumberPickerModulWeight
                     getDialog().dismiss();
                 }
             }

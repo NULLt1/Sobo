@@ -1,39 +1,17 @@
 package com.example.liebherr_365_gesundheitsapp;
 
-import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import Database.*;
 
@@ -41,12 +19,16 @@ public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
     public static CursorAdapterWeight adapter;
+    private static TextView textweighgoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SavedSharedPrefrences.setSharedPreferences(this);
 
         setContentView(R.layout.modul_weight);
+
+        // bind textweightgoal to TextView
+        textweighgoal = (TextView) findViewById(R.id.weightgoal);
 
         ListView weightlist = (ListView) findViewById(R.id.listview);
 
@@ -71,8 +53,7 @@ public class ModulWeight extends AppCompatActivity {
         // set text weightgoal
         float weightgoal = SavedSharedPrefrences.getWeightGoal();
         String weightgoalstring = String.valueOf(weightgoal);
-        TextView textweighgoal = (TextView) findViewById(R.id.weightgoal);
-        textweighgoal.setText(weightgoalstring);
+        setweightgoaltext(weightgoalstring);
 
         // set text weightstart
         if (firstweight != 0) {
@@ -83,10 +64,10 @@ public class ModulWeight extends AppCompatActivity {
             float weightdiffernce;
             if (firstweight < weightgoal) {
                 weightdiffernce = weightgoal - firstweight;
-                weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
+                weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
             } else {
                 weightdiffernce = firstweight - weightgoal;
-                weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
+                weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
             }
 
             TextView textweightdiffernce = (TextView) findViewById(R.id.weightdifference);
@@ -135,6 +116,10 @@ public class ModulWeight extends AppCompatActivity {
     }
 
 
+    public static void setweightgoaltext(String weightgoal) {
+        textweighgoal.setText(weightgoal);
+    }
+
     public void deleteweightdb(View view) {
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
@@ -172,7 +157,7 @@ public class ModulWeight extends AppCompatActivity {
 
     //function newweight onklick @+id/saveButton
     public void newweight(View view) {
-        DialogFragment newFragment = new DatePickerFragment();
+        DialogFragment newFragment = new DatePickerModulWeight();
         newFragment.show(getFragmentManager(), "datePicker");
     }
 

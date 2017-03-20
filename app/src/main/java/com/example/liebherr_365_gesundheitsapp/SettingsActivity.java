@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -55,6 +56,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+
         String value = "";
 
         Preference pref = findPreference(key);
@@ -68,6 +71,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     value = " Jahre";
                     break;
                 case "weightgoal":
+                    ModulWeight.setweightgoaltext(etp.getText());
                     value = " kg";
                     break;
                 default:

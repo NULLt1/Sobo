@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class DatePickerFragment extends DialogFragment
+public class DatePickerModulWeight extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     @Override
@@ -44,8 +44,8 @@ public class DatePickerFragment extends DialogFragment
             WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
             getDialog().dismiss();
         } else {
-            // create new NumberPickerFragment
-            DialogFragment NumberPickerFragment = new NumberPickerFragment();
+            // create new NumberPickerModulWeight
+            DialogFragment NumberPickerModulWeight = new NumberPickerModulWeight();
 
             // create bundle and fill with values
             Bundle bundle = new Bundle();
@@ -53,11 +53,11 @@ public class DatePickerFragment extends DialogFragment
             bundle.putInt("month", month);
             bundle.putInt("year", year);
 
-            // setArguments to NumberPickerFragment
-            NumberPickerFragment.setArguments(bundle);
+            // setArguments to NumberPickerModulWeight
+            NumberPickerModulWeight.setArguments(bundle);
 
-            // open NumberPickerFragment
-            NumberPickerFragment.show(getFragmentManager(), "numberPicker");
+            // open NumberPickerModulWeight
+            NumberPickerModulWeight.show(getFragmentManager(), "numberPicker");
         }
     }
 }
