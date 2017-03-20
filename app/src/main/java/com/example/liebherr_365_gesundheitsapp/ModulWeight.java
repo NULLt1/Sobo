@@ -116,7 +116,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
 
-    public static void setweightgoaltext(String weightgoal) {
+    public static void setWeightGoalText(String weightgoal) {
         textweighgoal.setText(weightgoal);
     }
 

@@ -71,7 +71,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     value = " Jahre";
                     break;
                 case "weightgoal":
-                    ModulWeight.setweightgoaltext(etp.getText());
+                    // call function setweighgoattext
+                    ModulWeight.setWeightGoalText(etp.getText());
                     value = " kg";
                     break;
                 default:
