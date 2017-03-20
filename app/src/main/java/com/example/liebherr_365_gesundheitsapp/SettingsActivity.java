@@ -73,6 +73,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 case "weightgoal":
                     // call function setweighgoattext
                     ModulWeight.setWeightGoalText(etp.getText());
+
+                    //TODO: @Marvin die Differenz!
                     value = " kg";
                     break;
                 default:
