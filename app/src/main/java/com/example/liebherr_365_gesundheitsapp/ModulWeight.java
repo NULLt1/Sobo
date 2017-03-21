@@ -19,13 +19,23 @@ public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
     public static CursorAdapterWeight adapter;
+    private static TextView textweightstart;
+    private static TextView textweightdiffernce;
     private static TextView textweighgoal;
+    private static float weightgoal;
+    private static float firstweight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SavedSharedPrefrences.setSharedPreferences(this);
 
         setContentView(R.layout.modul_weight);
+
+        // bind textweightstart to TextView
+        textweightstart = (TextView) findViewById(R.id.firstweight);
+
+        // bind textweightdiffernce to TextView
+        textweightdiffernce = (TextView) findViewById(R.id.weightdifference);
 
         // bind textweightgoal to TextView
         textweighgoal = (TextView) findViewById(R.id.weightgoal);
@@ -36,7 +46,7 @@ public class ModulWeight extends AppCompatActivity {
         dataSourceData.open();
 
         // getFirstWeight
-        float firstweight = dataSourceData.getFirstWeight();
+        firstweight = dataSourceData.getFirstWeight();
 
         adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
 
@@ -51,28 +61,9 @@ public class ModulWeight extends AppCompatActivity {
         BmiCalculator.setRecBmi();
 
         // set text weightgoal
-        float weightgoal = SavedSharedPrefrences.getWeightGoal();
+        weightgoal = SavedSharedPrefrences.getWeightGoal();
         String weightgoalstring = String.valueOf(weightgoal);
-        setweightgoaltext(weightgoalstring);
-
-        // set text weightstart
-        if (firstweight != 0) {
-            String firstweighstring = String.valueOf(firstweight);
-            TextView textfirstweight = (TextView) findViewById(R.id.firstweight);
-            textfirstweight.setText(firstweighstring);
-            String weightdifferncestring;
-            float weightdiffernce;
-            if (firstweight < weightgoal) {
-                weightdiffernce = weightgoal - firstweight;
-                weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
-            } else {
-                weightdiffernce = firstweight - weightgoal;
-                weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
-            }
-
-            TextView textweightdiffernce = (TextView) findViewById(R.id.weightdifference);
-            textweightdiffernce.setText(weightdifferncestring);
-        }
+        setWeightGoalText(weightgoalstring);
 
         /*////////////////////////////////////////////////////////////////////////////////
         // start notification oncreate
@@ -115,9 +106,31 @@ public class ModulWeight extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////*/
     }
 
-
+    //function setWeightGoalText
     public static void setWeightGoalText(String weightgoal) {
         textweighgoal.setText(weightgoal);
+    }
+
+    //function setWeightStartText
+    public static void setWeighStartText() {
+        // set text weightstart
+        if (firstweight != 0) {
+            // setText firstweight
+            String weightstartstring = String.valueOf(firstweight);
+            textweightstart.setText(weightstartstring);
+
+            String weightdifferncestring;
+            float weightdiffernce;
+
+            if (firstweight < weightgoal) {
+                weightdiffernce = weightgoal - firstweight;
+                weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
+            } else {
+                weightdiffernce = firstweight - weightgoal;
+                weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
+            }
+            textweightdiffernce.setText(weightdifferncestring);
+        }
     }
 
     public void deleteweightdb(View view) {
