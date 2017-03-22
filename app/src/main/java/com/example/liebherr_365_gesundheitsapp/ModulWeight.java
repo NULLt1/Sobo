@@ -134,9 +134,7 @@ public class ModulWeight extends AppCompatActivity {
 
     //function setWeightDifference
     public static void setWeightDifference() {
-        Log.d("CALLED", "setWeightDifferece");
         if (proveFirstWeight()) {
-            Log.d("ENTERED", "IF");
             String weightdifferncestring;
             float weightdiffernce;
 
