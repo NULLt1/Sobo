@@ -74,7 +74,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     // call function setweighgoattext
                     ModulWeight.setWeightGoalText(etp.getText());
 
-                    //TODO: @Marvin die Differenz!
+                    //call function setweightdiffernce
+                    ModulWeight.setWeightDifference();
+
                     value = " kg";
                     break;
                 default:

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,7 @@ public class ModulWeight extends AppCompatActivity {
     public static CursorAdapterWeight adapter;
     private static TextView textweightstart;
     private static TextView textweightdiffernce;
-    private static TextView textweighgoal;
+    private static TextView textweightgoal;
     private static float weightgoal;
     private static float firstweight;
 
@@ -38,7 +39,7 @@ public class ModulWeight extends AppCompatActivity {
         textweightdiffernce = (TextView) findViewById(R.id.weightdifference);
 
         // bind textweightgoal to TextView
-        textweighgoal = (TextView) findViewById(R.id.weightgoal);
+        textweightgoal = (TextView) findViewById(R.id.weightgoal);
 
         ListView weightlist = (ListView) findViewById(R.id.listview);
 
@@ -64,6 +65,9 @@ public class ModulWeight extends AppCompatActivity {
         weightgoal = SavedSharedPrefrences.getWeightGoal();
         String weightgoalstring = String.valueOf(weightgoal);
         setWeightGoalText(weightgoalstring);
+
+        // set text weighstart
+        setWeightStartText();
 
         /*////////////////////////////////////////////////////////////////////////////////
         // start notification oncreate
@@ -106,19 +110,33 @@ public class ModulWeight extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////*/
     }
 
-    //function setWeightGoalText
-    public static void setWeightGoalText(String weightgoal) {
-        textweighgoal.setText(weightgoal);
+    //function proveFirstWeight
+    public static boolean proveFirstWeight() {
+        boolean flag = false;
+        if (firstweight != 0) {
+            flag = true;
+        }
+        return flag;
     }
 
     //function setWeightStartText
-    public static void setWeighStartText() {
+    public static void setWeightStartText() {
         // set text weightstart
-        if (firstweight != 0) {
+        if (proveFirstWeight()) {
             // setText firstweight
             String weightstartstring = String.valueOf(firstweight);
             textweightstart.setText(weightstartstring);
 
+            // call function setWeightDiffernce
+            setWeightDifference();
+        }
+    }
+
+    //function setWeightDifference
+    public static void setWeightDifference() {
+        Log.d("CALLED", "setWeightDifferece");
+        if (proveFirstWeight()) {
+            Log.d("ENTERED", "IF");
             String weightdifferncestring;
             float weightdiffernce;
 
@@ -131,6 +149,12 @@ public class ModulWeight extends AppCompatActivity {
             }
             textweightdiffernce.setText(weightdifferncestring);
         }
+    }
+
+    //function setWeightGoalText
+    public static void setWeightGoalText(String weightgoalstring) {
+        weightgoal = Float.parseFloat(weightgoalstring);
+        textweightgoal.setText(weightgoalstring);
     }
 
     public void deleteweightdb(View view) {
