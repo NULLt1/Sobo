@@ -188,7 +188,7 @@ public class ModulWeight extends AppCompatActivity {
     //function viewgraph onklick @+id/viewgraph
     public void viewgraph(View view) {
         //Creatiing new intent, which navigates to ViewGraph on call
-        Intent intent = new Intent(ModulWeight.this, ViewGraph.class);
+        Intent intent = new Intent(ModulWeight.this, ViewGraphModulWeight.class);
         startActivity(intent);
     }
 
@@ -197,5 +197,4 @@ public class ModulWeight extends AppCompatActivity {
         DialogFragment newFragment = new DatePickerModulWeight();
         newFragment.show(getFragmentManager(), "datePicker");
     }
-
 }

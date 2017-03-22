@@ -27,7 +27,7 @@ import java.util.List;
 import Database.DBHelperDataSourceData;
 import Database.Data;
 
-public class ViewGraph extends AppCompatActivity {
+public class ViewGraphModulWeight extends AppCompatActivity {
     DBHelperDataSourceData databaseData;
 
     @Override
