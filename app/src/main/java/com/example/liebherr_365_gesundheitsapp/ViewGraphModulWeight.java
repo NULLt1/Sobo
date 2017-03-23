@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 
@@ -130,7 +131,7 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
     private void drawWeightGoal(LineChart chart) {
 
-        float weightGoal = SavedSharedPrefrences.getWeightGoal();
+        float weightGoal = ModulWeight.getWeightGoal();
 
         LimitLine ll = new LimitLine(weightGoal, "");
         ll.setLineColor(Color.RED);
@@ -141,7 +142,6 @@ public class ViewGraphModulWeight extends AppCompatActivity {
     }
 
     private void drawZone(LineChart chart) {
-
         float lowerLimit = BmiCalculator.getMinRecWeight();
         float upperLimit = BmiCalculator.getMaxRecWeight();
         float increment = ((upperLimit - lowerLimit) / 1000);

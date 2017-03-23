@@ -25,6 +25,7 @@ public class ModulWeight extends AppCompatActivity {
     private static TextView textweightgoal;
     private static float weightgoal;
     private static float firstweight;
+    private static float currentweight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class ModulWeight extends AppCompatActivity {
         // getFirstWeight
         firstweight = dataSourceData.getFirstWeight();
 
+        // getCurrentWeight
+        currentweight = dataSourceData.getLatestEntry();
+
         adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
 
         weightlist.setAdapter(adapter);
@@ -60,6 +64,8 @@ public class ModulWeight extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         BmiCalculator.setRecBmi();
+
+        BmiCalculator.calculateBmi(this);
 
         // set text weightgoal
         weightgoal = SavedSharedPrefrences.getWeightGoal();
@@ -108,6 +114,11 @@ public class ModulWeight extends AppCompatActivity {
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
         ////////////////////////////////////////////////////////////////////////////////*/
+    }
+
+    //function getWeightGoal
+    public static float getWeightGoal() {
+        return weightgoal;
     }
 
     //function proveFirstWeight

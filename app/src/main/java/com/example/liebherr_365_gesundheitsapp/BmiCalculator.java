@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
+
 import Database.DBHelperDataSourceData;
 
 /**
@@ -12,6 +14,7 @@ import Database.DBHelperDataSourceData;
  */
 
 public class BmiCalculator {
+    private static DBHelperDataSourceData dataSourceData;
     private static float minRecBmi;
     private static float maxRecBmi;
     private static float minRecWeight;
@@ -19,7 +22,21 @@ public class BmiCalculator {
     private static float bmi;
     private static float height;
 
-    public static float calculateBmi(Context context, float weight) {
+    public static float calculateBmi(Context context) {
+        int weight;
+
+        dataSourceData = new DBHelperDataSourceData(context);
+        dataSourceData.open();
+
+        // getCurrentWeight
+        weight = dataSourceData.getLatestEntry();
+
+        dataSourceData.close();
+
+        if (weight == 0) {
+            weight = 80;
+        }
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         height = Float.parseFloat(sharedPreferences.getString("height", "180"));
 
@@ -30,8 +47,6 @@ public class BmiCalculator {
     }
 
     public static void setRecBmi() {
-
-
         int age = SavedSharedPrefrences.getAge();
 
         if (age < 25) {
@@ -79,12 +94,6 @@ public class BmiCalculator {
 
     public static float getMaxRecWeight() {
         return maxRecWeight;
-    }
-
-    public static float calculateWeightDifference (DBHelperDataSourceData db){
-        int currentWeight = db.getLatestEntry();
-        float weightDifference=currentWeight - SavedSharedPrefrences.getWeightGoal();
-        return weightDifference;
     }
 
 }

@@ -8,6 +8,8 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
+import static android.R.attr.value;
+
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
@@ -56,8 +58,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-
         String value = "";
 
         Preference pref = findPreference(key);
@@ -85,5 +85,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             }
             pref.setSummary(etp.getText() + value);
         }
+        BmiCalculator.calculateBmi(this);
     }
 }
