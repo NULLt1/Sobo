@@ -7,11 +7,10 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Tragen sie ihr Gewicht ein!" />
+        android:text="Was möchtest du hier Eintragen?" />
 
     <Button
         android:id="@+id/save"
-        android:onClick="showDialog"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="speichern" />

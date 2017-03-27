@@ -40,7 +40,10 @@ public class Recording extends Activity{
     public void showDialog(View v){
         FragmentManager manager = getFragmentManager();
         RecordingModulWeight recordingModulWeight = new RecordingModulWeight();
-        recordingModulWeight.show(manager,"RecordingModulWeight");    }
+        recordingModulWeight.show(manager,"RecordingModulWeight");
+
+    }
+
 
 
 
