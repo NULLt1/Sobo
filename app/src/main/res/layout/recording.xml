@@ -13,13 +13,18 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
 
         <Button
-            android:text="Gewicht eintragen"
-            android:layout_width="match_parent"
+            android:id="@+id/recording"
+            android:onClick="showDialog"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/a" />
+            android:text="Erfassungsbogen" />
 
     </LinearLayout>
 </RelativeLayout>
