@@ -20,5 +20,6 @@ public class RecordingModulWeight  extends DialogFragment {
         FragmentManager manager = getFragmentManager();
         RecordingModulWeight recordingModulWeight = new RecordingModulWeight();
         recordingModulWeight.show(manager,"RecordingTest");    }
+
 }
 
