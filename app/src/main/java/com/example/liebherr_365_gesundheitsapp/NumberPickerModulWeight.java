@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
@@ -158,20 +159,22 @@ public class NumberPickerModulWeight extends DialogFragment {
                     ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
                 } else {
-
                     // new DBHelperDataSource
                     dataSourceData = new DBHelperDataSourceData(context);
                     dataSourceData.open();
-                    dataSourceData.insertdata(wd);
+                    if (dataSourceData.getFirstWeight() != 0) {
+                        dataSourceData.insertdata(wd);
+                    }else{
+                        dataSourceData.insertdata(wd);
+                        TextView textview = (TextView)getActivity().findViewById(R.id.firstweight);
+                        textview.setText((int) wd.getPhysicalvalues());
+
+                    }
+
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
-
-
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
-                    //TODO: REFRESH LIST
-
-
 
 
                     //close NumberPickerModulWeight

@@ -1,6 +1,7 @@
 package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ public class ModulWeight extends AppCompatActivity {
     private TextView textweightdiffernce;
     private TextView textweightgoal;
     private static float firstweight;
-    private static String weightdifference;
     private static float weightgoal;
 
     @Override
