@@ -33,6 +33,9 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set up navigation enabled
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_graph);
         databaseData = new DBHelperDataSourceData(this);

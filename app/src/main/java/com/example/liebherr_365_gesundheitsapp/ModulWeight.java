@@ -2,7 +2,9 @@ package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,12 +22,21 @@ public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
     public static CursorAdapterWeight adapter;
-    private static TextView textweightstart;
-    private static TextView textweightdiffernce;
-    private static TextView textweightgoal;
-    private static float weightgoal;
+    private TextView textweightstart;
+    private TextView textweightdiffernce;
+    private TextView textweightgoal;
     private static float firstweight;
-    private static float currentweight;
+    private static String weightdifference;
+    private static float weightgoal;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // call function setWeightGoalText
+        setWeightGoalText();
+        // call function setWeightDifference
+        setWeightDifference();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +61,6 @@ public class ModulWeight extends AppCompatActivity {
         // getFirstWeight
         firstweight = dataSourceData.getFirstWeight();
 
-        // getCurrentWeight
-        currentweight = dataSourceData.getLatestEntry();
-
         adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
 
         weightlist.setAdapter(adapter);
@@ -69,8 +77,7 @@ public class ModulWeight extends AppCompatActivity {
 
         // set text weightgoal
         weightgoal = SavedSharedPrefrences.getWeightGoal();
-        String weightgoalstring = String.valueOf(weightgoal);
-        setWeightGoalText(weightgoalstring);
+        setWeightGoalText();
 
         // set text weighstart
         setWeightStartText();
@@ -131,7 +138,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightStartText
-    public static void setWeightStartText() {
+    public void setWeightStartText() {
         // set text weightstart
         if (proveFirstWeight()) {
             // setText firstweight
@@ -144,7 +151,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightDifference
-    public static void setWeightDifference() {
+    public void setWeightDifference() {
         if (proveFirstWeight()) {
             String weightdifferncestring;
             float weightdiffernce;
@@ -161,17 +168,16 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightGoalText
-    public static void setWeightGoalText(String weightgoalstring) {
-        weightgoal = Float.parseFloat(weightgoalstring);
+    public static void setWeightGoal(float weightgoalfloat) {
+        weightgoal = weightgoalfloat;
+    }
+
+    //function setWeightGoalText
+    public void setWeightGoalText() {
+        String weightgoalstring = String.valueOf(weightgoal);
         textweightgoal.setText(weightgoalstring);
     }
 
-    public void deleteweightdb(View view) {
-        dataSourceData = new DBHelperDataSourceData(this);
-        dataSourceData.open();
-        dataSourceData.deletedb();
-        dataSourceData.close();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
