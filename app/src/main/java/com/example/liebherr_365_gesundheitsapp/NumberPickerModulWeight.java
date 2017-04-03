@@ -164,11 +164,13 @@ public class NumberPickerModulWeight extends DialogFragment {
                     dataSourceData.open();
                     if (dataSourceData.getFirstWeight() != 0) {
                         dataSourceData.insertdata(wd);
-                    }else{
+                    } else {
+                        //first entry
                         dataSourceData.insertdata(wd);
-                        TextView textview = (TextView)getActivity().findViewById(R.id.firstweight);
-                        textview.setText((int) wd.getPhysicalvalues());
+                        TextView textweighstart = (TextView) getActivity().findViewById(R.id.firstweight);
+                        textweighstart.setText(String.valueOf(weight));
 
+                        //TODO: Gewichtsdifference
                     }
 
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());

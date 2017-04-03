@@ -31,8 +31,8 @@ public class DBHelperDataSourceModules {
         Log.d(LOG_TAG, "<MODULES>Datenbank mit Hilfe des DbHelpers geschlossen.<MODULES>");
     }
 
-    public void deletedb() {
-        databaseModules.delete(ModulesQuery.getDbName(), null, null);
+    public void deletedb(String modulname) {
+        databaseModules.delete(ModulesQuery.getDbName(), ModulesQuery.getColumnModul() + "='" + modulname+"'", null);
         Log.d(LOG_TAG, "<MODULES>Datenbank gelöscht<MODULES>");
     }
 
