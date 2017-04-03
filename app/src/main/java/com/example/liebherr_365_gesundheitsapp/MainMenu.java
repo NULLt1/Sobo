@@ -1,5 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -108,9 +109,15 @@ public class MainMenu extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.recording) {
+            Log.d("Button","Pressed!");
 
+            //open Dialog Fragment RecordingModulWeight
+            RecordingModulWeight newRecording = new RecordingModulWeight();
+            newRecording.show(getFragmentManager(), "recordingWeight");
+
+            /*//open Activity Recording
             Intent intent = new Intent(this, Recording.class);
-            startActivity(intent);
+            startActivity(intent);*/
             return true;
         }
 
@@ -167,6 +174,5 @@ public class MainMenu extends AppCompatActivity {
             return null;
         }
     }
-
 
 }
