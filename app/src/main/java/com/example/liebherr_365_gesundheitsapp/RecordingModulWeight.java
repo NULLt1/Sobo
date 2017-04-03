@@ -16,10 +16,8 @@ public class RecordingModulWeight  extends DialogFragment {
         return inflater.inflate(R.layout.recording_modul_weight, null);
     }
 
-    public void showDialog(View v){
-        FragmentManager manager = getFragmentManager();
-        RecordingModulWeight recordingModulWeight = new RecordingModulWeight();
-        recordingModulWeight.show(manager,"RecordingTest");    }
+    public void showDialog(View v) {
+    }
 
 }
 

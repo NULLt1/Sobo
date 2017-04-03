@@ -115,8 +115,8 @@ public class MainMenu extends AppCompatActivity {
             RecordingModulWeight newRecording = new RecordingModulWeight();
             newRecording.show(getFragmentManager(), "recordingWeight");
 
-            /*//open Activity Recording
-            Intent intent = new Intent(this, Recording.class);
+            /*//open Activity
+            Intent intent = new Intent(this, name.class);
             startActivity(intent);*/
             return true;
         }
