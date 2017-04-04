@@ -163,19 +163,19 @@ public class DBHelperDataSourceData {
     }
 
     //function getLatestWeight
-    public int getLatestEntry() {
+    public int getLatestEntry(String modulname) {
         String queryMaxDate = "(SELECT MAX(" + DataQuery.getColumnDate() + ") from " + DataQuery.getDbName() + ")";
-        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate;
+        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate + " AND " + DataQuery.getColumnModul() + " ='" + modulname + "'";
 
         Cursor cursor = databaseData.query(DataQuery.getDbName(), DataQuery.getColumns(), queryWhere, null, null, null, null);
         cursor.moveToFirst();
         if (cursor.getCount() == 0) {
             return 0;
         } else {
-            int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
-            int lastWeight = cursor.getInt(WeightID);
+            int ID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+            int value = cursor.getInt(ID);
 
-            return lastWeight;
+            return value;
         }
     }
 
