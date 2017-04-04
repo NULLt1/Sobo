@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.example.liebherr_365_gesundheitsapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

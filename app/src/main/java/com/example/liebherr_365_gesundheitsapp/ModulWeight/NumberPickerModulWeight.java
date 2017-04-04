@@ -1,10 +1,8 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +13,9 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
-
-import Database.DBHelperDataSourceData;
-import Database.DBHelperDataSourceModules;
-import Database.Data;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.Data;
+import com.example.liebherr_365_gesundheitsapp.R;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

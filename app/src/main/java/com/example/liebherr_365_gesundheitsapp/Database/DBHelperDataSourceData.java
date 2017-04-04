@@ -1,4 +1,4 @@
-package Database;
+package com.example.liebherr_365_gesundheitsapp.Database;
 
 import android.content.ContentValues;
 import android.content.Context;

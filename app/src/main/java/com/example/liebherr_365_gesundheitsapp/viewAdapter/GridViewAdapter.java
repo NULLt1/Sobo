@@ -3,16 +3,13 @@ package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.example.liebherr_365_gesundheitsapp.R;
-
-import Database.ModulesQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
 
 /**
  * Created by Jan on 11.01.2017.

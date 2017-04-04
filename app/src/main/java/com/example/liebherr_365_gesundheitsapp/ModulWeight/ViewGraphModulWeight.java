@@ -1,15 +1,14 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 
+import com.example.liebherr_365_gesundheitsapp.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
@@ -25,8 +24,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import Database.DBHelperDataSourceData;
-import Database.Data;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.Data;
 
 public class ViewGraphModulWeight extends AppCompatActivity {
     DBHelperDataSourceData databaseData;
@@ -147,10 +146,10 @@ public class ViewGraphModulWeight extends AppCompatActivity {
     private void drawZone(LineChart chart) {
         float lowerLimit = BmiCalculator.getMinRecWeight();
         float upperLimit = BmiCalculator.getMaxRecWeight();
-        float increment = ((upperLimit - lowerLimit) / 1000);
+        float increment = ((upperLimit - lowerLimit) / 100);
 
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             LimitLine ll = new LimitLine(lowerLimit, "");
             ll.setLineColor(ContextCompat.getColor(this, R.color.colorLightGreen));
             ll.setLineWidth(10f);

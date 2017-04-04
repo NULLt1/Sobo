@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,8 +11,8 @@ import android.util.Log;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import Database.DBHelperDataSourceData;
-import Database.Data;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.Data;
 
 public class ChangeDataFragment extends DialogFragment {
     Context context;

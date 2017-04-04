@@ -1,6 +1,4 @@
-package Database;
-
-import com.example.liebherr_365_gesundheitsapp.R;
+package com.example.liebherr_365_gesundheitsapp.Database;
 
 public class ModulesQuery {
     private static final String DB_NAME = "MODULES";

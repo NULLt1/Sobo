@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import Database.DataQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
 
 
 /**

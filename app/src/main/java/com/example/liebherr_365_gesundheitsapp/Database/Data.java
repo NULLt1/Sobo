@@ -1,4 +1,4 @@
-package Database;
+package com.example.liebherr_365_gesundheitsapp.Database;
 
 public class Data {
     private String modul;

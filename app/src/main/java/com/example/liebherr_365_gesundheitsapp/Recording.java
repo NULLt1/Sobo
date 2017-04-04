@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
+
 /**
  * Created by Niklas on 12.01.2017.
  */

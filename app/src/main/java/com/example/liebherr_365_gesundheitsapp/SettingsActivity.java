@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.util.Log;
 
-import static android.R.attr.value;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
