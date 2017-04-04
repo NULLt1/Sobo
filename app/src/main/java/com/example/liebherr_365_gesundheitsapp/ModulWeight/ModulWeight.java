@@ -241,6 +241,7 @@ public class ModulWeight extends AppCompatActivity {
         datepicker.show(getFragmentManager(), "datePicker");
     }
 
+    //function deletedata onclick @+if/deleteButton
     public void deletedata(View view) {
         DialogFragment deletedata = new DeleteData();
         deletedata.show(getFragmentManager(), "DeleteData");

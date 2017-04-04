@@ -23,9 +23,6 @@ public class DatePickerModulWeight extends DialogFragment
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
 
-        String buttonText = (String) ((TextView) getActivity().findViewById(R.id.plus)).getText();
-        Log.d("buttonText", buttonText);
-
         //convert datestrings to int
         int day = Integer.parseInt(actualdate.substring(0, 2));
         int month = Integer.parseInt(actualdate.substring(3, 5)) - 1;

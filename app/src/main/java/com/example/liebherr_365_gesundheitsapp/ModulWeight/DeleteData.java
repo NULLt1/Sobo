@@ -34,9 +34,7 @@ public class DeleteData extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // inflate our custom layout for the dialog to a View
-        View view = li.inflate(R.layout.deletedata, null);
-
-        return view;
+        return li.inflate(R.layout.deletedata, null);
     }
 
     /*
