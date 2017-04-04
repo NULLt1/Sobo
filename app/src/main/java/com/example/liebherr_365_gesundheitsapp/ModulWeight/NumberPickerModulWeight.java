@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -185,6 +186,9 @@ public class NumberPickerModulWeight extends DialogFragment {
                     }
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
+                    //call function activatebuttons
+                    activatebuttons();
+
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
 
@@ -204,6 +208,15 @@ public class NumberPickerModulWeight extends DialogFragment {
         return result;
     }
 
+    // function roundfloat
+    public float roundfloat(float inputfloat) {
+        float roundedfloat = 0;
+        inputfloat += 0.05;
+        inputfloat = (int) (inputfloat * 10);
+        roundedfloat = inputfloat / 10;
+        return roundedfloat;
+    }
+
     //function calculateweightdifference
     public String calculateweightdifference(float weight) {
         String weightdifferncestring;
@@ -212,14 +225,33 @@ public class NumberPickerModulWeight extends DialogFragment {
 
         if (weight < weightgoal) {
             weightdiffernce = weightgoal - weight;
-            Log.d("Number", String.valueOf(weightdiffernce));
+            //call function roundfloat
+            weightdiffernce = roundfloat(weightdiffernce);
             weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
         } else {
             weightdiffernce = weight - weightgoal;
-            Log.d("Number", String.valueOf(weightdiffernce));
+            //call function roundfloat
+            weightdiffernce = roundfloat(weightdiffernce);
             weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
         }
-        Log.d("String", weightdifferncestring);
         return weightdifferncestring;
+    }
+
+    public void activatebuttons() {
+        // bind diagrammbutton to Button
+        Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
+
+        // bind deletebutton to Button
+        Button deletebutton = (Button) getActivity().findViewById(R.id.deletebutton);
+
+        // set deletebutton enabled and change opacity, color
+        diagrammbutton.setEnabled(true);
+        diagrammbutton.getBackground().setAlpha(255);
+        diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        // set deletebutton enabled and change opacity, color
+        deletebutton.setEnabled(true);
+        deletebutton.getBackground().setAlpha(255);
+        deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 }

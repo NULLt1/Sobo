@@ -3,11 +3,13 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import com.example.liebherr_365_gesundheitsapp.SettingsActivity;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import com.example.liebherr_365_gesundheitsapp.Database.*;
+
+import static com.example.liebherr_365_gesundheitsapp.R.color.colorLightGrey;
 
 public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
@@ -52,17 +56,42 @@ public class ModulWeight extends AppCompatActivity {
         // bind textweightgoal to TextView
         textweightgoal = (TextView) findViewById(R.id.weightgoal);
 
+        // bind diagrammbutton to Button
+        Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
+
+        // bind deletebutton to Button
+        Button deletebutton = (Button) findViewById(R.id.deletebutton);
+
+        // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
 
+        // new DBHelperDataSource
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight
         firstweight = dataSourceData.getFirstWeight();
 
+        // handle empty db
+        if (firstweight == 0) {
+            // set deletebutton disabled and change opacity
+            diagrammbutton.setEnabled(false);
+            diagrammbutton.getBackground().setAlpha(45);
+            diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+
+            // set deletebutton disabled and change opacity
+            deletebutton.setEnabled(false);
+            deletebutton.getBackground().setAlpha(45);
+            deletebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+        }
+
+        // weightlist adapter
         adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
 
+        // set adapter to weightlist
         weightlist.setAdapter(adapter);
+
+        // close db connection
         dataSourceData.close();
 
         super.onCreate(savedInstanceState);
@@ -215,7 +244,5 @@ public class ModulWeight extends AppCompatActivity {
     public void deletedata(View view) {
         DialogFragment deletedata = new DeleteData();
         deletedata.show(getFragmentManager(), "DeleteData");
-
-
     }
 }
