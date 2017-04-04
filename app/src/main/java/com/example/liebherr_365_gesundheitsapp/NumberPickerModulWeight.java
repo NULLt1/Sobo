@@ -140,6 +140,8 @@ public class NumberPickerModulWeight extends DialogFragment {
                 dataSourceData.close();
 
                 if (datealreadyexisting) {
+                    // date already extisting?
+
                     // create new ChangeDataFragment
                     DialogFragment ChangeDataFragment = new ChangeDataFragment();
 
@@ -158,6 +160,7 @@ public class NumberPickerModulWeight extends DialogFragment {
                     // open ChangeDataFragment
                     ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
+
                 } else {
                     // new DBHelperDataSource
                     dataSourceData = new DBHelperDataSourceData(context);
@@ -165,7 +168,7 @@ public class NumberPickerModulWeight extends DialogFragment {
                     if (dataSourceData.getFirstWeight() != 0) {
                         dataSourceData.insertdata(wd);
                     } else {
-                        //first entry
+                        // separate the first value in the database
                         dataSourceData.insertdata(wd);
                         TextView textweighstart = (TextView) getActivity().findViewById(R.id.firstweight);
                         textweighstart.setText(String.valueOf(weight));
