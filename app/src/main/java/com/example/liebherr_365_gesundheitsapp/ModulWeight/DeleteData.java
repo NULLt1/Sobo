@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
@@ -17,6 +19,27 @@ public class DeleteData extends DialogFragment {
     Context context;
     private DBHelperDataSourceData dataSourceData;
 
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        // get context
+        context = getActivity().getApplicationContext();
+
+        // make dialog object
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // get the layout inflater
+        LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        // inflate our custom layout for the dialog to a View
+        View view = li.inflate(R.layout.deletedata, null);
+
+        return view;
+    }
+
+    /*
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // get context
         context = getActivity().getApplicationContext();
@@ -62,10 +85,13 @@ public class DeleteData extends DialogFragment {
                         // set text textweightdifference
                         textweightdifference.setText(defaultstring);
 
+                        //TODO: Refresh List
+
                         dialog.dismiss();
                     }
                 });
 
         return alertDialogBuilder.create();
     }
+   */
 }
