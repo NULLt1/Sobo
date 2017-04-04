@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 
+import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
+
 public class ChangeDataFragment extends DialogFragment {
     Context context;
     private DBHelperDataSourceData dataSourceData;
@@ -55,10 +57,11 @@ public class ChangeDataFragment extends DialogFragment {
                         //call function updatedata
                         dataSourceData.updatedata(wd);
 
+                        // weightlist adapter
+                        adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+
                         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                         dataSourceData.close();
-
-                        //TODO: Refresh List
 
                         dialog.dismiss();
                     }

@@ -1,19 +1,23 @@
 package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
-
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
+import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
+
+import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
+
 
 public class DeleteData extends DialogFragment {
     Context context;
@@ -34,8 +38,84 @@ public class DeleteData extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // inflate our custom layout for the dialog to a View
-        return li.inflate(R.layout.deletedata, null);
+        final View view = li.inflate(R.layout.deletedata, null);
+
+        // inform the dialog it has a custom View
+        builder.setView(view);
+
+
+        // setOnClickListener on Button yes
+        Button buttonyes = (Button) view.findViewById(R.id.yes);
+        buttonyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // bind diagrammbutton to Button
+                Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
+
+                // bind deletebutton to Button
+                Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
+
+                // bind textweightdiffernce to TextView
+                TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+
+                // bind textweightstart to TextView
+                TextView textweightstart = (TextView) getActivity().findViewById(R.id.firstweight);
+
+                // bind weightlist to Listview
+                ListView weightlist = (ListView) getActivity().findViewById(R.id.listview);
+
+                // new DBHelperDataSource
+                dataSourceData = new DBHelperDataSourceData(context);
+                dataSourceData.open();
+
+                //call function deletedb
+                String ModulWeight = "ModulWeight";
+                dataSourceData.deletedb(ModulWeight);
+
+                // defaultstring
+                String defaultstring = "-.-";
+
+                // set text textweightstart
+                textweightstart.setText(String.valueOf(defaultstring));
+
+                // set text textweightdifference
+                textweightdifference.setText(defaultstring);
+
+                // set deletebutton disabled and change opacity
+                diagrammbutton.setEnabled(false);
+                diagrammbutton.getBackground().setAlpha(45);
+                diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+
+                // set deletebutton disabled and change opacity
+                deletebutton.setEnabled(false);
+                deletebutton.getBackground().setAlpha(45);
+                deletebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+
+                // weightlist adapter
+                adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+
+                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                dataSourceData.close();
+
+                //close NumberPickerModulWeight
+                getDialog().dismiss();
+            }
+        });
+
+        // setOnClickListener on Button no
+        Button buttonno = (Button) view.findViewById(R.id.no);
+        buttonno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("No", "No");
+
+                //close NumberPickerModulWeight
+                getDialog().dismiss();
+            }
+        });
+        return view;
     }
+}
 
     /*
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,30 +138,7 @@ public class DeleteData extends DialogFragment {
         alertDialogBuilder.setPositiveButton("Ja",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // new DBHelperDataSource
-                        dataSourceData = new DBHelperDataSourceData(context);
-                        dataSourceData.open();
 
-                        //call function deletedb
-                        String ModulWeight = "ModulWeight";
-                        dataSourceData.deletedb(ModulWeight);
-
-                        Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
-                        dataSourceData.close();
-
-                        // bind textweightdiffernce to TextView
-                        TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
-
-                        // bind textweightstart to TextView
-                        TextView textweightstart = (TextView) getActivity().findViewById(R.id.firstweight);
-
-                        String defaultstring = "-.-";
-
-                        // set text textweightstart
-                        textweightstart.setText(String.valueOf(defaultstring));
-
-                        // set text textweightdifference
-                        textweightdifference.setText(defaultstring);
 
                         //TODO: Refresh List
 
@@ -92,4 +149,4 @@ public class DeleteData extends DialogFragment {
         return alertDialogBuilder.create();
     }
    */
-}
+

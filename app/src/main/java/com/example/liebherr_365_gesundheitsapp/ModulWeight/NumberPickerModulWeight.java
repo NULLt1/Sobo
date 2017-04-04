@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -21,9 +20,6 @@ import com.example.liebherr_365_gesundheitsapp.R;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-/**
- * Created by mpadmin on 12.01.2017.
- */
 
 public class NumberPickerModulWeight extends DialogFragment {
     Context context;
@@ -92,7 +88,8 @@ public class NumberPickerModulWeight extends DialogFragment {
             integer.setValue(lastentry);
             integervalue = lastentry;
         } else {
-            integervalue = integer.getValue();
+            integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
+            integervalue = lastentry;
         }
         dataSourceData.close();
 
@@ -208,15 +205,6 @@ public class NumberPickerModulWeight extends DialogFragment {
         return result;
     }
 
-    // function roundfloat
-    public float roundfloat(float inputfloat) {
-        float roundedfloat = 0;
-        inputfloat += 0.05;
-        inputfloat = (int) (inputfloat * 10);
-        roundedfloat = inputfloat / 10;
-        return roundedfloat;
-    }
-
     //function calculateweightdifference
     public String calculateweightdifference(float weight) {
         String weightdifferncestring;
@@ -237,12 +225,21 @@ public class NumberPickerModulWeight extends DialogFragment {
         return weightdifferncestring;
     }
 
+    // function roundfloat
+    public float roundfloat(float inputfloat) {
+        float roundedfloat = 0;
+        inputfloat += 0.05;
+        inputfloat = (int) (inputfloat * 10);
+        roundedfloat = inputfloat / 10;
+        return roundedfloat;
+    }
+
     public void activatebuttons() {
         // bind diagrammbutton to Button
         Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
 
         // bind deletebutton to Button
-        Button deletebutton = (Button) getActivity().findViewById(R.id.deletebutton);
+        Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
 
         // set deletebutton enabled and change opacity, color
         diagrammbutton.setEnabled(true);

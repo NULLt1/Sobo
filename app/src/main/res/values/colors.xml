@@ -7,4 +7,5 @@
     <color name="colorDarkGrey">#2E2E2E</color>
     <color name="colorLightGrey">#c9c9c9</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorNegativeButton">#ed7f81</color>
 </resources>

@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
-import com.example.liebherr_365_gesundheitsapp.SavedSharedPrefrences;
 
 /**
  * Created by Jan on 21.11.2016.
@@ -46,7 +45,7 @@ public class BmiCalculator {
     }
 
     public static void setRecBmi() {
-        int age = SavedSharedPrefrences.getAge();
+        int age = SavedSharedPrefrencesModulWeight.getAge();
 
         if (age < 25) {
             minRecBmi = 19;

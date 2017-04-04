@@ -3,7 +3,6 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,13 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
-import com.example.liebherr_365_gesundheitsapp.SavedSharedPrefrences;
 import com.example.liebherr_365_gesundheitsapp.SettingsActivity;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import com.example.liebherr_365_gesundheitsapp.Database.*;
-
-import static com.example.liebherr_365_gesundheitsapp.R.color.colorLightGrey;
 
 public class ModulWeight extends AppCompatActivity {
     // new DBHelperDataSourceData
@@ -43,7 +39,7 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SavedSharedPrefrences.setSharedPreferences(this);
+        SavedSharedPrefrencesModulWeight.setSharedPreferences(this);
 
         setContentView(R.layout.modul_weight);
 
@@ -60,7 +56,7 @@ public class ModulWeight extends AppCompatActivity {
         Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
 
         // bind deletebutton to Button
-        Button deletebutton = (Button) findViewById(R.id.deletebutton);
+        Button deletebutton = (Button) findViewById(R.id.deleteButton);
 
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
@@ -104,7 +100,7 @@ public class ModulWeight extends AppCompatActivity {
         BmiCalculator.calculateBmi(this);
 
         // set text weightgoal
-        weightgoal = SavedSharedPrefrences.getWeightGoal();
+        weightgoal = SavedSharedPrefrencesModulWeight.getWeightGoal();
         setWeightGoalText();
 
         // set text weighstart
@@ -186,13 +182,24 @@ public class ModulWeight extends AppCompatActivity {
 
             if (firstweight < weightgoal) {
                 weightdiffernce = weightgoal - firstweight;
+                weightdiffernce = roundfloat(weightdiffernce);
                 weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
             } else {
                 weightdiffernce = firstweight - weightgoal;
+                weightdiffernce = roundfloat(weightdiffernce);
                 weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
             }
             textweightdiffernce.setText(weightdifferncestring);
         }
+    }
+
+    // function roundfloat
+    public float roundfloat(float inputfloat) {
+        float roundedfloat = 0;
+        inputfloat += 0.05;
+        inputfloat = (int) (inputfloat * 10);
+        roundedfloat = inputfloat / 10;
+        return roundedfloat;
     }
 
     //function setWeightGoalText
