@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.R;
 
 /**
  * Created by Jan on 21.11.2016.
@@ -27,7 +28,7 @@ public class BmiCalculator {
         dataSourceData.open();
 
         // getCurrentWeight
-        weight = dataSourceData.getLatestEntry();
+        weight = dataSourceData.getLatestEntry("ModulWeight");
 
         dataSourceData.close();
 
