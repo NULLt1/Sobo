@@ -82,6 +82,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         integer.setMaxValue(150);
         integer.setBackgroundColor(Color.GRAY);
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
         //get latestweight and set picker
         dataSourceData = new DBHelperDataSourceData(context);
         dataSourceData.open();
@@ -166,17 +167,26 @@ public class NumberPickerModulWeight extends DialogFragment {
                     } else {
                         // separate the first value in the database
                         dataSourceData.insertdata(wd);
-                        TextView textweighstart = (TextView) getActivity().findViewById(R.id.firstweight);
-                        textweighstart.setText(String.valueOf(weight));
 
-                        //TODO: Gewichtsdifference
+                        // bind textweightdiffernce to TextView
+                        TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+
+                        // bind textweightstart to TextView
+                        TextView textweightstart = (TextView) getActivity().findViewById(R.id.firstweight);
+
+                        // set text textweightstart
+                        textweightstart.setText(String.valueOf(weight));
+
+                        // call function calculateweightdifference
+                        String weightdifferncestring = calculateweightdifference(weight);
+
+                        // set text textweightdifference
+                        textweightdifference.setText(weightdifferncestring);
                     }
-
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
-
 
                     //close NumberPickerModulWeight
                     getDialog().dismiss();
@@ -192,5 +202,24 @@ public class NumberPickerModulWeight extends DialogFragment {
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
         return result;
+    }
+
+    //function calculateweightdifference
+    public String calculateweightdifference(float weight) {
+        String weightdifferncestring;
+        float weightdiffernce;
+        float weightgoal = ModulWeight.getWeightGoal();
+
+        if (weight < weightgoal) {
+            weightdiffernce = weightgoal - weight;
+            Log.d("Number", String.valueOf(weightdiffernce));
+            weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
+        } else {
+            weightdiffernce = weight - weightgoal;
+            Log.d("Number", String.valueOf(weightdiffernce));
+            weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
+        }
+        Log.d("String", weightdifferncestring);
+        return weightdifferncestring;
     }
 }

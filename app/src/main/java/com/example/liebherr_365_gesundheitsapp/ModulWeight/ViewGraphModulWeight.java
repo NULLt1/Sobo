@@ -77,11 +77,13 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         //style yAxis
         YAxis yAxisleft = chart.getAxisLeft();
         yAxisleft.setTextSize(12f); // set the text size
+
         //yAxisleft.setAxisMinimum(40f); // start at 40
         yAxisleft.setGranularity(1f); // only intervals of 1 kg
 
         YAxis yAxisright = chart.getAxisRight();
         yAxisright.setDrawLabels(false);
+
         //yAxisright.setAxisMinimum(40f); // start at 40
         yAxisright.setGranularity(1f); // only intervals of 1 kg
 

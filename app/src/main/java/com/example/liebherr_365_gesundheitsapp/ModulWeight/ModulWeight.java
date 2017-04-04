@@ -208,7 +208,14 @@ public class ModulWeight extends AppCompatActivity {
 
     //function newweight onklick @+id/saveButton
     public void newweight(View view) {
-        DialogFragment newFragment = new DatePickerModulWeight();
-        newFragment.show(getFragmentManager(), "datePicker");
+        DialogFragment datepicker = new DatePickerModulWeight();
+        datepicker.show(getFragmentManager(), "datePicker");
+    }
+
+    public void deletedata(View view) {
+        DialogFragment deletedata = new DeleteData();
+        deletedata.show(getFragmentManager(), "DeleteData");
+
+
     }
 }

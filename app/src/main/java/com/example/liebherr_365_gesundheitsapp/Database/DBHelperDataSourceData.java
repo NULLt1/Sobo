@@ -32,16 +32,14 @@ public class DBHelperDataSourceData {
         Log.d(LOG_TAG, "<DATA>Datenbank mit Hilfe des DbHelpers geschlossen.<DATA>");
     }
 
-    public void deletedb() {
-        //databaseData.delete(DataQuery.getDbName(), null, null);
-        databaseData.execSQL("DROP TABLE IF EXISTS " + DataQuery.getDbName());
+    public void deletedb(String Modul) {
+        Log.d("Modul", Modul);
+        databaseData.execSQL("DELETE FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + Modul + "'");
         Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
     //function insertdata into database
     public void insertdata(Data data) {
-        Log.d("INSERT", "INSERT");
-
         ContentValues values = new ContentValues();
 
         values.put(DataQuery.getColumnModul(), data.getModul());
@@ -53,15 +51,11 @@ public class DBHelperDataSourceData {
     }
 
     //function deletesingledata in database
-    public void deletesingledata(Data data) {
-        Log.d("DELETE", "DELETE");
+    private void deletesingledata(Data data) {
         String modul = data.getModul();
-        Log.d("MODUL", modul);
         String date = data.getDate();
-        Log.d("DATE", date);
         String[] values = new String[]{modul, date};
         databaseData.delete(DataQuery.getDbName(), DataQuery.getColumnModul() + "=? and " + DataQuery.getColumnDate() + "=?", values);
-        Log.d("DELETED", "DELETED");
     }
 
     //function updatedata in database

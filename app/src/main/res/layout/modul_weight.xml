@@ -99,6 +99,18 @@
         android:gravity="center"
         android:text="@string/zero"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/viewgraph"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:onClick="deletedata"
+        android:text="@string/deletedata" />
 </RelativeLayout>
 
 
