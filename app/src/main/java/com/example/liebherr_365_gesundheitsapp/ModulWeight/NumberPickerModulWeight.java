@@ -192,8 +192,6 @@ public class NumberPickerModulWeight extends DialogFragment {
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
-                    //TODO: REFRESH LIST
-
 
                     //close NumberPickerFragment
                     getDialog().dismiss();
@@ -217,7 +215,9 @@ public class NumberPickerModulWeight extends DialogFragment {
         float weightdiffernce;
         float weightgoal = ModulWeight.getWeightGoal();
 
-        if (weight < weightgoal) {
+        if (weight == weightgoal) {
+            weightdifferncestring = "0.0 kg";
+        } else if (weight < weightgoal) {
             weightdiffernce = weightgoal - weight;
             //call function roundfloat
             weightdiffernce = roundfloat(weightdiffernce);

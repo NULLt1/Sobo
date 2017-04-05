@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 
 import android.content.SharedPreferences;
@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.renderscript.Float2;
+import android.util.Log;
 
+import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
+import com.example.liebherr_365_gesundheitsapp.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -21,7 +25,7 @@ import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsActivityModulWeight extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

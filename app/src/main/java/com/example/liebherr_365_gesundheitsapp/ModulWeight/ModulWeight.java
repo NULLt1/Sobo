@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
-import com.example.liebherr_365_gesundheitsapp.SettingsActivity;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import com.example.liebherr_365_gesundheitsapp.Database.*;
@@ -30,6 +30,7 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        Log.d("Resumed", "Resumed");
         super.onResume();
         // call function setWeightGoalText
         setWeightGoalText();
@@ -152,6 +153,19 @@ public class ModulWeight extends AppCompatActivity {
         return weightgoal;
     }
 
+    //functiom setFirstWeight
+    private void setFirstweight() {
+        // new DBHelperDataSource
+        dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData.open();
+
+        // getFirstWeight
+        firstweight = dataSourceData.getFirstWeight();
+
+        // close db connection
+        dataSourceData.close();
+    }
+
     //function proveFirstWeight
     public static boolean proveFirstWeight() {
         boolean flag = false;
@@ -177,10 +191,17 @@ public class ModulWeight extends AppCompatActivity {
     //function setWeightDifference
     public void setWeightDifference() {
         if (proveFirstWeight()) {
+            setFirstweight();
+
             String weightdifferncestring;
             float weightdiffernce;
+            Log.d("~~~~~~~~~~~", "~~~~~~~~~~~~~");
+            Log.d("firstweight", String.valueOf(firstweight));
+            Log.d("weightgoal", String.valueOf(weightgoal));
 
-            if (firstweight < weightgoal) {
+            if (firstweight == weightgoal) {
+                weightdifferncestring = "0.0 kg";
+            } else if (firstweight < weightgoal) {
                 weightdiffernce = weightgoal - firstweight;
                 weightdiffernce = roundfloat(weightdiffernce);
                 weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
@@ -224,7 +245,7 @@ public class ModulWeight extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this, SettingsActivityModulWeight.class);
                 startActivity(intent);
                 return true;
             case android.R.id.home:
