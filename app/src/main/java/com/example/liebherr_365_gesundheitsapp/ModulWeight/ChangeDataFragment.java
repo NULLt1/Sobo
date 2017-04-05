@@ -53,7 +53,6 @@ public class ChangeDataFragment extends DialogFragment {
                         dataSourceData = new DBHelperDataSourceData(context);
                         dataSourceData.open();
 
-                        Log.d("Ausgbabe", "Ändern");
                         //call function updatedata
                         dataSourceData.updatedata(wd);
 

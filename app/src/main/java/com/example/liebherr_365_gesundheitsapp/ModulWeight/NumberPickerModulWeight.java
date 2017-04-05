@@ -164,7 +164,7 @@ public class NumberPickerModulWeight extends DialogFragment {
                     // new DBHelperDataSource
                     dataSourceData = new DBHelperDataSourceData(context);
                     dataSourceData.open();
-                    if (dataSourceData.getFirstWeight() != 0) {
+                    if (dataSourceData.getFirstWeight("ModulWeight") != 0) {
                         dataSourceData.insertdata(wd);
                     } else {
                         // separate the first value in the database

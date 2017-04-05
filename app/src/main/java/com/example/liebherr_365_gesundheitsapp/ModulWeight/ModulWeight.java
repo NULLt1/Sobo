@@ -34,6 +34,10 @@ public class ModulWeight extends AppCompatActivity {
         super.onResume();
         // call function setWeightGoalText
         setWeightGoalText();
+
+        // call function setFirstWeight();
+        setFirstWeight();
+
         // call function setWeightDifference
         setWeightDifference();
     }
@@ -67,7 +71,7 @@ public class ModulWeight extends AppCompatActivity {
         dataSourceData.open();
 
         // getFirstWeight
-        firstweight = dataSourceData.getFirstWeight();
+        firstweight = dataSourceData.getFirstWeight("ModulWeight");
 
         // handle empty db
         if (firstweight == 0) {
@@ -154,13 +158,13 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //functiom setFirstWeight
-    private void setFirstweight() {
+    private void setFirstWeight() {
         // new DBHelperDataSource
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight
-        firstweight = dataSourceData.getFirstWeight();
+        firstweight = dataSourceData.getFirstWeight("ModulWeight");
 
         // close db connection
         dataSourceData.close();
@@ -191,8 +195,6 @@ public class ModulWeight extends AppCompatActivity {
     //function setWeightDifference
     public void setWeightDifference() {
         if (proveFirstWeight()) {
-            setFirstweight();
-
             String weightdifferncestring;
             float weightdiffernce;
             Log.d("~~~~~~~~~~~", "~~~~~~~~~~~~~");
