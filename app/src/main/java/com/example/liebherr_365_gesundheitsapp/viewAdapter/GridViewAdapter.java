@@ -24,7 +24,7 @@ public class GridViewAdapter extends BaseAdapter {
         mContext = context;
         mCursor = cursor;
     }
-
+//sd
     @Override
     public int getCount() {
         return mCursor.getCount();
