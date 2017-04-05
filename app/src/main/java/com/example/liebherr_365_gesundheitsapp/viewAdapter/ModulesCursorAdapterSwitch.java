@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.Tab2;
 
-import Database.DBHelperDataSourceModules;
-import Database.ModulesQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
+import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
 
 public class ModulesCursorAdapterSwitch extends CursorAdapter {
     private DBHelperDataSourceModules db;

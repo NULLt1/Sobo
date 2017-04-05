@@ -12,7 +12,7 @@ import android.widget.CursorAdapter;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import Database.ModulesQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
 
 public class ModulesCursorAdapterButtons  extends CursorAdapter{
     private Context FinalContext;

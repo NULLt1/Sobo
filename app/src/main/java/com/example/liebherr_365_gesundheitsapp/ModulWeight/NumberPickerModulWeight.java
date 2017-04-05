@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -11,25 +11,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
+
+
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.Data;
+import com.example.liebherr_365_gesundheitsapp.R;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-
-import Database.DBHelperDataSourceData;
-import Database.Data;
 
 /**
  * Created by mpadmin on 12.01.2017.
  */
 
-public class NumberPickerFragment extends DialogFragment {
+public class NumberPickerModulWeight extends DialogFragment {
     Context context;
     private DBHelperDataSourceData dataSourceData;
     int day;
     int month;
     int year;
     int integervalue;
-    int afterkommavalue;
+    int afterkommavalue = 0;
 
     @Override
     public View onCreateView(
@@ -80,15 +83,17 @@ public class NumberPickerFragment extends DialogFragment {
         integer.setMaxValue(150);
         integer.setBackgroundColor(Color.GRAY);
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
         //get latestweight and set picker
         dataSourceData = new DBHelperDataSourceData(context);
         dataSourceData.open();
-        int lastentry = dataSourceData.getLatestEntry();
+        int lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
         if (lastentry != 0) {
             integer.setValue(lastentry);
             integervalue = lastentry;
         } else {
-            integervalue = integer.getValue();
+            integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
+            integervalue = (int) SavedSharedPrefrencesModulWeight.getWeightGoal();
         }
         dataSourceData.close();
 
@@ -134,6 +139,8 @@ public class NumberPickerFragment extends DialogFragment {
                 dataSourceData.close();
 
                 if (datealreadyexisting) {
+                    // date already extisting?
+
                     // create new ChangeDataFragment
                     DialogFragment ChangeDataFragment = new ChangeDataFragment();
 
@@ -146,7 +153,7 @@ public class NumberPickerFragment extends DialogFragment {
                     bundle.putFloat("weight", weight);
                     bundle.putString("type", type);
 
-                    // setArguments to NumberPickerFragment
+                    // setArguments to NumberPickerModulWeight
                     ChangeDataFragment.setArguments(bundle);
 
                     // open ChangeDataFragment
@@ -157,17 +164,34 @@ public class NumberPickerFragment extends DialogFragment {
                     // new DBHelperDataSource
                     dataSourceData = new DBHelperDataSourceData(context);
                     dataSourceData.open();
-                    dataSourceData.insertdata(wd);
+                    if (dataSourceData.getFirstWeight("ModulWeight") != 0) {
+                        dataSourceData.insertdata(wd);
+                    } else {
+                        // separate the first value in the database
+                        dataSourceData.insertdata(wd);
+
+                        // bind textweightdiffernce to TextView
+                        TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+
+                        // bind textweightstart to TextView
+                        TextView textweightstart = (TextView) getActivity().findViewById(R.id.firstweight);
+
+                        // set text textweightstart
+                        textweightstart.setText(String.valueOf(weight));
+
+                        // call function calculateweightdifference
+                        String weightdifferncestring = calculateweightdifference(weight);
+
+                        // set text textweightdifference
+                        textweightdifference.setText(weightdifferncestring);
+                    }
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
-
+                    //call function activatebuttons
+                    activatebuttons();
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();
-                    //TODO: REFRESH LIST
-
-
-
 
                     //close NumberPickerFragment
                     getDialog().dismiss();
@@ -183,5 +207,54 @@ public class NumberPickerFragment extends DialogFragment {
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
         return result;
+    }
+
+    //function calculateweightdifference
+    public String calculateweightdifference(float weight) {
+        String weightdifferncestring;
+        float weightdiffernce;
+        float weightgoal = ModulWeight.getWeightGoal();
+
+        if (weight == weightgoal) {
+            weightdifferncestring = "0.0 kg";
+        } else if (weight < weightgoal) {
+            weightdiffernce = weightgoal - weight;
+            //call function roundfloat
+            weightdiffernce = roundfloat(weightdiffernce);
+            weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
+        } else {
+            weightdiffernce = weight - weightgoal;
+            //call function roundfloat
+            weightdiffernce = roundfloat(weightdiffernce);
+            weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
+        }
+        return weightdifferncestring;
+    }
+
+    // function roundfloat
+    public float roundfloat(float inputfloat) {
+        float roundedfloat = 0;
+        inputfloat += 0.05;
+        inputfloat = (int) (inputfloat * 10);
+        roundedfloat = inputfloat / 10;
+        return roundedfloat;
+    }
+
+    public void activatebuttons() {
+        // bind diagrammbutton to Button
+        Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
+
+        // bind deletebutton to Button
+        Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
+
+        // set deletebutton enabled and change opacity, color
+        diagrammbutton.setEnabled(true);
+        diagrammbutton.getBackground().setAlpha(255);
+        diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        // set deletebutton enabled and change opacity, color
+        deletebutton.setEnabled(true);
+        deletebutton.getBackground().setAlpha(255);
+        deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 }

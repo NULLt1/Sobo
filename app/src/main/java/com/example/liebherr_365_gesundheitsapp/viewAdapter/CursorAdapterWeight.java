@@ -2,6 +2,7 @@ package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import Database.DataQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
 
 
 /**
@@ -22,6 +23,7 @@ public class CursorAdapterWeight extends CursorAdapter {
 
     public CursorAdapterWeight(Context context, Cursor cursor) {
         super(context, cursor, 0);
+        this.mCursor=cursor;
     }
 
     @Override
@@ -39,7 +41,29 @@ public class CursorAdapterWeight extends CursorAdapter {
         String weight = cursor.getString(cursor.getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
         weight += " kg";
         textViewweight.setText(weight);
-        String difference = "XXX";
+        String difference = calcDifference(cursor.getPosition());
         textViewdifference.setText(difference);
+    }
+
+    private String calcDifference(int position){
+        try {
+        Log.d("Cursor position",String.valueOf(position));
+        Log.d("MCursor count",String.valueOf(mCursor.getCount()));
+        mCursor.moveToPosition(position);
+       String currentWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+
+       float currentWeightFloat = Float.parseFloat(currentWeight);
+
+        mCursor.moveToPosition(position+1);
+        String lastWeight= mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+        float lastWeightFloat = Float.parseFloat(lastWeight);
+        float weightdifference = currentWeightFloat-lastWeightFloat;
+
+        return String.format("%.1f",weightdifference)+" kg";
+        }
+        catch(Exception e){
+            return "";
+        }
+
     }
 }

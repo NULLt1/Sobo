@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.AxisBase;

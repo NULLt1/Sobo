@@ -13,8 +13,8 @@ import android.widget.GridView;
 
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.GridViewAdapter;
 
-import Database.DBHelperDataSourceModules;
-import Database.ModulesQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
+import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
 
 public class Tab2 extends Fragment {
     DBHelperDataSourceModules dataSourceModules;
@@ -42,11 +42,12 @@ public class Tab2 extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                if (!cursor.moveToFirst())
+                    cursor.moveToFirst();
                 cursor.moveToPosition(position);
                 try {
                     final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
-                    final Class<?> act = Class.forName(context.getPackageName() + "." + modulPath);
+                    final Class<?> act = Class.forName(context.getPackageName() + "." + modulPath + "." + modulPath);
 
                     Intent intent = new Intent(getActivity(), act);
                     startActivity(intent);

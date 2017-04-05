@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
+
 public class Notification extends Service {
 
     final int NOTIFICATION_ID = 16;

@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,8 +11,10 @@ import android.util.Log;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import Database.DBHelperDataSourceData;
-import Database.Data;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.Data;
+
+import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
 
 public class ChangeDataFragment extends DialogFragment {
     Context context;
@@ -51,14 +53,16 @@ public class ChangeDataFragment extends DialogFragment {
                         dataSourceData = new DBHelperDataSourceData(context);
                         dataSourceData.open();
 
-                        Log.d("Ausgbabe", "Ändern");
                         //call function updatedata
                         dataSourceData.updatedata(wd);
 
+                        // weightlist adapter
+                        adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+
                         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                         dataSourceData.close();
-                        //TODO: REFRESH LIST
 
+                        //TODO: REFRESH STARTGEWICHT & DIFFERENCE
                         dialog.dismiss();
                     }
                 });

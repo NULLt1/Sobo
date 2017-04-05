@@ -1,4 +1,4 @@
-package Database;
+package com.example.liebherr_365_gesundheitsapp.Database;
 
 public class DataQuery {
     private static final String DB_NAME = "DATA4";

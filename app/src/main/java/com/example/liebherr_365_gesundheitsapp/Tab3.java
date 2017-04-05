@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ModulesCursorAdapterSwitch;
 
-import Database.DBHelperDataSourceModules;
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
 
 public class Tab3 extends Fragment {
     DBHelperDataSourceModules dataSourceModules;

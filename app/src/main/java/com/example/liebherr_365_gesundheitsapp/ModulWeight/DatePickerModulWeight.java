@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -8,10 +8,12 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class DatePickerFragment extends DialogFragment
+public class DatePickerModulWeight extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     @Override
@@ -20,9 +22,6 @@ public class DatePickerFragment extends DialogFragment
         // Use the current date as the default date in the picker
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
-
-        String buttonText = (String) ((TextView) getActivity().findViewById(R.id.plus)).getText();
-        Log.d("buttonText", buttonText);
 
         //convert datestrings to int
         int day = Integer.parseInt(actualdate.substring(0, 2));
@@ -44,8 +43,8 @@ public class DatePickerFragment extends DialogFragment
             WrongDatumFragment.show(getFragmentManager(), "wrongDatum");
             getDialog().dismiss();
         } else {
-            // create new NumberPickerFragment
-            DialogFragment NumberPickerFragment = new NumberPickerFragment();
+            // create new NumberPickerModulWeight
+            DialogFragment NumberPickerModulWeight = new NumberPickerModulWeight();
 
             // create bundle and fill with values
             Bundle bundle = new Bundle();
@@ -53,11 +52,11 @@ public class DatePickerFragment extends DialogFragment
             bundle.putInt("month", month);
             bundle.putInt("year", year);
 
-            // setArguments to NumberPickerFragment
-            NumberPickerFragment.setArguments(bundle);
+            // setArguments to NumberPickerModulWeight
+            NumberPickerModulWeight.setArguments(bundle);
 
-            // open NumberPickerFragment
-            NumberPickerFragment.show(getFragmentManager(), "numberPicker");
+            // open NumberPickerModulWeight
+            NumberPickerModulWeight.show(getFragmentManager(), "numberPicker");
         }
     }
 }

@@ -27,21 +27,21 @@
             android:exported="true" />
 
         <activity
-            android:name=".ViewGraph"
-            android:parentActivityName=".ModulWeight">
+            android:name=".ModulWeight.ViewGraphModulWeight"
+            android:parentActivityName=".ModulWeight.ModulWeight">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ModulWeight" />
+                android:value=".ModulWeight.ModulWeight" />
         </activity>
         <activity
-            android:name=".ModulWeight"
+            android:name=".ModulWeight.ModulWeight"
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ModulWeight.SettingsActivityModulWeight"
             android:label="@string/title_activity_settings" />
         <activity android:name=".Recording" />
         <activity

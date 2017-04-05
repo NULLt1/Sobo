@@ -9,7 +9,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import Database.ModulesQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
 
 /**
  * Created by Jan on 11.01.2017.

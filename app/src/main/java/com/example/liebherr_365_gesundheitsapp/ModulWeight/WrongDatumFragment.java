@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

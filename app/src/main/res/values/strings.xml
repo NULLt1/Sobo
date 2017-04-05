@@ -14,6 +14,10 @@
     <string name="startgewicht">kg\nStartgewicht</string>
     <string name="zero">-.-</string>
     <string name="seventyfive">75.0</string>
+    <string name="deletedata">Daten löschen</string>
+    <string name="deletequestion">Möchten sie alle Daten löschen?</string>
+    <string name="ja">Ja</string>
+    <string name="nein">Nein</string>
 
     <!-- Strings Modul Name -->
     <string name="namemensa">Mensa</string>

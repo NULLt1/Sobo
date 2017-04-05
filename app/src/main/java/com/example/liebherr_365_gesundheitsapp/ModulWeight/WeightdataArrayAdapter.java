@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.Weightdata;
+import com.example.liebherr_365_gesundheitsapp.R;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,8 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.example.liebherr_365_gesundheitsapp.BmiCalculator.getMaxRecBmi;
-import static com.example.liebherr_365_gesundheitsapp.BmiCalculator.getMinRecBmi;
+import static com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator.getMaxRecBmi;
+import static com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator.getMinRecBmi;
 
 /**
  * Created by Jan on 16.11.2016.

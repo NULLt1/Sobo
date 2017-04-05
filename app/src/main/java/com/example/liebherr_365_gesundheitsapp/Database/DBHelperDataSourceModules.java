@@ -1,4 +1,4 @@
-package Database;
+package com.example.liebherr_365_gesundheitsapp.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,7 +20,6 @@ public class DBHelperDataSourceModules {
 
     public void open() {
         Log.d(LOG_TAG, "<MODULES>Eine Referenz auf die Datenbank wird jetzt angefragt.<MODULES>");
-
         Log.d(LOG_TAG, "<MODULES>Datenbank-Referenz erhalten. Pfad zur Datenbank: " + databaseModules.getPath() + "<MODULES>");
     }
 
@@ -29,8 +28,8 @@ public class DBHelperDataSourceModules {
         Log.d(LOG_TAG, "<MODULES>Datenbank mit Hilfe des DbHelpers geschlossen.<MODULES>");
     }
 
-    public void deletedb() {
-        databaseModules.delete(ModulesQuery.getDbName(), null, null);
+    public void deletedb(String modulname) {
+        databaseModules.delete(ModulesQuery.getDbName(), ModulesQuery.getColumnModul() + "='" + modulname+"'", null);
         Log.d(LOG_TAG, "<MODULES>Datenbank gelöscht<MODULES>");
     }
 

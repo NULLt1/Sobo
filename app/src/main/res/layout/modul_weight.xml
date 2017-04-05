@@ -98,6 +98,22 @@
         android:gravity="center"
         android:text="@string/zero"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/viewgraph"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:background="@color/colorNegativeButton"
+        android:onClick="deletedata"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/deletedata"
+        android:textSize="14sp" />
 </RelativeLayout>
 
 
