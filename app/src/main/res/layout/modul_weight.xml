@@ -111,9 +111,10 @@
         android:layout_marginRight="13dp"
         android:background="@color/colorNegativeButton"
         android:onClick="deletedata"
-        android:text="@string/deletedata"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:paddingRight="10dp"
+        android:text="@string/deletedata"
+        android:textSize="14sp" />
 </RelativeLayout>
 
 

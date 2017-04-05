@@ -32,7 +32,7 @@ public class NumberPickerModulWeight extends DialogFragment {
     int month;
     int year;
     int integervalue;
-    int afterkommavalue;
+    int afterkommavalue = 0;
 
     @Override
     public View onCreateView(
@@ -83,6 +83,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         integer.setMaxValue(150);
         integer.setBackgroundColor(Color.GRAY);
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
         //get latestweight and set picker
         dataSourceData = new DBHelperDataSourceData(context);
         dataSourceData.open();
@@ -92,7 +93,7 @@ public class NumberPickerModulWeight extends DialogFragment {
             integervalue = lastentry;
         } else {
             integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
-            integervalue = lastentry;
+            integervalue = (int) SavedSharedPrefrencesModulWeight.getWeightGoal();
         }
         dataSourceData.close();
 
