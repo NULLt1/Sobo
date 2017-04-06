@@ -74,8 +74,6 @@ public class DBHelperDataSourceModules {
         return cursor;
     }
 
-
-
     //TODO: NW
     //function getactivemodulesstringarray
     public String[] getactivemodulesstringarray() {
