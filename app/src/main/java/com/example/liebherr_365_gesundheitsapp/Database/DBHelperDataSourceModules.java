@@ -29,7 +29,7 @@ public class DBHelperDataSourceModules {
     }
 
     public void deletedb(String modulname) {
-        databaseModules.delete(ModulesQuery.getDbName(), ModulesQuery.getColumnModul() + "='" + modulname+"'", null);
+        databaseModules.delete(ModulesQuery.getDbName(), ModulesQuery.getColumnModul() + "='" + modulname + "'", null);
         Log.d(LOG_TAG, "<MODULES>Datenbank gelöscht<MODULES>");
     }
 
@@ -66,5 +66,36 @@ public class DBHelperDataSourceModules {
     public Cursor getSelectedDataCursor() {
         Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectSelectedData(), null);
         return cursor;
+    }
+
+    //function getactivemodulescursor
+    private Cursor getactivemodulescursor() {
+        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectActiveModules(), null);
+        return cursor;
+    }
+
+
+
+    //TODO: NW
+    //function getactivemodulesstringarray
+    public String[] getactivemodulesstringarray() {
+        Cursor cursor;
+        cursor = getactivemodulescursor();
+
+        int cursorvalue = cursor.getCount();
+
+        String[] activemodules = new String[cursorvalue];
+
+        cursor.moveToFirst();
+        if (cursorvalue == 0) {
+            return null;
+        } else {
+            for (int i = 0; i < cursorvalue; i++) {
+                int ModulesID = cursor.getColumnIndex(ModulesQuery.getColumnModul());
+                activemodules[i] = cursor.getString(ModulesID);
+                Log.d("Modul in Array", cursor.getString(ModulesID));
+            }
+        }
+        return activemodules;
     }
 }

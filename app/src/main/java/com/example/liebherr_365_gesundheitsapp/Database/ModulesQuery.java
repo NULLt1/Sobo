@@ -15,9 +15,11 @@ public class ModulesQuery {
             COLUMN_MODUL + " VARCHAR(20) UNIQUE, " +
             COLUMN_FLAG + " BOOLEAN);";
 
-    private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME;
+    private static final String SELECT_ALL_DATA = "SELECT * FROM " + DB_NAME + ";";
 
-    private static final String SELECT_SELECTED_DATA = "SELECT * FROM " + DB_NAME + " WHERE " + COLUMN_FLAG + " = 'true'";
+    private static final String SELECT_SELECTED_DATA = "SELECT * FROM " + DB_NAME + " WHERE " + COLUMN_FLAG + " = 'true';";
+
+    private static final String SELECT_ACTIVE_MODULES = "SELECT * FROM " + ModulesQuery.getDbName() + " WHERE " + ModulesQuery.getColumnFlag() + " = 'true';";
 
     public static String getCreateDb() {
         return CREATE_DB_MODULES;
@@ -51,5 +53,7 @@ public class ModulesQuery {
         return SELECT_SELECTED_DATA;
     }
 
+    public static String getSelectActiveModules() {return SELECT_ACTIVE_MODULES;
+    }
     ;
 }

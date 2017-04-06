@@ -79,7 +79,6 @@ public class DBHelperDataSourceData {
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
         float physicalvalues = cursor.getFloat(idWeight);
-        //String type = cursor.getString(idType);
 
         data = new Data(modul, date, physicalvalues, "kg");
 
@@ -194,5 +193,11 @@ public class DBHelperDataSourceData {
 
             return lastWeight;
         }
+    }
+
+    public String[] getRequiredDataStringArray(String[] activemodules) {
+
+//TODO
+return null;
     }
 }

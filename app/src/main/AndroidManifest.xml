@@ -45,7 +45,7 @@
             android:label="@string/title_activity_settings" />
         <activity android:name=".Recording" />
         <activity
-            android:name=".ModulMensa"
+            android:name=".ModulMensa.ModulMensa"
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

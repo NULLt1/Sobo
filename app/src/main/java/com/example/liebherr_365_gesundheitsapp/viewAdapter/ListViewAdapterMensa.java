@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.liebherr_365_gesundheitsapp.ModulMensa;
+import com.example.liebherr_365_gesundheitsapp.ModulMensa.ModulMensa;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 import java.util.ArrayList;
