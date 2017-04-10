@@ -1,6 +1,7 @@
 package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -72,6 +73,7 @@ public class MainMenu extends AppCompatActivity {
         // close dbm connection
         dbm.close();
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,11 +90,30 @@ public class MainMenu extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_badge, badge);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_menu, menu);
+
+        MenuItem itemCart = menu.findItem(R.id.recording);
+        LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
+        setBadgeCount(this, icon, "8");
         return true;
     }
 
