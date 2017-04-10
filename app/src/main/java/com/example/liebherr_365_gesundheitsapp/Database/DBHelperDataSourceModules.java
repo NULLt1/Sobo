@@ -92,6 +92,7 @@ public class DBHelperDataSourceModules {
                 int ModulesID = cursor.getColumnIndex(ModulesQuery.getColumnModul());
                 activemodules[i] = cursor.getString(ModulesID);
                 Log.d("Modul in Array", cursor.getString(ModulesID));
+                cursor.moveToNext();
             }
         }
         return activemodules;

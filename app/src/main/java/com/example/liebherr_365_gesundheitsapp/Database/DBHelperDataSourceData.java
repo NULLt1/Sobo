@@ -194,10 +194,4 @@ public class DBHelperDataSourceData {
             return lastWeight;
         }
     }
-
-    public String[] getRequiredDataStringArray(String[] activemodules) {
-
-//TODO
-return null;
-    }
 }

@@ -54,6 +54,7 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("xx", DataQuery.getCreateDb());
+
         // fill database with defaultmodules
         db = new DBHelperDataSourceModules(this);
         db.open();
@@ -97,28 +98,54 @@ public class MainMenu extends AppCompatActivity {
             return true;
         }
 
-        //noinspection SimplifiableIfStatement
+        //recording icon
         if (id == R.id.recording) {
 
-            Intent intent = new Intent(this, Recording.class);
-            startActivity(intent);
-            return true;
+            // new DBHelperDataSourceModules
+            db = new DBHelperDataSourceModules(this);
+            db.open();
+
+            // initalize String[] activemodulesarray
+            String[] activemodulesarray;
+
+            // call function getactivemodulesstringarray
+            activemodulesarray = db.getactivemodulesstringarray();
+
+            // handle null array -> no recording required
+            if (activemodulesarray == null) {
+                Log.d("Empty", "!!!");
+            } else {
+                // iterate through activemodulesarray
+                for (String aX : activemodulesarray) {
+                    // handle Modules
+                    switch (aX) {
+                        case "ModulWeight":
+                            Log.d("Found", "ModulWeight");
+
+                            break;
+                        case "ModulDrink":
+                            Log.d("Found", "ModulDrink");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            // close db connection
+            db.close();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void dosmt() {
-
     }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
