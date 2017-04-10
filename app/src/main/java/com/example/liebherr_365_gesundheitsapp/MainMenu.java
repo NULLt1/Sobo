@@ -59,7 +59,9 @@ public class MainMenu extends AppCompatActivity {
     private DBHelperDataSourceModules dbm;
     private DBHelperDataSourceData dbd;
     private ViewPager mViewPager;
-    private Menu mToolbarMenu;
+
+    // initalize counter for required fragments
+    int fragmentcounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,8 +147,7 @@ public class MainMenu extends AppCompatActivity {
             // close dbm connection
             dbm.close();
 
-            // initalize counter for required fragments
-            int fragmentcounter = 0;
+
 
             // handle null array -> no recording required
             if (activemodulesarray == null) {
