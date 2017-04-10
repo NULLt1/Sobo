@@ -1,5 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
 import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.WrongDatumFragment;
 
 //s
 public class MainMenu extends AppCompatActivity {
@@ -56,13 +58,14 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("xx", DataQuery.getCreateDb());
-
         // fill database with defaultmodules
         dbm = new DBHelperDataSourceModules(this);
         dbm.open();
+
         // call function insertdefaultmodules
         dbm.insertdefaultmodules();
+
+        // close dbm connection
         dbm.close();
 
         super.onCreate(savedInstanceState);
@@ -114,12 +117,15 @@ public class MainMenu extends AppCompatActivity {
             // call function getactivemodulesstringarray
             activemodulesarray = dbm.getactivemodulesstringarray();
 
+            // close dbm connection
+            dbm.close();
+
             // initalize counter for required fragments
             int fragmentcounter = 0;
 
             // handle null array -> no recording required
             if (activemodulesarray == null) {
-                Log.d("Empty", "!!!");
+                openNoRecordingRequiredFragment();
             } else {
                 // iterate through activemodulesarray
                 for (String aX : activemodulesarray) {
@@ -134,10 +140,14 @@ public class MainMenu extends AppCompatActivity {
 
                             boolean result = dbd.entryalreadyexisting("ModulWeight");
 
+                            if (!result) {
+                                fragmentcounter++;
+                            }
+
                             Log.d("RESULT", String.valueOf(result));
 
                             dbd.close();
-                            fragmentcounter++;
+
                             break;
                         case "ModulDrink":
                             Log.d("Found", "ModulDrink");
@@ -146,14 +156,21 @@ public class MainMenu extends AppCompatActivity {
                             break;
                     }
                 }
+                if (fragmentcounter == 0) {
+                    openNoRecordingRequiredFragment();
+                }
             }
-
-
-            // close dbm connection
-            dbm.close();
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    // function openNoRecordingRequiredFragment
+    public void openNoRecordingRequiredFragment() {
+        // create new WrongDatumFragment
+        DialogFragment NoRecordingRequired = new NoRecordingRequired();
+
+        // open WrongDatumFragment
+        NoRecordingRequired.show(getFragmentManager(), "NoRecordingRequired");
     }
 
     /**
