@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DBHelperDataSourceData {
 
@@ -193,5 +195,20 @@ public class DBHelperDataSourceData {
 
             return lastWeight;
         }
+    }
+
+    public boolean entryalreadyexisting(String modul) {
+        boolean result = false;
+
+        // get actualdate
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
+        String actualdate = dateFormat.format(new java.util.Date());
+
+        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + modul + "' AND " + DataQuery.getColumnDate() + "='" + actualdate + "';";
+        Cursor databaseweightresult = databaseData.rawQuery(query, null);
+        if (databaseweightresult.getCount() != 0) {
+            result = true;
+        }
+        return result;
     }
 }

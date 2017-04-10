@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
 import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
 
@@ -48,7 +49,9 @@ public class MainMenu extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private DBHelperDataSourceModules db;
+
+    private DBHelperDataSourceModules dbm;
+    private DBHelperDataSourceData dbd;
     private ViewPager mViewPager;
 
     @Override
@@ -56,11 +59,11 @@ public class MainMenu extends AppCompatActivity {
         Log.d("xx", DataQuery.getCreateDb());
 
         // fill database with defaultmodules
-        db = new DBHelperDataSourceModules(this);
-        db.open();
+        dbm = new DBHelperDataSourceModules(this);
+        dbm.open();
         // call function insertdefaultmodules
-        db.insertdefaultmodules();
-        db.close();
+        dbm.insertdefaultmodules();
+        dbm.close();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
@@ -102,14 +105,17 @@ public class MainMenu extends AppCompatActivity {
         if (id == R.id.recording) {
 
             // new DBHelperDataSourceModules
-            db = new DBHelperDataSourceModules(this);
-            db.open();
+            dbm = new DBHelperDataSourceModules(this);
+            dbm.open();
 
             // initalize String[] activemodulesarray
             String[] activemodulesarray;
 
             // call function getactivemodulesstringarray
-            activemodulesarray = db.getactivemodulesstringarray();
+            activemodulesarray = dbm.getactivemodulesstringarray();
+
+            // initalize counter for required fragments
+            int fragmentcounter = 0;
 
             // handle null array -> no recording required
             if (activemodulesarray == null) {
@@ -122,6 +128,16 @@ public class MainMenu extends AppCompatActivity {
                         case "ModulWeight":
                             Log.d("Found", "ModulWeight");
 
+                            // new DBHelperDataSourceModules
+                            dbd = new DBHelperDataSourceData(this);
+                            dbd.open();
+
+                            boolean result = dbd.entryalreadyexisting("ModulWeight");
+
+                            Log.d("RESULT", String.valueOf(result));
+
+                            dbd.close();
+                            fragmentcounter++;
                             break;
                         case "ModulDrink":
                             Log.d("Found", "ModulDrink");
@@ -132,8 +148,9 @@ public class MainMenu extends AppCompatActivity {
                 }
             }
 
-            // close db connection
-            db.close();
+
+            // close dbm connection
+            dbm.close();
         }
 
         return super.onOptionsItemSelected(item);

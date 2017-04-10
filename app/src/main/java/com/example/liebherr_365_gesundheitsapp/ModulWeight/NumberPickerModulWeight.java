@@ -115,6 +115,7 @@ public class NumberPickerModulWeight extends DialogFragment {
             public void onClick(View view) {
                 // formate date
                 year = year - 1900;
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String formateddate = sdf.format(new Date(year, month, day));
 
