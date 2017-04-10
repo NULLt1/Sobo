@@ -2,6 +2,9 @@ package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -55,6 +58,7 @@ public class MainMenu extends AppCompatActivity {
     private DBHelperDataSourceModules dbm;
     private DBHelperDataSourceData dbd;
     private ViewPager mViewPager;
+    private Menu mToolbarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

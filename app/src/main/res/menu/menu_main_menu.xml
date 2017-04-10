@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/recording"
-        android:icon="@mipmap/mail"
+        android:icon="@drawable/badge_icon_notification"
         android:title="Erfassungsbogen"
         app:showAsAction="always" />
 
