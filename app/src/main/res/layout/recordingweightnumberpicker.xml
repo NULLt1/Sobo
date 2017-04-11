@@ -11,11 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="81dp"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="123dp" />
+        android:layout_alignParentStart="true" />
 
     <NumberPicker
         android:id="@+id/afterkomma"
@@ -31,40 +27,41 @@
         android:layout_width="25dp"
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="123dp"
         android:layout_toEndOf="@+id/integer"
         android:layout_toRightOf="@+id/integer"
         android:gravity="center"
         android:text="@string/komma"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/kg"
         android:layout_width="30dp"
         android:layout_height="180dp"
+        android:layout_above="@+id/speichern"
+        android:layout_toEndOf="@+id/afterkomma"
+        android:layout_toRightOf="@+id/afterkomma"
         android:gravity="center"
         android:text="@string/kg"
-        android:textSize="18sp"
-        android:layout_above="@+id/speichern"
-        android:layout_toRightOf="@+id/afterkomma"
-        android:layout_toEndOf="@+id/afterkomma" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/speichern"
-        android:layout_below="@+id/komma"
+        android:layout_alignEnd="@+id/kg"
         android:layout_alignRight="@+id/kg"
-        android:layout_alignEnd="@+id/kg" />
+        android:layout_below="@+id/komma"
+        android:text="@string/speichern" />
 
     <Button
         android:id="@+id/später"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= "@string/später"
         android:layout_alignBaseline="@+id/speichern"
         android:layout_alignBottom="@+id/speichern"
         android:layout_toLeftOf="@+id/speichern"
-        android:layout_toStartOf="@+id/speichern" />
+        android:layout_toStartOf="@+id/speichern"
+        android:text="@string/später" />
 </RelativeLayout>

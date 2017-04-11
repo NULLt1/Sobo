@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
 import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.NumberPickerModulWeight;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.WrongDatumFragment;
 
 //s
@@ -207,11 +208,11 @@ public class MainMenu extends AppCompatActivity {
                 // handle fragmentcounter == 0
                 openNoRecordingRequiredFragment();
             } else {
+                // create new NumberPickerModulWeight
+                DialogFragment RecordingWeightNumberPicker = new RecordingWeightNumberPicker();
 
-                // start recording
-                Log.d("Abfrage", "Abfrage");
-                Log.d("Abfrage", String.valueOf(fragmentcounter));
-
+                // open NumberPickerModulWeight
+                RecordingWeightNumberPicker.show(getFragmentManager(), "numberPicker");
             }
         }
 
