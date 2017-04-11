@@ -160,6 +160,7 @@ public class MainMenu extends AppCompatActivity {
         fragmentcounter = fragmentcounterlocal;
     }
 
+    //  function setBadgeCount
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
         BadgeDrawable badge;
 
@@ -181,9 +182,10 @@ public class MainMenu extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_menu, menu);
 
+        // setBadgeCount with fragmencounter
         MenuItem itemCart = menu.findItem(R.id.recording);
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
-        setBadgeCount(this, icon, "8");
+        setBadgeCount(this, icon, String.valueOf(fragmentcounter));
         return true;
     }
 
@@ -205,6 +207,7 @@ public class MainMenu extends AppCompatActivity {
                 // handle fragmentcounter == 0
                 openNoRecordingRequiredFragment();
             } else {
+
                 // start recording
                 Log.d("Abfrage", "Abfrage");
                 Log.d("Abfrage", String.valueOf(fragmentcounter));

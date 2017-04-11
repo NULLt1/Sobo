@@ -13,11 +13,12 @@
         android:contextClickable="false" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/komma"
         android:layout_width="10dp"
         android:layout_height="match_parent"
-        android:gravity="left|center"
+        android:gravity="center"
         android:text="@string/komma"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <NumberPicker
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/kg"
         android:layout_width="25dp"
         android:layout_height="match_parent"
         android:gravity="left|center"
