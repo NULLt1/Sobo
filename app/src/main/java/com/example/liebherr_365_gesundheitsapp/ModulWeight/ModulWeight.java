@@ -84,6 +84,16 @@ public class ModulWeight extends AppCompatActivity {
             deletebutton.setEnabled(false);
             deletebutton.getBackground().setAlpha(45);
             deletebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+        } else {
+            // set deletebutton enabled and change opacity, color
+            diagrammbutton.setEnabled(true);
+            diagrammbutton.getBackground().setAlpha(255);
+            diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+            // set deletebutton enabled and change opacity, color
+            deletebutton.setEnabled(true);
+            deletebutton.getBackground().setAlpha(255);
+            deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
         // weightlist adapter

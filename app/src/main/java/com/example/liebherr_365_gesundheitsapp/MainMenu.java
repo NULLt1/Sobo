@@ -62,7 +62,7 @@ public class MainMenu extends AppCompatActivity {
     private ViewPager mViewPager;
 
     // initalize counter for required fragments
-    private int fragmentcounter = 0;
+    private static int fragmentcounter = 0;
 
     // initalize String[] activemodulesarray
     private String[] activemodulesarray;
@@ -117,6 +117,11 @@ public class MainMenu extends AppCompatActivity {
 
         // call function prepareRecording
         prepareRecording();
+    }
+
+    // function resetFragmentCounter
+    public static void resetFragmentCounter() {
+        fragmentcounter = 0;
     }
 
     // function prepareRecording
@@ -180,6 +185,11 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("XXXXXXXXXXXXXXX", "XXXXXXXXXXXXX");
+        Log.d("XXXXXXXXXXXXXXX", "XXXXXXXXXXXXX");
+        Log.d("XXXXXXXXXXXXXXX", "XXXXXXXXXXXXX");
+        Log.d("XXXXXXXXXXXXXXX", "XXXXXXXXXXXXX");
+        Log.d("XXXXXXXXXXXXXXX", "XXXXXXXXXXXXX");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_menu, menu);
 

@@ -1,5 +1,6 @@
 package com.example.liebherr_365_gesundheitsapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -80,8 +81,8 @@ public class RecordingWeightNumberPicker extends DialogFragment {
             integer.setValue(lastentry);
             integervalue = lastentry;
         } else {
-            integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
-            integervalue = (int) SavedSharedPrefrencesModulWeight.getWeightGoal();
+            integer.setValue(80);
+            integervalue = 80;
         }
         dataSourceData.close();
 
@@ -136,11 +137,22 @@ public class RecordingWeightNumberPicker extends DialogFragment {
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
 
+                // call function resetFragmentCounter
+                MainMenu.resetFragmentCounter();
+
+                // call function refreshMenu
+                refreshMenu(getActivity());
+
                 //close NumberPickerFragment
                 getDialog().dismiss();
             }
         });
         return view;
+    }
+
+
+    public static void refreshMenu(Activity activity) {
+        activity.invalidateOptionsMenu();
     }
 
     //function integer values -> float integervalue,afterkommavalue
@@ -149,23 +161,5 @@ public class RecordingWeightNumberPicker extends DialogFragment {
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
         return result;
-    }
-
-    public void activatebuttons() {
-        // bind diagrammbutton to Button
-        Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
-
-        // bind deletebutton to Button
-        Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
-
-        // set deletebutton enabled and change opacity, color
-        diagrammbutton.setEnabled(true);
-        diagrammbutton.getBackground().setAlpha(255);
-        diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-        // set deletebutton enabled and change opacity, color
-        deletebutton.setEnabled(true);
-        deletebutton.getBackground().setAlpha(255);
-        deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 }
