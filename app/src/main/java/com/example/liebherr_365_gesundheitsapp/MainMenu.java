@@ -61,7 +61,10 @@ public class MainMenu extends AppCompatActivity {
     private ViewPager mViewPager;
 
     // initalize counter for required fragments
-    int fragmentcounter = 0;
+    private int fragmentcounter = 0;
+
+    // initalize String[] activemodulesarray
+    private String[] activemodulesarray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +75,14 @@ public class MainMenu extends AppCompatActivity {
         // call function insertdefaultmodules
         dbm.insertdefaultmodules();
 
+        // call function getactivemodulesstringarray
+        activemodulesarray = dbm.getactivemodulesstringarray();
+
         // close dbm connection
         dbm.close();
 
+        // call function prepareRecording
+        prepareRecording();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
@@ -90,6 +98,66 @@ public class MainMenu extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // new DBHelperDataSourceModules
+        dbm = new DBHelperDataSourceModules(this);
+        dbm.open();
+
+        // call function getactivemodulesstringarray
+        activemodulesarray = dbm.getactivemodulesstringarray();
+
+        // close dbm connection
+        dbm.close();
+
+        // call function prepareRecording
+        prepareRecording();
+    }
+
+    // function prepareRecording
+    private void prepareRecording() {
+        // initalize counter for required fragments
+        int fragmentcounterlocal = 0;
+
+        // iterate through activemodulesarray
+        for (String aX : activemodulesarray) {
+            // handle Modules
+            switch (aX) {
+                case "ModulWeight":
+                    Log.d("Found", "ModulWeight");
+
+                    // new DBHelperDataSourceModules
+                    dbd = new DBHelperDataSourceData(this);
+                    dbd.open();
+
+                    // call function entryalreadyexisting
+                    boolean result = dbd.entryalreadyexisting("ModulWeight");
+
+                    // if result == false count up fragmentcounterlocal
+                    if (!result) {
+                        fragmentcounterlocal++;
+                    }
+
+                    // close dbm connection
+                    dbd.close();
+
+                    break;
+                case "ModulDrink":
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~PLACEHOLDER~~~~~~~~~~~~~~~~~
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    Log.d("Found", "ModulDrink");
+                    break;
+                default:
+                    break;
+            }
+        }
+        // set fragmentcounter with value of fragmentcounterlocal
+        fragmentcounter = fragmentcounterlocal;
     }
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
@@ -121,76 +189,34 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //settings icon
         if (id == R.id.action_settings) {
             return true;
         }
 
         //recording icon
         if (id == R.id.recording) {
-
-            // new DBHelperDataSourceModules
-            dbm = new DBHelperDataSourceModules(this);
-            dbm.open();
-
-            // initalize String[] activemodulesarray
-            String[] activemodulesarray;
-
-            // call function getactivemodulesstringarray
-            activemodulesarray = dbm.getactivemodulesstringarray();
-
-            // close dbm connection
-            dbm.close();
-
-
-
-            // handle null array -> no recording required
             if (activemodulesarray == null) {
+                // handle null array -> no recording required
+                openNoRecordingRequiredFragment();
+            } else if (fragmentcounter == 0) {
+                // handle fragmentcounter == 0
                 openNoRecordingRequiredFragment();
             } else {
-                // iterate through activemodulesarray
-                for (String aX : activemodulesarray) {
-                    // handle Modules
-                    switch (aX) {
-                        case "ModulWeight":
-                            Log.d("Found", "ModulWeight");
+                // start recording
+                Log.d("Abfrage", "Abfrage");
+                Log.d("Abfrage", String.valueOf(fragmentcounter));
 
-                            // new DBHelperDataSourceModules
-                            dbd = new DBHelperDataSourceData(this);
-                            dbd.open();
-
-                            boolean result = dbd.entryalreadyexisting("ModulWeight");
-
-                            if (!result) {
-                                fragmentcounter++;
-                            }
-
-                            Log.d("RESULT", String.valueOf(result));
-
-                            dbd.close();
-
-                            break;
-                        case "ModulDrink":
-                            Log.d("Found", "ModulDrink");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if (fragmentcounter == 0) {
-                    openNoRecordingRequiredFragment();
-                }
             }
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     // function openNoRecordingRequiredFragment
+
     public void openNoRecordingRequiredFragment() {
         // create new WrongDatumFragment
         DialogFragment NoRecordingRequired = new NoRecordingRequired();
