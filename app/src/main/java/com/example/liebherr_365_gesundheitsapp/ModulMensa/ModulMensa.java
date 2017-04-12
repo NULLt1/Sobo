@@ -64,7 +64,7 @@ public class ModulMensa extends AppCompatActivity {
     public String Zusatzstoffe;
     View v;
     TextView textViewFooter;
-
+//ss
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
