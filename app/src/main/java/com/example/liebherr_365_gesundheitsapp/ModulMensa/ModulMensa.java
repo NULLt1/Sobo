@@ -2,13 +2,15 @@ package com.example.liebherr_365_gesundheitsapp.ModulMensa;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,9 +25,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,32 +49,40 @@ public class ModulMensa extends AppCompatActivity {
     public static String PRICE = "price";
     private boolean currentWeek = true;
     private int weekOfTheYear = 0;
-    TextView textViewKW;
-    ImageButton imageButtonLastWeek;
-    ImageButton imageButtonNextWeek;
-    ListView listview;
-    ListViewAdapterMensa adapter;
-    ProgressDialog mProgressDialog;
-    ArrayList<HashMap<String, ArrayList<String>>> arraylist;
-    String url = "http://eid.dm.hs-furtwangen.de/joomla/index.php/speiseplan";
-    Document doc;
+    private String filename = "html_data.html";
+    private Context context;
+    private File file;
+    private TextView textViewKW;
+    private ImageButton imageButtonLastWeek;
+    private ImageButton imageButtonNextWeek;
+    private ListView listview;
+    private ListViewAdapterMensa adapter;
+    private ProgressDialog mProgressDialog;
+    private ArrayList<HashMap<String, ArrayList<String>>> arraylist;
+    private String url = "http://eid.dm.hs-furtwangen.de/joomla/index.php/speiseplan";
+    private Document doc;
+    public String Zusatzstoffe;
+    View v;
+    TextView textViewFooter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        file = new File(context.getFilesDir(), filename);
 
         // set up navigation enabled
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_modul_mensa);
         imageButtonLastWeek = (ImageButton) findViewById(R.id.imageButtonModulMensaLastWeek);
-        imageButtonLastWeek.setVisibility(View.GONE);
+
+        //hide arrownavigation
+        imageButtonLastWeek.setVisibility(View.INVISIBLE);
         imageButtonNextWeek = (ImageButton) findViewById(R.id.imageButtonModulMensaNextWeek);
         //Parser starts if internet conn exists
-        if (isOnline() == true) {
-            new XmlParser().execute();
+        new XmlParser().execute();
 
-        }
     }
 
     @Override
@@ -81,31 +96,24 @@ public class ModulMensa extends AppCompatActivity {
         }
     }
 
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
     public void showNextWeek(View view) {
         currentWeek = false;
         imageButtonLastWeek.setVisibility(View.VISIBLE);
-        imageButtonNextWeek.setVisibility(View.GONE);
+        imageButtonNextWeek.setVisibility(View.INVISIBLE);
         adapter.updateResults(new XmlParser().parseTable());
     }
 
     public void showLastWeek(View view) {
         currentWeek = true;
-        imageButtonLastWeek.setVisibility(View.GONE);
+        imageButtonLastWeek.setVisibility(View.INVISIBLE);
         imageButtonNextWeek.setVisibility(View.VISIBLE);
         adapter.updateResults((new XmlParser()).parseTable());
     }
 
     private class XmlParser extends AsyncTask<Void, Void, Void> {
-
-        String content;
-
+        SharedPreferences sharedPref;
+        String stringText;
+        String stringIncredients;
 
         @Override
         protected void onPreExecute() {
@@ -119,11 +127,27 @@ public class ModulMensa extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            try {
-                doc = Jsoup.parse(new URL(url).openStream(), null, url);
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+  //loads data if internet connection exists & the data on the server is updated, writes data in a file
+
+            sharedPref = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+            String lastModified;
+
+            if (isOnline()) {
+                try {
+                    URL uri = new URL(url);
+                    URLConnection connection = uri.openConnection();
+                    doc = Jsoup.parse(new URL(url).openStream(), null, url);
+                    //saves data if it is modified
+                    if (isHTMLModified(lastModified = connection.getHeaderField("last-modified"))) {
+                        saveDataLocal(doc, lastModified);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                doc = getDataFromFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -135,25 +159,36 @@ public class ModulMensa extends AppCompatActivity {
             super.onPostExecute(aVoid);
             listview = (ListView) findViewById(R.id.listViewMensa);
             adapter = new ListViewAdapterMensa(ModulMensa.this, parseTable());
+            v = getLayoutInflater().inflate(R.layout.listview_item_mensa_footer, null);
+            listview.addFooterView(v);
+            textViewFooter = (TextView) findViewById(R.id.textViewFooter);
+            TextView textViewFooterIncredients = (TextView) findViewById(R.id.textViewFooterIncredients);
+            textViewFooter.setText(stringText);
+            textViewFooterIncredients.setText(stringIncredients);
+
             listview.setAdapter(adapter);
 
             mProgressDialog.dismiss();
         }
 
-        public ArrayList<HashMap<String, ArrayList<String>>> parseTable() {
+        private ArrayList<HashMap<String, ArrayList<String>>> parseTable() {
             arraylist = new ArrayList<>();
             String dateID;
-            int tableID;
+            String tableID;
+
+
             //imageButton= findViewById()
-            if (currentWeek == true) {
+            if (currentWeek) {
 
                 dateID = "span#date1";
-                tableID = 1;
+                tableID = "table#table1";
 
-            } else
+            } else {
                 dateID = "span#date3";
-            tableID = 4;
+                tableID = "table#table2";
+            }
             try {
+                //formates Date and sets the week of the year
                 Element dateString = doc.select(dateID).first();
                 DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
                 DateFormat newFormat = new SimpleDateFormat("dd.MM.yy", Locale.GERMAN);
@@ -162,10 +197,18 @@ public class ModulMensa extends AppCompatActivity {
                 c.setTime(date);
                 weekOfTheYear = c.get(Calendar.WEEK_OF_YEAR);
 
+                //Parses the Incredients
+                try {
+                    Element incredients = doc.getElementById("incredients");
+                    Elements ps = incredients.select("p");
+                    stringText = ps.first().text();
+                    stringIncredients = ps.next().text();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                //Parses the Menu
+                Element table = doc.select(tableID).first();
 
-                Element table = doc.select("table").get(tableID);
-                Log.d(table.text(), "doInBackground: ");
-                //table = table.nextElementSibling();
                 Elements trs = table.getElementsByTag("tr");
                 int trSize = trs.size();
                 Element tr = table.select("tr").first();
@@ -173,7 +216,7 @@ public class ModulMensa extends AppCompatActivity {
                 int tdSize = tds.size();
 
 
-                //loop Columns
+                //loops all lines for each column
                 for (int i = 0; i < tdSize; i++) {
                     ArrayList<String> daylist = new ArrayList<>();
                     ArrayList<String> menulist = new ArrayList<>();
@@ -187,7 +230,7 @@ public class ModulMensa extends AppCompatActivity {
                             String currentDayString = newFormat.format(c.getTime());
                             daylist.add(td.text() + "\n" + currentDayString);
                             c.add(Calendar.DATE, 1);
-                        } else if (j % 2 != 0 && j != 0) {
+                        } else if (j % 2 != 0) {
                             String headerPrice = td.text();
                             String[] parts = headerPrice.split("€");
                             if (parts.length > 1) {
@@ -196,7 +239,25 @@ public class ModulMensa extends AppCompatActivity {
                             }
                         } else {
                             if (!td.text().isEmpty()) {
-                                menulist.add(td.text());
+                                Elements elementsps = td.select("p");
+
+                                Element elementp;
+                                StringBuffer stringBuilder = new StringBuffer();
+                                for (int k = 0; k < elementsps.size(); k++) {
+                                    if (elementsps.size() > 1& k<elementsps.size()-1) {
+                                        elementp = elementsps.get(k);
+                                        stringBuilder.append(elementp.text());
+                                        stringBuilder.append("\n");
+                                    }
+                                    else{
+                                        elementp=elementsps.get(k);
+                                        stringBuilder.append(elementp.text());
+                                    }
+                                }if(elementsps.size()==0){
+                                    stringBuilder.append(td.text());
+                                }
+
+                                menulist.add(stringBuilder.toString());
                             }
                         }
 
@@ -212,12 +273,55 @@ public class ModulMensa extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.d(String.valueOf(tableID), "tableid");
-            Log.d(String.valueOf(currentWeek), "parseTable: ");
-            Log.d(arraylist.get(0).get(ModulMensa.DAY).get(0), "parseTable: ");
             textViewKW = (TextView) findViewById(R.id.textViewModulMensaKW);
-            textViewKW.setText("KW " + String.valueOf(weekOfTheYear));
+            Resources res= getResources();
+            String stringWeekOfTheYear=String.format(res.getString(R.string.week_of_the_year),String.valueOf(weekOfTheYear));
+            textViewKW.setText(stringWeekOfTheYear);
             return arraylist;
         }
+
+        private void saveDataLocal(Document doc, String lastModified) throws FileNotFoundException {
+            //saves data local, writes last-modified to sp
+            PrintWriter writer;
+            FileOutputStream os;
+            //write parsed document to document
+            os = openFileOutput(filename, Context.MODE_PRIVATE);
+            writer = new PrintWriter(os, false);
+            writer.print(doc);
+            writer.flush();
+            writer.close();
+
+            //only saved if a lastmodified value exist
+            try{
+            if (lastModified != null | !lastModified.isEmpty()) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.lastmodified), lastModified);
+                editor.apply();
+            }}
+            catch(NullPointerException e){
+                e.printStackTrace();
+            }
+        }
+
+        private boolean isHTMLModified(String lastModified) {
+            //checks if plan is updated, loads sp and compares to the parsed last-modified
+            String localLastModified = sharedPref.getString(getResources().getString(R.string.lastmodified), "");
+            if (localLastModified.equals(lastModified))
+                return false;
+            return true;
+        }
+
+        private Document getDataFromFile() throws IOException {
+            return Jsoup.parse(file, null, context.getFilesDir().toString());
+        }
+
+        private boolean isOnline() {
+            //checks internet avaiability
+            ConnectivityManager cm =
+                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isConnectedOrConnecting();
+        }
+
     }
 }
