@@ -24,7 +24,8 @@ public class GridViewAdapter extends BaseAdapter {
         mContext = context;
         mCursor = cursor;
     }
-//sd
+
+    //sd
     @Override
     public int getCount() {
         return mCursor.getCount();
@@ -44,19 +45,20 @@ public class GridViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         mCursor.moveToPosition(position);
         final String modulPath = mCursor.getString(mCursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
-        int id = mContext.getResources().getIdentifier("vector_"+modulPath.toLowerCase(),"drawable",mContext.getPackageName());
+        int id = mContext.getResources().getIdentifier("vector_" + modulPath.toLowerCase(), "drawable", mContext.getPackageName());
 
         GridViewItem imageView = new GridViewItem(mContext);
         imageView.setImageResource(id);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+        imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
         imageView.setBackgroundColor(Color.parseColor("#CBCBCB"));
-        imageView.setPadding(100,100,100,100);
+        imageView.setPadding(100, 100, 100, 100);
         return imageView;
     }
-public void updateView(Cursor cursor){
-    mCursor=cursor;
-    notifyDataSetChanged();
-}
+
+    void updateView(Cursor cursor) {
+        mCursor = cursor;
+        notifyDataSetChanged();
+    }
 }

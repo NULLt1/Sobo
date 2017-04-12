@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Sobo</string>
-
+    <string name="modul_image">Modul-Image</string>
     <string name="speichern">Speichern</string>
     <string name="später">Später</string>
     <string name="Datenbankleeren">Datenbank leeren</string>
@@ -19,6 +19,13 @@
     <string name="deletequestion">Möchten sie alle Daten löschen?</string>
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
+
+    <!--Strings ModulMensa -->
+    <string name="lastmodified">lastModified</string>
+    <string name="week_of_the_year">KW %1$s</string>
+    <string name="week_of_the_year_empty">KW</string>
+    <string name="button_arrow_back">Button Pfeil zurück</string>
+    <string name="button_more">Weiteres</string>
 
     <!-- Strings Modul Name -->
     <string name="namemensa">Mensa</string>
