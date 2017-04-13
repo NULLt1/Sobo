@@ -1,18 +1,15 @@
 package com.example.liebherr_365_gesundheitsapp.ModulMensa;
 
-
-
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-
 
 import android.support.v7.app.AppCompatActivity;;
 
 import com.example.liebherr_365_gesundheitsapp.Parser.XMLParserModulMensa;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import java.io.IOException;
+
 
 public class ModulMensa extends AppCompatActivity {
 
