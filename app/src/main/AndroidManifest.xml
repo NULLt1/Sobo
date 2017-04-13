@@ -3,8 +3,9 @@
     package="com.example.liebherr_365_gesundheitsapp">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -42,7 +43,11 @@
         </activity>
         <activity
             android:name=".ModulWeight.SettingsActivityModulWeight"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ModulWeight.ModulWeight" />
+        </activity>
         <activity
             android:name=".ModulMensa.ModulMensa"
             android:parentActivityName=".MainMenu">
