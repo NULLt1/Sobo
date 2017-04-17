@@ -19,6 +19,7 @@ import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 import com.example.liebherr_365_gesundheitsapp.Database.*;
 
 public class ModulWeight extends AppCompatActivity {
+
     // new DBHelperDataSourceData
     private DBHelperDataSourceData dataSourceData;
     public static CursorAdapterWeight adapter;
