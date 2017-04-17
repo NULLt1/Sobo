@@ -19,6 +19,7 @@
     <string name="deletequestion">Möchten sie alle Daten löschen?</string>
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
+    <string name="einstellungen">Einstellungen</string>
 
     <!--Strings ModulMensa -->
     <string name="lastmodified">lastModified</string>
