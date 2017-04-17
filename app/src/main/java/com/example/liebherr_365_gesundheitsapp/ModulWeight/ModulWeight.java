@@ -36,8 +36,8 @@ public class ModulWeight extends AppCompatActivity {
         // call function setWeightGoalText
         setWeightGoalText();
 
-        // call function setFirstWeight();
-        setFirstWeight();
+        // call function setActualWeight();
+        setActualWeight();
 
         // call function setWeightDifference
         setWeightDifference();
@@ -72,7 +72,7 @@ public class ModulWeight extends AppCompatActivity {
         dataSourceData.open();
 
         // getFirstWeight
-        firstweight = dataSourceData.getFirstWeight("ModulWeight");
+        firstweight = dataSourceData.getLatestEntry("ModulWeight");
 
         // handle empty db
         if (firstweight == 0) {
@@ -120,7 +120,7 @@ public class ModulWeight extends AppCompatActivity {
         setWeightGoalText();
 
         // set text weighstart
-        setWeightStartText();
+        setActualWeightText();
 
         /*////////////////////////////////////////////////////////////////////////////////
         // start notification oncreate
@@ -168,14 +168,14 @@ public class ModulWeight extends AppCompatActivity {
         return weightgoal;
     }
 
-    //functiom setFirstWeight
-    private void setFirstWeight() {
+    //functiom setActualWeight
+    private void setActualWeight() {
         // new DBHelperDataSource
         dataSourceData = new DBHelperDataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight
-        firstweight = dataSourceData.getFirstWeight("ModulWeight");
+        firstweight = dataSourceData.getLatestEntry("ModulWeight");
 
         // close db connection
         dataSourceData.close();
@@ -191,7 +191,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightStartText
-    public void setWeightStartText() {
+    public void setActualWeightText() {
         // set text weightstart
         if (proveFirstWeight()) {
             // setText firstweight

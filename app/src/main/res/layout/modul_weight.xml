@@ -44,11 +44,12 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_toEndOf="@+id/viewgraph"
-        android:layout_toRightOf="@+id/viewgraph"
         android:gravity="center"
-        android:text="@string/zielgewicht" />
+        android:text="@string/zielgewicht"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/viewgraph"
+        android:layout_toEndOf="@+id/viewgraph" />
 
     <TextView
         android:id="@+id/textView3"
@@ -70,7 +71,7 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignRight="@+id/textView3"
         android:layout_alignStart="@+id/textView3"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="0dp"
         android:gravity="center"
         android:text="@string/zero"
         android:textSize="25sp" />

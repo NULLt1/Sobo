@@ -11,8 +11,8 @@
     <string name="kg">kg</string>
     <string name="plus">+</string>
     <string name="diagramm">Diagramm</string>
-    <string name="zielgewicht">kg\nZielgewicht</string>
-    <string name="startgewicht">kg\nStartgewicht</string>
+    <string name="zielgewicht">kg\n\nOptimales\nGewicht</string>
+    <string name="startgewicht">kg\n\nAktuelles\nGewicht</string>
     <string name="zero">-.-</string>
     <string name="seventyfive">75.0</string>
     <string name="deletedata">Daten löschen</string>

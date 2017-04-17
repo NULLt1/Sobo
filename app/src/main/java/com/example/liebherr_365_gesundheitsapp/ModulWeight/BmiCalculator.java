@@ -28,7 +28,7 @@ public class BmiCalculator {
         dataSourceData.open();
 
         // getCurrentWeight
-        weight = dataSourceData.getLatestEntry("ModulWeight");
+        weight = (int) dataSourceData.getLatestEntry("ModulWeight");
 
         dataSourceData.close();
 
