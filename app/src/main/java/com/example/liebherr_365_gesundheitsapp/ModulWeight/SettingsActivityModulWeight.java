@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.renderscript.Float2;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator;
@@ -35,6 +37,18 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
         editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
         editTextPref = (EditTextPreference) findPreference("weightgoal");
         editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
+
+        Preference listPreference = getPreferenceManager().findPreference("gender");
+
+        listPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                String userSelectedValue = (String) newValue;
+                Log.d("VALUE", userSelectedValue);
+                SavedSharedPrefrencesModulWeight.setGender(Integer.parseInt(userSelectedValue));
+                return true;
+            }
+        });
     }
 
     @Override

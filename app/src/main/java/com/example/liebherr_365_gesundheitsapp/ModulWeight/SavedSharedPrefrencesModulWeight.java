@@ -19,7 +19,7 @@ public class SavedSharedPrefrencesModulWeight {
     private static int gender;
 
 
-    public static void setSharedPreferences(Context context) {
+    static void setSharedPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         height = Integer.parseInt(sharedPreferences.getString("height", String.valueOf(180)));
         weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", String.valueOf(80)));
@@ -36,11 +36,15 @@ public class SavedSharedPrefrencesModulWeight {
         return weightgoal;
     }
 
-    public static int getAge() {
+    static int getAge() {
         return age;
     }
 
-    public static int getGender() {
+    static int getGender() {
         return gender;
+    }
+
+    public static void setGender(int gender) {
+        SavedSharedPrefrencesModulWeight.gender = gender;
     }
 }
