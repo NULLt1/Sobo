@@ -1,6 +1,7 @@
 package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -15,6 +16,7 @@ public class SavedSharedPrefrencesModulWeight {
     private static int height;
     private static float weightgoal;
     private static int age;
+    private static int gender;
 
 
     public static void setSharedPreferences(Context context) {
@@ -22,6 +24,7 @@ public class SavedSharedPrefrencesModulWeight {
         height = Integer.parseInt(sharedPreferences.getString("height", String.valueOf(180)));
         weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", String.valueOf(80)));
         age = Integer.parseInt(sharedPreferences.getString("age", String.valueOf(18)));
+        gender = Integer.parseInt(sharedPreferences.getString("gender", String.valueOf(1)));
     }
 
 
@@ -37,4 +40,7 @@ public class SavedSharedPrefrencesModulWeight {
         return age;
     }
 
+    public static int getGender() {
+        return gender;
+    }
 }

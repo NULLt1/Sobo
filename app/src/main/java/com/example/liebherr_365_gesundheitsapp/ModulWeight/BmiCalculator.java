@@ -47,6 +47,8 @@ public class BmiCalculator {
 
     public static void setRecBmi() {
         int age = SavedSharedPrefrencesModulWeight.getAge();
+        int gender = SavedSharedPrefrencesModulWeight.getGender();
+        Log.d("~~~~~~~~Gender~~~~~~~~", String.valueOf(gender));
 
         if (age < 25) {
             minRecBmi = 19;

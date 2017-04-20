@@ -17,17 +17,6 @@ import com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-/**
- * A {@link PreferenceActivity} that presents a set of application settings. On
- * handset devices, settings are presented as a single list. On tablets,
- * settings are split by category, with category headers shown to the left of
- * the list of settings.
- * <p>
- * See <a href="http://developer.android.com/design/patterns/settings.html">
- * Android Design: Settings</a> for design guidelines and the <a
- * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
- * API Guide</a> for more information on developing a Settings UI.
- */
 public class SettingsActivityModulWeight extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
@@ -91,15 +80,10 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                     value = " Jahre";
                     break;
                 case "weightgoal":
-
-                    // call function setweighgoaltext
-                    ModulWeight.setWeightGoal(Float.parseFloat(etp.getText()));
-
                     value = " kg";
                     break;
                 default:
                     value = "";
-
             }
             pref.setSummary(etp.getText() + value);
         }

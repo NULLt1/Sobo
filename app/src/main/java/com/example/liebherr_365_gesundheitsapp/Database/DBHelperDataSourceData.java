@@ -175,7 +175,6 @@ public class DBHelperDataSourceData {
         } else {
             int ID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
             float value = cursor.getFloat(ID);
-            Log.d("~~~VALUE~~~", String.valueOf(value));
             return value;
         }
     }
