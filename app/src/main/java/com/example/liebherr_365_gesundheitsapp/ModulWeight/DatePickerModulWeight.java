@@ -45,7 +45,7 @@ public class DatePickerModulWeight extends DialogFragment
         Log.d("day", String.valueOf(currentyear));
 
 
-        if (year < 2016 || (year > currentyear || (year == currentyear && month > currentmonth))) { // exclude years smaller then 2016
+        if (year < 2016 || (year > currentyear || (year == currentyear && month > currentmonth || (year == currentyear && month == currentmonth && day > currentday)))) { // exclude years smaller then 2016
             // create new WrongDatumFragment
             DialogFragment WrongDatumFragment = new WrongDatumFragment();
 

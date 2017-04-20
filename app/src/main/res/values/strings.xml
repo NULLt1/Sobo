@@ -21,6 +21,16 @@
     <string name="nein">Nein</string>
     <string name="einstellungen">Einstellungen</string>
 
+    <string-array name="sex">
+        <item>Männlich</item>
+        <item>Weiblich</item>
+    </string-array>
+
+    <string-array name="sexValues">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+
     <!--Strings ModulMensa -->
     <string name="lastmodified">lastModified</string>
     <string name="week_of_the_year">KW %1$s</string>

@@ -29,4 +29,13 @@
         android:selectAllOnFocus="true"
         android:summary="Zielgewicht"
         android:title="Zielgewicht" />
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/sex"
+        android:entryValues="@array/sexValues"
+        android:key="gender"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="%s"
+        android:title="Geschlecht" />
 </PreferenceScreen>

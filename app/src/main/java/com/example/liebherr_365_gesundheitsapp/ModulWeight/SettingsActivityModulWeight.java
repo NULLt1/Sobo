@@ -44,6 +44,8 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
         editTextPref.setSummary(sp.getString("age", null) + " Jahre");
         editTextPref = (EditTextPreference) findPreference("weightgoal");
         editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
+        editTextPref = (EditTextPreference) findPreference("weightgoal");
+        editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
     }
 
     @Override
