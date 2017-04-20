@@ -15,6 +15,9 @@ import java.util.Locale;
 
 public class DatePickerModulWeight extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
+    int currentday;
+    int currentmonth;
+    int currentyear;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -24,18 +27,25 @@ public class DatePickerModulWeight extends DialogFragment
         String actualdate = dateFormat.format(new java.util.Date());
 
         //convert datestrings to int
-        int day = Integer.parseInt(actualdate.substring(0, 2));
-        int month = Integer.parseInt(actualdate.substring(3, 5)) - 1;
-        int year = Integer.parseInt(actualdate.substring(6));
+        currentday = Integer.parseInt(actualdate.substring(0, 2));
+        currentmonth = Integer.parseInt(actualdate.substring(3, 5)) - 1;
+        currentyear = Integer.parseInt(actualdate.substring(6));
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return new DatePickerDialog(getActivity(), this, currentyear, currentmonth, currentday);
     }
 
     //function onDateSet
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // exclude years smaller then 2016
-        if (year < 2016) {
+        Log.d("day", String.valueOf(day));
+        Log.d("day", String.valueOf(month));
+        Log.d("day", String.valueOf(year));
+        Log.d("day", String.valueOf(currentday));
+        Log.d("day", String.valueOf(currentmonth));
+        Log.d("day", String.valueOf(currentyear));
+
+
+        if (year < 2016 || (year > currentyear || (year == currentyear && month > currentmonth))) { // exclude years smaller then 2016
             // create new WrongDatumFragment
             DialogFragment WrongDatumFragment = new WrongDatumFragment();
 
