@@ -48,13 +48,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ModulWeight.ModulWeight" />
         </activity>
-        <activity
-            android:name=".ModulMensa.ModulMensa"
-            android:parentActivityName=".MainMenu">
+        <activity android:name=".ModulMensa.ModulMensa">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
         </activity>
+        <activity android:name=".ModulTipOfTheWeek.ActivityTipOfTheWeek"></activity>
     </application>
 
 </manifest>

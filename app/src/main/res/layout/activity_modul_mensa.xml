@@ -68,15 +68,16 @@
             app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textViewModulMensaKW"
             android:layout_alignParentBottom="false"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textViewModulMensaKW"
-            android:text="@string/button_more"/>
+            android:onClick="showAdditionalMenu"
+            android:text="@string/button_more" />
 
     </RelativeLayout>
 

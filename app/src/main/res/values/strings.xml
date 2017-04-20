@@ -26,6 +26,7 @@
     <string name="week_of_the_year_empty">KW</string>
     <string name="button_arrow_back">Button Pfeil zurück</string>
     <string name="button_more">Weiteres</string>
+    <string name="button_less">Menü</string>
 
     <!-- Strings Modul Name -->
     <string name="namemensa">Mensa</string>
