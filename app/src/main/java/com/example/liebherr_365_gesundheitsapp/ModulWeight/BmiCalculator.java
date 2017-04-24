@@ -12,22 +12,18 @@ import com.example.liebherr_365_gesundheitsapp.R;
  * Created by Jan on 21.11.2016.
  */
 
-public class BmiCalculator {
-    private static DBHelperDataSourceData dataSourceData;
+class BmiCalculator {
     private static float minRecBmi;
     private static float maxRecBmi;
     private static float minRecWeight;
     private static float maxRecWeight;
-    private static float bmi;
+    private static float averageRecWeight;
     private static float height;
 
-    public static float calculateBmi(Context context) {
-        int gender = SavedSharedPrefrencesModulWeight.getGender();
-        Log.d("~~~~~~~~Gender~~~~~~~~", String.valueOf(gender));
-
+    static float calculateBmi(Context context) {
         int weight;
 
-        dataSourceData = new DBHelperDataSourceData(context);
+        DBHelperDataSourceData dataSourceData = new DBHelperDataSourceData(context);
         dataSourceData.open();
 
         // getCurrentWeight
@@ -49,8 +45,9 @@ public class BmiCalculator {
     }
 
     // function setRecBmi
-    public static void setRecBmi() {
+    static void setRecBmi() {
         int age = SavedSharedPrefrencesModulWeight.getAge();
+        Log.d("AGE", String.valueOf(age));
 
         // Quelle http://www.bmi-tabellen.de/
         if (age < 25) {
@@ -83,27 +80,34 @@ public class BmiCalculator {
         Log.d("****MAXRECBMI****", String.valueOf(maxRecBmi));
     }
 
-    public static float getMinRecBmi() {
+    static float getMinRecBmi() {
         return minRecBmi;
     }
 
-    public static float getMaxRecBmi() {
+    static float getMaxRecBmi() {
         return maxRecBmi;
     }
 
-    public static void calculateRecWeight() {
+    static float getAverageRecWeight() {
+        return averageRecWeight;
+    }
+
+    private static void calculateRecWeight() {
         minRecWeight = Math.round(getMinRecBmi() * height * height);
         maxRecWeight = Math.round(getMaxRecBmi() * height * height);
+        averageRecWeight = ((minRecWeight + maxRecWeight) / 2);
 
         Log.d("***** Min WEight***", Float.toString(minRecWeight));
         Log.d("***** Max WEight***", Float.toString(maxRecWeight));
+        Log.d("***** Average WEight***", Float.toString(averageRecWeight));
+
     }
 
-    public static float getMinRecWeight() {
+    static float getMinRecWeight() {
         return minRecWeight;
     }
 
-    public static float getMaxRecWeight() {
+    static float getMaxRecWeight() {
         return maxRecWeight;
     }
 

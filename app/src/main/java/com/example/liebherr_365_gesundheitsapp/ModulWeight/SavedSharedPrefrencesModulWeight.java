@@ -40,11 +40,15 @@ public class SavedSharedPrefrencesModulWeight {
         return age;
     }
 
+    static void setAge(int age) {
+        SavedSharedPrefrencesModulWeight.age = age;
+    }
+
     static int getGender() {
         return gender;
     }
 
-    public static void setGender(int gender) {
+    static void setGender(int gender) {
         SavedSharedPrefrencesModulWeight.gender = gender;
     }
 }

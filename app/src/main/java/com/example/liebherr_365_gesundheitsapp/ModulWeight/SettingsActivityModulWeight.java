@@ -92,6 +92,8 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                     break;
                 case "age":
                     value = " Jahre";
+                    // call function setAge
+                    SavedSharedPrefrencesModulWeight.setAge(Integer.parseInt(etp.getText()));
                     BmiCalculator.setRecBmi();
                     break;
                 case "weightgoal":
