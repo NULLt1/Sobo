@@ -14,7 +14,6 @@ import android.util.Log;
 
 public class SavedSharedPrefrencesModulWeight {
     private static int height;
-    private static float weightgoal;
     private static int age;
     private static int gender;
 
@@ -22,7 +21,6 @@ public class SavedSharedPrefrencesModulWeight {
     static void setSharedPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         height = Integer.parseInt(sharedPreferences.getString("height", String.valueOf(180)));
-        weightgoal = Integer.parseInt(sharedPreferences.getString("weightgoal", String.valueOf(80)));
         age = Integer.parseInt(sharedPreferences.getString("age", String.valueOf(18)));
         gender = Integer.parseInt(sharedPreferences.getString("gender", String.valueOf(1)));
     }
@@ -32,9 +30,6 @@ public class SavedSharedPrefrencesModulWeight {
         return height;
     }
 
-    public static float getWeightGoal() {
-        return weightgoal;
-    }
 
     static int getAge() {
         return age;

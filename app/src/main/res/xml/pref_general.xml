@@ -19,16 +19,6 @@
         android:selectAllOnFocus="true"
         android:summary="Alter in Jahren"
         android:title="Alter" />
-    <EditTextPreference
-        android:id="@+id/EditTextPreferenceWeightGoal"
-        android:defaultValue="80"
-        android:inputType="number"
-        android:key="weightgoal"
-        android:numeric="integer"
-        android:persistent="true"
-        android:selectAllOnFocus="true"
-        android:summary="Zielgewicht"
-        android:title="Zielgewicht" />
     <ListPreference
         android:defaultValue="1"
         android:entries="@array/sex"

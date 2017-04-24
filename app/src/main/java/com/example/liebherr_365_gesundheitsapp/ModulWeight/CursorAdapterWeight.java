@@ -13,15 +13,10 @@ import com.example.liebherr_365_gesundheitsapp.R;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
 
-
-/**
- * Created by mpadmin on 17.01.2017.
- */
-
-public class CursorAdapterWeight extends CursorAdapter {
+class CursorAdapterWeight extends CursorAdapter {
     private Cursor mCursor;
 
-    public CursorAdapterWeight(Context context, Cursor cursor) {
+    CursorAdapterWeight(Context context, Cursor cursor) {
         super(context, cursor, 0);
         this.mCursor = cursor;
     }
@@ -38,7 +33,8 @@ public class CursorAdapterWeight extends CursorAdapter {
         TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
 
         //set text datum
-        String datum = formateDatum(cursor.getPosition());
+        String datum = cursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnDate()));
+        datum = formateDatum(datum);
         textViewdatum.setText(datum);
 
         //set text weight
@@ -52,14 +48,12 @@ public class CursorAdapterWeight extends CursorAdapter {
     }
 
     // funtion formateDatum
-    private String formateDatum(int position) {
-        mCursor.moveToPosition(position);
-        String currentWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnDate()));
-        String year = currentWeight.substring(0, 4);
-        String month = currentWeight.substring(5, 7);
-        String day = currentWeight.substring(8, 10);
-        currentWeight = day + "." + month + "." + year;
-        return currentWeight;
+    private String formateDatum(String datum) {
+        String year = datum.substring(0, 4);
+        String month = datum.substring(5, 7);
+        String day = datum.substring(8, 10);
+        datum = day + "." + month + "." + year;
+        return datum;
     }
 
     //function calcDifference

@@ -223,8 +223,8 @@ public class NumberPickerModulWeight extends DialogFragment {
             afterkommavalue = lastfloat;
         } else {
             // if lastentry not existing -> set default values
-            integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
-            integervalue = (int) SavedSharedPrefrencesModulWeight.getWeightGoal();
+            integer.setValue(80);
+            integervalue = 80;
         }
         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
         dataSourceData.close();

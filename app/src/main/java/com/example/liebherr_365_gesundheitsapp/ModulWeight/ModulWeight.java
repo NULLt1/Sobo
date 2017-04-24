@@ -30,7 +30,6 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        Log.d("Resumed", "Resumed");
         super.onResume();
         // call function setWeightGoalText
         setWeightGoalText();
@@ -115,7 +114,6 @@ public class ModulWeight extends AppCompatActivity {
         BmiCalculator.calculateBmi(this);
 
         // set text weightgoal
-        weightgoal = SavedSharedPrefrencesModulWeight.getWeightGoal();
         setWeightGoalText();
 
         // set text weighstart
@@ -236,12 +234,8 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightGoalText
-    public static void setWeightGoal(float weightgoalfloat) {
-        weightgoal = weightgoalfloat;
-    }
-
-    //function setWeightGoalText
     public void setWeightGoalText() {
+        weightgoal = BmiCalculator.getAverageRecWeight();
         String weightgoalstring = String.valueOf(weightgoal);
         textweightgoal.setText(weightgoalstring);
     }

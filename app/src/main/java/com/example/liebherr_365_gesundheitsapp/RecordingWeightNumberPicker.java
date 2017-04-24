@@ -20,10 +20,6 @@ import com.example.liebherr_365_gesundheitsapp.ModulWeight.SavedSharedPrefrences
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-/**
- * Created by mpadmin on 11.04.2017.
- */
-
 public class RecordingWeightNumberPicker extends DialogFragment {
     Context context;
     private DBHelperDataSourceData dataSourceData;
@@ -172,8 +168,8 @@ public class RecordingWeightNumberPicker extends DialogFragment {
             afterkommavalue = lastfloat;
         } else {
             // if lastentry not existing -> set default values
-            integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
-            integervalue = (int) SavedSharedPrefrencesModulWeight.getWeightGoal();
+            integer.setValue(80);
+            integervalue = 80;
         }
         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
         dataSourceData.close();

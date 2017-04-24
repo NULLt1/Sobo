@@ -27,19 +27,19 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
         SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
-        EditTextPreference editTextPref = (EditTextPreference) findPreference("height");
 
-        //Set summary text for the user settings
+        // height
+        EditTextPreference editTextPref = (EditTextPreference) findPreference("height");
         editTextPref.setSummary(sp.getString("height", null) + " cm");
+
+        // age
         editTextPref = (EditTextPreference) findPreference("age");
         editTextPref.setSummary(sp.getString("age", null) + " Jahre");
-        editTextPref = (EditTextPreference) findPreference("weightgoal");
-        editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
-        editTextPref = (EditTextPreference) findPreference("weightgoal");
-        editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
 
+        // gender
         Preference listPreference = getPreferenceManager().findPreference("gender");
 
+        // changelistener for gender
         listPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -57,7 +57,6 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)`enter code here`
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -95,9 +94,6 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                     // call function setAge
                     SavedSharedPrefrencesModulWeight.setAge(Integer.parseInt(etp.getText()));
                     BmiCalculator.setRecBmi();
-                    break;
-                case "weightgoal":
-                    value = " kg";
                     break;
                 default:
                     value = "";
