@@ -8,10 +8,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-/**
- * Created by Jan on 05.12.2016.
- */
-
 public class SavedSharedPrefrencesModulWeight {
     private static int height;
     private static int age;

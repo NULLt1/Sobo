@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
@@ -64,6 +66,16 @@ public class ModulWeight extends AppCompatActivity {
 
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
+
+        // onItemClickListener
+        weightlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // selected item
+                String selected = ((TextView) view.findViewById(R.id.datum)).getText().toString();
+                Log.d("selected", selected);
+            }
+        });
 
         // new DBHelperDataSource
         dataSourceData = new DBHelperDataSourceData(this);
