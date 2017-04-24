@@ -44,8 +44,8 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 String userSelectedValue = (String) newValue;
-                Log.d("VALUE", userSelectedValue);
                 SavedSharedPrefrencesModulWeight.setGender(Integer.parseInt(userSelectedValue));
+                BmiCalculator.setRecBmi();
                 return true;
             }
         });
@@ -92,6 +92,7 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                     break;
                 case "age":
                     value = " Jahre";
+                    BmiCalculator.setRecBmi();
                     break;
                 case "weightgoal":
                     value = " kg";

@@ -48,9 +48,11 @@ public class BmiCalculator {
         return bmi;
     }
 
+    // function setRecBmi
     public static void setRecBmi() {
         int age = SavedSharedPrefrencesModulWeight.getAge();
 
+        // Quelle http://www.bmi-tabellen.de/
         if (age < 25) {
             minRecBmi = 19;
             maxRecBmi = 24;
@@ -70,6 +72,13 @@ public class BmiCalculator {
             minRecBmi = 24;
             maxRecBmi = 29;
         }
+
+        // female bmi 1 unit smaller!
+        if (SavedSharedPrefrencesModulWeight.getGender() == 0) {
+            minRecBmi--;
+            maxRecBmi--;
+        }
+
         Log.d("*****MIN REC BMI *****", String.valueOf(minRecBmi));
         Log.d("****MAXRECBMI****", String.valueOf(maxRecBmi));
     }
