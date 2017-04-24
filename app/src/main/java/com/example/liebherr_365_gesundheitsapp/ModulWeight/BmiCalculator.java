@@ -8,10 +8,6 @@ import android.util.Log;
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-/**
- * Created by Jan on 21.11.2016.
- */
-
 class BmiCalculator {
     private static float minRecBmi;
     private static float maxRecBmi;

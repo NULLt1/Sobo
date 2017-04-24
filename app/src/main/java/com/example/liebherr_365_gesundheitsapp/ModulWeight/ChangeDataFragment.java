@@ -95,7 +95,7 @@ public class ChangeDataFragment extends DialogFragment {
     }
 
     // function calculateweightdifference
-    public String calculateweightdifference(float weight) {
+    private String calculateweightdifference(float weight) {
         String weightdifferncestring;
         float weightdiffernce;
         float weightgoal = ModulWeight.getWeightGoal();
@@ -117,7 +117,7 @@ public class ChangeDataFragment extends DialogFragment {
     }
 
     // function roundfloat
-    public float roundfloat(float inputfloat) {
+    private float roundfloat(float inputfloat) {
         float roundedfloat = 0;
         inputfloat += 0.05;
         inputfloat = (int) (inputfloat * 10);

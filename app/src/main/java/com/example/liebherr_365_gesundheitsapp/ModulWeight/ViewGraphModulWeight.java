@@ -135,7 +135,7 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
     private void drawWeightGoal(LineChart chart) {
 
-        float weightGoal = ModulWeight.getWeightGoal();
+        float weightGoal = BmiCalculator.getAverageRecWeight();
 
         LimitLine ll = new LimitLine(weightGoal, "");
         ll.setLineColor(Color.RED);

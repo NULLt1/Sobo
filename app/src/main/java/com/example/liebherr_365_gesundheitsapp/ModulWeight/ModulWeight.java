@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import com.example.liebherr_365_gesundheitsapp.Database.*;
 
