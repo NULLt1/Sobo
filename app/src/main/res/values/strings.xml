@@ -20,6 +20,9 @@
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
     <string name="einstellungen">Einstellungen</string>
+    <string name="gewicht">Gewicht</string>
+    <string name="bmigrenzen">BMI Grenzen</string>
+    <string name="optimalesgewicht">Optimales Gewicht</string>
 
     <string-array name="sex">
         <item>Männlich</item>
