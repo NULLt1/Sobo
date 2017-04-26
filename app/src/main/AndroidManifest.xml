@@ -57,7 +57,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
         </activity>
-        <activity android:name=".ModulTipOfTheWeek.ActivityTipOfTheWeek"></activity>
+        <activity android:name=".ModulTipOfTheDay.ModulTipOfTheDay"></activity>
     </application>
 
 </manifest>
