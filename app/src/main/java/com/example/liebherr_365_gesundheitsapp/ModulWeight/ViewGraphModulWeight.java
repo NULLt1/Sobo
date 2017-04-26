@@ -24,11 +24,11 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 
 public class ViewGraphModulWeight extends AppCompatActivity {
-    DBHelperDataSourceData databaseData;
+    DataSourceData databaseData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_graph);
-        databaseData = new DBHelperDataSourceData(this);
+        databaseData = new DataSourceData(this);
         databaseData.open();
         showAllListEntries();
         databaseData.close();
