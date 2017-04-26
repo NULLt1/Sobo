@@ -28,9 +28,6 @@ import java.util.List;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import static android.view.View.Y;
 
 public class ViewGraphModulWeight extends AppCompatActivity {
     DBHelperDataSourceData databaseData;
@@ -61,6 +58,11 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
     //function showAllListEntries
     private void showAllListEntries() {
+        // declare entriescounter
+        int entriescounter = 0;
+        float firstday = 0;
+        float lastday = 0;
+
         // intialize Linechart
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -105,10 +107,38 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
         List<ILineDataSet> dataSets = new ArrayList<>();
 
+        for (Data anAlldata : alldata) {
+            // declare float weight
+            float weight = anAlldata.getPhysicalvalues();
+            float day = anAlldata.getDays();
+
+            // add data to dataset
+            entries.add(new Entry(day, weight));
+
+            // prepare viewport
+            if (weight > maxValue) {
+                maxValue = weight;
+            } else if (weight < minValue) {
+                minValue = weight;
+            }
+
+            // count up entriescounter
+            entriescounter++;
+            if (entriescounter == 1) {
+                firstday = day;
+            }
+
+            lastday = day;
+        }
+
+        if (entriescounter == 1) {
+            firstday = firstday - 1;
+            lastday = lastday + 1;
+        }
 
         //~~~~~~~~~~~~~~~~~~~~ BORDER UPPER~~~~~~~~~~~~~~~~~~~~~~~
-        Entry borderUpperleft = new Entry(480, 150); // 0 == quarter 1
-        Entry borderUpperRight = new Entry(481, 150); // 0 == quarter 1
+        Entry borderUpperleft = new Entry(firstday, 150); // 0 == quarter 1
+        Entry borderUpperRight = new Entry(lastday, 150); // 0 == quarter 1
 
         List<Entry> borderUpper = new ArrayList<>();
 
@@ -131,12 +161,11 @@ public class ViewGraphModulWeight extends AppCompatActivity {
 
         // add Data to dataSets
         dataSets.add(dataSetBorderUpper);
-        //~~~~~~~~~~~~~~~~~~~~ BORDER TOP~~~~~~~~~~~~~~~~~~~~~~~
+        //~~~~~~~~~~~~~~~~~~~~ BORDER UPPER ~~~~~~~~~~~~~~~~~~~~~~~
 
-
         //~~~~~~~~~~~~~~~~~~~~ BORDER TOP~~~~~~~~~~~~~~~~~~~~~~~
-        Entry borderTopleft = new Entry(480, maxValue); // 0 == quarter 1
-        Entry borderTopRight = new Entry(481, maxValue); // 0 == quarter 1
+        Entry borderTopleft = new Entry(firstday, maxValue); // 0 == quarter 1
+        Entry borderTopRight = new Entry(lastday, maxValue); // 0 == quarter 1
 
         List<Entry> borderTop = new ArrayList<>();
 
@@ -162,8 +191,8 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         //~~~~~~~~~~~~~~~~~~~~ BORDER TOP~~~~~~~~~~~~~~~~~~~~~~~
 
         //~~~~~~~~~~~~~~~~~~~~ BORDER BOTTOM~~~~~~~~~~~~~~~~~~~~~~~
-        Entry borderBottomleft = new Entry(480, minValue); // 0 == quarter 1
-        Entry borderBottomRight = new Entry(481, minValue); // 0 == quarter 1
+        Entry borderBottomleft = new Entry(firstday, minValue); // 0 == quarter 1
+        Entry borderBottomRight = new Entry(lastday, minValue); // 0 == quarter 1
 
         List<Entry> borderBottom = new ArrayList<>();
 
@@ -188,40 +217,17 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         dataSets.add(dataSetBorderBottom);
         //~~~~~~~~~~~~~~~~~~~~ BORDER BOTTOM~~~~~~~~~~~~~~~~~~~~~~~
 
-        for (Data anAlldata : alldata) {
-            // declare float weight
-            float weight = anAlldata.getPhysicalvalues();
-
-            // add data to dataset
-            entries.add(new Entry(anAlldata.getDays(), weight));
-
-            Log.d("Day", String.valueOf(anAlldata.getDays()));
-
-            // prepare viewport
-            if (weight > maxValue) {
-                maxValue = weight;
-            } else if (weight < minValue) {
-                minValue = weight;
-            }
-        }
-
         LineDataSet dataSet = new LineDataSet(entries, "Gewicht"); // add entries to dataset
         dataSet.setColor(Color.BLACK);
-        dataSet.setLineWidth(2f);
+        dataSet.setLineWidth(3f);
 
         //define Viewport
         yAxisleft.setAxisMinValue(minValue - 2.0f);
         yAxisleft.setAxisMaxValue(maxValue + 2.0f);
 
-        /*
-        dataSet.setFillColor(Color.GREEN);
-        dataSet.setFillAlpha(100);
-        dataSet.setDrawFilled(true);
-        */
-
         //Style weight line
         dataSet.setDrawValues(false);
-        dataSet.setCircleRadius(3f);
+        dataSet.setCircleRadius(5f);
         dataSet.setDrawCircleHole(false);
         dataSet.setCircleColor(Color.BLACK);
         dataSet.setColor(Color.BLACK);
@@ -232,14 +238,8 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         //style legend
         Legend legend = chart.getLegend();
         legend.setEnabled(false);
-        /*
-        legend.setTextSize(15);
-        legend.setTextColor(Color.BLACK);
-        legend.setForm(Legend.LegendForm.SQUARE);
-        legend.setXEntrySpace(20);
-        legend.setWordWrapEnabled(true);
-        */
 
+        // new LineData with dataSets
         LineData lineData = new LineData(dataSets);
 
         // hide description
