@@ -22,7 +22,7 @@ public class ListViewAdapterAdditionalMenu extends BaseAdapter {
     private ArrayList<HashMap<String, String>> data;
     private HashMap<String, String> resultp = new HashMap<>();
 
-
+//kommentar
     public ListViewAdapterAdditionalMenu(Context context, ArrayList<HashMap<String, String>> arraylist) {
         this.context = context;
         data = arraylist;

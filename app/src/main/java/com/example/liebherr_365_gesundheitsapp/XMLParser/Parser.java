@@ -1,24 +1,11 @@
-package com.example.liebherr_365_gesundheitsapp.ModulMensa;
+package com.example.liebherr_365_gesundheitsapp.XMLParser;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.example.liebherr_365_gesundheitsapp.R;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterAdditionalMenu;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterMensa;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,111 +26,44 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * Created by Jan on 26.04.2017.
+ */
 
-public class ModulMensa extends AppCompatActivity {
+public class Parser {
     public static String ADDITIONALMENUITEM = "additionalMenuItem";
     public static String DAY = "day";
     public static String MENU = "menu";
     public static String HEADER = "header";
     public static String PRICE = "price";
-    private boolean currentWeek = true;
-    private int weekOfTheYear = 0;
-    private String filename = "html_data.html";
-    private Context context;
-    private File file;
-    private TextView textViewKW;
-    private ImageButton imageButtonLastWeek;
-    private ImageButton imageButtonNextWeek;
-    private ListView listview;
-    private ListViewAdapterMensa adapter;
-    private ListViewAdapterAdditionalMenu additionalAdapter;
-    private ProgressDialog mProgressDialog;
-    private ArrayList<HashMap<String, ArrayList<String>>> arraylist;
-    ArrayList<HashMap<String, String>> additionalDataArraylist;
-    private boolean isSet = false;
-    private String url = "http://eid.dm.hs-furtwangen.de/joomla/index.php/speiseplan";
+
+    private static final String url = "http://eid.dm.hs-furtwangen.de/joomla/index.php/speiseplan";
+    private static final String LOG_TAG = Parser.class.getSimpleName();
+
+    private Context mContext;
     private Document doc;
-    private TextView buttonMore;
-    View v;
-    TextView textViewFooter;
+
+    private String filename = "html_data.html";
+    private File file;
+
+    private ArrayList<HashMap<String, ArrayList<String>>> arraylist;
+    private ArrayList<HashMap<String, String>> additionalDataArraylist;
+
+    public boolean currentWeek = true;
+    public int weekOfTheYear = 0;
     String stringText;
     String stringIncredients;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        context = this;
-        file = new File(context.getFilesDir(), filename);
-
-        // set up navigation enabled
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_modul_mensa);
-        imageButtonLastWeek = (ImageButton) findViewById(R.id.imageButtonModulMensaLastWeek);
-
-        //hide arrownavigation
-        imageButtonLastWeek.setVisibility(View.INVISIBLE);
-        imageButtonNextWeek = (ImageButton) findViewById(R.id.imageButtonModulMensaNextWeek);
-        //Parser starts if internet conn exists
-        new XmlParser().execute();
-        buttonMore = (Button) findViewById(R.id.buttonMore);
+    public Parser(Context context) {
+        mContext = context;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home && isSet) {
-            listview.setAdapter(adapter);
-            buttonMore.setText(getResources().getString(R.string.button_more));
-            isSet = false;
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void pullData() {
+        new XMLParser().execute();
     }
 
 
-    public void showNextWeek(View view) {
-        currentWeek = false;
-        imageButtonLastWeek.setVisibility(View.VISIBLE);
-        imageButtonNextWeek.setVisibility(View.INVISIBLE);
-        adapter.updateResults(parseTable());
-    }
-
-    public void showLastWeek(View view) {
-        currentWeek = true;
-        imageButtonLastWeek.setVisibility(View.INVISIBLE);
-        imageButtonNextWeek.setVisibility(View.VISIBLE);
-        adapter.updateResults(parseTable());
-    }
-
-    public void showAdditionalMenu(View view) {
-        if (isSet) {
-            isSet = false;
-            listview.setAdapter(adapter);
-            buttonMore.setText(getResources().getString(R.string.button_more));
-
-        } else {
-            isSet = true;
-            additionalAdapter = new ListViewAdapterAdditionalMenu(context, additionalDataArraylist);
-            listview.setAdapter(additionalAdapter);
-            listview.deferNotifyDataSetChanged();
-            buttonMore.setText(getResources().getString(R.string.button_less));
-        }
-    }
-
-    private void saveDataLocally(Document doc) throws FileNotFoundException {
-        //saves data local, writes last-modified to sp
-        PrintWriter writer;
-        FileOutputStream os;
-        //write parsed document to document
-        os = openFileOutput(filename, Context.MODE_PRIVATE);
-        writer = new PrintWriter(os, false);
-        writer.print(doc);
-        writer.flush();
-        writer.close();
-    }
-
-    private ArrayList<HashMap<String, ArrayList<String>>> parseTable() {
+    public ArrayList<HashMap<String, ArrayList<String>>> parseTable() {
         arraylist = new ArrayList<>();
         String dateID;
         String tableID;
@@ -162,6 +81,8 @@ public class ModulMensa extends AppCompatActivity {
         }
         try {
             //formates Date and sets the week of the year
+            doc = getDataFromFile();
+            Log.d("dastas", doc.text());
             Element dateString = doc.select(dateID).first();
             DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
             DateFormat newFormat = new SimpleDateFormat("dd.MM.yy", Locale.GERMAN);
@@ -174,6 +95,7 @@ public class ModulMensa extends AppCompatActivity {
             try {
                 Element incredients = doc.getElementById("incredients");
                 Elements ps = incredients.select("p");
+
                 stringText = ps.first().text();
                 stringIncredients = ps.next().text();
             } catch (Exception e) {
@@ -187,7 +109,6 @@ public class ModulMensa extends AppCompatActivity {
             Elements elementsTds1 = elementsTrs.first().getElementsByTag("td");
 
 
-            Log.d(elementsTds1.text(), "TEST!!!! ");
             additionalDataArraylist = new ArrayList<>();
             for (int i = 0; i < elementsTrs.size(); i++) {
                 HashMap<String, String> mapnew = new HashMap<>();
@@ -198,8 +119,7 @@ public class ModulMensa extends AppCompatActivity {
                     else
                         mapnew.put(PRICE, td.text());
                 }
-                Log.d(mapnew.get(PRICE), "parseTable: ");
-                Log.d(mapnew.get(ADDITIONALMENUITEM), "parseTable: ");
+
                 additionalDataArraylist.add(mapnew);
             }
 
@@ -219,6 +139,7 @@ public class ModulMensa extends AppCompatActivity {
                 ArrayList<String> pricelist = new ArrayList<>();
                 ArrayList<String> headerlist = new ArrayList<>();
                 HashMap<String, ArrayList<String>> map = new HashMap<>();
+
                 //loop lines
                 for (int j = 0; j < trSize; j++) {
                     Element td = trs.get(j).select("td").get(i);
@@ -251,6 +172,7 @@ public class ModulMensa extends AppCompatActivity {
                             }
                             if (elementsps.size() == 0) {
                                 stringBuilder.append(td.text() + "\n");
+                                Log.d("test", td.text());
                             }
                             menulist.add(stringBuilder.toString());
                         }
@@ -268,82 +190,80 @@ public class ModulMensa extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        textViewKW = (TextView) findViewById(R.id.textViewModulMensaKW);
-        Resources res = getResources();
-        String stringWeekOfTheYear = String.format(res.getString(R.string.week_of_the_year), String.valueOf(weekOfTheYear));
-        textViewKW.setText(stringWeekOfTheYear);
+
         return arraylist;
     }
 
+    public ArrayList<HashMap<String, ArrayList<String>>> getCurrentMenu() {
+        ArrayList<HashMap<String, ArrayList<String>>> allItems = parseTable();
+        ArrayList<HashMap<String, ArrayList<String>>> filteredList = new ArrayList<>();
 
-    private Document getDataFromFile() throws IOException {
-        return Jsoup.parse(file, null, context.getFilesDir().toString());
+        filteredList.add(allItems.get(3));
+        return filteredList;
+
     }
 
+    private Document getDataFromFile() throws IOException {
+        file = new File(mContext.getFilesDir(), filename);
+        Log.d("filedirectory", file.getAbsolutePath());
+        return Jsoup.parse(file, null, mContext.getFilesDir().toString());
+    }
 
-    private class XmlParser extends AsyncTask<Void, Void, Void> {
+    private class XMLParser extends AsyncTask {
+        ProgressDialog mProgressDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(ModulMensa.this);
-            mProgressDialog.setTitle("Speiseplan");
+
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setTitle("Daten");
             mProgressDialog.setMessage("Laden...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
+
+
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            //loads data if internet connection exists, writes data in a file
-
-
+        protected Object doInBackground(Object[] params) {
             if (isOnline()) {
                 try {
-                    URL uri = new URL(url);
-                    URLConnection connection = uri.openConnection();
-                    doc = Jsoup.parse(new URL(url).openStream(), null, url);
-                    //saves data if it is modified
-
-                    saveDataLocally(doc);
+                    saveDataLocally(doc = Jsoup.parse(new URL(url).openStream(), null, url));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.d(LOG_TAG, "Fehler: " + e.getMessage());
                 }
-            }
-            try {
-                doc = getDataFromFile();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            listview = (ListView) findViewById(R.id.listViewMensa);
-            adapter = new ListViewAdapterMensa(ModulMensa.this, parseTable());
-
-            v = getLayoutInflater().inflate(R.layout.listview_item_mensa_footer, null);
-            listview.addFooterView(v);
-            textViewFooter = (TextView) findViewById(R.id.textViewFooter);
-            TextView textViewFooterIncredients = (TextView) findViewById(R.id.textViewFooterIncredients);
-            textViewFooter.setText(stringText);
-            textViewFooterIncredients.setText(stringIncredients);
-
-            listview.setAdapter(adapter);
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
 
             mProgressDialog.dismiss();
         }
 
-
         private boolean isOnline() {
             //checks internet avaiability
             ConnectivityManager cm =
-                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                    (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             return netInfo != null && netInfo.isConnectedOrConnecting();
         }
 
+        private void saveDataLocally(Document doc) throws FileNotFoundException {
+            //saves data local, writes last-modified to sp
+            PrintWriter writer;
+            FileOutputStream os;
+
+            //write parsed document to document
+            os = mContext.openFileOutput(filename, Context.MODE_PRIVATE);
+            writer = new PrintWriter(os, false);
+            writer.print(doc);
+            writer.flush();
+            writer.close();
+        }
     }
+
 }
