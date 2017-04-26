@@ -6,16 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-public class DBHelperDataSourceModules {
-    private static final String LOG_TAG = DBHelperDataSourceData.class.getSimpleName();
+public class DataSourceModules {
+    private static final String LOG_TAG = DataSourceData.class.getSimpleName();
 
     private SQLiteDatabase databaseModules;
-    private DBHelperModules dbHelperModules;
+    private DBHelper dbHelper;
 
-    public DBHelperDataSourceModules(Context context) {
+    public DataSourceModules(Context context) {
         Log.d(LOG_TAG, "<MODULES>Unsere DataSource erzeugt jetzt den dbHelper.<MODULES>");
-        dbHelperModules = new DBHelperModules(context);
-        databaseModules = dbHelperModules.getReadableDatabase();
+        dbHelper = new DBHelper(context);
+        databaseModules = dbHelper.getReadableDatabase();
     }
 
     public void open() {
@@ -24,12 +24,12 @@ public class DBHelperDataSourceModules {
     }
 
     public void close() {
-        dbHelperModules.close();
+        dbHelper.close();
         Log.d(LOG_TAG, "<MODULES>Datenbank mit Hilfe des DbHelpers geschlossen.<MODULES>");
     }
 
     public void deletedb(String modulname) {
-        databaseModules.delete(ModulesQuery.getDbName(), ModulesQuery.getColumnModul() + "='" + modulname + "'", null);
+        databaseModules.delete(Queries.TABLE_MODULES, Queries.COLUMN_MODUL + "='" + modulname + "'", null);
         Log.d(LOG_TAG, "<MODULES>Datenbank gelöscht<MODULES>");
     }
 
@@ -37,11 +37,11 @@ public class DBHelperDataSourceModules {
     public void insertmodules(String name, String modul, boolean flag) {
         ContentValues values = new ContentValues();
 
-        values.put(ModulesQuery.getColumnName(), name);
-        values.put(ModulesQuery.getColumnModul(), modul);
-        values.put(ModulesQuery.getColumnFlag(), String.valueOf(flag));
+        values.put(Queries.COLUMN_NAME, name);
+        values.put(Queries.COLUMN_MODUL, modul);
+        values.put(Queries.COLUMN_FLAG, String.valueOf(flag));
 
-        databaseModules.insert(ModulesQuery.getDbName(), null, values);
+        databaseModules.insert(Queries.TABLE_MODULES, null, values);
     }
 
     //function insertdefaultmodules
@@ -50,27 +50,23 @@ public class DBHelperDataSourceModules {
         if (cursor.getCount() == 0) {
             insertmodules("Mensa", "ModulMensa", true);
             insertmodules("Gewicht", "ModulWeight", false);
+            insertmodules("Tipp des Tages", "ModulTipOfTheDay", true);
         }
     }
 
     //function changemodulstatus
     public void changemodulstatus(String modul, boolean flag) {
-        databaseModules.execSQL("UPDATE " + ModulesQuery.getDbName() + " SET " + ModulesQuery.getColumnFlag() + "='" + flag + "' WHERE " + ModulesQuery.getColumnName() + "='" + modul + "'");
+        databaseModules.execSQL("UPDATE " + Queries.TABLE_MODULES + " SET " + Queries.COLUMN_FLAG + "='" + flag + "' WHERE " + Queries.COLUMN_NAME + "='" + modul + "'");
     }
 
     public Cursor getAllDataCursor() {
-        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectAllData(), null);
-        return cursor;
-    }
-
-    public Cursor getSelectedDataCursor() {
-        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectSelectedData(), null);
+        Cursor cursor = databaseModules.rawQuery(Queries.getAllData(Queries.TABLE_MODULES), null);
         return cursor;
     }
 
     //function getactivemodulescursor
-    private Cursor getactivemodulescursor() {
-        Cursor cursor = databaseModules.rawQuery(ModulesQuery.getSelectActiveModules(), null);
+    public Cursor getactivemodulescursor() {
+        Cursor cursor = databaseModules.rawQuery(Queries.getAllDataFromActiveModules(), null);
         return cursor;
     }
 
@@ -88,7 +84,7 @@ public class DBHelperDataSourceModules {
             return null;
         } else {
             for (int i = 0; i < cursorvalue; i++) {
-                int ModulesID = cursor.getColumnIndex(ModulesQuery.getColumnModul());
+                int ModulesID = cursor.getColumnIndex(Queries.COLUMN_MODUL);
                 activemodules[i] = cursor.getString(ModulesID);
                 Log.d("Modul in Array", cursor.getString(ModulesID));
                 cursor.moveToNext();

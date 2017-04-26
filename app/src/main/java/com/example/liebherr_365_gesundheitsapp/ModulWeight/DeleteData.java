@@ -12,16 +12,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
 
 
 public class DeleteData extends DialogFragment {
     Context context;
-    private DBHelperDataSourceData dataSourceData;
+    private DataSourceData dataSourceData;
 
     @Override
     public View onCreateView(
@@ -65,7 +64,7 @@ public class DeleteData extends DialogFragment {
                 ListView weightlist = (ListView) getActivity().findViewById(R.id.listview);
 
                 // new DBHelperDataSource
-                dataSourceData = new DBHelperDataSourceData(context);
+                dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
 
                 //call function deletedb

@@ -5,15 +5,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
-import com.example.liebherr_365_gesundheitsapp.R;
-
-/**
- * Created by Jan on 21.11.2016.
- */
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 
 public class BmiCalculator {
-    private static DBHelperDataSourceData dataSourceData;
+    private static DataSourceData dataSourceData;
     private static float minRecBmi;
     private static float maxRecBmi;
     private static float minRecWeight;
@@ -24,7 +19,7 @@ public class BmiCalculator {
     public static float calculateBmi(Context context) {
         int weight;
 
-        dataSourceData = new DBHelperDataSourceData(context);
+        dataSourceData = new DataSourceData(context);
         dataSourceData.open();
 
         // getCurrentWeight

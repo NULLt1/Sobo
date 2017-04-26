@@ -19,8 +19,8 @@ import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 import com.example.liebherr_365_gesundheitsapp.Database.*;
 
 public class ModulWeight extends AppCompatActivity {
-    // new DBHelperDataSourceData
-    private DBHelperDataSourceData dataSourceData;
+    // new DataSourceData
+    private DataSourceData dataSourceData;
     public static CursorAdapterWeight adapter;
     private TextView textweightstart;
     private TextView textweightdiffernce;
@@ -67,7 +67,7 @@ public class ModulWeight extends AppCompatActivity {
         ListView weightlist = (ListView) findViewById(R.id.listview);
 
         // new DBHelperDataSource
-        dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData = new DataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight
@@ -170,7 +170,7 @@ public class ModulWeight extends AppCompatActivity {
     //functiom setFirstWeight
     private void setFirstWeight() {
         // new DBHelperDataSource
-        dataSourceData = new DBHelperDataSourceData(this);
+        dataSourceData = new DataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight

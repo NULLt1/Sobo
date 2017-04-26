@@ -6,4 +6,5 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="badge_text_size">9sp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="default_padding">10dp</dimen>
 </resources>

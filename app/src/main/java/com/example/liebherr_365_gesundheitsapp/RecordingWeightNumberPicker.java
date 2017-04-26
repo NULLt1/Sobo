@@ -13,9 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.SavedSharedPrefrencesModulWeight;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -26,7 +25,7 @@ import java.util.Locale;
 
 public class RecordingWeightNumberPicker extends DialogFragment {
     Context context;
-    private DBHelperDataSourceData dataSourceData;
+    private DataSourceData dataSourceData;
     int integervalue;
     int afterkommavalue = 0;
 
@@ -74,7 +73,7 @@ public class RecordingWeightNumberPicker extends DialogFragment {
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
         //get latestweight and set picker
-        dataSourceData = new DBHelperDataSourceData(context);
+        dataSourceData = new DataSourceData(context);
         dataSourceData.open();
         int lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
         if (lastentry != 0) {
@@ -128,7 +127,7 @@ public class RecordingWeightNumberPicker extends DialogFragment {
                 Data wd = new Data(modulweight, formateddate, weight, type);
 
                 // new DBHelperDataSource
-                dataSourceData = new DBHelperDataSourceData(context);
+                dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
 
                 //insert data into database

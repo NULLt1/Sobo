@@ -11,14 +11,14 @@ import android.util.Log;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 
 import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
 
 public class ChangeDataFragment extends DialogFragment {
     Context context;
-    private DBHelperDataSourceData dataSourceData;
+    private DataSourceData dataSourceData;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // get context
@@ -50,7 +50,7 @@ public class ChangeDataFragment extends DialogFragment {
                         Data wd = new Data(modulweight, formateddate, weight, type);
 
                         // new DBHelperDataSource
-                        dataSourceData = new DBHelperDataSourceData(context);
+                        dataSourceData = new DataSourceData(context);
                         dataSourceData.open();
 
                         //call function updatedata

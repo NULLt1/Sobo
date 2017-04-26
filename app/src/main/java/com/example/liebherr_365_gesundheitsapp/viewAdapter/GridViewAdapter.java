@@ -9,11 +9,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
-
-/**
- * Created by Jan on 11.01.2017.
- */
+import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
 public class GridViewAdapter extends BaseAdapter {
 
@@ -44,16 +40,16 @@ public class GridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         mCursor.moveToPosition(position);
-        final String modulPath = mCursor.getString(mCursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
+        final String modulPath = mCursor.getString(mCursor.getColumnIndexOrThrow(Queries.COLUMN_MODUL));
         int id = mContext.getResources().getIdentifier("vector_" + modulPath.toLowerCase(), "drawable", mContext.getPackageName());
 
         GridViewItem imageView = new GridViewItem(mContext);
         imageView.setImageResource(id);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
         imageView.setBackgroundColor(Color.parseColor("#CBCBCB"));
-        imageView.setPadding(100, 100, 100, 100);
+        imageView.setPadding(50, 50, 50, 50);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         return imageView;
     }
 

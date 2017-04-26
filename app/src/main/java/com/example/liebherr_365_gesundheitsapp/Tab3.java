@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceModules;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ModulesCursorAdapterSwitch;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
-
 public class Tab3 extends Fragment {
-    DBHelperDataSourceModules dataSourceModules;
+    DataSourceModules dataSourceModules;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,7 +24,7 @@ public class Tab3 extends Fragment {
     }
 
     public void fillListView(View view) {
-        dataSourceModules = new DBHelperDataSourceModules(getActivity());
+        dataSourceModules = new DataSourceModules(getActivity());
         dataSourceModules.open();
         ListView listViewModules = (ListView) view.findViewById(R.id.listViewModules);
 

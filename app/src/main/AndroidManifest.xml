@@ -57,7 +57,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
         </activity>
-        <activity android:name=".ModulTipOfTheDay.ModulTipOfTheDay"></activity>
+        <activity
+            android:name=".ModulTipOfTheDay.ModulTipOfTheDay"
+            android:parentActivityName=".MainMenu"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenu" />
+        </activity>
     </application>
 
 </manifest>

@@ -11,20 +11,19 @@ import android.widget.CursorAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceModules;
+import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.Tab2;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
-import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
-
 public class ModulesCursorAdapterSwitch extends CursorAdapter {
-    private DBHelperDataSourceModules db;
+    private DataSourceModules db;
     private Context mContext;
 
 
     public ModulesCursorAdapterSwitch(Context context, Cursor cursor) {
         super(context, cursor, 0);
-        mContext=context;
+        mContext = context;
     }
 
     // The newView method is used to inflate a new view and return it,
@@ -48,8 +47,8 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
         Switch switchModuleStatus = (Switch) view.findViewById(R.id.switchModuleStatus);
 
         // Extract properties from cursor
-        final String modulName = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnName()));
-        String modulFlag = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnFlag()));
+        final String modulName = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_NAME));
+        String modulFlag = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_FLAG));
 
         if (modulFlag.equals("true")) {
             switchModuleStatus.setChecked(true);
@@ -62,7 +61,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
             public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
                 // >>>> turn modul on <<<<
                 if (isChecked) {
-                    db = new DBHelperDataSourceModules(context);
+                    db = new DataSourceModules(context);
                     db.open();
                     //call function changemodulstatus
                     db.changemodulstatus(modulName, true);
@@ -70,15 +69,15 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
                 }
                 // >>>> turn modul off <<<<
                 else {
-                    db = new DBHelperDataSourceModules(context);
+                    db = new DataSourceModules(context);
                     db.open();
                     //call function changemodulstatus
                     db.changemodulstatus(modulName, false);
                     db.close();
                 }
-                db = new DBHelperDataSourceModules(context);
-                    Cursor cursor = db.getSelectedDataCursor();
-                    Tab2.gridViewAdapter.updateView(cursor);
+                db = new DataSourceModules(context);
+                Cursor cursor = db.getactivemodulescursor();
+                Tab2.gridViewAdapter.updateView(cursor);
 
 
             }

@@ -11,32 +11,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class DBHelperDataSourceData {
+public class DataSourceData {
 
-    private static final String LOG_TAG = DBHelperDataSourceData.class.getSimpleName();
+    private static final String LOG_TAG = DataSourceData.class.getSimpleName();
 
     private SQLiteDatabase databaseData;
-    private DBHelperData dbHelperData;
+    private DBHelper dbHelper;
+    private static final String[] COLUMNS = {
+            Queries.COLUMN_MODUL, Queries.COLUMN_DATE, Queries.COLUMN_PHYSICAL_VALUES
+    };
 
-    public DBHelperDataSourceData(Context context) {
+    public DataSourceData(Context context) {
         Log.d(LOG_TAG, "<DATA>Unsere DataSource erzeugt jetzt den dbHelper.<DATA>");
-        dbHelperData = new DBHelperData(context);
+        dbHelper = new DBHelper(context);
     }
 
     public void open() {
         Log.d(LOG_TAG, "<DATA>Eine Referenz auf die Datenbank wird jetzt angefragt.<DATA>");
-        databaseData = dbHelperData.getWritableDatabase();
+        databaseData = dbHelper.getWritableDatabase();
         Log.d(LOG_TAG, "<DATA>Datenbank-Referenz erhalten. Pfad zur Datenbank: " + databaseData.getPath() + "<DATA>");
     }
 
     public void close() {
-        dbHelperData.close();
+        dbHelper.close();
         Log.d(LOG_TAG, "<DATA>Datenbank mit Hilfe des DbHelpers geschlossen.<DATA>");
     }
 
-    public void deletedb(String Modul) {
-        Log.d("Modul", Modul);
-        databaseData.execSQL("DELETE FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + Modul + "'");
+    public void deletedb(String modul) {
+        Log.d("Modul", modul);
+        databaseData.execSQL("DELETE FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='" + modul + "'");
         Log.d(LOG_TAG, "<DATA>Datenbank gelöscht<DATA>");
     }
 
@@ -44,12 +47,12 @@ public class DBHelperDataSourceData {
     public void insertdata(Data data) {
         ContentValues values = new ContentValues();
 
-        values.put(DataQuery.getColumnModul(), data.getModul());
-        values.put(DataQuery.getColumnDate(), data.getDate());
-        values.put(DataQuery.getColumnPhysicalValues(), data.getPhysicalvalues());
-        values.put(DataQuery.getColumnType(), data.getType());
+        values.put(Queries.COLUMN_MODUL, data.getModul());
+        values.put(Queries.COLUMN_DATE, data.getDate());
+        values.put(Queries.COLUMN_PHYSICAL_VALUES, data.getPhysicalvalues());
+        values.put(Queries.COLUMN_TYPE, data.getType());
 
-        databaseData.insert(DataQuery.getDbName(), null, values);
+        databaseData.insert(Queries.TABLE_DATA, null, values);
     }
 
     //function deletesingledata in database
@@ -57,7 +60,7 @@ public class DBHelperDataSourceData {
         String modul = data.getModul();
         String date = data.getDate();
         String[] values = new String[]{modul, date};
-        databaseData.delete(DataQuery.getDbName(), DataQuery.getColumnModul() + "=? and " + DataQuery.getColumnDate() + "=?", values);
+        databaseData.delete(Queries.TABLE_DATA, Queries.COLUMN_MODUL + "=? and " + Queries.COLUMN_DATE + "=?", values);
     }
 
     //function updatedata in database
@@ -73,10 +76,10 @@ public class DBHelperDataSourceData {
     private Data cursorToWeightdata(Cursor cursor) {
         Data data;
 
-        int idModul = cursor.getColumnIndex(DataQuery.getColumnModul());
-        int idDate = cursor.getColumnIndex(DataQuery.getColumnDate());
-        int idWeight = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
-        int idType = cursor.getColumnIndex(DataQuery.getColumnType());
+        int idModul = cursor.getColumnIndex(Queries.COLUMN_MODUL);
+        int idDate = cursor.getColumnIndex(Queries.COLUMN_DATE);
+        int idWeight = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
+        int idType = cursor.getColumnIndex(Queries.COLUMN_TYPE);
 
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
@@ -88,14 +91,14 @@ public class DBHelperDataSourceData {
     }
 
     public Cursor getPreparedCursorForWeightList() {
-        String query = "SELECT * FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='ModulWeight' ORDER BY " + DataQuery.getColumnDate() + " DESC LIMIT 5";
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE + " DESC LIMIT 5";
         return databaseData.rawQuery(query, null);
     }
 
     //function getAllDataasarray
     public Data[] getAllDataasarray() {
-        Cursor cursor = databaseData.query(DataQuery.getDbName(),
-                DataQuery.getColumns(), null, null, null, null, DataQuery.getColumnDate());
+        Cursor cursor = databaseData.query(Queries.TABLE_DATA,
+                COLUMNS, null, null, null, null, Queries.COLUMN_DATE);
 
         int size = cursor.getCount();
         Data[] alldata = new Data[size];
@@ -117,8 +120,8 @@ public class DBHelperDataSourceData {
     public List<Data> getAllData() {
         List<Data> DataList = new ArrayList<>();
 
-        Cursor cursor = databaseData.query(DataQuery.getDbName(),
-                DataQuery.getColumns(), null, null, null, null, DataQuery.getColumnDate());
+        Cursor cursor = databaseData.query(Queries.TABLE_DATA,
+                COLUMNS, null, null, null, null, Queries.COLUMN_DATE);
 
         cursor.moveToFirst();
         Data Data;
@@ -139,7 +142,7 @@ public class DBHelperDataSourceData {
         boolean result = false;
         String date = wd.getDate();
 
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + wd.getModul() + "'";
+        String query = "SELECT " + Queries.COLUMN_DATE + " FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='" + wd.getModul() + "'";
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
 
         int count = databaseweightresult.getCount();
@@ -148,13 +151,13 @@ public class DBHelperDataSourceData {
             result = false;
         } else {
             databaseweightresult.moveToFirst();
-            int iddate = databaseweightresult.getColumnIndex(DataQuery.getColumnDate());
+            int iddate = databaseweightresult.getColumnIndex(Queries.COLUMN_DATE);
             String datefound = databaseweightresult.getString(iddate);
             if (date.equals(datefound)) {
                 result = true;
             }
             while (databaseweightresult.moveToNext()) {
-                datefound = databaseweightresult.getString(databaseweightresult.getColumnIndex(DataQuery.getColumnDate()));
+                datefound = databaseweightresult.getString(databaseweightresult.getColumnIndex(Queries.COLUMN_DATE));
                 if (date.equals(datefound)) {
                     result = true;
                 }
@@ -165,15 +168,15 @@ public class DBHelperDataSourceData {
 
     //function getLatestWeight
     public int getLatestEntry(String modulname) {
-        String queryMaxDate = "(SELECT MAX(" + DataQuery.getColumnDate() + ") from " + DataQuery.getDbName() + ")";
-        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate + " AND " + DataQuery.getColumnModul() + " ='" + modulname + "'";
+        String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
+        String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
-        Cursor cursor = databaseData.query(DataQuery.getDbName(), DataQuery.getColumns(), queryWhere, null, null, null, null);
+        Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
         cursor.moveToFirst();
         if (cursor.getCount() == 0) {
             return 0;
         } else {
-            int ID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+            int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
             int value = cursor.getInt(ID);
 
             return value;
@@ -182,15 +185,15 @@ public class DBHelperDataSourceData {
 
     // function getFirstWeight
     public float getFirstWeight(String modulname) {
-        String queryMaxDate = "(SELECT MIN(" + DataQuery.getColumnDate() + ") from " + DataQuery.getDbName() + ")";
-        String queryWhere = DataQuery.getColumnDate() + " = " + queryMaxDate + " AND " + DataQuery.getColumnModul() + " ='" + modulname + "'";
+        String queryMaxDate = "(SELECT MIN(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
+        String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
-        Cursor cursor = databaseData.query(DataQuery.getDbName(), DataQuery.getColumns(), queryWhere, null, null, null, null);
+        Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
         cursor.moveToFirst();
         if (cursor.getCount() == 0) {
             return 0;
         } else {
-            int WeightID = cursor.getColumnIndex(DataQuery.getColumnPhysicalValues());
+            int WeightID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
             float lastWeight = cursor.getFloat(WeightID);
 
             return lastWeight;
@@ -204,7 +207,7 @@ public class DBHelperDataSourceData {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
 
-        String query = "SELECT " + DataQuery.getColumnDate() + " FROM " + DataQuery.getDbName() + " WHERE " + DataQuery.getColumnModul() + "='" + modul + "' AND " + DataQuery.getColumnDate() + "='" + actualdate + "';";
+        String query = "SELECT " + Queries.COLUMN_DATE + " FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='" + modul + "' AND " + Queries.COLUMN_DATE + "='" + actualdate + "';";
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
         if (databaseweightresult.getCount() != 0) {
             result = true;

@@ -9,14 +9,8 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 import com.example.liebherr_365_gesundheitsapp.R;
-
-import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
-
-
-/**
- * Created by mpadmin on 17.01.2017.
- */
 
 public class CursorAdapterWeight extends CursorAdapter {
     private Cursor mCursor;
@@ -37,8 +31,8 @@ public class CursorAdapterWeight extends CursorAdapter {
         TextView textViewweight = (TextView) view.findViewById(R.id.weight);
         TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
 
-        textViewdatum.setText(cursor.getString(cursor.getColumnIndexOrThrow(DataQuery.getColumnDate())));
-        String weight = cursor.getString(cursor.getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+        textViewdatum.setText(cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_DATE)));
+        String weight = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_PHYSICAL_VALUES));
         weight += " kg";
         textViewweight.setText(weight);
         String difference = calcDifference(cursor.getPosition());
@@ -50,12 +44,12 @@ public class CursorAdapterWeight extends CursorAdapter {
         Log.d("Cursor position",String.valueOf(position));
         Log.d("MCursor count",String.valueOf(mCursor.getCount()));
         mCursor.moveToPosition(position);
-       String currentWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+       String currentWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(Queries.COLUMN_PHYSICAL_VALUES));
 
        float currentWeightFloat = Float.parseFloat(currentWeight);
 
         mCursor.moveToPosition(position+1);
-        String lastWeight= mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+        String lastWeight= mCursor.getString(getCursor().getColumnIndexOrThrow(Queries.COLUMN_PHYSICAL_VALUES));
         float lastWeightFloat = Float.parseFloat(lastWeight);
         float weightdifference = currentWeightFloat-lastWeightFloat;
 

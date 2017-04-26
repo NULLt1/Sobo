@@ -2,28 +2,22 @@ package com.example.liebherr_365_gesundheitsapp;
 
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
-import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.NumberPickerModulWeight;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.WrongDatumFragment;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceModules;
 
 //s
 public class MainMenu extends AppCompatActivity {
@@ -57,8 +51,8 @@ public class MainMenu extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
 
-    private DBHelperDataSourceModules dbm;
-    private DBHelperDataSourceData dbd;
+    private DataSourceModules dbm;
+    private DataSourceData dbd;
     private ViewPager mViewPager;
 
     // initalize counter for required fragments
@@ -69,8 +63,9 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         // fill database with defaultmodules
-        dbm = new DBHelperDataSourceModules(this);
+        dbm = new DataSourceModules(this);
         dbm.open();
 
         // call function insertdefaultmodules
@@ -96,7 +91,6 @@ public class MainMenu extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
@@ -105,8 +99,8 @@ public class MainMenu extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        // new DBHelperDataSourceModules
-        dbm = new DBHelperDataSourceModules(this);
+        // new DataSourceModules
+        dbm = new DataSourceModules(this);
         dbm.open();
 
         // call function getactivemodulesstringarray
@@ -136,8 +130,8 @@ public class MainMenu extends AppCompatActivity {
                 case "ModulWeight":
                     Log.d("Found", "ModulWeight");
 
-                    // new DBHelperDataSourceModules
-                    dbd = new DBHelperDataSourceData(this);
+                    // new DataSourceModules
+                    dbd = new DataSourceData(this);
                     dbd.open();
 
                     // call function entryalreadyexisting

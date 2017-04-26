@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceModules;
+import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.GridViewAdapter;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceModules;
-import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
-
 public class Tab2 extends Fragment {
-    DBHelperDataSourceModules dataSourceModules;
+    DataSourceModules dataSourceModules;
     Cursor cursor;
     public static GridViewAdapter gridViewAdapter = null;
     Context context = null;
@@ -28,8 +27,8 @@ public class Tab2 extends Fragment {
         View rootView = inflater.inflate(R.layout.tab2, container, false);
         context = getActivity();
         //get the Data as Cursor
-        dataSourceModules = new DBHelperDataSourceModules(getActivity());
-        cursor = dataSourceModules.getSelectedDataCursor();
+        dataSourceModules = new DataSourceModules(getActivity());
+        cursor = dataSourceModules.getactivemodulescursor();
         fillGridView(rootView);
 
         return rootView;
@@ -46,7 +45,7 @@ public class Tab2 extends Fragment {
                     cursor.moveToFirst();
                 cursor.moveToPosition(position);
                 try {
-                    final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
+                    final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_MODUL));
                     final Class<?> act = Class.forName(context.getPackageName() + "." + modulPath + "." + modulPath);
 
                     Intent intent = new Intent(getActivity(), act);

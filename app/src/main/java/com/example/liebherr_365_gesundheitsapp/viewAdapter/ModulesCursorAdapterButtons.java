@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 
+import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import com.example.liebherr_365_gesundheitsapp.Database.ModulesQuery;
-
-public class ModulesCursorAdapterButtons  extends CursorAdapter{
+public class ModulesCursorAdapterButtons extends CursorAdapter {
     private Context FinalContext;
+
     public ModulesCursorAdapterButtons(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
@@ -26,22 +26,23 @@ public class ModulesCursorAdapterButtons  extends CursorAdapter{
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return LayoutInflater.from(context).inflate(R.layout.buttons_modules_row, parent, false);
     }
+
     //dffsdfds
     // The bindView method is used to bind all data to a given view
     // such as setting the text on a TextView.
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        this.FinalContext=context;
+        this.FinalContext = context;
         // Find fields to populate in inflated template
         Button button = (Button) view.findViewById(R.id.buttonModulSelection);
 
         // Extract properties from cursor
-        String modulName = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnName()));
+        String modulName = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_NAME));
         Log.d("***Modul***", modulName);
-        final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(ModulesQuery.getColumnModul()));
+        final String modulPath = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_MODUL));
         Log.d("MODULPATH", modulPath);
         try {
-          final Class<?>  act = Class.forName("com.example.liebherr_365_gesundheitsapp."+modulPath);
+            final Class<?> act = Class.forName("com.example.liebherr_365_gesundheitsapp." + modulPath);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

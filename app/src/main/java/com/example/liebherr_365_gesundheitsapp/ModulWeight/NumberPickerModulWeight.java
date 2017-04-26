@@ -1,6 +1,5 @@
 package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -15,9 +14,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
-import com.example.liebherr_365_gesundheitsapp.MainMenu;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 import java.sql.Date;
@@ -29,7 +27,7 @@ import java.text.SimpleDateFormat;
 
 public class NumberPickerModulWeight extends DialogFragment {
     Context context;
-    private DBHelperDataSourceData dataSourceData;
+    private DataSourceData dataSourceData;
     int day;
     int month;
     int year;
@@ -87,7 +85,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
         //get latestweight and set picker
-        dataSourceData = new DBHelperDataSourceData(context);
+        dataSourceData = new DataSourceData(context);
         dataSourceData.open();
         int lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
         if (lastentry != 0) {
@@ -135,7 +133,7 @@ public class NumberPickerModulWeight extends DialogFragment {
 
 
                 // new DBHelperDataSource
-                dataSourceData = new DBHelperDataSourceData(context);
+                dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
                 // call function datealreadysaved and react on result
                 boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
@@ -165,7 +163,7 @@ public class NumberPickerModulWeight extends DialogFragment {
                 } else {
 
                     // new DBHelperDataSource
-                    dataSourceData = new DBHelperDataSourceData(context);
+                    dataSourceData = new DataSourceData(context);
                     dataSourceData.open();
                     if (dataSourceData.getFirstWeight("ModulWeight") != 0) {
                         dataSourceData.insertdata(wd);
