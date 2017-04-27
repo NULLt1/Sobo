@@ -102,8 +102,10 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         List<Entry> entries = new ArrayList<>();
 
         // declare maxValue and minValue for Viewport
-        float maxValue = BmiCalculator.getMaxRecWeight();
-        float minValue = BmiCalculator.getMinRecWeight();
+        float maxBmi = BmiCalculator.getMaxRecWeight();
+        float minBmi = BmiCalculator.getMinRecWeight();
+        float maxValue = maxBmi;
+        float minValue = minBmi;
 
         List<ILineDataSet> dataSets = new ArrayList<>();
 
@@ -164,8 +166,8 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         //~~~~~~~~~~~~~~~~~~~~ BORDER UPPER ~~~~~~~~~~~~~~~~~~~~~~~
 
         //~~~~~~~~~~~~~~~~~~~~ BORDER TOP~~~~~~~~~~~~~~~~~~~~~~~
-        Entry borderTopleft = new Entry(firstday, maxValue); // 0 == quarter 1
-        Entry borderTopRight = new Entry(lastday, maxValue); // 0 == quarter 1
+        Entry borderTopleft = new Entry(firstday, maxBmi); // 0 == quarter 1
+        Entry borderTopRight = new Entry(lastday, maxBmi); // 0 == quarter 1
 
         List<Entry> borderTop = new ArrayList<>();
 
@@ -191,8 +193,8 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         //~~~~~~~~~~~~~~~~~~~~ BORDER TOP~~~~~~~~~~~~~~~~~~~~~~~
 
         //~~~~~~~~~~~~~~~~~~~~ BORDER BOTTOM~~~~~~~~~~~~~~~~~~~~~~~
-        Entry borderBottomleft = new Entry(firstday, minValue); // 0 == quarter 1
-        Entry borderBottomRight = new Entry(lastday, minValue); // 0 == quarter 1
+        Entry borderBottomleft = new Entry(firstday, minBmi); // 0 == quarter 1
+        Entry borderBottomRight = new Entry(lastday, minBmi); // 0 == quarter 1
 
         List<Entry> borderBottom = new ArrayList<>();
 
