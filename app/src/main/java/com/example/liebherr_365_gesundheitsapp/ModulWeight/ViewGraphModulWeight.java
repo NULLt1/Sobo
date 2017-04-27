@@ -41,7 +41,10 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         setContentView(R.layout.activity_view_graph);
         databaseData = new DBHelperDataSourceData(this);
         databaseData.open();
-        showAllListEntries();
+
+        // call function callGraph
+        drawGraph();
+
         databaseData.close();
     }
 
@@ -56,8 +59,8 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         }
     }
 
-    //function showAllListEntries
-    private void showAllListEntries() {
+    //function drawGraph
+    private void drawGraph() {
         // declare entriescounter
         int entriescounter = 0;
         float firstday = 0;
