@@ -31,8 +31,6 @@ public class BmiCalculator {
             weight = 80;
         }
 
-
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         height = Float.parseFloat(sharedPreferences.getString("height", "180"));
 
