@@ -10,9 +10,9 @@
         android:id="@+id/plus"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/viewgraph"
+        android:layout_alignTop="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/button_bg_round"
         android:drawableBottom="@drawable/ic_add_black_24dp"
         android:onClick="newweight"
@@ -24,54 +24,76 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/plus" />
+        android:layout_below="@+id/plus"
+        android:layout_marginTop="40dp" />
 
     <Button
         android:id="@+id/viewgraph"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="140dp"
+        android:layout_above="@+id/listview"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="viewgraph"
         android:text="@string/diagramm"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/historie"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/listview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:onClick="historie"
+        android:text="@string/historie"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/viewgraph"
+        android:layout_alignLeft="@+id/viewgraph"
+        android:layout_alignRight="@+id/viewgraph"
+        android:layout_alignStart="@+id/viewgraph"
+        android:layout_below="@+id/weightgoal"
         android:gravity="center"
         android:text="@string/zielgewicht"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_toRightOf="@+id/viewgraph"
-        android:layout_toEndOf="@+id/viewgraph" />
+
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/viewgraph"
-        android:layout_marginBottom="65dp"
-        android:layout_toLeftOf="@+id/viewgraph"
-        android:layout_toStartOf="@+id/viewgraph"
+        android:layout_alignEnd="@+id/historie"
+        android:layout_alignLeft="@+id/historie"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/historie"
+        android:layout_alignStart="@+id/historie"
+        android:layout_marginTop="70dp"
         android:gravity="center"
-        android:text="@string/startgewicht" />
+        android:text="@string/startgewicht"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/firstweight"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
+        android:layout_height="30sp"
+        android:layout_above="@+id/plus"
         android:layout_alignEnd="@+id/textView3"
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignRight="@+id/textView3"
         android:layout_alignStart="@+id/textView3"
-        android:layout_marginBottom="0dp"
         android:gravity="center"
         android:text="@string/zero"
         android:textSize="25sp" />
@@ -79,8 +101,9 @@
     <TextView
         android:id="@+id/weightgoal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/firstweight"
+        android:layout_height="30sp"
+
+        android:layout_above="@+id/plus"
         android:layout_alignEnd="@+id/textView4"
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignRight="@+id/textView4"
@@ -92,29 +115,13 @@
     <TextView
         android:id="@+id/weightdifference"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/weightgoal"
-        android:layout_alignTop="@+id/weightgoal"
+        android:layout_height="26sp"
+        android:layout_alignBottom="@+id/firstweight"
+        android:layout_alignTop="@+id/firstweight"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/zero"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/viewgraph"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"
-        android:background="@color/colorNegativeButton"
-        android:onClick="deletedata"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/deletedata"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 </RelativeLayout>
 
 

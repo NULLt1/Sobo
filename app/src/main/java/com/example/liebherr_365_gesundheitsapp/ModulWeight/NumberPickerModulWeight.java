@@ -274,7 +274,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
 
         // bind deletebutton to Button
-        Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
+        Button historiebutton = (Button) getActivity().findViewById(R.id.historie);
 
         // set deletebutton enabled and change opacity, color
         diagrammbutton.setEnabled(true);
@@ -282,8 +282,8 @@ public class NumberPickerModulWeight extends DialogFragment {
         diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
 
         // set deletebutton enabled and change opacity, color
-        deletebutton.setEnabled(true);
-        deletebutton.getBackground().setAlpha(255);
-        deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+        historiebutton.setEnabled(true);
+        historiebutton.getBackground().setAlpha(255);
+        historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 }

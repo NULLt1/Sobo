@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
@@ -47,7 +46,7 @@ public class ModulWeight extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SavedSharedPrefrencesModulWeight.setSharedPreferences(this);
 
-        setContentView(R.layout.modul_weight);
+        setContentView(R.layout.activity_modul_weight);
 
         // bind textweightstart to TextView
         textweightstart = (TextView) findViewById(R.id.firstweight);
@@ -61,8 +60,10 @@ public class ModulWeight extends AppCompatActivity {
         // bind diagrammbutton to Button
         Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
 
+
         // bind deletebutton to Button
-        Button deletebutton = (Button) findViewById(R.id.deleteButton);
+        Button historiebutton = (Button) findViewById(R.id.historie);
+
 
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
@@ -92,9 +93,9 @@ public class ModulWeight extends AppCompatActivity {
             diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
 
             // set deletebutton disabled and change opacity
-            deletebutton.setEnabled(false);
-            deletebutton.getBackground().setAlpha(45);
-            deletebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+            historiebutton.setEnabled(false);
+            historiebutton.getBackground().setAlpha(45);
+            historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
         } else {
             // set deletebutton enabled and change opacity, color
             diagrammbutton.setEnabled(true);
@@ -102,9 +103,9 @@ public class ModulWeight extends AppCompatActivity {
             diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
 
             // set deletebutton enabled and change opacity, color
-            deletebutton.setEnabled(true);
-            deletebutton.getBackground().setAlpha(255);
-            deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+            historiebutton.setEnabled(true);
+            historiebutton.getBackground().setAlpha(255);
+            historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
         // weightlist adapter
@@ -272,6 +273,13 @@ public class ModulWeight extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //function viewgraph onklick @+id/historie
+    public void historie(View view) {
+        //Creatiing new intent, which navigates to ViewGraph on call
+        Intent intent = new Intent(ModulWeight.this, HistorieModulWeight.class);
+        startActivity(intent);
     }
 
     //function viewgraph onklick @+id/viewgraph

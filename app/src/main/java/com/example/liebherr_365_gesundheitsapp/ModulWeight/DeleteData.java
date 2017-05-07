@@ -52,7 +52,7 @@ public class DeleteData extends DialogFragment {
                 Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
 
                 // bind deletebutton to Button
-                Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
+                Button historiebutton = (Button) getActivity().findViewById(R.id.historie);
 
                 // bind textweightdiffernce to TextView
                 TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
@@ -86,9 +86,9 @@ public class DeleteData extends DialogFragment {
                 diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
 
                 // set deletebutton disabled and change opacity
-                deletebutton.setEnabled(false);
-                deletebutton.getBackground().setAlpha(45);
-                deletebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+                historiebutton.setEnabled(false);
+                historiebutton.getBackground().setAlpha(45);
+                historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
 
                 // weightlist adapter
                 adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
