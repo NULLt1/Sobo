@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
-import com.example.liebherr_365_gesundheitsapp.R;
 
 class BmiCalculator {
     private static float minRecBmi;
