@@ -167,7 +167,7 @@ public class DataSourceData {
     }
 
     //function getLatestWeight
-    public int getLatestEntry(String modulname) {
+    public float getLatestEntry(String modulname) {
         String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
         String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
@@ -177,7 +177,7 @@ public class DataSourceData {
             return 0;
         } else {
             int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-            int value = cursor.getInt(ID);
+            float value = cursor.getInt(ID);
 
             return value;
         }

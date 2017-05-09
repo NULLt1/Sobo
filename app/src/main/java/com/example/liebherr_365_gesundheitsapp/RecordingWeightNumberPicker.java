@@ -19,10 +19,6 @@ import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-/**
- * Created by mpadmin on 11.04.2017.
- */
-
 public class RecordingWeightNumberPicker extends DialogFragment {
     Context context;
     private DataSourceData dataSourceData;
@@ -72,24 +68,15 @@ public class RecordingWeightNumberPicker extends DialogFragment {
         integer.setBackgroundColor(Color.GRAY);
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-        //get latestweight and set picker
-        dataSourceData = new DataSourceData(context);
-        dataSourceData.open();
-        int lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
-        if (lastentry != 0) {
-            integer.setValue(lastentry);
-            integervalue = lastentry;
-        } else {
-            integer.setValue(80);
-            integervalue = 80;
-        }
-        dataSourceData.close();
-
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
         afterkomma.setBackgroundColor(Color.GRAY);
         afterkomma.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+        // call function setPickerValues
+        setPickerValues(integer, afterkomma);
+
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
 
@@ -152,6 +139,39 @@ public class RecordingWeightNumberPicker extends DialogFragment {
 
     public static void refreshMenu(Activity activity) {
         activity.invalidateOptionsMenu();
+    }
+
+    // function setPickerValues
+    public void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
+        // new DBHelperDataSource
+        dataSourceData = new DataSourceData(context);
+        dataSourceData.open();
+
+        // call function getLatestEntry
+        float lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
+
+        if (lastentry != 0) {
+            // if lastentry existing -> set pickers
+            int lastinteger = 0;
+            int lastfloat = 0;
+
+            //set value integer
+            lastinteger = ((int) lastentry);
+            integer.setValue(lastinteger);
+            integervalue = lastinteger;
+
+            //set value afterkomma
+            lastentry = lastentry * 10;
+            lastfloat = (int) (lastentry - lastinteger * 10);
+            afterkomma.setValue(lastfloat);
+            afterkommavalue = lastfloat;
+        } else {
+            // if lastentry not existing -> set default values
+            integer.setValue(80);
+            integervalue = 80;
+        }
+        Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+        dataSourceData.close();
     }
 
     //function integer values -> float integervalue,afterkommavalue

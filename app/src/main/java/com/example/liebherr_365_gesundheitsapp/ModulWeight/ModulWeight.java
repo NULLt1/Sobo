@@ -9,12 +9,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.CursorAdapterWeight;
 
 import com.example.liebherr_365_gesundheitsapp.Database.*;
 
@@ -30,13 +30,12 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        Log.d("Resumed", "Resumed");
         super.onResume();
         // call function setWeightGoalText
         setWeightGoalText();
 
-        // call function setFirstWeight();
-        setFirstWeight();
+        // call function setActualWeight();
+        setActualWeight();
 
         // call function setWeightDifference
         setWeightDifference();
@@ -46,7 +45,7 @@ public class ModulWeight extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SavedSharedPrefrencesModulWeight.setSharedPreferences(this);
 
-        setContentView(R.layout.modul_weight);
+        setContentView(R.layout.activity_modul_weight);
 
         // bind textweightstart to TextView
         textweightstart = (TextView) findViewById(R.id.firstweight);
@@ -60,18 +59,30 @@ public class ModulWeight extends AppCompatActivity {
         // bind diagrammbutton to Button
         Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
 
+
         // bind deletebutton to Button
-        Button deletebutton = (Button) findViewById(R.id.deleteButton);
+        Button historiebutton = (Button) findViewById(R.id.historie);
+
 
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
+
+        // onItemClickListener
+        weightlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // selected item
+                String selected = ((TextView) view.findViewById(R.id.datum)).getText().toString();
+                Log.d("selected", selected);
+            }
+        });
 
         // new DBHelperDataSource
         dataSourceData = new DataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight
-        firstweight = dataSourceData.getFirstWeight("ModulWeight");
+        firstweight = dataSourceData.getLatestEntry("ModulWeight");
 
         // handle empty db
         if (firstweight == 0) {
@@ -81,9 +92,9 @@ public class ModulWeight extends AppCompatActivity {
             diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
 
             // set deletebutton disabled and change opacity
-            deletebutton.setEnabled(false);
-            deletebutton.getBackground().setAlpha(45);
-            deletebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+            historiebutton.setEnabled(false);
+            historiebutton.getBackground().setAlpha(45);
+            historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
         } else {
             // set deletebutton enabled and change opacity, color
             diagrammbutton.setEnabled(true);
@@ -91,9 +102,9 @@ public class ModulWeight extends AppCompatActivity {
             diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
 
             // set deletebutton enabled and change opacity, color
-            deletebutton.setEnabled(true);
-            deletebutton.getBackground().setAlpha(255);
-            deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+            historiebutton.setEnabled(true);
+            historiebutton.getBackground().setAlpha(255);
+            historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
         // weightlist adapter
@@ -115,11 +126,10 @@ public class ModulWeight extends AppCompatActivity {
         BmiCalculator.calculateBmi(this);
 
         // set text weightgoal
-        weightgoal = SavedSharedPrefrencesModulWeight.getWeightGoal();
         setWeightGoalText();
 
         // set text weighstart
-        setWeightStartText();
+        setActualWeightText();
 
         /*////////////////////////////////////////////////////////////////////////////////
         // start notification oncreate
@@ -167,14 +177,14 @@ public class ModulWeight extends AppCompatActivity {
         return weightgoal;
     }
 
-    //functiom setFirstWeight
-    private void setFirstWeight() {
+    //functiom setActualWeight
+    private void setActualWeight() {
         // new DBHelperDataSource
         dataSourceData = new DataSourceData(this);
         dataSourceData.open();
 
         // getFirstWeight
-        firstweight = dataSourceData.getFirstWeight("ModulWeight");
+        firstweight = dataSourceData.getLatestEntry("ModulWeight");
 
         // close db connection
         dataSourceData.close();
@@ -190,7 +200,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightStartText
-    public void setWeightStartText() {
+    public void setActualWeightText() {
         // set text weightstart
         if (proveFirstWeight()) {
             // setText firstweight
@@ -236,12 +246,8 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightGoalText
-    public static void setWeightGoal(float weightgoalfloat) {
-        weightgoal = weightgoalfloat;
-    }
-
-    //function setWeightGoalText
     public void setWeightGoalText() {
+        weightgoal = BmiCalculator.getAverageRecWeight();
         String weightgoalstring = String.valueOf(weightgoal);
         textweightgoal.setText(weightgoalstring);
     }
@@ -249,7 +255,7 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_modulweight, menu);
         return true;
     }
 
@@ -266,6 +272,13 @@ public class ModulWeight extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //function viewgraph onklick @+id/historie
+    public void historie(View view) {
+        //Creatiing new intent, which navigates to ViewGraph on call
+        Intent intent = new Intent(ModulWeight.this, HistorieModulWeight.class);
+        startActivity(intent);
     }
 
     //function viewgraph onklick @+id/viewgraph

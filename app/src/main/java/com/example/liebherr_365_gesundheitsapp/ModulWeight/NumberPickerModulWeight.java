@@ -84,24 +84,15 @@ public class NumberPickerModulWeight extends DialogFragment {
         integer.setBackgroundColor(Color.GRAY);
         integer.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-        //get latestweight and set picker
-        dataSourceData = new DataSourceData(context);
-        dataSourceData.open();
-        int lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
-        if (lastentry != 0) {
-            integer.setValue(lastentry);
-            integervalue = lastentry;
-        } else {
-            integer.setValue((int) SavedSharedPrefrencesModulWeight.getWeightGoal());
-            integervalue = (int) SavedSharedPrefrencesModulWeight.getWeightGoal();
-        }
-        dataSourceData.close();
-
         //Set afterkomma Value 0-9
         afterkomma.setMinValue(0);
         afterkomma.setMaxValue(9);
         afterkomma.setBackgroundColor(Color.GRAY);
         afterkomma.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+        // call function setPickerValues
+        setPickerValues(integer, afterkomma);
+
         //wrap@ getMinValue() || getMaxValue()
         integer.setWrapSelectorWheel(false);
 
@@ -135,8 +126,11 @@ public class NumberPickerModulWeight extends DialogFragment {
                 // new DBHelperDataSource
                 dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
+
                 // call function datealreadysaved and react on result
                 boolean datealreadyexisting = dataSourceData.datealreadysaved(wd);
+
+                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
 
                 if (datealreadyexisting) {
@@ -165,27 +159,25 @@ public class NumberPickerModulWeight extends DialogFragment {
                     // new DBHelperDataSource
                     dataSourceData = new DataSourceData(context);
                     dataSourceData.open();
-                    if (dataSourceData.getFirstWeight("ModulWeight") != 0) {
-                        dataSourceData.insertdata(wd);
-                    } else {
-                        // separate the first value in the database
-                        dataSourceData.insertdata(wd);
 
-                        // bind textweightdiffernce to TextView
-                        TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+                    // call function insertdata
+                    dataSourceData.insertdata(wd);
 
-                        // bind textweightstart to TextView
-                        TextView textweightstart = (TextView) getActivity().findViewById(R.id.firstweight);
+                    // bind textweightdiffernce to TextView
+                    TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
 
-                        // set text textweightstart
-                        textweightstart.setText(String.valueOf(weight));
+                    // bind textweightstart to TextView
+                    TextView textweightactual = (TextView) getActivity().findViewById(R.id.firstweight);
 
-                        // call function calculateweightdifference
-                        String weightdifferncestring = calculateweightdifference(weight);
+                    // set text textweightactual
+                    textweightactual.setText(String.valueOf(weight));
 
-                        // set text textweightdifference
-                        textweightdifference.setText(weightdifferncestring);
-                    }
+                    // call function calculateweightdifference
+                    String weightdifferncestring = calculateweightdifference(weight);
+
+                    // set text textweightdifference
+                    textweightdifference.setText(weightdifferncestring);
+
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                     //call function activatebuttons
@@ -203,7 +195,40 @@ public class NumberPickerModulWeight extends DialogFragment {
     }
 
 
-    //function integer values -> float integervalue,afterkommavalue
+    // function setPickerValues
+    public void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
+        // new DBHelperDataSource
+        dataSourceData = new DataSourceData(context);
+        dataSourceData.open();
+
+        // call function getLatestEntry
+        float lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
+
+        if (lastentry != 0) {
+            // if lastentry existing -> set pickers
+            int lastinteger = 0;
+            int lastfloat = 0;
+
+            //set value integer
+            lastinteger = ((int) lastentry);
+            integer.setValue(lastinteger);
+            integervalue = lastinteger;
+
+            //set value afterkomma
+            lastentry = lastentry * 10;
+            lastfloat = (int) (lastentry - lastinteger * 10);
+            afterkomma.setValue(lastfloat);
+            afterkommavalue = lastfloat;
+        } else {
+            // if lastentry not existing -> set default values
+            integer.setValue(80);
+            integervalue = 80;
+        }
+        Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+        dataSourceData.close();
+    }
+
+    // function integer values -> float integervalue,afterkommavalue
     public float integertofloat(int integervalue, int afterkommavalue) {
         float result = 0;
         result += (float) integervalue;
@@ -211,7 +236,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         return result;
     }
 
-    //function calculateweightdifference
+    // function calculateweightdifference
     public String calculateweightdifference(float weight) {
         String weightdifferncestring;
         float weightdiffernce;
@@ -247,7 +272,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
 
         // bind deletebutton to Button
-        Button deletebutton = (Button) getActivity().findViewById(R.id.deleteButton);
+        Button historiebutton = (Button) getActivity().findViewById(R.id.historie);
 
         // set deletebutton enabled and change opacity, color
         diagrammbutton.setEnabled(true);
@@ -255,8 +280,8 @@ public class NumberPickerModulWeight extends DialogFragment {
         diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
 
         // set deletebutton enabled and change opacity, color
-        deletebutton.setEnabled(true);
-        deletebutton.getBackground().setAlpha(255);
-        deletebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+        historiebutton.setEnabled(true);
+        historiebutton.getBackground().setAlpha(255);
+        historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 }
