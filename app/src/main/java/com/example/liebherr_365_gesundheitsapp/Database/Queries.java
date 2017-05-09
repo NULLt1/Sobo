@@ -12,14 +12,6 @@ public class Queries {
 
     //columns
 
-    public static String getColumnDate() {
-        return COLUMN_DATE;
-    }
-
-    public static String getColumnPhysicalValues() {
-        return COLUMN_PHYSICAL_VALUES;
-    }
-
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_MODUL = "modul";
     public static final String COLUMN_DATE = "date";
@@ -64,6 +56,14 @@ public class Queries {
 
     public static String dropTable(String tableName) {
         return "DROP TABLE IF EXISTS " + tableName + ";";
+    }
+
+    public static String getColumnDate() {
+        return COLUMN_DATE;
+    }
+
+    public static String getColumnPhysicalValues() {
+        return COLUMN_PHYSICAL_VALUES;
     }
 
     public static String deleteTable(String tableName) {
