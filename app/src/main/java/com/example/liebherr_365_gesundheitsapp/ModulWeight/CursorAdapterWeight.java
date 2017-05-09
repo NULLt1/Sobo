@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DataQuery;
+import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
 class CursorAdapterWeight extends CursorAdapter {
     private Cursor mCursor;
@@ -33,12 +33,12 @@ class CursorAdapterWeight extends CursorAdapter {
         TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
 
         //set text datum
-        String datum = cursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnDate()));
+        String datum = cursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnDate()));
         datum = formateDatum(datum);
         textViewdatum.setText(datum);
 
         //set text weight
-        String weight = cursor.getString(cursor.getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+        String weight = cursor.getString(cursor.getColumnIndexOrThrow(Queries.getColumnPhysicalValues()));
         weight += " kg";
         textViewweight.setText(weight);
 
@@ -62,12 +62,12 @@ class CursorAdapterWeight extends CursorAdapter {
             Log.d("Cursor position", String.valueOf(position));
             Log.d("MCursor count", String.valueOf(mCursor.getCount()));
             mCursor.moveToPosition(position);
-            String currentWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+            String currentWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnPhysicalValues()));
 
             float currentWeightFloat = Float.parseFloat(currentWeight);
 
             mCursor.moveToPosition(position + 1);
-            String lastWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(DataQuery.getColumnPhysicalValues()));
+            String lastWeight = mCursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnPhysicalValues()));
             float lastWeightFloat = Float.parseFloat(lastWeight);
             float weightdifference = currentWeightFloat - lastWeightFloat;
 

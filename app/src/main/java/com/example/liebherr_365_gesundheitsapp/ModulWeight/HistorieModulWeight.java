@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DBHelperDataSourceData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 public class HistorieModulWeight extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class HistorieModulWeight extends AppCompatActivity {
         });
 
         // new DBHelperDataSource
-        DBHelperDataSourceData dataSourceData = new DBHelperDataSourceData(this);
+        DataSourceData dataSourceData = new DataSourceData(this);
         dataSourceData.open();
 
         // weightlist adapter

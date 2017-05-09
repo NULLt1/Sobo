@@ -18,7 +18,7 @@ class BmiCalculator {
     static float calculateBmi(Context context) {
         int weight;
 
-        DataSourceData dataSourceData = new DBHelperDataSourceData(context);
+        DataSourceData dataSourceData = new DataSourceData(context);
         dataSourceData.open();
 
         // getCurrentWeight
