@@ -11,6 +11,15 @@ public class Queries {
     public static final String TABLE_DATA = "data";
 
     //columns
+
+    public static String getColumnDate() {
+        return COLUMN_DATE;
+    }
+
+    public static String getColumnPhysicalValues() {
+        return COLUMN_PHYSICAL_VALUES;
+    }
+
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_MODUL = "modul";
     public static final String COLUMN_DATE = "date";
