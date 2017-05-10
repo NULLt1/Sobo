@@ -41,7 +41,7 @@ public class HistorieModulWeight extends AppCompatActivity {
         dataSourceData.open();
 
         // weightlist adapter
-        adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForWeightList());
+        adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForHistorieList());
 
         // set adapter to weightlist
         weightlist.setAdapter(adapter);

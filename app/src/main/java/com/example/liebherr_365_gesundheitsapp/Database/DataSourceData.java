@@ -90,8 +90,15 @@ public class DataSourceData {
         return data;
     }
 
+    // function getPreparedCursorForWeightList
     public Cursor getPreparedCursorForWeightList() {
         String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE + " DESC LIMIT 5";
+        return databaseData.rawQuery(query, null);
+    }
+
+    //function getPreparedCursorForHistorieList
+    public Cursor getPreparedCursorForHistorieList() {
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE;
         return databaseData.rawQuery(query, null);
     }
 
@@ -115,27 +122,6 @@ public class DataSourceData {
         cursor.close();
         return alldata;
     }
-
-    //function getAllData
-    public List<Data> getAllData() {
-        List<Data> DataList = new ArrayList<>();
-
-        Cursor cursor = databaseData.query(Queries.TABLE_DATA,
-                COLUMNS, null, null, null, null, Queries.COLUMN_DATE);
-
-        cursor.moveToFirst();
-        Data Data;
-
-        while (!cursor.isAfterLast()) {
-            Data = cursorToWeightdata(cursor);
-            DataList.add(Data);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return DataList;
-    }
-
 
     //function datealreadysaved
     public boolean datealreadysaved(Data wd) {
