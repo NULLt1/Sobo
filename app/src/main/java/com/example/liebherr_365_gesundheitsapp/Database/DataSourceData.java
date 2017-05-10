@@ -56,7 +56,7 @@ public class DataSourceData {
     }
 
     //function deletesingledata in database
-    private void deletesingledata(Data data) {
+    public void deletesingledata(Data data) {
         String modul = data.getModul();
         String date = data.getDate();
         String[] values = new String[]{modul, date};

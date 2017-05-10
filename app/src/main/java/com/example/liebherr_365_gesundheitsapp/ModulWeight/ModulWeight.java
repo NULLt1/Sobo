@@ -109,9 +109,22 @@ public class ModulWeight extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // selected item
-                String selected = ((TextView) view.findViewById(R.id.datum)).getText().toString();
+                String selecteddate = ((TextView) view.findViewById(R.id.datum)).getText().toString();
                 deletedata(getWindow().getDecorView().getRootView());
-                Log.d("selected", selected);
+                Log.d("selected", selecteddate);
+
+                // create bundle and fill with values
+                Bundle bundle = new Bundle();
+                bundle.putString("date", selecteddate);
+
+                // create new singledatarecord
+                DialogFragment singledatarecord = new SingleDataRecord();
+
+                // setArguments to SingleDataRecord
+                singledatarecord.setArguments(bundle);
+
+                // open singledatarecord
+                singledatarecord.show(getFragmentManager(), "DeleteData");
             }
         });
 

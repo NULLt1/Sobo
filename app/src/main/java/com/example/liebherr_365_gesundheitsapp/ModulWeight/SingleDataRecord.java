@@ -3,28 +3,19 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import static android.preference.PreferenceActivity.*;
-import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
-
-
-public class DeleteData extends DialogFragment {
+public class SingleDataRecord extends DialogFragment {
     Context context;
     private DataSourceData dataSourceData;
 
@@ -33,6 +24,11 @@ public class DeleteData extends DialogFragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
+
+        // get value from bundle
+        Bundle bundle = this.getArguments();
+        final String datum = bundle.getString("date");
+
         // get context
         context = getActivity().getApplicationContext();
 
@@ -43,14 +39,13 @@ public class DeleteData extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // inflate our custom layout for the dialog to a View
-        final View view = li.inflate(R.layout.deletedata, null);
+        final View view = li.inflate(R.layout.singledatarecord, null);
 
         // inform the dialog it has a custom View
         builder.setView(view);
 
-
-        // setOnClickListener on Button yes
-        Button buttonyes = (Button) view.findViewById(R.id.yes);
+        // setOnClickListener on Button update
+        Button buttonyes = (Button) view.findViewById(R.id.update);
         buttonyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,19 +65,35 @@ public class DeleteData extends DialogFragment {
             }
         });
 
-        // setOnClickListener on Button no
-        Button buttonno = (Button) view.findViewById(R.id.no);
+        // setOnClickListener on Button delete
+        Button buttonno = (Button) view.findViewById(R.id.delete);
         buttonno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("No", "No");
+                Log.d("datum", datum);
+
+                //TODO: FORMAT DATE
+
+                // new DBHelperDataSource
+                dataSourceData = new DataSourceData(context);
+                dataSourceData.open();
+
+                // declare String ModulWeight
+                String ModulWeight = "ModulWeight";
+
+                Data data = new Data(ModulWeight, "20.04.2017");
+
+                //call function deletesingledata
+                dataSourceData.deletesingledata(data);
+
+                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
+                dataSourceData.close();
 
                 //close NumberPickerModulWeight
                 getDialog().dismiss();
+
             }
         });
         return view;
     }
 }
-
-

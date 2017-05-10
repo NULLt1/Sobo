@@ -18,12 +18,15 @@
     <string name="seventyfive">75.0</string>
     <string name="deletedata">Daten löschen</string>
     <string name="deletequestion">Möchten sie alle Daten löschen?</string>
+    <string name="singlerecordquestion">Was möchten sie mit diesem Datensatz machen?</string>
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
     <string name="einstellungen">Einstellungen</string>
     <string name="gewicht">Gewicht</string>
     <string name="bmigrenzen">BMI Grenzen</string>
     <string name="optimalesgewicht">Optimales Gewicht</string>
+    <string name="update">ändern</string>
+    <string name="delete">löschen</string>
 
     <string-array name="sex">
         <item>Männlich</item>

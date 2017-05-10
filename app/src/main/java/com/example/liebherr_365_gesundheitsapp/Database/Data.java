@@ -14,6 +14,11 @@ public class Data {
         this.type = type;
     }
 
+    public Data(String modul, String date) {
+        this.modul = modul;
+        this.date = date;
+    }
+
     //function get modul
     public String getModul() {
         return modul;
