@@ -1,12 +1,15 @@
 package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 
+import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.renderscript.Float2;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
 import com.example.liebherr_365_gesundheitsapp.R;
@@ -49,6 +53,34 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                 return true;
             }
         });
+
+        Preference button = findPreference(getString(R.string.deletedata));
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Log.d("Clicked", "Clicked");
+                DialogFragment deletedata = new DeleteData();
+                deletedata.show(getFragmentManager(), "DeleteData");
+                return true;
+            }
+        });
+
+        // new DBHelperDataSource
+        DataSourceData dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        // getFirstWeight
+        float firstweight = dataSourceData.getLatestEntry("ModulWeight");
+
+        // handle empty db -> hide deletedata
+        if (firstweight == 0) {
+            PreferenceScreen screen = getPreferenceScreen();
+            Preference pref = getPreferenceManager().findPreference(getString(R.string.deletedata));
+            screen.removePreference(pref);
+        }
+
+        // close db connection
+        dataSourceData.close();
     }
 
     @Override

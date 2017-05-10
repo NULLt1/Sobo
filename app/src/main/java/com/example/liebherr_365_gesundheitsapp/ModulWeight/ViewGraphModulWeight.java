@@ -70,7 +70,7 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
         // setScaleEnabled -> false
-        chart.setScaleEnabled(false);
+        chart.setScaleEnabled(true);
 
         // new DayAxisValueFormatter
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);

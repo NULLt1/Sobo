@@ -3,7 +3,12 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +20,7 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
+import static android.preference.PreferenceActivity.*;
 import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
 
 
@@ -48,21 +54,6 @@ public class DeleteData extends DialogFragment {
         buttonyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // bind diagrammbutton to Button
-                Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
-
-                // bind deletebutton to Button
-                Button historiebutton = (Button) getActivity().findViewById(R.id.historie);
-
-                // bind textweightdiffernce to TextView
-                TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
-
-                // bind textweightstart to TextView
-                TextView textweightstart = (TextView) getActivity().findViewById(R.id.firstweight);
-
-                // bind weightlist to Listview
-                ListView weightlist = (ListView) getActivity().findViewById(R.id.listview);
-
                 // new DBHelperDataSource
                 dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
@@ -70,28 +61,6 @@ public class DeleteData extends DialogFragment {
                 //call function deletedb
                 String ModulWeight = "ModulWeight";
                 dataSourceData.deletedb(ModulWeight);
-
-                // defaultstring
-                String defaultstring = "-.-";
-
-                // set text textweightstart
-                textweightstart.setText(String.valueOf(defaultstring));
-
-                // set text textweightdifference
-                textweightdifference.setText(defaultstring);
-
-                // set deletebutton disabled and change opacity
-                diagrammbutton.setEnabled(false);
-                diagrammbutton.getBackground().setAlpha(45);
-                diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
-
-                // set deletebutton disabled and change opacity
-                historiebutton.setEnabled(false);
-                historiebutton.getBackground().setAlpha(45);
-                historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
-
-                // weightlist adapter
-                adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();

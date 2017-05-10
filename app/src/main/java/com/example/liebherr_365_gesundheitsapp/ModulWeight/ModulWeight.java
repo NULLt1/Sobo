@@ -31,6 +31,43 @@ public class ModulWeight extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        // bind diagrammbutton to Button
+        final Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
+
+        // bind deletebutton to Button
+        final Button historiebutton = (Button) findViewById(R.id.historie);
+
+        // new DBHelperDataSource
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        // weightlist adapter
+        adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+
+        // handle empty db
+        if (dataSourceData.getLatestEntry("ModulWeight") == 0) {
+            //defaultstring
+            String defaultstring = "-.-";
+
+            // set text textweightstart
+            textweightstart.setText(String.valueOf(defaultstring));
+
+            // set text textweightdifference
+            textweightdiffernce.setText(defaultstring);
+
+            // set deletebutton disabled and change opacity
+            diagrammbutton.setEnabled(false);
+            diagrammbutton.getBackground().setAlpha(45);
+            diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+
+            // set deletebutton disabled and change opacity
+            historiebutton.setEnabled(false);
+            historiebutton.getBackground().setAlpha(45);
+            historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+        }
+        // close db connection
+        dataSourceData.close();
+
         // call function setWeightGoalText
         setWeightGoalText();
 
@@ -57,11 +94,11 @@ public class ModulWeight extends AppCompatActivity {
         textweightgoal = (TextView) findViewById(R.id.weightgoal);
 
         // bind diagrammbutton to Button
-        Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
+        final Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
 
 
         // bind deletebutton to Button
-        Button historiebutton = (Button) findViewById(R.id.historie);
+        final Button historiebutton = (Button) findViewById(R.id.historie);
 
 
         // bind weightlist to Listview
@@ -73,6 +110,7 @@ public class ModulWeight extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // selected item
                 String selected = ((TextView) view.findViewById(R.id.datum)).getText().toString();
+                deletedata(getWindow().getDecorView().getRootView());
                 Log.d("selected", selected);
             }
         });

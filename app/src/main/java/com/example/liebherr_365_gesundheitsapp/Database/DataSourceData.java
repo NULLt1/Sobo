@@ -98,7 +98,7 @@ public class DataSourceData {
 
     //function getPreparedCursorForHistorieList
     public Cursor getPreparedCursorForHistorieList() {
-        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE;
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE + " DESC";
         return databaseData.rawQuery(query, null);
     }
 
