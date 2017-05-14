@@ -3,7 +3,6 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -52,6 +51,7 @@ public class ModulWeight extends AppCompatActivity {
         if (dataSourceData.getLatestEntry("ModulWeight") == 0) {
             changeButtons();
         }
+
         // close db connection
         dataSourceData.close();
 
@@ -121,17 +121,9 @@ public class ModulWeight extends AppCompatActivity {
 
         // handle empty db
         if (firstweight == 0) {
-            // set deletebutton disabled and change opacity
-            diagrammbutton.setEnabled(false);
-            diagrammbutton.getBackground().setAlpha(45);
-            diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
-
-            // set deletebutton disabled and change opacity
-            historiebutton.setEnabled(false);
-            historiebutton.getBackground().setAlpha(45);
-            historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
-        } else {
             disableButtons();
+        } else {
+            activateButtons();
         }
 
         // weightlist adapter
@@ -220,12 +212,24 @@ public class ModulWeight extends AppCompatActivity {
         // set deletebutton disabled and change opacity
         diagrammbutton.setEnabled(false);
         diagrammbutton.getBackground().setAlpha(45);
-        diagrammbutton.setTextColor(Color.parseColor("#FFFFFF"));
+        diagrammbutton.setTextColor(Color.parseColor("#BDBDBD"));
 
         // set deletebutton disabled and change opacity
         historiebutton.setEnabled(false);
         historiebutton.getBackground().setAlpha(45);
-        historiebutton.setTextColor(Color.parseColor("#FFFFFF"));
+        historiebutton.setTextColor(Color.parseColor("#BDBDBD"));
+    }
+
+    private static void activateButtons() {
+        // set deletebutton disabled and change opacity
+        diagrammbutton.setEnabled(true);
+        diagrammbutton.getBackground().setAlpha(255);
+        diagrammbutton.setTextColor(Color.parseColor("#000000"));
+
+        // set deletebutton disabled and change opacity
+        historiebutton.setEnabled(true);
+        historiebutton.getBackground().setAlpha(255);
+        historiebutton.setTextColor(Color.parseColor("#000000"));
     }
 
     //function getWeightGoal

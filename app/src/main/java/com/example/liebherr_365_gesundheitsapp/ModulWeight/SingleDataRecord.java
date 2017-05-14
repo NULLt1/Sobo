@@ -85,7 +85,11 @@ public class SingleDataRecord extends DialogFragment {
                 dataSourceData.deletesingledata(data);
 
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
-                ModulWeight.changeButtons();
+
+                // handle empty db
+                if (dataSourceData.getLatestEntry("ModulWeight") == 0) {
+                    ModulWeight.changeButtons();
+                }
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
