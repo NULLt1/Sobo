@@ -191,6 +191,12 @@ public class ModulWeight extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////*/
     }
 
+    // function setFirstWeight
+    public static void setFirstWeight(float firstweightparameter) {
+        firstweight = firstweightparameter;
+        setActualWeightText();
+    }
+
     //function disableButtons
     public static void changeButtons() {
         changeString();
@@ -260,7 +266,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightStartText
-    public void setActualWeightText() {
+    public static void setActualWeightText() {
         // set text weightstart
         if (proveFirstWeight()) {
             // setText firstweight
@@ -273,7 +279,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightDifference
-    public void setWeightDifference() {
+    public static void setWeightDifference() {
         if (proveFirstWeight()) {
             String weightdifferncestring;
             float weightdiffernce;
@@ -297,7 +303,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     // function roundfloat
-    public float roundfloat(float inputfloat) {
+    public static float roundfloat(float inputfloat) {
         float roundedfloat = 0;
         inputfloat += 0.05;
         inputfloat = (int) (inputfloat * 10);

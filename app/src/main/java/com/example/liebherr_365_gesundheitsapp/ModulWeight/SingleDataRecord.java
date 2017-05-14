@@ -28,6 +28,9 @@ public class SingleDataRecord extends DialogFragment {
         Bundle bundle = this.getArguments();
         final String bundledatum = bundle.getString("date");
 
+        // declare String datum
+        final String datum = formateDatum(bundledatum);
+
         // get context
         context = getActivity().getApplicationContext();
 
@@ -48,16 +51,18 @@ public class SingleDataRecord extends DialogFragment {
         buttonupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // new DBHelperDataSource
-                dataSourceData = new DataSourceData(context);
-                dataSourceData.open();
+                // create bundle and fill with values
+                Bundle bundle = new Bundle();
+                bundle.putString("date", datum);
 
-                //call function deletedb
-                String ModulWeight = "ModulWeight";
-                dataSourceData.deletedb(ModulWeight);
+                // create new singledatarecord
+                DialogFragment numberpickersingledatarecord = new NumberPickerSingleDataRecord();
 
-                Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
-                dataSourceData.close();
+                // setArguments to SingleDataRecord
+                numberpickersingledatarecord.setArguments(bundle);
+
+                // open singledatarecord
+                numberpickersingledatarecord.show(getFragmentManager(), "DeleteData");
 
                 //close NumberPickerModulWeight
                 getDialog().dismiss();
@@ -69,9 +74,6 @@ public class SingleDataRecord extends DialogFragment {
         buttondelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // declare String datum
-                String datum = formateDatum(bundledatum);
-
                 // new DBHelperDataSource
                 dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
@@ -94,11 +96,8 @@ public class SingleDataRecord extends DialogFragment {
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
 
-                //close NumberPickerModulWeight
-
+                //close SingleDataRecord
                 getDialog().dismiss();
-
-
             }
         });
         return view;

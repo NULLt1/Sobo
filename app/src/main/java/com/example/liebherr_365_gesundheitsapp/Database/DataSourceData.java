@@ -163,26 +163,26 @@ public class DataSourceData {
             return 0;
         } else {
             int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-            float value = cursor.getInt(ID);
+            float value = cursor.getFloat(ID);
 
             return value;
         }
     }
 
     // function getFirstWeight
-    public float getFirstWeight(String modulname) {
-        String queryMaxDate = "(SELECT MIN(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
+    public String getLatestEntryDatum(String modulname) {
+        String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
         String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
         Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
         cursor.moveToFirst();
         if (cursor.getCount() == 0) {
-            return 0;
+            return null;
         } else {
-            int WeightID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-            float lastWeight = cursor.getFloat(WeightID);
+            int WeightID = cursor.getColumnIndex(Queries.COLUMN_DATE);
+            String latestEntryDatum = cursor.getString(WeightID);
 
-            return lastWeight;
+            return latestEntryDatum;
         }
     }
 
