@@ -1,7 +1,10 @@
 package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +25,14 @@ public class ModulWeight extends AppCompatActivity {
     // new DataSourceData
     private DataSourceData dataSourceData;
     public static CursorAdapterWeight adapter;
-    private TextView textweightstart;
-    private TextView textweightdiffernce;
+    @SuppressLint("StaticFieldLeak")
+    private static TextView textweightstart;
+    @SuppressLint("StaticFieldLeak")
+    private static TextView textweightdiffernce;
+    @SuppressLint("StaticFieldLeak")
+    private static Button diagrammbutton = null;
+    @SuppressLint("StaticFieldLeak")
+    private static Button historiebutton = null;
     private TextView textweightgoal;
     private static float firstweight;
     private static float weightgoal;
@@ -31,11 +40,6 @@ public class ModulWeight extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        // bind diagrammbutton to Button
-        final Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
-
-        // bind deletebutton to Button
-        final Button historiebutton = (Button) findViewById(R.id.historie);
 
         // new DBHelperDataSource
         dataSourceData = new DataSourceData(this);
@@ -46,24 +50,7 @@ public class ModulWeight extends AppCompatActivity {
 
         // handle empty db
         if (dataSourceData.getLatestEntry("ModulWeight") == 0) {
-            //defaultstring
-            String defaultstring = "-.-";
-
-            // set text textweightstart
-            textweightstart.setText(String.valueOf(defaultstring));
-
-            // set text textweightdifference
-            textweightdiffernce.setText(defaultstring);
-
-            // set deletebutton disabled and change opacity
-            diagrammbutton.setEnabled(false);
-            diagrammbutton.getBackground().setAlpha(45);
-            diagrammbutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
-
-            // set deletebutton disabled and change opacity
-            historiebutton.setEnabled(false);
-            historiebutton.getBackground().setAlpha(45);
-            historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
+            changeButtons();
         }
         // close db connection
         dataSourceData.close();
@@ -94,12 +81,10 @@ public class ModulWeight extends AppCompatActivity {
         textweightgoal = (TextView) findViewById(R.id.weightgoal);
 
         // bind diagrammbutton to Button
-        final Button diagrammbutton = (Button) findViewById(R.id.viewgraph);
-
+        diagrammbutton = (Button) findViewById(R.id.viewgraph);
 
         // bind deletebutton to Button
-        final Button historiebutton = (Button) findViewById(R.id.historie);
-
+        historiebutton = (Button) findViewById(R.id.historie);
 
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
@@ -110,8 +95,7 @@ public class ModulWeight extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // selected item
                 String selecteddate = ((TextView) view.findViewById(R.id.datum)).getText().toString();
-                deletedata(getWindow().getDecorView().getRootView());
-                Log.d("selected", selecteddate);
+                //deletedata(getWindow().getDecorView().getRootView());
 
                 // create bundle and fill with values
                 Bundle bundle = new Bundle();
@@ -147,15 +131,7 @@ public class ModulWeight extends AppCompatActivity {
             historiebutton.getBackground().setAlpha(45);
             historiebutton.setTextColor(getResources().getColor(R.color.colorLightGrey));
         } else {
-            // set deletebutton enabled and change opacity, color
-            diagrammbutton.setEnabled(true);
-            diagrammbutton.getBackground().setAlpha(255);
-            diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-            // set deletebutton enabled and change opacity, color
-            historiebutton.setEnabled(true);
-            historiebutton.getBackground().setAlpha(255);
-            historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+            disableButtons();
         }
 
         // weightlist adapter
@@ -221,6 +197,35 @@ public class ModulWeight extends AppCompatActivity {
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
         ////////////////////////////////////////////////////////////////////////////////*/
+    }
+
+    //function disableButtons
+    public static void changeButtons() {
+        changeString();
+        disableButtons();
+    }
+
+    private static void changeString() {
+        //defaultstring
+        String defaultstring = "-.-";
+
+        // set text textweightstart
+        textweightstart.setText(String.valueOf(defaultstring));
+
+        // set text textweightdifference
+        textweightdiffernce.setText(defaultstring);
+    }
+
+    private static void disableButtons() {
+        // set deletebutton disabled and change opacity
+        diagrammbutton.setEnabled(false);
+        diagrammbutton.getBackground().setAlpha(45);
+        diagrammbutton.setTextColor(Color.parseColor("#FFFFFF"));
+
+        // set deletebutton disabled and change opacity
+        historiebutton.setEnabled(false);
+        historiebutton.getBackground().setAlpha(45);
+        historiebutton.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     //function getWeightGoal
@@ -343,11 +348,5 @@ public class ModulWeight extends AppCompatActivity {
     public void newweight(View view) {
         DialogFragment datepicker = new DatePickerModulWeight();
         datepicker.show(getFragmentManager(), "datePicker");
-    }
-
-    //function deletedata onclick @+if/deleteButton
-    public void deletedata(View view) {
-        DialogFragment deletedata = new DeleteData();
-        deletedata.show(getFragmentManager(), "DeleteData");
     }
 }

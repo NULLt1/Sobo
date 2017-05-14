@@ -3,7 +3,6 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +26,7 @@ public class SingleDataRecord extends DialogFragment {
 
         // get value from bundle
         Bundle bundle = this.getArguments();
-        final String datum = bundle.getString("date");
+        final String bundledatum = bundle.getString("date");
 
         // get context
         context = getActivity().getApplicationContext();
@@ -45,8 +44,8 @@ public class SingleDataRecord extends DialogFragment {
         builder.setView(view);
 
         // setOnClickListener on Button update
-        Button buttonyes = (Button) view.findViewById(R.id.update);
-        buttonyes.setOnClickListener(new View.OnClickListener() {
+        Button buttonupdate = (Button) view.findViewById(R.id.update);
+        buttonupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // new DBHelperDataSource
@@ -66,34 +65,47 @@ public class SingleDataRecord extends DialogFragment {
         });
 
         // setOnClickListener on Button delete
-        Button buttonno = (Button) view.findViewById(R.id.delete);
-        buttonno.setOnClickListener(new View.OnClickListener() {
+        Button buttondelete = (Button) view.findViewById(R.id.delete);
+        buttondelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("datum", datum);
-
-                //TODO: FORMAT DATE
+                // declare String datum
+                String datum = formateDatum(bundledatum);
 
                 // new DBHelperDataSource
                 dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
 
                 // declare String ModulWeight
-                String ModulWeight = "ModulWeight";
+                String ModulWeightString = "ModulWeight";
 
-                Data data = new Data(ModulWeight, "20.04.2017");
+                Data data = new Data(ModulWeightString, datum);
 
                 //call function deletesingledata
                 dataSourceData.deletesingledata(data);
+
+                ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+                ModulWeight.changeButtons();
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
 
                 //close NumberPickerModulWeight
+
                 getDialog().dismiss();
+
 
             }
         });
         return view;
+    }
+
+    // funtion formateDatum
+    private String formateDatum(String datum) {
+        String day = datum.substring(0, 2);
+        String month = datum.substring(3, 5);
+        String year = datum.substring(6, 10);
+        datum = year + "-" + month + "-" + day;
+        return datum;
     }
 }

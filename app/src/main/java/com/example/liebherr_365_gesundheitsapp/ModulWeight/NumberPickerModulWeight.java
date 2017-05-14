@@ -21,10 +21,6 @@ import com.example.liebherr_365_gesundheitsapp.R;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-/**
- * Created by mpadmin on 12.01.2017.
- */
-
 public class NumberPickerModulWeight extends DialogFragment {
     Context context;
     private DataSourceData dataSourceData;
