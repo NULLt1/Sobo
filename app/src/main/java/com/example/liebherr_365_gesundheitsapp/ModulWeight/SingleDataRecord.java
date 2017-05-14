@@ -86,6 +86,7 @@ public class SingleDataRecord extends DialogFragment {
                 //call function deletesingledata
                 dataSourceData.deletesingledata(data);
 
+                HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                 // handle empty db

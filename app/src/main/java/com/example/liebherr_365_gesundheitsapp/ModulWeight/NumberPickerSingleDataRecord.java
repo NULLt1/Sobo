@@ -120,6 +120,7 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
                 dataSourceData.updatedata(wd);
 
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+                HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
