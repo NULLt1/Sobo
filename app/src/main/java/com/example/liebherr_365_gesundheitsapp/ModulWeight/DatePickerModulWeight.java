@@ -15,9 +15,9 @@ import java.util.Locale;
 
 public class DatePickerModulWeight extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
-    int currentday;
-    int currentmonth;
-    int currentyear;
+    private int currentday;
+    private int currentmonth;
+    private int currentyear;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
