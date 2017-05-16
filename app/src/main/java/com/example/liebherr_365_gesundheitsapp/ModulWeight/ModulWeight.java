@@ -67,6 +67,11 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // call function firstentry if flag = true
+        if (SavedSharedPrefrencesModulWeight.getFirstentry()) {
+            firstentry();
+        }
+
         SavedSharedPrefrencesModulWeight.setSharedPreferences(this);
 
         setContentView(R.layout.activity_modul_weight);
@@ -189,6 +194,16 @@ public class ModulWeight extends AppCompatActivity {
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), alarmIntent);
         ////////////////////////////////////////////////////////////////////////////////*/
+    }
+
+    // function firstentry
+    private static void firstentry() {
+        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
+        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
+        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
+        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
+        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
+        SavedSharedPrefrencesModulWeight.setFirstentry(false);
     }
 
     // function setFirstWeight

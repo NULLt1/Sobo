@@ -12,6 +12,7 @@ public class SavedSharedPrefrencesModulWeight {
     private static int height;
     private static int age;
     private static int gender;
+    private static boolean firstentry;
 
 
     static void setSharedPreferences(Context context) {
@@ -19,13 +20,12 @@ public class SavedSharedPrefrencesModulWeight {
         height = Integer.parseInt(sharedPreferences.getString("height", String.valueOf(180)));
         age = Integer.parseInt(sharedPreferences.getString("age", String.valueOf(18)));
         gender = Integer.parseInt(sharedPreferences.getString("gender", String.valueOf(1)));
+        firstentry = Boolean.parseBoolean(sharedPreferences.getString("flag", "true"));
     }
-
 
     public static int getHeight() {
         return height;
     }
-
 
     static int getAge() {
         return age;
@@ -41,5 +41,13 @@ public class SavedSharedPrefrencesModulWeight {
 
     static void setGender(int gender) {
         SavedSharedPrefrencesModulWeight.gender = gender;
+    }
+
+    static void setFirstentry(boolean flag) {
+        SavedSharedPrefrencesModulWeight.firstentry = flag;
+    }
+
+    static boolean getFirstentry() {
+        return firstentry;
     }
 }
