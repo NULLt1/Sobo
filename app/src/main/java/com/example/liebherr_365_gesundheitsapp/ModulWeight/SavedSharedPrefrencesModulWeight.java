@@ -23,6 +23,10 @@ public class SavedSharedPrefrencesModulWeight {
         firstentry = Boolean.parseBoolean(sharedPreferences.getString("flag", "true"));
     }
 
+    static void setHeight(int height) {
+        SavedSharedPrefrencesModulWeight.height = height;
+    }
+
     public static int getHeight() {
         return height;
     }

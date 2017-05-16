@@ -199,8 +199,8 @@ public class ModulWeight extends AppCompatActivity {
 
     // function firstentry
     private void firstentry() {
-        DialogFragment datepicker = new FirstEntryTextFragment();
-        datepicker.show(getFragmentManager(), "datePicker");
+        DialogFragment textfragment = new FirstEntryTextFragment();
+        textfragment.show(getFragmentManager(), "datePicker");
     }
 
     // function setFirstWeight

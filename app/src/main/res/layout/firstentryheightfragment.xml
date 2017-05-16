@@ -11,12 +11,17 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/größe"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="@string/firstentrytext"
+        android:text="@string/größe"
         android:textColor="@color/colorPrimary" />
+
+    <NumberPicker
+        android:id="@+id/height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/weiter"
