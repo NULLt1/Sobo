@@ -20,10 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class RecordingWeightNumberPicker extends DialogFragment {
-    Context context;
+    private Context context;
     private DataSourceData dataSourceData;
-    int integervalue;
-    int afterkommavalue = 0;
+    private int integervalue;
+    private int afterkommavalue = 0;
 
     @Override
     public View onCreateView(

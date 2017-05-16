@@ -67,6 +67,7 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SavedSharedPrefrencesModulWeight.setFirstentry(true);
         // call function firstentry if flag = true
         if (SavedSharedPrefrencesModulWeight.getFirstentry()) {
             firstentry();
@@ -197,13 +198,9 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     // function firstentry
-    private static void firstentry() {
-        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
-        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
-        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
-        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
-        Log.d("~~~~~~~~HELLO", "HELLO~~~~~~~");
-        SavedSharedPrefrencesModulWeight.setFirstentry(false);
+    private void firstentry() {
+        DialogFragment datepicker = new FirstEntryTextFragment();
+        datepicker.show(getFragmentManager(), "datePicker");
     }
 
     // function setFirstWeight

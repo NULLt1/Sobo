@@ -21,6 +21,8 @@
     <string name="singlerecordquestion">Was möchten sie mit diesem Datensatz machen?</string>
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
+    <string name="weiter">Weiter</string>
+    <string name="firstentrytext">Das Gewichtsmodul benötigt vorab noch ein paar Informationen um den BMI berechenen zu können</string>
     <string name="einstellungen">Einstellungen</string>
     <string name="gewicht">Gewicht</string>
     <string name="bmigrenzen">BMI Grenzen</string>
