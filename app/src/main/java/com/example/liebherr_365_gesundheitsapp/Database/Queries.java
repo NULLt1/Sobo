@@ -3,12 +3,13 @@ package com.example.liebherr_365_gesundheitsapp.Database;
 public class Queries {
     //Database
     public static final String DB_NAME = "sobo_database.db";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 9;
 
     //tables
     public static final String TABLE_PARSED_DATA = "parsed_data";
     public static final String TABLE_MODULES = "modules";
     public static final String TABLE_DATA = "data";
+    public static final String TABLE_MENSA = "mensa";
 
     //columns
     public static final String COLUMN_ID = "_id";
@@ -20,6 +21,12 @@ public class Queries {
     public static final String COLUMN_FLAG = "flag";
     public static final String COLUMN_PHYSICAL_VALUES = "physical_values";
     public static final String COLUMN_TYPE = "type";
+    public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_HEADER = "header";
+    public static final String COLUMN_MENU = "menu";
+    public static final String COLUMN_WEEK_OF_THE_YEAR = "week_of_the_year";
+    public static final String COLUMN_DAY = "day";
+
 
     //Create Statements
     public static final String CREATE_TABLE_PARSED_DATA = "CREATE TABLE " + TABLE_PARSED_DATA + " (" +
@@ -47,6 +54,16 @@ public class Queries {
             COLUMN_TYPE + " TEXT, FOREIGN KEY (" +
             COLUMN_MODUL + ") " + "REFERENCES " +
             TABLE_MODULES + "(" + COLUMN_MODUL + "));";
+
+    public static final String CREATE_TABLE_MENSA = "CREATE TABLE " + TABLE_MENSA + " (" +
+            COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_DATE + " TEXT, " +
+            COLUMN_DAY + " TEXT, " +
+            COLUMN_WEEK_OF_THE_YEAR + " INTEGER, " +
+            COLUMN_HEADER + " TEXT, " +
+            COLUMN_PRICE + " TEXT, " +
+            COLUMN_MENU + " TEXT);";
+
 
     //select statements
     public static String getActiveModules() {

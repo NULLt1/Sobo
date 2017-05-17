@@ -19,6 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(Queries.CREATE_TABLE_MODULES);
             db.execSQL(Queries.CREATE_TABLE_DATA);
             db.execSQL(Queries.CREATE_TABLE_PARSED_DATA);
+            db.execSQL(Queries.CREATE_TABLE_MENSA);
         } catch (Exception e) {
             Log.d(LOG_TAG, "Fehler beim Anlegen der Tabellen: " + e.getMessage());
         }
@@ -29,7 +30,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(Queries.dropTable(Queries.TABLE_DATA));
         db.execSQL(Queries.dropTable(Queries.TABLE_MODULES));
         db.execSQL(Queries.dropTable(Queries.TABLE_PARSED_DATA));
-
+        db.execSQL(Queries.dropTable(Queries.TABLE_MENSA));
+        Log.d(LOG_TAG, "Die Datenbank wurde aktualisiert");
         onCreate(db);
     }
 
