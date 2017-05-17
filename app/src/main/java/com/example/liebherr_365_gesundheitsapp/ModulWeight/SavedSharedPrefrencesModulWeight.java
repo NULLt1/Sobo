@@ -20,7 +20,6 @@ public class SavedSharedPrefrencesModulWeight {
         height = Integer.parseInt(sharedPreferences.getString("height", String.valueOf(180)));
         age = Integer.parseInt(sharedPreferences.getString("age", String.valueOf(18)));
         gender = Integer.parseInt(sharedPreferences.getString("gender", String.valueOf(1)));
-        firstentry = Boolean.parseBoolean(sharedPreferences.getString("flag", "true"));
     }
 
     static void setHeight(int height) {
@@ -48,6 +47,9 @@ public class SavedSharedPrefrencesModulWeight {
     }
 
     static void setFirstentry(boolean flag) {
+        Log.d("TRIGGGGGER", "TRIGGGGGGER");
+        Log.d("TRIGGGGGER", "TRIGGGGGGER");
+
         SavedSharedPrefrencesModulWeight.firstentry = flag;
     }
 

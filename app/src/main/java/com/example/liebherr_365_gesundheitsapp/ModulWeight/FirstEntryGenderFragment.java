@@ -11,11 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 
 import com.anton46.stepsview.StepsView;
 import com.example.liebherr_365_gesundheitsapp.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FirstEntryGenderFragment extends DialogFragment {
     private Context context;
@@ -74,15 +75,16 @@ public class FirstEntryGenderFragment extends DialogFragment {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("gender", String.valueOf(gender));
+
+                //deactivate firstentry
+                editor.putBoolean("flag", false);
+
                 editor.apply();
 
                 // update Bmi
                 BmiCalculator.setRecBmi();
                 BmiCalculator.calculateBmi(context);
                 ModulWeight.setWeightGoalText();
-
-                // deactivate firstentry
-                SavedSharedPrefrencesModulWeight.setFirstentry(false);
 
                 //close NumberPickerFragment
                 getDialog().dismiss();
