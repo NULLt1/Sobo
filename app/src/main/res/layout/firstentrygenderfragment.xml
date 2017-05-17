@@ -19,6 +19,7 @@
         android:textColor="@color/colorPrimary" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gender"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
+            android:checked="true"
             android:text="@string/männlich" />
 
         <RadioButton

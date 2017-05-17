@@ -12,17 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.RadioGroup;
 
 import com.anton46.stepsview.StepsView;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-/**
- * Created by mpadmin on 17.05.2017.
- */
-
 public class FirstEntryGenderFragment extends DialogFragment {
     private Context context;
-    private int age;
+    private int gender = 1;
     private final String[] labels = {"     1", "     2", "     3", "     4"};
 
     @Override
@@ -53,18 +50,40 @@ public class FirstEntryGenderFragment extends DialogFragment {
                 .setCompletedPosition(3)
                 .drawView();
 
+        RadioGroup rg = (RadioGroup) view.findViewById(R.id.gender);
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.man:
+                        gender = 1;
+                        break;
+                    case R.id.woman:
+                        gender = 0;
+                        break;
+                }
+            }
+        });
+
         // setOnClickListener on Button später
         Button späterbutton = (Button) view.findViewById(R.id.weiter);
         späterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                SavedSharedPrefrencesModulWeight.setAge(age);
+                SavedSharedPrefrencesModulWeight.setGender(gender);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("age", String.valueOf(age));
+                editor.putString("gender", String.valueOf(gender));
                 editor.apply();
-                */
+
+                // update Bmi
+                BmiCalculator.setRecBmi();
+                BmiCalculator.calculateBmi(context);
+                ModulWeight.setWeightGoalText();
+
+                // deactivate firstentry
+                SavedSharedPrefrencesModulWeight.setFirstentry(false);
+
                 //close NumberPickerFragment
                 getDialog().dismiss();
             }

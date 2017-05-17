@@ -32,7 +32,7 @@ public class ModulWeight extends AppCompatActivity {
     private static Button diagrammbutton = null;
     @SuppressLint("StaticFieldLeak")
     private static Button historiebutton = null;
-    private TextView textweightgoal;
+    private static TextView textweightgoal;
     private static float firstweight;
     private static float weightgoal;
 
@@ -67,7 +67,6 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SavedSharedPrefrencesModulWeight.setFirstentry(true);
         // call function firstentry if flag = true
         if (SavedSharedPrefrencesModulWeight.getFirstentry()) {
             firstentry();
@@ -324,7 +323,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     //function setWeightGoalText
-    public void setWeightGoalText() {
+    public static void setWeightGoalText() {
         weightgoal = BmiCalculator.getAverageRecWeight();
         String weightgoalstring = String.valueOf(weightgoal);
         textweightgoal.setText(weightgoalstring);
