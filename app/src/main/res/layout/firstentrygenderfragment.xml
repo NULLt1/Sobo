@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:orientation="vertical">
 
     <com.anton46.stepsview.StepsView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/stepsView"
@@ -14,8 +15,28 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="@string/firstentrytext"
+        android:text="@string/geschlecht"
         android:textColor="@color/colorPrimary" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:text="@string/männlich" />
+
+        <RadioButton
+            android:id="@+id/woman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:text="@string/weiblich" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/weiter"

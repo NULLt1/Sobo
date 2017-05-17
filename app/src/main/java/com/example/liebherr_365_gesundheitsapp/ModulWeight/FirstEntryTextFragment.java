@@ -53,7 +53,7 @@ public class FirstEntryTextFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 DialogFragment heightfragment = new FirstEntryHeightFragment();
-                heightfragment.show(getFragmentManager(), "datePicker");
+                heightfragment.show(getFragmentManager(), "height");
 
                 //close NumberPickerFragment
                 getDialog().dismiss();

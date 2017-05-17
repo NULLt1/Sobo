@@ -3,6 +3,7 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,7 +87,13 @@ public class SingleDataRecord extends DialogFragment {
                 //call function deletesingledata
                 dataSourceData.deletesingledata(data);
 
-                HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
+                // get historieListCursor
+                Cursor historieListCursor = dataSourceData.getPreparedCursorForHistorieList();
+
+                if (historieListCursor.getCount() > 0) {
+                    HistorieModulWeight.adapter.changeCursor(historieListCursor);
+                }
+
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                 // handle empty db

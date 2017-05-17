@@ -30,7 +30,7 @@ class CursorAdapterWeight extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textViewdatum = (TextView) view.findViewById(R.id.datum);
         TextView textViewweight = (TextView) view.findViewById(R.id.weight);
-        TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
+        //TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
 
         //set text datum
         String datum = cursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnDate()));
@@ -42,9 +42,11 @@ class CursorAdapterWeight extends CursorAdapter {
         weight += " kg";
         textViewweight.setText(weight);
 
+        /*
         //set text difference
         String difference = calcDifference(cursor.getPosition());
         textViewdifference.setText(difference);
+        */
     }
 
     // funtion formateDatum
@@ -56,6 +58,7 @@ class CursorAdapterWeight extends CursorAdapter {
         return datum;
     }
 
+    /*
     //function calcDifference
     private String calcDifference(int position) {
         try {
@@ -87,4 +90,5 @@ class CursorAdapterWeight extends CursorAdapter {
         roundedfloat = inputfloat / 10;
         return roundedfloat;
     }
+    */
 }
