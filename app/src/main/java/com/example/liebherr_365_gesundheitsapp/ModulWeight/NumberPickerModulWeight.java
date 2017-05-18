@@ -151,6 +151,8 @@ public class NumberPickerModulWeight extends DialogFragment {
                     ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
                 } else {
+
+                    //TODO EXCLUDE UPDATE TEXTVIEWS
                     // new DBHelperDataSource
                     dataSourceData = new DataSourceData(context);
                     dataSourceData.open();
