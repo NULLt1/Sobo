@@ -186,7 +186,7 @@ public class DataSourceData {
         }
     }
 
-    // function getVWithDatum
+    // function getValueWithDatum
     public float getValueWithDatum(String modulname, String datum) {
         String queryWhere = Queries.COLUMN_DATE + " = '" + datum + "' AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
