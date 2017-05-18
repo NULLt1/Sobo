@@ -24,10 +24,11 @@ import java.text.SimpleDateFormat;
 import static com.example.liebherr_365_gesundheitsapp.R.id.weight;
 
 public class NumberPickerSingleDataRecord extends DialogFragment {
-    Context context;
+    private Context context;
     private DataSourceData dataSourceData;
-    int integervalue;
-    int afterkommavalue = 0;
+    private int integervalue;
+    private int afterkommavalue = 0;
+    private String bundledatum;
 
     @Override
     public View onCreateView(
@@ -36,7 +37,7 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
             Bundle savedInstanceState) {
         // get value from bundle
         Bundle bundle = this.getArguments();
-        final String bundledatum = bundle.getString("date");
+        bundledatum = bundle.getString("date");
 
         // get context
         context = getActivity().getApplicationContext();
@@ -120,7 +121,11 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
                 dataSourceData.updatedata(wd);
 
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
-                HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
+                try {
+                    HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
+                } catch (Exception e) {
+                    Log.d("ERROR", String.valueOf(e));
+                }
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
@@ -147,26 +152,26 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
         dataSourceData = new DataSourceData(context);
         dataSourceData.open();
 
-        // call function getLatestEntry
-        float lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
+        // get value of selected item
+        float value = dataSourceData.getValueWithDatum("ModulWeight", bundledatum);
 
-        if (lastentry != 0) {
-            // if lastentry existing -> set pickers
+        if (value != 0) {
+            // if value existing -> set pickers
             int lastinteger = 0;
             int lastfloat = 0;
 
             //set value integer
-            lastinteger = ((int) lastentry);
+            lastinteger = ((int) value);
             integer.setValue(lastinteger);
             integervalue = lastinteger;
 
             //set value afterkomma
-            lastentry = lastentry * 10;
-            lastfloat = (int) (lastentry - lastinteger * 10);
+            value = value * 10;
+            lastfloat = (int) (value - lastinteger * 10);
             afterkomma.setValue(lastfloat);
             afterkommavalue = lastfloat;
         } else {
-            // if lastentry not existing -> set default values
+            // if value not existing -> set default values
             integer.setValue(80);
             integervalue = 80;
         }

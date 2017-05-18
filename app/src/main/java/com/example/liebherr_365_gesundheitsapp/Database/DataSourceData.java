@@ -186,6 +186,23 @@ public class DataSourceData {
         }
     }
 
+    // function getVWithDatum
+    public float getValueWithDatum(String modulname, String datum) {
+        String queryWhere = Queries.COLUMN_DATE + " = '" + datum + "' AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
+
+        Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() == 0) {
+            return 0;
+        } else {
+            int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
+            float value = cursor.getFloat(ID);
+
+            return value;
+        }
+    }
+
+
     public boolean entryalreadyexisting(String modul) {
         boolean result = false;
 
