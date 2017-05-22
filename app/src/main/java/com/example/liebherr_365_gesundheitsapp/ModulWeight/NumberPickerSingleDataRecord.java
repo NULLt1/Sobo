@@ -1,6 +1,6 @@
-package com.example.liebherr_365_gesundheitsapp;
+package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -12,24 +12,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
-import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.R;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
-public class RecordingWeightNumberPicker extends DialogFragment {
+import static com.example.liebherr_365_gesundheitsapp.R.id.weight;
+
+public class NumberPickerSingleDataRecord extends DialogFragment {
     private Context context;
     private DataSourceData dataSourceData;
     private int integervalue;
     private int afterkommavalue = 0;
+    private String bundledatum;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
+        // get value from bundle
+        Bundle bundle = this.getArguments();
+        bundledatum = bundle.getString("date");
+
         // get context
         context = getActivity().getApplicationContext();
 
@@ -40,7 +49,7 @@ public class RecordingWeightNumberPicker extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // inflate our custom layout for the dialog to a View
-        View view = li.inflate(R.layout.recordingweightnumberpicker, null);
+        View view = li.inflate(R.layout.numberpicker, null);
 
         //Intialize integer and aftkomma as numberpicker to use functions
         NumberPicker integer = (NumberPicker) view.findViewById(R.id.integer);
@@ -83,102 +92,90 @@ public class RecordingWeightNumberPicker extends DialogFragment {
         // inform the dialog it has a custom View
         builder.setView(view);
 
-        // setOnClickListener on Button später
-        Button späterbutton = (Button) view.findViewById(R.id.später);
-        späterbutton.setOnClickListener(new View.OnClickListener() {
+        // setOnClickListener on Button save
+        Button button = (Button) view.findViewById(R.id.save);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //close NumberPickerFragment
-                getDialog().dismiss();
-            }
-        });
-
-        // setOnClickListener on Button speichern
-        Button speichernbutton = (Button) view.findViewById(R.id.speichern);
-        speichernbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
-                String formateddate = dateFormat.format(new java.util.Date());
-
-                // call function integertofloat
-                float weight = integertofloat(integervalue, afterkommavalue);
-
                 // type declaration
                 String type = "kg";
 
                 // modul declaration
                 String modulweight = "ModulWeight";
 
+                // call function integertofloat
+                float weight = integertofloat(integervalue, afterkommavalue);
+
                 // new weightdateobject with values
-                Data wd = new Data(modulweight, formateddate, weight, type);
+                Data wd = new Data(modulweight, bundledatum, weight, type);
 
                 // new DBHelperDataSource
                 dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
 
-                //insert data into database
-                dataSourceData.insertdata(wd);
+                if (dataSourceData.getLatestEntryDatum("ModulWeight").equals(bundledatum)) {
+                    ModulWeight.setFirstWeight(weight);
+                }
+
+                //call function updatedata
+                dataSourceData.updatedata(wd);
+
+                ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
+                try {
+                    HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
+                } catch (Exception e) {
+                    Log.d("ERROR", String.valueOf(e));
+                }
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();
 
-                // call function resetFragmentCounter
-                MainMenu.resetFragmentCounter();
-
-                // call function refreshMenu
-                refreshMenu(getActivity());
-
                 //close NumberPickerFragment
                 getDialog().dismiss();
+
             }
         });
         return view;
     }
 
-
-    public static void refreshMenu(Activity activity) {
-        activity.invalidateOptionsMenu();
+    // function integer values -> float integervalue,afterkommavalue
+    private float integertofloat(int integervalue, int afterkommavalue) {
+        float result = 0;
+        result += (float) integervalue;
+        result += ((float) afterkommavalue / 10);
+        return result;
     }
 
     // function setPickerValues
-    public void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
+    private void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
         // new DBHelperDataSource
         dataSourceData = new DataSourceData(context);
         dataSourceData.open();
 
-        // call function getLatestEntry
-        float lastentry = dataSourceData.getLatestEntry(getString(R.string.modulweight));
+        // get value of selected item
+        float value = dataSourceData.getValueWithDatum("ModulWeight", bundledatum);
 
-        if (lastentry != 0) {
-            // if lastentry existing -> set pickers
+        if (value != 0) {
+            // if value existing -> set pickers
             int lastinteger = 0;
             int lastfloat = 0;
 
             //set value integer
-            lastinteger = ((int) lastentry);
+            lastinteger = ((int) value);
             integer.setValue(lastinteger);
             integervalue = lastinteger;
 
             //set value afterkomma
-            lastentry = lastentry * 10;
-            lastfloat = (int) (lastentry - lastinteger * 10);
+            value = value * 10;
+            lastfloat = (int) (value - lastinteger * 10);
             afterkomma.setValue(lastfloat);
             afterkommavalue = lastfloat;
         } else {
-            // if lastentry not existing -> set default values
+            // if value not existing -> set default values
             integer.setValue(80);
             integervalue = 80;
         }
         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
         dataSourceData.close();
-    }
-
-    //function integer values -> float integervalue,afterkommavalue
-    public float integertofloat(int integervalue, int afterkommavalue) {
-        float result = 0;
-        result += (float) integervalue;
-        result += ((float) afterkommavalue / 10);
-        return result;
     }
 }

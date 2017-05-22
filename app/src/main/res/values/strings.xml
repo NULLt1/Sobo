@@ -11,14 +11,40 @@
     <string name="kg">kg</string>
     <string name="plus">+</string>
     <string name="diagramm">Diagramm</string>
-    <string name="zielgewicht">kg\nZielgewicht</string>
-    <string name="startgewicht">kg\nStartgewicht</string>
+    <string name="historie">Übersicht</string>
+    <string name="zielgewicht">kg\n\nOptimales\nGewicht</string>
+    <string name="startgewicht">kg\n\nAktuelles\nGewicht</string>
     <string name="zero">-.-</string>
     <string name="seventyfive">75.0</string>
     <string name="deletedata">Daten löschen</string>
     <string name="deletequestion">Möchten sie alle Daten löschen?</string>
+    <string name="singlerecordquestion">Was möchten sie mit diesem Datensatz machen?</string>
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
+    <string name="weiter">Weiter</string>
+    <string name="firstentrytext">Das Gewichtsmodul benötigt vorab noch ein paar Informationen um den BMI berechnen zu können</string>
+    <string name="fertig">fertig</string>
+    <string name="größe">Körpergröße in Zentimeter</string>
+    <string name="alter">Alter</string>
+    <string name="geschlecht">Geschlecht</string>
+    <string name="männlich">männlich</string>
+    <string name="weiblich">weiblich</string>
+    <string name="einstellungen">Einstellungen</string>
+    <string name="gewicht">Gewicht</string>
+    <string name="bmigrenzen">BMI Grenzen</string>
+    <string name="optimalesgewicht">Optimales Gewicht</string>
+    <string name="update">ändern</string>
+    <string name="delete">löschen</string>
+
+    <string-array name="sex">
+        <item>Männlich</item>
+        <item>Weiblich</item>
+    </string-array>
+
+    <string-array name="sexValues">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
 
     <!--Strings ModulMensa -->
     <string name="lastmodified">lastModified</string>

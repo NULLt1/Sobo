@@ -1,33 +1,28 @@
 package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 
+import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.renderscript.Float2;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.BmiCalculator;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-/**
- * A {@link PreferenceActivity} that presents a set of application settings. On
- * handset devices, settings are presented as a single list. On tablets,
- * settings are split by category, with category headers shown to the left of
- * the list of settings.
- * <p>
- * See <a href="http://developer.android.com/design/patterns/settings.html">
- * Android Design: Settings</a> for design guidelines and the <a
- * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
- * API Guide</a> for more information on developing a Settings UI.
- */
 public class SettingsActivityModulWeight extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
@@ -36,14 +31,56 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
         SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
-        EditTextPreference editTextPref = (EditTextPreference) findPreference("height");
 
-        //Set summary text for the user settings
+        // height
+        EditTextPreference editTextPref = (EditTextPreference) findPreference("height");
         editTextPref.setSummary(sp.getString("height", null) + " cm");
+
+        // age
         editTextPref = (EditTextPreference) findPreference("age");
         editTextPref.setSummary(sp.getString("age", null) + " Jahre");
-        editTextPref = (EditTextPreference) findPreference("weightgoal");
-        editTextPref.setSummary(sp.getString("weightgoal", null) + " kg");
+
+        // gender
+        Preference listPreference = getPreferenceManager().findPreference("gender");
+
+        // changelistener for gender
+        listPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                String userSelectedValue = (String) newValue;
+                SavedSharedPrefrencesModulWeight.setGender(Integer.parseInt(userSelectedValue));
+                BmiCalculator.setRecBmi();
+                return true;
+            }
+        });
+
+        Preference button = findPreference(getString(R.string.deletedata));
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Log.d("Clicked", "Clicked");
+                DialogFragment deletedata = new DeleteData();
+                deletedata.show(getFragmentManager(), "DeleteData");
+                return true;
+            }
+        });
+
+        // new DBHelperDataSource
+        DataSourceData dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        // getFirstWeight
+        float firstweight = dataSourceData.getLatestEntry("ModulWeight");
+
+        // handle empty db -> hide deletedata
+        if (firstweight == 0) {
+            PreferenceScreen screen = getPreferenceScreen();
+            Preference pref = getPreferenceManager().findPreference(getString(R.string.deletedata));
+            screen.removePreference(pref);
+        }
+
+        // close db connection
+        dataSourceData.close();
     }
 
     @Override
@@ -52,7 +89,6 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)`enter code here`
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,17 +123,12 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                     break;
                 case "age":
                     value = " Jahre";
-                    break;
-                case "weightgoal":
-
-                    // call function setweighgoaltext
-                    ModulWeight.setWeightGoal(Float.parseFloat(etp.getText()));
-
-                    value = " kg";
+                    // call function setAge
+                    SavedSharedPrefrencesModulWeight.setAge(Integer.parseInt(etp.getText()));
+                    BmiCalculator.setRecBmi();
                     break;
                 default:
                     value = "";
-
             }
             pref.setSummary(etp.getText() + value);
         }

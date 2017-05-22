@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:orientation="vertical">
+
+    <com.anton46.stepsview.StepsView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/stepsView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/firstentrytext"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/weiter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/weiter" />
+</LinearLayout>

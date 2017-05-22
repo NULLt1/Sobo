@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
+import com.example.liebherr_365_gesundheitsapp.R;
 
 import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
 
@@ -56,13 +58,27 @@ public class ChangeDataFragment extends DialogFragment {
                         //call function updatedata
                         dataSourceData.updatedata(wd);
 
+                        // bind textweightdiffernce to TextView
+                        TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+
+                        // bind textweightstart to TextView
+                        TextView textweightactual = (TextView) getActivity().findViewById(R.id.firstweight);
+
+                        // set text textweightactual
+                        textweightactual.setText(String.valueOf(weight));
+
+                        // call function calculateweightdifference
+                        String weightdifferncestring = calculateweightdifference(weight);
+
+                        // set text textweightdifference
+                        textweightdifference.setText(weightdifferncestring);
+
                         // weightlist adapter
                         adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                         dataSourceData.close();
 
-                        //TODO: REFRESH STARTGEWICHT & DIFFERENCE
                         dialog.dismiss();
                     }
                 });
@@ -76,5 +92,36 @@ public class ChangeDataFragment extends DialogFragment {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         return alertDialogBuilder.create();
+    }
+
+    // function calculateweightdifference
+    private String calculateweightdifference(float weight) {
+        String weightdifferncestring;
+        float weightdiffernce;
+        float weightgoal = ModulWeight.getWeightGoal();
+
+        if (weight == weightgoal) {
+            weightdifferncestring = "0.0 kg";
+        } else if (weight < weightgoal) {
+            weightdiffernce = weightgoal - weight;
+            //call function roundfloat
+            weightdiffernce = roundfloat(weightdiffernce);
+            weightdifferncestring = "+ " + String.valueOf(weightdiffernce) + " kg";
+        } else {
+            weightdiffernce = weight - weightgoal;
+            //call function roundfloat
+            weightdiffernce = roundfloat(weightdiffernce);
+            weightdifferncestring = "- " + String.valueOf(weightdiffernce) + " kg";
+        }
+        return weightdifferncestring;
+    }
+
+    // function roundfloat
+    private float roundfloat(float inputfloat) {
+        float roundedfloat = 0;
+        inputfloat += 0.05;
+        inputfloat = (int) (inputfloat * 10);
+        roundedfloat = inputfloat / 10;
+        return roundedfloat;
     }
 }

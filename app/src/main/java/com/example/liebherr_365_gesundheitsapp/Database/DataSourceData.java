@@ -56,7 +56,7 @@ public class DataSourceData {
     }
 
     //function deletesingledata in database
-    private void deletesingledata(Data data) {
+    public void deletesingledata(Data data) {
         String modul = data.getModul();
         String date = data.getDate();
         String[] values = new String[]{modul, date};
@@ -90,8 +90,15 @@ public class DataSourceData {
         return data;
     }
 
+    // function getPreparedCursorForWeightList
     public Cursor getPreparedCursorForWeightList() {
         String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE + " DESC LIMIT 5";
+        return databaseData.rawQuery(query, null);
+    }
+
+    //function getPreparedCursorForHistorieList
+    public Cursor getPreparedCursorForHistorieList() {
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE + " DESC";
         return databaseData.rawQuery(query, null);
     }
 
@@ -115,27 +122,6 @@ public class DataSourceData {
         cursor.close();
         return alldata;
     }
-
-    //function getAllData
-    public List<Data> getAllData() {
-        List<Data> DataList = new ArrayList<>();
-
-        Cursor cursor = databaseData.query(Queries.TABLE_DATA,
-                COLUMNS, null, null, null, null, Queries.COLUMN_DATE);
-
-        cursor.moveToFirst();
-        Data Data;
-
-        while (!cursor.isAfterLast()) {
-            Data = cursorToWeightdata(cursor);
-            DataList.add(Data);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return DataList;
-    }
-
 
     //function datealreadysaved
     public boolean datealreadysaved(Data wd) {
@@ -167,7 +153,7 @@ public class DataSourceData {
     }
 
     //function getLatestWeight
-    public int getLatestEntry(String modulname) {
+    public float getLatestEntry(String modulname) {
         String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
         String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
@@ -177,28 +163,45 @@ public class DataSourceData {
             return 0;
         } else {
             int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-            int value = cursor.getInt(ID);
+            float value = cursor.getFloat(ID);
 
             return value;
         }
     }
 
     // function getFirstWeight
-    public float getFirstWeight(String modulname) {
-        String queryMaxDate = "(SELECT MIN(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
+    public String getLatestEntryDatum(String modulname) {
+        String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
         String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
+
+        Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() == 0) {
+            return null;
+        } else {
+            int WeightID = cursor.getColumnIndex(Queries.COLUMN_DATE);
+            String latestEntryDatum = cursor.getString(WeightID);
+
+            return latestEntryDatum;
+        }
+    }
+
+    // function getValueWithDatum
+    public float getValueWithDatum(String modulname, String datum) {
+        String queryWhere = Queries.COLUMN_DATE + " = '" + datum + "' AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
 
         Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
         cursor.moveToFirst();
         if (cursor.getCount() == 0) {
             return 0;
         } else {
-            int WeightID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-            float lastWeight = cursor.getFloat(WeightID);
+            int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
+            float value = cursor.getFloat(ID);
 
-            return lastWeight;
+            return value;
         }
     }
+
 
     public boolean entryalreadyexisting(String modul) {
         boolean result = false;

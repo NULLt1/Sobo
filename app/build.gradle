@@ -31,6 +31,7 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.android.support:design:24.2.1'
     compile 'org.jsoup:jsoup:1.10.2'
+    compile 'com.anton46:stepsview:0.0.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:24.2.1'
