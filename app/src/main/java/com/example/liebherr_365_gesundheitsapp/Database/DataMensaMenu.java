@@ -15,7 +15,7 @@ public class DataMensaMenu {
 
 
     //Constructor for Menu
-    public DataMensaMenu(long id, String date, String day, int weekOfTheYear, String price, String header, String menu) {
+    public DataMensaMenu(long id, String date, String day, int weekOfTheYear, String header, String price, String menu) {
 
         this.id = id;
         this.date = date;
@@ -42,7 +42,7 @@ public class DataMensaMenu {
     }
 
     public String getPrice() {
-        return price;
+        return price+"€";
     }
 
     public String getHeader() {

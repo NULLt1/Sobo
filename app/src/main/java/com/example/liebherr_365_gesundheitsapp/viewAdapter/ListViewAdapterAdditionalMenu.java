@@ -1,31 +1,30 @@
 package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.liebherr_365_gesundheitsapp.ModulMensa.ModulMensa;
+import com.example.liebherr_365_gesundheitsapp.Database.DataMensaMenu;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class ListViewAdapterAdditionalMenu extends BaseAdapter {
     private TextView item;
     private TextView price;
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<HashMap<String, String>> data;
-    private HashMap<String, String> resultp = new HashMap<>();
 
-//kommentar
-    public ListViewAdapterAdditionalMenu(Context context, ArrayList<HashMap<String, String>> arraylist) {
+    private List<DataMensaMenu> data;
+    private DataMensaMenu itemData;
+
+    //kommentar
+    public ListViewAdapterAdditionalMenu(Context context, List<DataMensaMenu> data) {
         this.context = context;
-        data = arraylist;
+        this.data = data;
     }
 
     @Override
@@ -47,14 +46,14 @@ public class ListViewAdapterAdditionalMenu extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.listview_item_mensa_additional_menu, parent, false);
-        resultp = data.get(position);
-        Log.d(resultp.get(ModulMensa.PRICE), "getView: ");
+        itemData = data.get(position);
+
 
         item = (TextView) itemView.findViewById(R.id.textViewAdditionMenuItem);
         price = (TextView) itemView.findViewById(R.id.textViewAdditionalMenuPrice);
 
-        item.setText(resultp.get(ModulMensa.ADDITIONALMENUITEM));
-        price.setText(resultp.get(ModulMensa.PRICE));
+        item.setText(itemData.getMenu());
+        price.setText(itemData.getPrice());
 
         return itemView;
     }

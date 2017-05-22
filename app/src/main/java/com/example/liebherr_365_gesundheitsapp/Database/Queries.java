@@ -10,6 +10,7 @@ public class Queries {
     public static final String TABLE_MODULES = "modules";
     public static final String TABLE_DATA = "data";
     public static final String TABLE_MENSA = "mensa";
+    public static final String TABLE_HEALTH_CARE = "health_care";
 
     //columns
     public static final String COLUMN_ID = "_id";
@@ -26,6 +27,7 @@ public class Queries {
     public static final String COLUMN_MENU = "menu";
     public static final String COLUMN_WEEK_OF_THE_YEAR = "week_of_the_year";
     public static final String COLUMN_DAY = "day";
+    public static final String COLUMN_VENUE = "venue";
 
 
     //Create Statements
@@ -63,7 +65,13 @@ public class Queries {
             COLUMN_HEADER + " TEXT, " +
             COLUMN_PRICE + " TEXT, " +
             COLUMN_MENU + " TEXT);";
-
+    public static final String CREATE_TABLE_HEALTH_CARE = "CREATE TABLE " + TABLE_HEALTH_CARE + " (" +
+            COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_DATE + " TEXT, " +
+            COLUMN_NAME + " TEXT, " +
+            COLUMN_VENUE + " TEXT, " +
+            COLUMN_PRICE + " TEXT, " +
+            COLUMN_FLAG + " TEXT);";
 
     //select statements
     public static String getActiveModules() {

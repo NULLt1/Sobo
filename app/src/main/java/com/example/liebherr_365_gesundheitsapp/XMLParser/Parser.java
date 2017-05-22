@@ -1,6 +1,5 @@
 package com.example.liebherr_365_gesundheitsapp.XMLParser;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,7 +7,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataMensaMenu;
+import com.example.liebherr_365_gesundheitsapp.Database.DataParsedData;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceHealthCare;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceMensa;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceParsedData;
 import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
 import org.jsoup.Jsoup;
@@ -16,7 +18,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,22 +33,14 @@ public class Parser {
 
 
     private static final String url = "http://eid.dm.hs-furtwangen.de/joomla/index.php/speiseplan";
+    private static final String url_push = "http://eid.dm.hs-furtwangen.de/joomla/index.php/pushnews";
+    private static final String URL_HEALTH_CARE = "http://eid.dm.hs-furtwangen.de/joomla/index.php/gesundheitsangebote";
+
     private static final String LOG_TAG = Parser.class.getSimpleName();
-
     private Context mContext;
-    private Document doc;
-
-    private String filename = "html_data.html";
-    private File file;
-
-    private DataMensaMenu currentWeek;
-    private DataMensaMenu nextWeek;
-    private DataMensaMenu additionalMenu;
-    private DataMensaMenu incredients;
-
-    private static int weekOfTheYear = 0;
-
-    private DataSourceMensa datasource;
+    private DataSourceMensa dataSourceMensa;
+    private DataSourceHealthCare dataSourceHealthCare;
+    private DataSourceParsedData dataSourceParsedData;
 
     public Parser(Context context) {
         mContext = context;
@@ -76,17 +69,10 @@ public class Parser {
     }
 
     private class XMLParser extends AsyncTask {
-        ProgressDialog mProgressDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setTitle("Daten");
-            mProgressDialog.setMessage("Laden...");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.show();
         }
 
         @Override
@@ -94,9 +80,14 @@ public class Parser {
             Log.d(LOG_TAG, "Query: " + Queries.CREATE_TABLE_MENSA);
             if (isOnline()) {
                 try {
-                    parseMenu(doc = Jsoup.parse(new URL(url).openStream(), null, url));
+
+                    // parseMenu(Jsoup.parse(new URL(url).openStream(), null, url));
+                    parseNews(Jsoup.parse(new URL(url_push).openStream(), null, url));
+
+                    // parseHealthCare(Jsoup.parse(new URL(URL_HEALTH_CARE).openStream(), null, URL_HEALTH_CARE));
                 } catch (Exception e) {
                     Log.d(LOG_TAG, "Fehler: " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
             return null;
@@ -105,8 +96,6 @@ public class Parser {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-
-            mProgressDialog.dismiss();
         }
 
         private boolean isOnline() {
@@ -121,8 +110,7 @@ public class Parser {
             Pattern patternPrice = Pattern.compile("\\d*\\W\\d\\d");
             Pattern patternHeader = Pattern.compile("[A-Za-z0-9_äÄöÖüÜß]*?\\s[A-Za-z0-9_äÄöÖüÜß]*");
             Pattern patternDate = Pattern.compile("\\d\\d\\.\\d\\d\\.\\d\\d");
-            datasource = new DataSourceMensa(mContext);
-
+            dataSourceMensa = new DataSourceMensa(mContext);
             Elements dateElements = doc.getElementsByClass("date");
 
             //whole line with text
@@ -152,6 +140,30 @@ public class Parser {
 
             Elements elementsTableMenu = doc.getElementsByClass("menu");
 
+            //parse additional menu IMPORTANT!!! weekOfTHEYEAR must be 0
+            Element elementTableAdditionalMenu = doc.getElementById("additionalMenu");
+            Elements elementsAdditionalMenuTrs = elementTableAdditionalMenu.getElementsByTag("tr");
+            Elements elementsAdditionalMenuTds = elementsAdditionalMenuTrs.first().getElementsByTag("td");
+
+            for (int i = 0; i < elementsAdditionalMenuTrs.size(); i++) {
+                String price = "";
+                String menu = "";
+                for (int j = 0; j < elementsAdditionalMenuTds.size(); j++) {
+                    Element elementTd = elementsAdditionalMenuTrs.get(i).select("td").get(j);
+                    if (j == 0) {
+                        menu = elementTd.text();
+                    } else if (j == 1) {
+                        price = elementTd.text();
+                        price = price.replace("€", "");
+                        Log.d(LOG_TAG, "preis: " + elementTd.text());
+                    }
+
+                }
+                dataSourceMensa.open();
+                DataMensaMenu das = dataSourceMensa.createEntry("", "", 0, menu, price, menu);
+                dataSourceMensa.close();
+            }
+
             for (int i = 0; i < elementsTableMenu.size(); i++) {
 
                 Calendar c = Calendar.getInstance();
@@ -177,7 +189,6 @@ public class Parser {
 
                     for (int k = 0; k < trSize; k++) {
                         Element elementTd = elementsTrs.get(k).select("td").get(j);
-
 
                         if (k == 0) {
                             //date
@@ -207,11 +218,19 @@ public class Parser {
                         } else {
                             StringBuffer stringBuilder = new StringBuffer();
 
-                            if (!elementTd.text().isEmpty()) {
+
+                            if (elementTd.text().length() > 5) {
                                 Elements elementsPs = elementTd.select("p");
                                 Element elementP;
+                                Log.d(LOG_TAG, "ELEMENT TD: " + elementTd.text());
+                                if (elementsPs.size() == 0) {
+
+                                    stringBuilder.append(elementTd.text());
+                                    Log.d(LOG_TAG, "Kein p: " + stringBuilder.toString());
+                                }
 
                                 for (int l = 0; l < elementsPs.size(); l++) {
+
                                     if (elementsPs.size() > 1 & l < elementsPs.size() - 1) {
                                         elementP = elementsPs.get(l);
 
@@ -229,15 +248,71 @@ public class Parser {
 
                             if (!menu.isEmpty()) {
 
-                                datasource.open();
-                                DataMensaMenu data = datasource.createEntry(date, day, weekOfTheYear, header, price, menu);
-                                datasource.close();
-                                Log.d(LOG_TAG, "Neuer Eintrag: " + data.toString());
+                                dataSourceMensa.open();
+                                DataMensaMenu data = dataSourceMensa.createEntry(date, day, weekOfTheYear, header, price, menu);
+                                dataSourceMensa.close();
+                                menu = "";
                             }
                         }
                     }
                 }
             }
+        }
+
+        public void parseNews(Document doc) {
+            dataSourceParsedData = new DataSourceParsedData(mContext);
+
+            Element elementTable = doc.getElementById("push1");
+
+            Elements elementsTrs = elementTable.getElementsByTag("tr");
+            Elements elementsTds = elementsTrs.first().getElementsByTag("td");
+
+            for (int i = 1; i < elementsTrs.size(); i++) {
+                String date = "";
+                String teaser = "";
+                String text = "";
+                for (int j = 0; j < elementsTds.size(); j++) {
+                    Element elementTd = elementsTrs.get(i).getElementsByTag("td").get(j);
+
+                    //replace whitespace in table cells
+                    String cleaned = elementTd.text().replace("\u00a0", "");
+                    if (!cleaned.isEmpty() | cleaned.length() > 5) {
+                        Log.d(LOG_TAG, "Zelle: " + String.valueOf(i - 1));
+                        if (j == 0) {
+                            date = cleaned;
+                        } else if (j == 1) {
+                            teaser = cleaned;
+                        } else {
+                            text = cleaned;
+                        }
+                    }
+
+                }
+                if (!date.isEmpty()) {
+                    dataSourceParsedData.open();
+                    DataParsedData data = dataSourceParsedData.createEntry("News", date, teaser, text, true);
+                    // Log.d(LOG_TAG, "Neuer Eintrag: " + data.toString());
+                    dataSourceParsedData.close();
+                }
+            }
+        }
+
+        public void parseHealthCare(Document doc) {
+            Element elementTable = doc.getElementById("table1");
+            Elements elementsTrs = elementTable.getElementsByTag("tr");
+            Elements elementsTds = elementsTrs.first().getElementsByTag("td");
+
+            for (int i = 1; i < elementsTrs.size(); i++) {
+                for (int j = 0; j < elementsTds.size(); j++) {
+                    Element elementTd = elementsTrs.get(i).getElementsByTag("td").get(j);
+                    String cleaned = elementTd.text().replace("\u00a0", "");
+
+
+                    Log.d(LOG_TAG, "Text Health-Care: " + cleaned);
+                }
+            }
+
+
         }
     }
 }

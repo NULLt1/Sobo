@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
 public class DataSourceMensa {
-    private static final String LOG_TAG = DataSourceParsedData.class.getSimpleName();
+    private static final String LOG_TAG = DataSourceMensa.class.getSimpleName();
 
     private SQLiteDatabase database;
     private DBHelper dbHelper;
@@ -26,6 +27,11 @@ public class DataSourceMensa {
             Queries.COLUMN_PRICE,
             Queries.COLUMN_MENU
     };
+
+    public static String DAY = "day";
+    public static String MENU = "menu";
+    public static String HEADER = "header";
+    public static String PRICE = "price";
 
     public DataSourceMensa(Context context) {
         Log.d(LOG_TAG, "DataSrc erzeugt den dbHelper");
@@ -63,12 +69,11 @@ public class DataSourceMensa {
             values.put(Queries.COLUMN_MENU, menu);
 
             long insertId = database.insert(Queries.TABLE_MENSA, null, values);
-            Log.d(LOG_TAG, "Insert Id: " + insertId);
+
             Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_ID + "=" + insertId, null, null, null, null);
 
 
             cursor.moveToFirst();
-            Log.d(LOG_TAG, "CURSOR: " + cursor.getCount());
             DataMensaMenu dataMensaMenu = cursorToDataMensaMenu(cursor);
             cursor.close();
 
@@ -93,7 +98,6 @@ public class DataSourceMensa {
         String header = cursor.getString(idHeader);
         String price = cursor.getString(idPrice);
         String menu = cursor.getString(idMenu);
-
 
         return new DataMensaMenu(id, date, day, weekOfTheYear, header, price, menu);
     }
@@ -131,4 +135,65 @@ public class DataSourceMensa {
 
         return dataList;
     }
+
+    public List<DataMensaMenu> getDataForWeek(int week) {
+        //if week == 0 the result will be the additionalMenu
+        Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_WEEK_OF_THE_YEAR + "= ?", new String[]{String.valueOf(week)}, null, null, null);
+        return cursorToList(cursor);
+    }
+
+    public ArrayList<HashMap<String, ArrayList<String>>> getDataAsArrayList(int week) {
+
+        ArrayList<HashMap<String, ArrayList<String>>> arrayList = new ArrayList<>();
+
+        String[] list = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
+
+        String day = "";
+        for (int i = 0; i < list.length; i++) {
+            ArrayList<String> daylist = new ArrayList<>();
+            ArrayList<String> menulist = new ArrayList<>();
+            ArrayList<String> pricelist = new ArrayList<>();
+            ArrayList<String> headerlist = new ArrayList<>();
+            HashMap<String, ArrayList<String>> map = new HashMap<>();
+            day = list[i];
+            Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_WEEK_OF_THE_YEAR + "= ? AND " + Queries.COLUMN_DAY + " = ?", new String[]{String.valueOf(week), day}, null, null, null);
+            if (cursor.getCount() > 0) {
+                List<DataMensaMenu> dataList = cursorToList(cursor);
+                cursor.close();
+                for (DataMensaMenu data : dataList) {
+                    daylist.add(data.getDay() + "\n" + data.getDate());
+                    menulist.add(data.getMenu());
+                    pricelist.add(data.getPrice());
+                    Log.d(TAG, "Preis: " + data.getPrice());
+                    headerlist.add(data.getHeader());
+
+                }
+
+                map.put(DAY, daylist);
+                map.put(MENU, menulist);
+                map.put(HEADER, headerlist);
+                map.put(PRICE, pricelist);
+
+                arrayList.add(map);
+            }
+        }
+        return arrayList;
+    }
+
+    private DataMensaMenu updateEntry(long id, String price, String header, String menu) {
+
+        ContentValues values = new ContentValues();
+        values.put(Queries.COLUMN_PRICE, price);
+        values.put(Queries.COLUMN_DATE, header);
+        values.put(Queries.COLUMN_MENU, menu);
+
+        database.update(Queries.TABLE_MENSA, values, Queries.COLUMN_ID + "=" + id, null);
+
+        Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_ID + "=" + id, null, null, null, null);
+
+        cursor.moveToFirst();
+
+        return cursorToDataMensaMenu(cursor);
+    }
+
 }
