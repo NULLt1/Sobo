@@ -70,6 +70,9 @@ public class Parser {
 
     private class XMLParser extends AsyncTask {
 
+        DateFormat format = new SimpleDateFormat("dd.MM.yy", Locale.GERMAN);
+        DateFormat newFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.GERMAN);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -116,8 +119,6 @@ public class Parser {
             //whole line with text
             String[] rawDates = {dateElements.get(0).text(), dateElements.get(1).text()};
             Date[] dates = new Date[rawDates.length];
-            DateFormat format = new SimpleDateFormat("dd.MM.yy", Locale.GERMAN);
-            DateFormat newFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.GERMAN);
 
 
             for (int i = 0; i < rawDates.length; i++) {
@@ -259,8 +260,9 @@ public class Parser {
             }
         }
 
-        public void parseNews(Document doc) {
+        public void parseNews(Document doc) throws ParseException {
             dataSourceParsedData = new DataSourceParsedData(mContext);
+
 
             Element elementTable = doc.getElementById("push1");
 
@@ -277,11 +279,13 @@ public class Parser {
                     //replace whitespace in table cells
                     String cleaned = elementTd.text().replace("\u00a0", "");
                     if (!cleaned.isEmpty() | cleaned.length() > 5) {
-                        Log.d(LOG_TAG, "Zelle: " + String.valueOf(i - 1));
                         if (j == 0) {
-                            date = cleaned;
+                            Date myDate = format.parse(cleaned);
+                            date = newFormat.format(myDate);
+
                         } else if (j == 1) {
                             teaser = cleaned;
+
                         } else {
                             text = cleaned;
                         }
@@ -292,6 +296,7 @@ public class Parser {
                     dataSourceParsedData.open();
                     DataParsedData data = dataSourceParsedData.createEntry("News", date, teaser, text, true);
                     // Log.d(LOG_TAG, "Neuer Eintrag: " + data.toString());
+                    dataSourceParsedData.getAllData();
                     dataSourceParsedData.close();
                 }
             }
