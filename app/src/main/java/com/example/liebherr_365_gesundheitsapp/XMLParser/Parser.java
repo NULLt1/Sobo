@@ -11,7 +11,6 @@ import com.example.liebherr_365_gesundheitsapp.Database.DataParsedData;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceHealthCare;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceMensa;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceParsedData;
-import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -80,14 +79,13 @@ public class Parser {
 
         @Override
         protected Object doInBackground(Object[] params) {
-            Log.d(LOG_TAG, "Query: " + Queries.CREATE_TABLE_MENSA);
             if (isOnline()) {
                 try {
 
                     // parseMenu(Jsoup.parse(new URL(url).openStream(), null, url));
-                    parseNews(Jsoup.parse(new URL(url_push).openStream(), null, url));
+                    //  parseNews(Jsoup.parse(new URL(url_push).openStream(), null, url));
 
-                    // parseHealthCare(Jsoup.parse(new URL(URL_HEALTH_CARE).openStream(), null, URL_HEALTH_CARE));
+                    parseHealthCare(Jsoup.parse(new URL(URL_HEALTH_CARE).openStream(), null, URL_HEALTH_CARE));
                 } catch (Exception e) {
                     Log.d(LOG_TAG, "Fehler: " + e.getMessage());
                     e.printStackTrace();
@@ -303,21 +301,50 @@ public class Parser {
         }
 
         public void parseHealthCare(Document doc) {
+            dataSourceHealthCare = new DataSourceHealthCare(mContext);
+
             Element elementTable = doc.getElementById("table1");
             Elements elementsTrs = elementTable.getElementsByTag("tr");
             Elements elementsTds = elementsTrs.first().getElementsByTag("td");
+            String name = "";
 
             for (int i = 1; i < elementsTrs.size(); i++) {
+                String date = "";
+
+                String venue = "";
+                String status = "";
+                String price = "";
                 for (int j = 0; j < elementsTds.size(); j++) {
                     Element elementTd = elementsTrs.get(i).getElementsByTag("td").get(j);
-                    String cleaned = elementTd.text().replace("\u00a0", "");
+                    String cleaned = elementTd.text().replace("\u00a0", "").trim();
+                    if (j == 0 && !cleaned.isEmpty()) {
+                        name = cleaned;
 
-
-                    Log.d(LOG_TAG, "Text Health-Care: " + cleaned);
+                    }
+                    switch (j) {
+                        case 0:
+                            break;
+                        case 1:
+                            venue = cleaned;
+                            break;
+                        case 2:
+                            date = cleaned;
+                            break;
+                        case 3:
+                            price = cleaned;
+                        case 4:
+                            status = cleaned;
+                            break;
+                        default:
+                            Log.d(LOG_TAG, "Ein Fehler ist bei folgender Zelle aufgetreten: " + cleaned);
+                            break;
+                    }
                 }
+
+                dataSourceHealthCare.open();
+                dataSourceHealthCare.createEntry(date, name, venue, price, status);
+                dataSourceHealthCare.close();
             }
-
-
         }
     }
 }

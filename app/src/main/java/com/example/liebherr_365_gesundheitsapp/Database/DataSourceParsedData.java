@@ -157,9 +157,10 @@ public class DataSourceParsedData {
         if (cursor.getCount() > 0) {
             cursor.close();
             return true;
-        } else
+        } else {
             cursor.close();
-        return false;
+            return false;
+        }
     }
 
     private List<DataParsedData> cursorToList(Cursor cursor) {

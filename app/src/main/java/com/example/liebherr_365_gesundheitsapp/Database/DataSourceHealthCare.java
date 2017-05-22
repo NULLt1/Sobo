@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.ContentValues.TAG;
 
 public class DataSourceHealthCare {
@@ -44,6 +47,11 @@ public class DataSourceHealthCare {
     }
 
     public DataHealthCare createEntry(String date, String name, String venue, String price, String flag) {
+        if (checkAlreadyExist(database, name, date)) {
+            Log.d(LOG_TAG, "Eintrag existiert bereits: " + name + " " + " " + date);
+            return null;
+        }
+        Log.d(LOG_TAG, "DB Eintrag wird angelegt: " + name + " " + venue + " " + date + " " + price + " " + flag);
         ContentValues values = new ContentValues();
 
         values.put(Queries.COLUMN_DATE, date);
@@ -79,6 +87,88 @@ public class DataSourceHealthCare {
         String flag = cursor.getString(idFlag);
 
         return new DataHealthCare(id, date, name, venue, price, flag);
+    }
+
+    private DataHealthCare updateEntry(long id, String status) {
+
+        ContentValues values = new ContentValues();
+        values.put(Queries.COLUMN_FLAG, status);
+
+        database.update(Queries.TABLE_PARSED_DATA, values, Queries.COLUMN_ID + "=" + id, null);
+
+        Cursor cursor = database.query(Queries.TABLE_PARSED_DATA, columns, Queries.COLUMN_ID + "=" + id, null, null, null, null);
+
+        cursor.moveToFirst();
+
+        return cursorToDataHealthCare(cursor);
+    }
+
+    private boolean checkAlreadyExist(SQLiteDatabase db, String name, String date) {
+        String query = "SELECT " + Queries.COLUMN_ID + " FROM " + Queries.TABLE_HEALTH_CARE + " WHERE " + Queries.COLUMN_NAME + " =? AND " + Queries.COLUMN_DATE + "=?";
+        Cursor cursor = db.rawQuery(query, new String[]{name, date});
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    private List<DataHealthCare> cursorToList(Cursor cursor) {
+        List<DataHealthCare> dataList = new ArrayList<>();
+
+        cursor.moveToFirst();
+        DataHealthCare data;
+
+        while (!cursor.isAfterLast()) {
+            data = cursorToDataHealthCare(cursor);
+            dataList.add(data);
+            Log.d(LOG_TAG, "ID: " + data.getId() +
+                    " Kurs: " + data.getCourse() +
+                    " Ort: " + data.getVenue() +
+                    " Zeitram: " + data.getDate() +
+                    " Preis: " + data.getPrice() +
+                    " Status: " + data.getStatus());
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return dataList;
+    }
+
+    public List<DataHealthCare> getAllData() {
+        String query = "SELECT * FROM " + Queries.TABLE_HEALTH_CARE;
+        Cursor cursor = database.rawQuery(query, null);
+        return cursorToList(cursor);
+    }
+
+    private List<String> getAllCourses() {
+        String query = "SELECT * FROM " + Queries.TABLE_HEALTH_CARE + " GROUP BY " + Queries.COLUMN_NAME;
+        Cursor cursor = database.rawQuery(query, null);
+
+        List<DataHealthCare> list = cursorToList(cursor);
+
+        List<String> listCourses = new ArrayList<>();
+        for (DataHealthCare item : list) {
+            listCourses.add(item.getCourse());
+        }
+        return listCourses;
+    }
+
+    public List<List<DataHealthCare>> getGroupedData() {
+        List<String> listCourses = getAllCourses();
+        List<List<DataHealthCare>> list = new ArrayList<>();
+        String query = "SELECT * FROM " + Queries.TABLE_HEALTH_CARE + " WHERE " + Queries.COLUMN_NAME + "=? ORDER BY " + Queries.COLUMN_ID;
+
+        for (String item : listCourses) {
+            Cursor cursor = database.rawQuery(query, new String[]{item});
+            list.add(cursorToList(cursor));
+
+        }
+        return list;
     }
 }
 
