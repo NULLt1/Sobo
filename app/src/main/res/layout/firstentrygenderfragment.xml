@@ -30,14 +30,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:checked="true"
-            android:text="@string/männlich" />
+            android:text="@string/männlich"
+            android:textColor="@color/colorPrimary" />
 
         <RadioButton
             android:id="@+id/woman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:text="@string/weiblich" />
+            android:text="@string/weiblich"
+            android:textColor="@color/colorPrimary" />
     </RadioGroup>
 
     <Button

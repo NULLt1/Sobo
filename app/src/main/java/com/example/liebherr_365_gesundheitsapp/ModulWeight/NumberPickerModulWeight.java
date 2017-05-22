@@ -22,13 +22,13 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class NumberPickerModulWeight extends DialogFragment {
-    Context context;
+    private Context context;
     private DataSourceData dataSourceData;
-    int day;
-    int month;
-    int year;
-    int integervalue;
-    int afterkommavalue = 0;
+    private int day;
+    private int month;
+    private int year;
+    private int integervalue;
+    private int afterkommavalue = 0;
 
     @Override
     public View onCreateView(
@@ -151,8 +151,6 @@ public class NumberPickerModulWeight extends DialogFragment {
                     ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
                 } else {
-
-                    //TODO EXCLUDE UPDATE TEXTVIEWS
                     // new DBHelperDataSource
                     dataSourceData = new DataSourceData(context);
                     dataSourceData.open();
@@ -160,20 +158,23 @@ public class NumberPickerModulWeight extends DialogFragment {
                     // call function insertdata
                     dataSourceData.insertdata(wd);
 
-                    // bind textweightdiffernce to TextView
-                    TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+                    // getLatestEntryDatum
+                    String lastdatum = dataSourceData.getLatestEntryDatum("ModulWeight");
 
-                    // bind textweightstart to TextView
-                    TextView textweightactual = (TextView) getActivity().findViewById(R.id.firstweight);
+                    String lastdaystring = lastdatum.substring(8, 10);
+                    int lastday = Integer.parseInt(lastdaystring);
+                    String lastmonthstring = lastdatum.substring(5, 7);
+                    int lastmonth = Integer.parseInt(lastmonthstring);
+                    String lastyearstring = lastdatum.substring(0, 4);
+                    int lastyear = Integer.parseInt(lastyearstring);
 
-                    // set text textweightactual
-                    textweightactual.setText(String.valueOf(weight));
+                    year = year + 1900;
+                    month++;
 
-                    // call function calculateweightdifference
-                    String weightdifferncestring = calculateweightdifference(weight);
-
-                    // set text textweightdifference
-                    textweightdifference.setText(weightdifferncestring);
+                    // update weigthdiffernce only when nece
+                    if ((day > lastday && month > lastmonth && year >= lastyear) || (day == lastday && month == lastmonth && year == lastyear)) {
+                        setWeightDifference(weight);
+                    }
 
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
@@ -191,9 +192,8 @@ public class NumberPickerModulWeight extends DialogFragment {
         return view;
     }
 
-
     // function setPickerValues
-    public void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
+    private void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
         // new DBHelperDataSource
         dataSourceData = new DataSourceData(context);
         dataSourceData.open();
@@ -226,7 +226,7 @@ public class NumberPickerModulWeight extends DialogFragment {
     }
 
     // function integer values -> float integervalue,afterkommavalue
-    public float integertofloat(int integervalue, int afterkommavalue) {
+    private float integertofloat(int integervalue, int afterkommavalue) {
         float result = 0;
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
@@ -234,7 +234,7 @@ public class NumberPickerModulWeight extends DialogFragment {
     }
 
     // function calculateweightdifference
-    public String calculateweightdifference(float weight) {
+    private String calculateweightdifference(float weight) {
         String weightdifferncestring;
         float weightdiffernce;
         float weightgoal = ModulWeight.getWeightGoal();
@@ -256,7 +256,7 @@ public class NumberPickerModulWeight extends DialogFragment {
     }
 
     // function roundfloat
-    public float roundfloat(float inputfloat) {
+    private float roundfloat(float inputfloat) {
         float roundedfloat = 0;
         inputfloat += 0.05;
         inputfloat = (int) (inputfloat * 10);
@@ -264,7 +264,7 @@ public class NumberPickerModulWeight extends DialogFragment {
         return roundedfloat;
     }
 
-    public void activatebuttons() {
+    private void activatebuttons() {
         // bind diagrammbutton to Button
         Button diagrammbutton = (Button) getActivity().findViewById(R.id.viewgraph);
 
@@ -280,5 +280,22 @@ public class NumberPickerModulWeight extends DialogFragment {
         historiebutton.setEnabled(true);
         historiebutton.getBackground().setAlpha(255);
         historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+    }
+
+    private void setWeightDifference(float weight) {
+        // bind textweightdiffernce to TextView
+        TextView textweightdifference = (TextView) getActivity().findViewById(R.id.weightdifference);
+
+        // bind textweightstart to TextView
+        TextView textweightactual = (TextView) getActivity().findViewById(R.id.firstweight);
+
+        // set text textweightactual
+        textweightactual.setText(String.valueOf(weight));
+
+        // call function calculateweightdifference
+        String weightdifferncestring = calculateweightdifference(weight);
+
+        // set text textweightdifference
+        textweightdifference.setText(weightdifferncestring);
     }
 }

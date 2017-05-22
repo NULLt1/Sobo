@@ -139,7 +139,7 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
     }
 
     // function integer values -> float integervalue,afterkommavalue
-    public float integertofloat(int integervalue, int afterkommavalue) {
+    private float integertofloat(int integervalue, int afterkommavalue) {
         float result = 0;
         result += (float) integervalue;
         result += ((float) afterkommavalue / 10);
@@ -147,7 +147,7 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
     }
 
     // function setPickerValues
-    public void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
+    private void setPickerValues(NumberPicker integer, NumberPicker afterkomma) {
         // new DBHelperDataSource
         dataSourceData = new DataSourceData(context);
         dataSourceData.open();

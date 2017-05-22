@@ -318,7 +318,7 @@ public class ModulWeight extends AppCompatActivity {
     }
 
     // function roundfloat
-    public static float roundfloat(float inputfloat) {
+    private static float roundfloat(float inputfloat) {
         float roundedfloat = 0;
         inputfloat += 0.05;
         inputfloat = (int) (inputfloat * 10);
