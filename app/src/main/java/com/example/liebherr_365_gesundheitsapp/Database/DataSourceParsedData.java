@@ -184,4 +184,11 @@ public class DataSourceParsedData {
         return dataList;
     }
 
+    public List<DataParsedData> getAllNews() {
+        //TODO: Query implementieren, nur Einträge nehmen, dessen datum >=heutiges Datum ist
+        String query = null;
+        Cursor cursor = database.rawQuery(query, null);
+
+        return cursorToList(cursor);
+    }
 }
