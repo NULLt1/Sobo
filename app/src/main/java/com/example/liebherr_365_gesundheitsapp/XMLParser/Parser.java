@@ -82,8 +82,8 @@ public class Parser {
             if (isOnline()) {
                 try {
 
-                    // parseMenu(Jsoup.parse(new URL(url).openStream(), null, url));
-                    //  parseNews(Jsoup.parse(new URL(url_push).openStream(), null, url));
+                    parseMenu(Jsoup.parse(new URL(url).openStream(), null, url));
+                    parseNews(Jsoup.parse(new URL(url_push).openStream(), null, url));
 
                     parseHealthCare(Jsoup.parse(new URL(URL_HEALTH_CARE).openStream(), null, URL_HEALTH_CARE));
                 } catch (Exception e) {
@@ -221,11 +221,11 @@ public class Parser {
                             if (elementTd.text().length() > 5) {
                                 Elements elementsPs = elementTd.select("p");
                                 Element elementP;
-                                Log.d(LOG_TAG, "ELEMENT TD: " + elementTd.text());
+
                                 if (elementsPs.size() == 0) {
 
                                     stringBuilder.append(elementTd.text());
-                                    Log.d(LOG_TAG, "Kein p: " + stringBuilder.toString());
+
                                 }
 
                                 for (int l = 0; l < elementsPs.size(); l++) {
@@ -256,6 +256,23 @@ public class Parser {
                     }
                 }
             }
+            Element elementTable = doc.getElementById("incredients");
+            Elements elementsPs = elementTable.getElementsByTag("p");
+
+            String header = "";
+            StringBuffer stringBuilder = new StringBuffer();
+            for (int i = 0; i < elementsPs.size(); i++) {
+                Element elementP = elementsPs.get(i);
+
+                if (i == 0) {
+                    header = elementP.text();
+                } else {
+                    stringBuilder.append(elementP.text());
+                }
+            }
+            dataSourceMensa.open();
+            dataSourceMensa.createEntry("", "", 100, header, "", stringBuilder.toString());
+            dataSourceMensa.close();
         }
 
         public void parseNews(Document doc) throws ParseException {
@@ -302,6 +319,9 @@ public class Parser {
 
         public void parseHealthCare(Document doc) {
             dataSourceHealthCare = new DataSourceHealthCare(mContext);
+            dataSourceHealthCare.open();
+            //dataSourceHealthCare.deleteDB();
+            dataSourceHealthCare.close();
 
             Element elementTable = doc.getElementById("table1");
             Elements elementsTrs = elementTable.getElementsByTag("tr");

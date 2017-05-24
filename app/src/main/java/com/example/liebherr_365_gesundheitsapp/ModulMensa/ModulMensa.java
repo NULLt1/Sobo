@@ -9,11 +9,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DataMensaMenu;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceMensa;
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.XMLParser.Parser;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterAdditionalMenu;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterMensa;
+
+import java.util.List;
 
 
 public class ModulMensa extends AppCompatActivity {
@@ -64,17 +67,17 @@ public class ModulMensa extends AppCompatActivity {
 
         buttonMore = (Button) findViewById(R.id.buttonMore);
         listview.setAdapter(adapter);
-/**
- v = getLayoutInflater().inflate(R.layout.listview_item_mensa_footer, null);
- listview.addFooterView(v);
- textViewFooter = (TextView) findViewById(R.id.textViewFooter);
- TextView textViewFooterIncredients = (TextView) findViewById(R.id.textViewFooterIncredients);
- textViewFooter.setText(stringText);
- textViewFooterIncredients.setText(stringIncredients);
+
+        View v = getLayoutInflater().inflate(R.layout.listview_item_mensa_footer, null);
+        listview.addFooterView(v);
+        TextView textViewFooter = (TextView) findViewById(R.id.textViewFooter);
+        TextView textViewFooterIncredients = (TextView) findViewById(R.id.textViewFooterIncredients);
+        dataSource.open();
+        List<DataMensaMenu> list = dataSource.getDataForWeek(100);
+        textViewFooter.setText(list.get(0).getHeader());
+        textViewFooterIncredients.setText(list.get(0).getMenu());
 
 
-
- **/
     }
 
     @Override
