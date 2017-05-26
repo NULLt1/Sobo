@@ -30,7 +30,7 @@ public class MainMenu extends AppCompatActivity {
     //       :_;:_;:_;   `.__.'
     //
     // This project was developed during our project studies.
-    // Wintersemster 16/17
+    // WS 16/17 & SS 17
     // Bussmann    Jan
     // Hug         Melissa
     // Otec        Marvin

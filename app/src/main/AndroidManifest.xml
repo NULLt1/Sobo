@@ -59,6 +59,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ModulWeight.ModulWeight" />
         </activity>
+        <activity
+            android:name=".ModulDrink.ModulDrink"
+            android:parentActivityName=".MainMenu"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenu" />
+        </activity>
         <activity android:name=".ModulMensa.ModulMensa">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -39,7 +39,7 @@ public class ModulWeight extends AppCompatActivity {
     private static float weightgoal;
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
 
         // new DBHelperDataSource
@@ -69,6 +69,8 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         // call function firstentry if flag = true
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean flag = prefs.getBoolean("flag", true);
@@ -143,8 +145,6 @@ public class ModulWeight extends AppCompatActivity {
 
         // close db connection
         dataSourceData.close();
-
-        super.onCreate(savedInstanceState);
 
         // set up navigation enabled
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
