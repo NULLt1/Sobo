@@ -25,5 +25,6 @@ public class ModulDrink extends AppCompatActivity {
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
 
         donutProgress.setProgress(10.0f);
+        donutProgress.setPrefixText("Gläser");
     }
 }

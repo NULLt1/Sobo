@@ -9,10 +9,42 @@
         android:id="@+id/donut_progress"
         android:layout_width="270dp"
         android:layout_height="270dp"
+        android:layout_centerHorizontal="true"
         custom:donut_finished_color="#0066FF"
         custom:donut_finished_stroke_width="15dp"
         custom:donut_progress="0"
-        custom:donut_show_text="false"
+        custom:donut_show_text="true"
+        custom:donut_text="Gläser (250ml)"
+        custom:donut_text_color="#000000"
         custom:donut_unfinished_color="#8298b9"
         custom:donut_unfinished_stroke_width="15dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignStart="@+id/donut_progress"
+        android:layout_below="@+id/donut_progress"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignEnd="@+id/donut_progress"
+        android:layout_below="@+id/donut_progress"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/glasses"
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_below="@+id/donut_progress"
+        android:layout_toEndOf="@+id/button"
+        android:gravity="center"
+        android:text="TextView" />
 </RelativeLayout>
