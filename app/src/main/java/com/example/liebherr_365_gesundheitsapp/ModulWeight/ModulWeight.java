@@ -34,6 +34,7 @@ public class ModulWeight extends AppCompatActivity {
     private static Button diagrammbutton = null;
     @SuppressLint("StaticFieldLeak")
     private static Button historiebutton = null;
+    @SuppressLint("StaticFieldLeak")
     private static TextView textweightgoal;
     private static float firstweight;
     private static float weightgoal;
@@ -319,7 +320,7 @@ public class ModulWeight extends AppCompatActivity {
 
     // function roundfloat
     private static float roundfloat(float inputfloat) {
-        float roundedfloat = 0;
+        float roundedfloat;
         inputfloat += 0.05;
         inputfloat = (int) (inputfloat * 10);
         roundedfloat = inputfloat / 10;
