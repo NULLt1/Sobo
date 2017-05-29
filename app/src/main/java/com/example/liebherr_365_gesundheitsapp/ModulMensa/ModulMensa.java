@@ -198,8 +198,8 @@ public class ModulMensa extends AppCompatActivity {
                     else
                         mapnew.put(PRICE, td.text());
                 }
-                Log.d(mapnew.get(PRICE), "parseTable: ");
-                Log.d(mapnew.get(ADDITIONALMENUITEM), "parseTable: ");
+                Log.d(mapnew.get(PRICE), "parseMenu: ");
+                Log.d(mapnew.get(ADDITIONALMENUITEM), "parseMenu: ");
                 additionalDataArraylist.add(mapnew);
             }
 

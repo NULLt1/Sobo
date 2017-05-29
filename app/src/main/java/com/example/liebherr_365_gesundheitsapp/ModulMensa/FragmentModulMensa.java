@@ -10,12 +10,10 @@ import android.widget.ListView;
 
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.XMLParser.Parser;
-import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterMensa;
 
 
 public class FragmentModulMensa extends Fragment {
     private View rootView;
-    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,12 +27,8 @@ public class FragmentModulMensa extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_fragment_modul_mensa, container, false);
 
         Parser parser = new Parser(getContext());
+
         parser.pullData();
-
-        ListViewAdapterMensa adapter = new ListViewAdapterMensa(getContext(), parser.getCurrentMenu());
-
-        listView = (ListView) rootView.findViewById(R.id.listViewFragmentMensa);
-        listView.setAdapter(adapter);
 
         return rootView;
     }
