@@ -38,6 +38,15 @@
             android:exported="true" />
 
         <activity
+            android:name=".ModulWeight.HistorieModulWeight"
+            android:parentActivityName=".ModulWeight.ModulWeight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ModulWeight.ModulWeight" />
+        </activity>
+
+        <activity
             android:name=".ModulWeight.ViewGraphModulWeight"
             android:parentActivityName=".ModulWeight.ModulWeight"
             android:screenOrientation="portrait">

@@ -15,15 +15,15 @@
         android:id="@+id/gewicht"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="14dp"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"
         android:text="@string/gewicht"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:layout_marginBottom="14dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="@color/primary"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/bmigrenzen"
