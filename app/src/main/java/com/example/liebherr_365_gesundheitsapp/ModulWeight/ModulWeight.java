@@ -34,12 +34,13 @@ public class ModulWeight extends AppCompatActivity {
     private static Button diagrammbutton = null;
     @SuppressLint("StaticFieldLeak")
     private static Button historiebutton = null;
+    @SuppressLint("StaticFieldLeak")
     private static TextView textweightgoal;
     private static float firstweight;
     private static float weightgoal;
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
 
         // new DBHelperDataSource
@@ -69,6 +70,8 @@ public class ModulWeight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         // call function firstentry if flag = true
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean flag = prefs.getBoolean("flag", true);
@@ -143,8 +146,6 @@ public class ModulWeight extends AppCompatActivity {
 
         // close db connection
         dataSourceData.close();
-
-        super.onCreate(savedInstanceState);
 
         // set up navigation enabled
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -319,7 +320,7 @@ public class ModulWeight extends AppCompatActivity {
 
     // function roundfloat
     private static float roundfloat(float inputfloat) {
-        float roundedfloat = 0;
+        float roundedfloat;
         inputfloat += 0.05;
         inputfloat = (int) (inputfloat * 10);
         roundedfloat = inputfloat / 10;
