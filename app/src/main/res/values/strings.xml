@@ -8,6 +8,11 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings ModulWeight -->
+    <string name="minus">-</string>
+    <string name="placeholder">-</string>
+    <string name="nullstring">0</string>
+
+    <!-- Strings ModulWeight -->
     <string name="kg">kg</string>
     <string name="plus">+</string>
     <string name="diagramm">Diagramm</string>
