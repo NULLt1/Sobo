@@ -29,27 +29,29 @@
         android:id="@+id/bmigrenzen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bmigrenzen"
-        android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
         android:layout_alignBaseline="@+id/gewicht"
         android:layout_alignBottom="@+id/gewicht"
-        android:layout_toRightOf="@+id/gewicht"
-        android:layout_toEndOf="@+id/gewicht"
         android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp" />
+        android:layout_marginStart="24dp"
+        android:layout_toEndOf="@+id/gewicht"
+        android:layout_toRightOf="@+id/gewicht"
+        android:text="@string/bmigrenzen"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="10sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/optimalesgewicht"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/optimalesgewicht"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
         android:layout_alignBaseline="@+id/bmigrenzen"
         android:layout_alignBottom="@+id/bmigrenzen"
-        android:layout_toRightOf="@+id/bmigrenzen"
-        android:layout_toEndOf="@+id/bmigrenzen"
         android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp" />
+        android:layout_marginStart="24dp"
+        android:layout_toEndOf="@+id/bmigrenzen"
+        android:layout_toRightOf="@+id/bmigrenzen"
+        android:text="@string/optimalesgewicht"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="10sp"
+        android:textStyle="bold" />
 </RelativeLayout>

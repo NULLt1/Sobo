@@ -51,7 +51,9 @@ public class DataSourceModules {
             insertmodules("Mensa", "ModulMensa", true);
             insertmodules("Gewicht", "ModulWeight", false);
             insertmodules("Tipp des Tages", "ModulTipOfTheDay", true);
+            insertmodules("Gesundheitsangebot", "ModulHealth", true);
         }
+        insertmodules("Gesundheitsangebot", "ModulHealth", true);
     }
 
     //function changemodulstatus

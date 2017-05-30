@@ -13,8 +13,11 @@
         android:id="@+id/buttonNewTIp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="showNewEntry"
         android:text="Tipp anzeigen"
-        android:onClick="showNewEntry"/>
+        android:textColor="@color/colorLightGrey"
+        android:textSize="14sp" />
 
     <ListView
         android:id="@+id/listViewTipOfTheDay"
