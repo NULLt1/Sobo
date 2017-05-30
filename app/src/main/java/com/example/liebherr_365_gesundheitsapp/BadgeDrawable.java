@@ -11,8 +11,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
-import com.example.liebherr_365_gesundheitsapp.R;
-
 public class BadgeDrawable extends Drawable {
 
     private Paint mBadgePaint;

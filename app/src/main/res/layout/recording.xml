@@ -15,10 +15,11 @@
         android:weightSum="1">
 
         <Button
-            android:text="Gewicht eintragen"
+            android:id="@+id/a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/a" />
+            android:text="Gewicht eintragen"
+            android:textSize="14sp" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -46,7 +46,7 @@ public class Notification extends Service {
                 .setContentText(text)
                 .setSmallIcon(R.mipmap.waage)
                 //.setLargeIcon(BitmapFactory.decodeResource(R.mipmap.xyz))
-                .setColor(getResources().getColor(R.color.colorAccent))
+                .setColor(getResources().getColor(R.color.colorWhite))
                 .setVibrate(new long[]{0, 300, 300, 300})
                 //.setSound()
                 .setLights(Color.WHITE, 1000, 5000)

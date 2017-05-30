@@ -4,6 +4,5 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/einstellungen"
-        app:showAsAction="never" />
+        android:title="@string/einstellungen" />
 </menu>

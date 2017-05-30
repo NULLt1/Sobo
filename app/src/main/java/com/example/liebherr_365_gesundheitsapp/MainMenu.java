@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceModules;
 
+
 //s
 public class MainMenu extends AppCompatActivity {
 
@@ -267,11 +268,11 @@ public class MainMenu extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Übersicht";
                 case 1:
-                    return "SECTION 2";
+                    return "Meine Apps";
                 case 2:
-                    return "SECTION 3";
+                    return "Bibliothek";
             }
             return null;
         }

@@ -47,8 +47,8 @@ public class GridViewAdapter extends BaseAdapter {
         imageView.setImageResource(id);
         imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
-        imageView.setBackgroundColor(Color.parseColor("#CBCBCB"));
-        imageView.setPadding(50, 50, 50, 50);
+        imageView.setBackgroundColor(Color.parseColor("#F7F7F7"));
+        imageView.setPadding(100, 100, 100, 100);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         return imageView;
     }

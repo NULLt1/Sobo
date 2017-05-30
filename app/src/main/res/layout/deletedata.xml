@@ -31,13 +31,19 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="@string/ja" />
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/ja"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/no"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="@string/nein" />
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/nein"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>
