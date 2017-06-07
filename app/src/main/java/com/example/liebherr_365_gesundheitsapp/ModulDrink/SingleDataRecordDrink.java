@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp.ModulWeight;
+package com.example.liebherr_365_gesundheitsapp.ModulDrink;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -13,9 +13,10 @@ import android.widget.Button;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.NumberPickerSingleDataRecordWeight;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-public class SingleDataRecord extends DialogFragment {
+public class SingleDataRecordDrink extends DialogFragment {
     Context context;
     private DataSourceData dataSourceData;
 
@@ -57,7 +58,7 @@ public class SingleDataRecord extends DialogFragment {
                 bundle.putString("date", datum);
 
                 // create new singledatarecord
-                DialogFragment numberpickersingledatarecord = new NumberPickerSingleDataRecord();
+                DialogFragment numberpickersingledatarecord = new NumberPickerSingleDataRecordDrink();
 
                 // setArguments to SingleDataRecord
                 numberpickersingledatarecord.setArguments(bundle);
@@ -80,26 +81,17 @@ public class SingleDataRecord extends DialogFragment {
                 dataSourceData.open();
 
                 // declare String ModulWeight
-                String ModulWeightString = "ModulWeight";
+                String ModulDrinkString = "ModulDrink";
 
-                Data data = new Data(ModulWeightString, datum);
+                Data data = new Data(ModulDrinkString, datum);
 
                 //call function deletesingledata
                 dataSourceData.deletesingledata(data);
 
                 // get historieListCursor
-                Cursor historieListCursor = dataSourceData.getPreparedCursorForHistorieList("ModulWeight");
+                Cursor historieListCursor = dataSourceData.getPreparedCursorForHistorieList("ModulDrink");
 
-                if (historieListCursor.getCount() > 0) {
-                    HistorieModulWeight.adapter.changeCursor(historieListCursor);
-                }
-
-                ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
-
-                // handle empty db
-                if (dataSourceData.getLatestEntry("ModulWeight") == 0) {
-                    ModulWeight.changeButtons();
-                }
+                HistorieModulDrink.adapter.changeCursor(historieListCursor);
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                 dataSourceData.close();

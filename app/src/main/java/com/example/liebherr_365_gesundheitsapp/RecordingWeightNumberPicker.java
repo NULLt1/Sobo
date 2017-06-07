@@ -42,7 +42,7 @@ public class RecordingWeightNumberPicker extends DialogFragment {
         // inflate our custom layout for the dialog to a View
         View view = li.inflate(R.layout.recordingweightnumberpicker, null);
 
-        //Intialize integer and aftkomma as numberpicker to use functions
+        //Intialize integer and aftkomma as numberpickerweight to use functions
         NumberPicker integer = (NumberPicker) view.findViewById(R.id.integer);
         NumberPicker afterkomma = (NumberPicker) view.findViewById(R.id.afterkomma);
 

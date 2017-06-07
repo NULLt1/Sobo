@@ -11,6 +11,8 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="sans-serif"
         android:gravity="center"
@@ -25,6 +27,7 @@
         android:layout_height="270dp"
         android:layout_below="@id/historie"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
         custom:donut_finished_color="#2c60ad"
         custom:donut_finished_stroke_width="15dp"
         custom:donut_progress="0"
@@ -36,11 +39,11 @@
 
     <Button
         android:id="@+id/minus"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignStart="@+id/donut_progress"
         android:layout_below="@+id/donut_progress"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginStart="20dp"
         android:gravity="center"
         android:onClick="minusTrigger"
@@ -49,8 +52,8 @@
 
     <Button
         android:id="@+id/plus"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignEnd="@+id/donut_progress"
         android:layout_below="@+id/donut_progress"
         android:layout_marginEnd="20dp"
@@ -59,7 +62,7 @@
         android:onClick="plusTrigger"
         android:text="@string/plus"
         android:textColor="@color/colorPrimary"
-        android:textSize="26sp" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/glasses"

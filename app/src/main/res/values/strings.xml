@@ -7,10 +7,11 @@
     <string name="komma">,</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings ModulWeight -->
+    <!-- Strings ModulDrink -->
     <string name="minus">-</string>
     <string name="placeholder">-</string>
     <string name="nullstring">0</string>
+    <string name="glasses">Anzahl\nGläser</string>
 
     <!-- Strings ModulWeight -->
     <string name="kg">kg</string>

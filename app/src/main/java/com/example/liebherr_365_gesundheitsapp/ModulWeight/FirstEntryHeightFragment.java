@@ -52,7 +52,7 @@ public class FirstEntryHeightFragment extends DialogFragment {
                 .setCompletedPosition(1)
                 .drawView();
 
-        //Intialize height numberpicker
+        //Intialize height numberpickerweight
         NumberPicker heightnumberpicker = (NumberPicker) view.findViewById(R.id.height);
 
         // setOnValueChangedListener on NumberPucker integer

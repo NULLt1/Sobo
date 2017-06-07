@@ -53,7 +53,7 @@ public class FirstEntryAgeFragment extends DialogFragment {
                 .setCompletedPosition(2)
                 .drawView();
 
-        //Intialize height numberpicker
+        //Intialize height numberpickerweight
         NumberPicker agenumberpicker = (NumberPicker) view.findViewById(R.id.age);
 
         // setOnValueChangedListener on NumberPucker integer

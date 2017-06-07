@@ -3,7 +3,6 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -40,7 +39,7 @@ public class HistorieModulWeight extends AppCompatActivity {
                 bundle.putString("date", selecteddate);
 
                 // create new singledatarecord
-                DialogFragment singledatarecord = new SingleDataRecord();
+                DialogFragment singledatarecord = new SingleDataRecordWeight();
 
                 // setArguments to SingleDataRecord
                 singledatarecord.setArguments(bundle);

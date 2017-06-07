@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.SingleDataRecord;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.SingleDataRecordWeight;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 public class HistorieModulDrink extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class HistorieModulDrink extends AppCompatActivity {
                 bundle.putString("date", selecteddate);
 
                 // create new singledatarecord
-                DialogFragment singledatarecord = new SingleDataRecord();
+                DialogFragment singledatarecord = new SingleDataRecordDrink();
 
                 // setArguments to SingleDataRecord
                 singledatarecord.setArguments(bundle);

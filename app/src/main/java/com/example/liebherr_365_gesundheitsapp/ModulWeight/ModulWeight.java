@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,7 +113,7 @@ public class ModulWeight extends AppCompatActivity {
                 bundle.putString("date", selecteddate);
 
                 // create new singledatarecord
-                DialogFragment singledatarecord = new SingleDataRecord();
+                DialogFragment singledatarecord = new SingleDataRecordWeight();
 
                 // setArguments to SingleDataRecord
                 singledatarecord.setArguments(bundle);
