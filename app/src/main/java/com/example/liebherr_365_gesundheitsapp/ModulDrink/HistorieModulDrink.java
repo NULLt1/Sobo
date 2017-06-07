@@ -1,19 +1,19 @@
-package com.example.liebherr_365_gesundheitsapp.ModulWeight;
+package com.example.liebherr_365_gesundheitsapp.ModulDrink;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.SingleDataRecord;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-public class HistorieModulWeight extends AppCompatActivity {
-    public static CursorAdapterWeight adapter;
+public class HistorieModulDrink extends AppCompatActivity {
+    public static CursorAdapterDrink adapter;
 
 
     @Override
@@ -55,7 +55,7 @@ public class HistorieModulWeight extends AppCompatActivity {
         dataSourceData.open();
 
         // weightlist adapter
-        adapter = new CursorAdapterWeight(this, dataSourceData.getPreparedCursorForHistorieList("ModulWeight"));
+        adapter = new CursorAdapterDrink(this, dataSourceData.getPreparedCursorForHistorieList("ModulDrink"));
 
         // set adapter to weightlist
         weightlist.setAdapter(adapter);

@@ -21,8 +21,6 @@ import com.example.liebherr_365_gesundheitsapp.R;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import static com.example.liebherr_365_gesundheitsapp.R.id.weight;
-
 public class NumberPickerSingleDataRecord extends DialogFragment {
     private Context context;
     private DataSourceData dataSourceData;
@@ -122,7 +120,7 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
 
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
                 try {
-                    HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList());
+                    HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList("ModulDrink"));
                 } catch (Exception e) {
                     Log.d("ERROR", String.valueOf(e));
                 }
