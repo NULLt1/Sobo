@@ -246,12 +246,12 @@ public class ModulWeight extends AppCompatActivity {
         // set deletebutton disabled and change opacity
         diagrammbutton.setEnabled(true);
         diagrammbutton.getBackground().setAlpha(255);
-        diagrammbutton.setTextColor(Color.parseColor("#000000"));
+        diagrammbutton.setTextColor(Color.parseColor("#FFFFFF"));
 
         // set deletebutton disabled and change opacity
         historiebutton.setEnabled(true);
         historiebutton.getBackground().setAlpha(255);
-        historiebutton.setTextColor(Color.parseColor("#000000"));
+        historiebutton.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     //function getWeightGoal
@@ -299,9 +299,6 @@ public class ModulWeight extends AppCompatActivity {
         if (proveFirstWeight()) {
             String weightdifferncestring;
             float weightdiffernce;
-            Log.d("~~~~~~~~~~~", "~~~~~~~~~~~~~");
-            Log.d("firstweight", String.valueOf(firstweight));
-            Log.d("weightgoal", String.valueOf(weightgoal));
 
             if (firstweight == weightgoal) {
                 weightdifferncestring = "0.0 kg";
