@@ -148,11 +148,9 @@ public class MainMenu extends AppCompatActivity {
 
                     break;
                 case "ModulDrink":
-
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //~~~~~~~~~~~~~~PLACEHOLDER~~~~~~~~~~~~~~~~~
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
                     Log.d("Found", "ModulDrink");
                     break;
                 default:
