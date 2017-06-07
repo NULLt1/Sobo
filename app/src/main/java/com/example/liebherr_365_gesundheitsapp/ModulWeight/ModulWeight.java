@@ -355,14 +355,14 @@ public class ModulWeight extends AppCompatActivity {
 
     //function viewgraph onklick @+id/historie
     public void historie(View view) {
-        //Creatiing new intent, which navigates to ViewGraph on call
+        //Creatiing new intent, which navigates to HistorieModulWeight on call
         Intent intent = new Intent(ModulWeight.this, HistorieModulWeight.class);
         startActivity(intent);
     }
 
     //function viewgraph onklick @+id/viewgraph
     public void viewgraph(View view) {
-        //Creatiing new intent, which navigates to ViewGraph on call
+        //Creatiing new intent, which navigates to ViewGraphModulWeight on call
         Intent intent = new Intent(ModulWeight.this, ViewGraphModulWeight.class);
         startActivity(intent);
     }

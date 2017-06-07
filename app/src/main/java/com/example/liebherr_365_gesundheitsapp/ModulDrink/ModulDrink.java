@@ -284,8 +284,9 @@ public class ModulDrink extends AppCompatActivity {
 
     //function viewgraph onklick @+id/historie
     public void historie(View view) {
-        //Creatiing new intent, which navigates to ViewGraph on call
+        //Creatiing new intent, which navigates to HistorieModulDrink on call
         Intent intent = new Intent(ModulDrink.this, HistorieModulDrink.class);
         startActivity(intent);
     }
+
 }
