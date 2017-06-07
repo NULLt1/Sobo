@@ -43,10 +43,10 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
         // inflate our custom layout for the dialog to a View
         View view = li.inflate(R.layout.numberpickerdrink, null);
 
-        //Intialize integer and aftkomma as numberpickerweight to use functions
+        //Intialize glasspicker as numberpicker to use functions
         final NumberPicker glassespicker = (NumberPicker) view.findViewById(R.id.glasses);
 
-        // setOnValueChangedListener on NumberPucker integer
+        // setOnValueChangedListener on NumberPicker glasspicker
         glassespicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
@@ -54,7 +54,7 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
             }
         });
 
-        //Set interger Value 40-100
+        //Set interger Value 1-30
         glassespicker.setMinValue(1);
         glassespicker.setMaxValue(30);
         glassespicker.setBackgroundColor(Color.GRAY);
@@ -80,7 +80,7 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
                 // modul declaration
                 String modulweight = "ModulDrink";
 
-                // new weightdateobject with values
+                // new dataobject with values
                 Data wd = new Data(modulweight, bundledatum, glasses, type);
 
                 // new DBHelperDataSource
@@ -121,6 +121,7 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
         } else {
             glasses.setValue(5);
         }
+
         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
         dataSourceData.close();
     }
