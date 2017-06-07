@@ -120,7 +120,7 @@ public class NumberPickerSingleDataRecord extends DialogFragment {
 
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
                 try {
-                    HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList("ModulDrink"));
+                    HistorieModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList("ModulWeight"));
                 } catch (Exception e) {
                     Log.d("ERROR", String.valueOf(e));
                 }
