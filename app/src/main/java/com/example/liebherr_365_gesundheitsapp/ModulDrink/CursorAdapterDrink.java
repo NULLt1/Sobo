@@ -11,12 +11,10 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-public class CursorAdapterDrink extends CursorAdapter {
-    private Cursor mCursor;
+class CursorAdapterDrink extends CursorAdapter {
 
     CursorAdapterDrink(Context context, Cursor cursor) {
         super(context, cursor, 0);
-        this.mCursor = cursor;
     }
 
     @Override

@@ -13,11 +13,8 @@ import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
 class CursorAdapterWeight extends CursorAdapter {
-    private Cursor mCursor;
-
     CursorAdapterWeight(Context context, Cursor cursor) {
         super(context, cursor, 0);
-        this.mCursor = cursor;
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -44,9 +45,16 @@ public class ModulDrink extends AppCompatActivity {
         // setContentView
         setContentView(R.layout.activity_modul_drink);
 
+        if (entryAlreadyExisting()) {
+            // entryExisting
+            entryExists();
+        }
+
         // disableMinusButton if glassCounter == 0
         if (glassCounter == 0) {
             disableMinusButton();
+        } else {
+            enableMinusButton();
         }
 
         // bind donutProgress to DonutProgress
@@ -62,6 +70,9 @@ public class ModulDrink extends AppCompatActivity {
         if (glassCounter == 0) {
             // disableMinusButton if glassCounter == 0
             disableMinusButton();
+            deleteData();
+        } else {
+            updateData();
         }
         if (glassCounter < maxGlasses) {
             countDownDonutProgressCounter();
@@ -89,17 +100,8 @@ public class ModulDrink extends AppCompatActivity {
         if (!entryAlreadyExisting()) {
             insertData();
         } else {
-
+            updateData();
         }
-    }
-
-    // function setGlassesText
-    private void setGlassesText() {
-        // bind textglasses to TextView
-        TextView textGlasses = (TextView) findViewById(R.id.glasses);
-
-        // set current glassCounter as text
-        textGlasses.setText(String.valueOf(glassCounter));
     }
 
     // function enableMinusButton
@@ -161,8 +163,74 @@ public class ModulDrink extends AppCompatActivity {
         }
     }
 
+    // function setGlassesText
+    private void setGlassesText() {
+        // bind textglasses to TextView
+        TextView textGlasses = (TextView) findViewById(R.id.glasses);
+
+        // set current glassCounter as text
+        textGlasses.setText(String.valueOf(glassCounter));
+    }
+
+    // function setGlassCounter
+    private void setGlassCounter() {
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        //call function entryalreadyexisting
+        glassCounter = (int) dataSourceData.getLatestEntry("ModulDrink");
+
+        // close db connection
+        dataSourceData.close();
+    }
+
     // function insertData()
     private void insertData() {
+        // createNewDataObject with current date
+        Data data = createNewDataObject();
+
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        //call function insertdata
+        dataSourceData.insertdata(data);
+
+        // close db connection
+        dataSourceData.close();
+    }
+
+    //function updateData()
+    private void updateData() {
+        // createNewDataObject with current date
+        Data data = createNewDataObject();
+
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        //call function updatedata
+        dataSourceData.updatedata(data);
+
+        // close db connection
+        dataSourceData.close();
+    }
+
+    //function deleteData()
+    private void deleteData() {
+        // createNewDataObject with current date
+        Data data = createNewDataObject();
+
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        //call function deletesingledata
+        dataSourceData.deletesingledata(data);
+
+        // close db connection
+        dataSourceData.close();
+    }
+
+    // createNewDataObject
+    private Data createNewDataObject() {
         // get actualdate
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String actualdate = dateFormat.format(new java.util.Date());
@@ -174,16 +242,26 @@ public class ModulDrink extends AppCompatActivity {
         String modulweight = "ModulDrink";
 
         // new weightdateobject with values
-        Data data = new Data(modulweight, actualdate, glassCounter, type);
+        return new Data(modulweight, actualdate, glassCounter, type);
+    }
 
-        dataSourceData = new DataSourceData(this);
-        dataSourceData.open();
+    // function entryExists
+    private void entryExists() {
+        // setGlassCounter
+        setGlassCounter();
 
-        //call function entryalreadyexisting
-        dataSourceData.insertdata(data);
+        // setGlassesText
+        setGlassesText();
 
-        // close db connection
-        dataSourceData.close();
+        // countUpDonutProgressCounter foreach glass
+        for (int i = 1; i <= glassCounter; i++) {
+            if (donutProgressCounter < 100) {
+                countUpDonutProgressCounter();
+            }
+        }
+
+        // setDonutProgress
+        setDonutProgress();
     }
 
     // function entryAlreadyExisting
