@@ -29,7 +29,6 @@ class CursorAdapterWeight extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textViewdatum = (TextView) view.findViewById(R.id.datum);
         TextView textViewweight = (TextView) view.findViewById(R.id.data);
-        //TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
 
         //set text datum
         String datum = cursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnDate()));

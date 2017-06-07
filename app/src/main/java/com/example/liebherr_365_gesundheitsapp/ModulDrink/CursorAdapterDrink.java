@@ -11,10 +11,6 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-/**
- * Created by mpadmin on 07.06.2017.
- */
-
 public class CursorAdapterDrink extends CursorAdapter {
     private Cursor mCursor;
 
@@ -32,7 +28,6 @@ public class CursorAdapterDrink extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textViewdatum = (TextView) view.findViewById(R.id.datum);
         TextView textViewweight = (TextView) view.findViewById(R.id.data);
-        //TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
 
         //set text datum
         String datum = cursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnDate()));
@@ -40,9 +35,16 @@ public class CursorAdapterDrink extends CursorAdapter {
         textViewdatum.setText(datum);
 
         //set text weight
-        String weight = cursor.getString(cursor.getColumnIndexOrThrow(Queries.getColumnPhysicalValues()));
-        weight += " Gläser";
-        textViewweight.setText(weight);
+        String glasses = cursor.getString(cursor.getColumnIndexOrThrow(Queries.getColumnPhysicalValues()));
+
+        // add type
+        if (glasses.equals("1")) {
+            glasses += " Glas";
+        } else {
+            glasses += " Gläser";
+        }
+
+        textViewweight.setText(glasses);
     }
 
     // funtion formateDatum
