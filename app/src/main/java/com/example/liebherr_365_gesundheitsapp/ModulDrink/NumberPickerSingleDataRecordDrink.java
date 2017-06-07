@@ -122,6 +122,7 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
             glasses.setValue(5);
         }
 
+
         Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
         dataSourceData.close();
     }
