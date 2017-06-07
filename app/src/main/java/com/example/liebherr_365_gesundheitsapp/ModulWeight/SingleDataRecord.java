@@ -88,7 +88,7 @@ public class SingleDataRecord extends DialogFragment {
                 dataSourceData.deletesingledata(data);
 
                 // get historieListCursor
-                Cursor historieListCursor = dataSourceData.getPreparedCursorForHistorieList();
+                Cursor historieListCursor = dataSourceData.getPreparedCursorForHistorieList("ModulDrink");
 
                 if (historieListCursor.getCount() > 0) {
                     HistorieModulWeight.adapter.changeCursor(historieListCursor);

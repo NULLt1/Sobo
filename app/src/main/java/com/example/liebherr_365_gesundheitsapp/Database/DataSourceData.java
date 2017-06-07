@@ -79,7 +79,8 @@ public class DataSourceData {
         int idModul = cursor.getColumnIndex(Queries.COLUMN_MODUL);
         int idDate = cursor.getColumnIndex(Queries.COLUMN_DATE);
         int idWeight = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-        int idType = cursor.getColumnIndex(Queries.COLUMN_TYPE);
+
+        //int idType = cursor.getColumnIndex(Queries.COLUMN_TYPE);
 
         String modul = cursor.getString(idModul);
         String date = cursor.getString(idDate);
@@ -97,8 +98,8 @@ public class DataSourceData {
     }
 
     //function getPreparedCursorForHistorieList
-    public Cursor getPreparedCursorForHistorieList() {
-        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='ModulWeight' ORDER BY " + Queries.COLUMN_DATE + " DESC";
+    public Cursor getPreparedCursorForHistorieList(String modulname) {
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='" + modulname + "'ORDER BY " + Queries.COLUMN_DATE + " DESC";
         return databaseData.rawQuery(query, null);
     }
 
@@ -203,7 +204,7 @@ public class DataSourceData {
     }
 
 
-    public boolean entryalreadyexisting(String modul) {
+    public boolean entryAlreadyExisting(String modul) {
         boolean result = false;
 
         // get actualdate

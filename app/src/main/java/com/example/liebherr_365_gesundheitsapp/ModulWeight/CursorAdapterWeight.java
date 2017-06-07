@@ -2,7 +2,6 @@ package com.example.liebherr_365_gesundheitsapp.ModulWeight;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +13,19 @@ import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
 class CursorAdapterWeight extends CursorAdapter {
-    private Cursor mCursor;
-
     CursorAdapterWeight(Context context, Cursor cursor) {
         super(context, cursor, 0);
-        this.mCursor = cursor;
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.weight_list, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.historie_list, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textViewdatum = (TextView) view.findViewById(R.id.datum);
-        TextView textViewweight = (TextView) view.findViewById(R.id.weight);
-        //TextView textViewdifference = (TextView) view.findViewById(R.id.difference);
+        TextView textViewweight = (TextView) view.findViewById(R.id.data);
 
         //set text datum
         String datum = cursor.getString(getCursor().getColumnIndexOrThrow(Queries.getColumnDate()));

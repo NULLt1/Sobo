@@ -5,10 +5,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/historie"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:onClick="historie"
+        android:text="@string/historie"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
     <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/donut_progress"
         android:layout_width="270dp"
         android:layout_height="270dp"
+        android:layout_below="@id/historie"
         android:layout_centerHorizontal="true"
         custom:donut_finished_color="#2c60ad"
         custom:donut_finished_stroke_width="15dp"
@@ -39,11 +54,12 @@
         android:layout_alignEnd="@+id/donut_progress"
         android:layout_below="@+id/donut_progress"
         android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:onClick="plusTrigger"
         android:text="@string/plus"
-
-        android:textSize="28sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="26sp" />
 
     <TextView
         android:id="@+id/glasses"
@@ -55,4 +71,6 @@
         android:gravity="center"
         android:text="@string/nullstring"
         android:textSize="28sp" />
+
+
 </RelativeLayout>

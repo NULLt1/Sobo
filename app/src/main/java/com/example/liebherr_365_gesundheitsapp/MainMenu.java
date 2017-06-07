@@ -136,7 +136,7 @@ public class MainMenu extends AppCompatActivity {
                     dbd.open();
 
                     // call function entryalreadyexisting
-                    boolean result = dbd.entryalreadyexisting("ModulWeight");
+                    boolean result = dbd.entryAlreadyExisting("ModulWeight");
 
                     // if result == false count up fragmentcounterlocal
                     if (!result) {
@@ -148,11 +148,9 @@ public class MainMenu extends AppCompatActivity {
 
                     break;
                 case "ModulDrink":
-
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     //~~~~~~~~~~~~~~PLACEHOLDER~~~~~~~~~~~~~~~~~
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
                     Log.d("Found", "ModulDrink");
                     break;
                 default:
