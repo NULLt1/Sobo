@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
 
 import com.example.liebherr_365_gesundheitsapp.R;
 
 public class ModulDrink extends AppCompatActivity {
+    // new DataSourceData
+    private DataSourceData dataSourceData;
     private int glassCounter = 0;
     private float donutProgressCounter;
     private int maxGlasses = 8;
@@ -75,6 +78,8 @@ public class ModulDrink extends AppCompatActivity {
 
         // call function setGlassesText
         setGlassesText();
+
+
     }
 
     // function setGlassesText
@@ -135,5 +140,22 @@ public class ModulDrink extends AppCompatActivity {
             // set finished color blue
             donutProgress.setFinishedStrokeColor(Color.parseColor("#2c60ad"));
         }
+    }
+
+    private boolean entryAlreadyExisting() {
+        // declare result
+        boolean result = false;
+
+        // new DBHelperDataSource
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        //call function entryalreadyexisting
+        result = dataSourceData.entryalreadyexisting("ModulDrink");
+
+        // close db connection
+        dataSourceData.close();
+
+        return result;
     }
 }

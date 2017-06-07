@@ -136,7 +136,7 @@ public class MainMenu extends AppCompatActivity {
                     dbd.open();
 
                     // call function entryalreadyexisting
-                    boolean result = dbd.entryalreadyexisting("ModulWeight");
+                    boolean result = dbd.entryAlreadyExisting("ModulWeight");
 
                     // if result == false count up fragmentcounterlocal
                     if (!result) {
