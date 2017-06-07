@@ -104,9 +104,11 @@ public class DataSourceData {
     }
 
     //function getAllDataasarray
-    public Data[] getAllDataasarray() {
+    public Data[] getAllDataasarray(String modulname) {
+        String where = Queries.COLUMN_MODUL + "='" + modulname + "'";
+
         Cursor cursor = databaseData.query(Queries.TABLE_DATA,
-                COLUMNS, null, null, null, null, Queries.COLUMN_DATE);
+                COLUMNS, where, null, null, null, Queries.COLUMN_DATE);
 
         int size = cursor.getCount();
         Data[] alldata = new Data[size];

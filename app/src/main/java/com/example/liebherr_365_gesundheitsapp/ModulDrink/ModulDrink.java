@@ -33,7 +33,7 @@ public class ModulDrink extends AppCompatActivity {
         super.onResume();
 
         if (glassCounter == 0) {
-            // disableMinusButton if glassCounter == 0
+            // disableButtons if glassCounter == 0
             disableMinusButton();
         }
     }
@@ -48,6 +48,12 @@ public class ModulDrink extends AppCompatActivity {
         if (entryAlreadyExisting()) {
             // entryExisting
             entryExists();
+        }
+
+        if (dataExisting()) {
+            enableHistorieButton();
+        } else {
+            disableHistorieButton();
         }
 
         // disableMinusButton if glassCounter == 0
@@ -81,6 +87,12 @@ public class ModulDrink extends AppCompatActivity {
 
         // call function setGlassesText
         setGlassesText();
+
+        if (dataExisting()) {
+            enableHistorieButton();
+        } else {
+            disableHistorieButton();
+        }
     }
 
     //function plusTrigger onklick @+id/plus
@@ -102,14 +114,53 @@ public class ModulDrink extends AppCompatActivity {
         } else {
             updateData();
         }
+
+        if (dataExisting()) {
+            enableHistorieButton();
+        } else {
+            disableHistorieButton();
+        }
     }
 
-    // function enableMinusButton
+
+    // function enableButtons
+    private void enableHistorieButton() {
+        // bind historieButton to Button
+        Button historieButton = (Button) findViewById(R.id.historie);
+
+        // enable Buttons
+        historieButton.setEnabled(true);
+
+        // set color
+        historieButton.setBackgroundResource(R.color.colorPrimaryDark);
+        historieButton.setTextColor(Color.parseColor("#FFFFFF"));
+
+        // change alpha
+        historieButton.getBackground().setAlpha(255);
+    }
+
+    // function disableButtons
+    private void disableHistorieButton() {
+        // bind historieButton to Button
+        Button historieButton = (Button) findViewById(R.id.historie);
+
+        // disable Button
+        historieButton.setEnabled(false);
+
+        // set color
+        historieButton.setBackgroundResource(R.color.colorLightGrey);
+        historieButton.setTextColor(Color.parseColor("#403f3f"));
+
+        // change alpha
+        historieButton.getBackground().setAlpha(45);
+    }
+
+    // function enableButtons
     private void enableMinusButton() {
         // bind minusButton to Button
         Button minusButton = (Button) findViewById(R.id.minus);
 
-        // enable Button
+        // enable Buttons
         minusButton.setEnabled(true);
 
         // set color
@@ -120,7 +171,7 @@ public class ModulDrink extends AppCompatActivity {
         minusButton.getBackground().setAlpha(255);
     }
 
-    // function disableMinusButton
+    // function disableButtons
     private void disableMinusButton() {
         // bind minusButton to Button
         Button minusButton = (Button) findViewById(R.id.minus);
@@ -275,6 +326,29 @@ public class ModulDrink extends AppCompatActivity {
 
         //call function entryalreadyexisting
         result = dataSourceData.entryAlreadyExisting("ModulDrink");
+
+        // close db connection
+        dataSourceData.close();
+
+        return result;
+    }
+
+    //function dataExisting
+    private boolean dataExisting() {
+        // declare result
+        boolean result = false;
+
+        // new DBHelperDataSource
+        dataSourceData = new DataSourceData(this);
+        dataSourceData.open();
+
+        // getFirstWeight
+        int glasses = (int) dataSourceData.getLatestEntry("ModulDrink");
+
+        // handle empty db
+        if (glasses != 0) {
+            result = true;
+        }
 
         // close db connection
         dataSourceData.close();

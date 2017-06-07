@@ -99,7 +99,7 @@ public class ViewGraphModulWeight extends AppCompatActivity {
         yAxisright.setGranularity(1f); // only intervals of 1 kg
 
         // call function getAllDataasarray
-        Data[] alldata = databaseData.getAllDataasarray();
+        Data[] alldata = databaseData.getAllDataasarray("ModulWeight");
 
         // defince ArrayList entries
         List<Entry> entries = new ArrayList<>();
