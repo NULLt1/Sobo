@@ -16,7 +16,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/geschlecht"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimaryDark" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gender"

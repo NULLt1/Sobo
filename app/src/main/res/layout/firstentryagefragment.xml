@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/alter"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimaryDark" />
 
     <NumberPicker
         android:id="@+id/age"

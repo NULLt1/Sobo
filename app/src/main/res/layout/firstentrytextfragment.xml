@@ -16,7 +16,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/firstentrytext"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimaryDark" />
 
     <Button
         android:id="@+id/weiter"
