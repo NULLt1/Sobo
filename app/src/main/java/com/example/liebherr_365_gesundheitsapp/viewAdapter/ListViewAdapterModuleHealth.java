@@ -82,6 +82,8 @@ public class ListViewAdapterModuleHealth extends BaseAdapter {
             TableRow tableRow = new TableRow(context);
             tableRow.setLayoutParams(params3);
             tableRow.setOrientation(LinearLayout.HORIZONTAL);
+            if(i%2!=0)
+                tableRow.setBackgroundColor(context.getResources().getColor(R.color.colorLightGrey));
             tableLayout.addView(tableRow);
             TextView textViewperiod = new TextView(context);
             TextView textViewlocation = new TextView(context);

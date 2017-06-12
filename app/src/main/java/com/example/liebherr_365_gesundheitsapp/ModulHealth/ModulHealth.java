@@ -2,6 +2,7 @@ package com.example.liebherr_365_gesundheitsapp.ModulHealth;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataHealthCare;
