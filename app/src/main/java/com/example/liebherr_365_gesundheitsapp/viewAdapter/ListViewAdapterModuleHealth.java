@@ -2,11 +2,13 @@ package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -62,11 +64,11 @@ public class ListViewAdapterModuleHealth extends BaseAdapter {
         TextView textViewtitle = new TextView(context);
 
         TableLayout tableLayout = (TableLayout) itemView.findViewById(R.id.tableLayoutHealthCare);
-        TableRow ll = (TableRow) itemView.findViewById(R.id.tr);
         TableRow vl = (TableRow) itemView.findViewById(R.id.tt);
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
-        TableRow.LayoutParams params2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        TableRow.LayoutParams params2 = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,1f);
+        TableRow.LayoutParams params4 = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,2f);
         TableRow.LayoutParams params3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         textViewtitle.setText(list.get(0).getCourse());
@@ -78,8 +80,8 @@ public class ListViewAdapterModuleHealth extends BaseAdapter {
 
         for (int i = 0; i < list.size(); i++) {
             TableRow tableRow = new TableRow(context);
-
             tableRow.setLayoutParams(params3);
+            tableRow.setOrientation(LinearLayout.HORIZONTAL);
             tableLayout.addView(tableRow);
             TextView textViewperiod = new TextView(context);
             TextView textViewlocation = new TextView(context);
@@ -87,6 +89,7 @@ public class ListViewAdapterModuleHealth extends BaseAdapter {
             TextView textViewstatus = new TextView(context);
 
             textViewperiod.setText(list.get(i).getDate());
+            textViewperiod.setLayoutParams(params4);
             tableRow.addView(textViewperiod);
 
 

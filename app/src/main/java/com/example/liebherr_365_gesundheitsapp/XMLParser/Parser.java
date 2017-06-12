@@ -329,6 +329,7 @@ public class Parser {
             String name = "";
 
             for (int i = 1; i < elementsTrs.size(); i++) {
+                StringBuffer stringBuilder = new StringBuffer();
                 String date = "";
 
                 String venue = "";
@@ -348,11 +349,18 @@ public class Parser {
                             venue = cleaned;
                             break;
                         case 2:
-                            date = cleaned;
+                            stringBuilder.append(cleaned);
                             break;
                         case 3:
-                            price = cleaned;
+                            stringBuilder.append("\n" + cleaned);
+                            break;
                         case 4:
+                            stringBuilder.append("\n" + cleaned);
+                            break;
+                        case 5:
+                            price = cleaned;
+                            break;
+                        case 6:
                             status = cleaned;
                             break;
                         default:
@@ -362,7 +370,7 @@ public class Parser {
                 }
 
                 dataSourceHealthCare.open();
-                dataSourceHealthCare.createEntry(date, name, venue, price, status);
+                dataSourceHealthCare.createEntry(stringBuilder.toString(), name, venue, price, status);
                 dataSourceHealthCare.close();
             }
         }
