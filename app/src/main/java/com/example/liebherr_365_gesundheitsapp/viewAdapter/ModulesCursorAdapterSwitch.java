@@ -2,6 +2,7 @@ package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,11 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
 
         // Extract properties from cursor
         final String modulName = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_NAME));
+        Log.d("Modulname", modulName);
+        if (modulName.equals("Mensa")) {
+            switchModuleStatus.setEnabled(false);
+
+        }
         String modulFlag = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_FLAG));
 
         if (modulFlag.equals("true")) {
