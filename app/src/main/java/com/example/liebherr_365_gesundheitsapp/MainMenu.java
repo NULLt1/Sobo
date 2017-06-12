@@ -112,6 +112,7 @@ public class MainMenu extends AppCompatActivity {
 
         // call function prepareRecording
         prepareRecording();
+
     }
 
     // function resetFragmentCounter

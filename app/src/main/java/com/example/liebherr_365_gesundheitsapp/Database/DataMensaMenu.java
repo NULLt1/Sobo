@@ -1,5 +1,9 @@
 package com.example.liebherr_365_gesundheitsapp.Database;
 
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Jan on 27.04.2017.
  */
@@ -12,7 +16,7 @@ public class DataMensaMenu {
     private String header;
     private String menu;
     private int weekOfTheYear;
-
+    private static final String LOG_TAG = DataMensaMenu.class.getSimpleName();
 
     //Constructor for Menu
     public DataMensaMenu(long id, String date, String day, int weekOfTheYear, String header, String price, String menu) {
@@ -34,7 +38,15 @@ public class DataMensaMenu {
 
 
     public String getDate() {
-        return date;
+        String formattedDate = date;
+        Log.d(LOG_TAG, date);
+        //formats the Date to german date notation
+        try {
+            formattedDate = new SimpleDateFormat("dd.MM.yy").format(new SimpleDateFormat("yyyy.MM.dd").parse(date));
+        } catch (Exception e) {
+            Log.d(LOG_TAG, e.getMessage());
+        }
+        return formattedDate;
     }
 
     public long getId() {
@@ -42,7 +54,7 @@ public class DataMensaMenu {
     }
 
     public String getPrice() {
-        return price+"€";
+        return price + "€";
     }
 
     public String getHeader() {

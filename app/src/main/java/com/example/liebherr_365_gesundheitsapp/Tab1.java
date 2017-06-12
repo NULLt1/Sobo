@@ -20,7 +20,10 @@ public class Tab1 extends Fragment {
         FragmentManager childFragMan = getChildFragmentManager();
         FragmentTransaction chilFragTrans = childFragMan.beginTransaction();
         FragmentModulMensa fragmentModulMensa = new FragmentModulMensa();
+        FragmentPushNews fragmentPushNews = new FragmentPushNews();
+
         chilFragTrans.add(R.id.frameMensa, fragmentModulMensa);
+        chilFragTrans.add(R.id.framePushNews, fragmentPushNews);
         chilFragTrans.commit();
 
         return rootView;

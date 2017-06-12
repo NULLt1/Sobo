@@ -4,15 +4,16 @@
     android:id="@+id/gridViewButtons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:numColumns="2"
-    android:horizontalSpacing="10dp"
-    android:verticalSpacing="10dp"
-    android:gravity="center"
-    android:stretchMode="columnWidth"
     android:clickable="false"
-    tools:background="@android:color/holo_blue_dark"
+    android:gravity="center"
+    android:horizontalSpacing="10dp"
+    android:numColumns="2"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="10dp">
+    android:paddingTop="10dp"
+    android:scrollbars="horizontal"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="10dp"
+    tools:background="@android:color/holo_blue_dark">
 
 </GridView>

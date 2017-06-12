@@ -186,8 +186,10 @@ public class DataSourceParsedData {
     }
 
     public List<DataParsedData> getAllNews() {
-        //TODO: Query implementieren, nur Einträge nehmen, dessen datum >=heutiges Datum ist
-        String query = null;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        Date currentDate = new Date();
+
+        String query = "SELECT * FROM " + Queries.TABLE_PARSED_DATA + " WHERE " + Queries.getColumnDate() + ">=" + "'" + dateFormat.format(currentDate) + "'";
         Cursor cursor = database.rawQuery(query, null);
 
         return cursorToList(cursor);

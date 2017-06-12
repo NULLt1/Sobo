@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
-
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.liebherr_365_gesundheitsapp.Database.DataHealthCare;
 import com.example.liebherr_365_gesundheitsapp.R;
+
+import java.util.List;
 
 
 /**
@@ -22,21 +24,23 @@ import com.example.liebherr_365_gesundheitsapp.R;
 public class ListViewAdapterModuleHealth extends BaseAdapter {
     LayoutInflater inflater;
     private Context context;
+    private List<List<DataHealthCare>> data;
     String zeitraum = "Oktober - Ostern\n" +
-            "Dienstag,\n"+
+            "Dienstag,\n" +
             "17:30 Uhr - 18:30 Uhr";
     String ort = "Ehingen";
     String kosten = "50€";
     String status = "ausgebucht";
     String titel = "Spinning";
 
-    public ListViewAdapterModuleHealth(Context context) {
+    public ListViewAdapterModuleHealth(Context context, List<List<DataHealthCare>> list) {
         this.context = context;
+        data = list;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return data.size();
     }
 
     @Override
@@ -50,50 +54,54 @@ public class ListViewAdapterModuleHealth extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        List<DataHealthCare> list = data.get(position);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View itemView = inflater.inflate(R.layout.listview_item_modul_health, viewGroup, false);
-
-
-        TableRow ll =(TableRow) itemView.findViewById(R.id.tr);
-        TableRow vl =(TableRow) itemView.findViewById(R.id.tt);
-
-        TextView textViewperiod = new TextView(context);
-        TextView textViewlocation = new TextView(context);
-        TextView textViewprice = new TextView(context);
-        TextView textViewstatus = new TextView(context);
         TextView textViewtitle = new TextView(context);
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1.0f);
-        TableRow.LayoutParams params2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,0.5f);
+        TableLayout tableLayout = (TableLayout) itemView.findViewById(R.id.tableLayoutHealthCare);
+        TableRow ll = (TableRow) itemView.findViewById(R.id.tr);
+        TableRow vl = (TableRow) itemView.findViewById(R.id.tt);
 
-        textViewtitle.setText(titel);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        TableRow.LayoutParams params2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+        TableRow.LayoutParams params3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        textViewtitle.setText(list.get(0).getCourse());
         textViewtitle.setLayoutParams(params);
         textViewtitle.setTextColor(Color.parseColor("#6cc0ae"));
         textViewtitle.setGravity(Gravity.CENTER);
         textViewtitle.setTextSize(18);
         vl.addView(textViewtitle);
 
+        for (int i = 0; i < list.size(); i++) {
+            TableRow tableRow = new TableRow(context);
 
-        textViewperiod.setText(zeitraum);
-        textViewperiod.setLayoutParams(params);
-        ll.addView(textViewperiod);
+            tableRow.setLayoutParams(params3);
+            tableLayout.addView(tableRow);
+            TextView textViewperiod = new TextView(context);
+            TextView textViewlocation = new TextView(context);
+            TextView textViewprice = new TextView(context);
+            TextView textViewstatus = new TextView(context);
+
+            textViewperiod.setText(list.get(i).getDate());
+            tableRow.addView(textViewperiod);
 
 
-        textViewlocation.setText(ort);
-        textViewlocation.setLayoutParams(params2);
-        ll.addView(textViewlocation);
+            textViewlocation.setText(list.get(i).getVenue());
+            textViewlocation.setLayoutParams(params2);
+            tableRow.addView(textViewlocation);
 
-        textViewprice.setText(kosten);
-        textViewprice.setLayoutParams(params2);
-        ll.addView(textViewprice);
+            textViewprice.setText(list.get(i).getPrice());
+            textViewprice.setLayoutParams(params2);
+            tableRow.addView(textViewprice);
 
-        textViewstatus.setText(status);
-        textViewstatus.setLayoutParams(params2);
-        ll.addView(textViewstatus);
-
+            textViewstatus.setText(list.get(i).getStatus());
+            textViewstatus.setLayoutParams(params2);
+            tableRow.addView(textViewstatus);
+        }
         return itemView;
     }
 }

@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataMensaMenu;
+import com.example.liebherr_365_gesundheitsapp.Database.DataParsedData;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceMensa;
+import com.example.liebherr_365_gesundheitsapp.Database.DataSourceParsedData;
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.example.liebherr_365_gesundheitsapp.XMLParser.Parser;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterMensa;
@@ -36,14 +38,13 @@ public class FragmentModulMensa extends Fragment {
 
         DataSourceMensa dataSource = new DataSourceMensa(getContext());
         dataSource.open();
-        ListViewAdapterMensa adapter = new ListViewAdapterMensa(getContext(), dataSource.getDataAsArrayList(2));
+        ListViewAdapterMensa adapter = new ListViewAdapterMensa(getContext(), dataSource.getTodaysDataAsArrayList());
         parser.pullData();
         Log.d("*********", "onCreateView: ");
         List<DataMensaMenu> list = dataSource.getDataForWeek(0);
-        for (DataMensaMenu item : list) {
-            Log.d("FRAGMENT", "Item WOche 0" + item.toString());
-        }
+
         dataSource.close();
+
 
         listview.setAdapter(adapter);
         return rootView;

@@ -28,7 +28,7 @@ public class DataSourceModules {
         Log.d(LOG_TAG, "<MODULES>Datenbank mit Hilfe des DbHelpers geschlossen.<MODULES>");
     }
 
-    public void deletedb(String modulname) {
+    public void deleteModule(String modulname) {
         databaseModules.delete(Queries.TABLE_MODULES, Queries.COLUMN_MODUL + "='" + modulname + "'", null);
         Log.d(LOG_TAG, "<MODULES>Datenbank gelöscht<MODULES>");
     }
@@ -71,6 +71,11 @@ public class DataSourceModules {
         Cursor cursor = databaseModules.rawQuery(Queries.getAllDataFromActiveModules(), null);
         return cursor;
     }
+
+    public void deleteDB() {
+        dbHelper.deleteTable(databaseModules, Queries.TABLE_MODULES);
+    }
+
 
     //function getactivemodulesstringarray
     public String[] getactivemodulesstringarray() {
