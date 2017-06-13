@@ -196,41 +196,21 @@ public class DataSourceMensa {
         return cursorToDataMensaMenu(cursor);
     }
 
-    public ArrayList<HashMap<String, ArrayList<String>>> getTodaysDataAsArrayList() {
-        ArrayList<HashMap<String, ArrayList<String>>> arrayList = new ArrayList<>();
+    public List<DataMensaMenu> getTodaysDataAsArrayList() {
 
-        ArrayList<String> daylist = new ArrayList<>();
-        ArrayList<String> menulist = new ArrayList<>();
-        ArrayList<String> pricelist = new ArrayList<>();
-        ArrayList<String> headerlist = new ArrayList<>();
-        HashMap<String, ArrayList<String>> map = new HashMap<>();
 
-//TODO:Datum mit aktuellem Datum austauschen, sobald Kantinenplan aktuell ist
+        //TODO:Datum mit aktuellem Datum austauschen, sobald Kantinenplan aktuell ist
+        List<DataMensaMenu> dataList = new ArrayList<>();
+
         Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_DATE + "= ?", new String[]{"2017.01.10"}, null, null, null);
+
         if (cursor.getCount() > 0) {
             Log.d(LOG_TAG, String.valueOf(cursor.getCount()));
-            List<DataMensaMenu> dataList = cursorToList(cursor);
+            dataList = cursorToList(cursor);
             cursor.close();
-            for (DataMensaMenu data : dataList) {
-                daylist.add(data.getDay() + "\n" + data.getDate());
-                menulist.add(data.getMenu());
-                pricelist.add(data.getPrice());
-                Log.d(TAG, "Preis: " + data.getPrice());
-                headerlist.add(data.getHeader());
-
-            }
-
-            map.put(DAY, daylist);
-            map.put(MENU, menulist);
-            map.put(HEADER, headerlist);
-            map.put(PRICE, pricelist);
-
-            arrayList.add(map);
         }
-        for(String item:pricelist) {
-            Log.d(LOG_TAG, String.valueOf("arraylist größe" + item));
-        }
-        return arrayList;
+
+        return dataList;
     }
 
 }
