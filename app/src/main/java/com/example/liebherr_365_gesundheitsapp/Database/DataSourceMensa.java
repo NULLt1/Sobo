@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -201,14 +203,17 @@ public class DataSourceMensa {
 
         //TODO:Datum mit aktuellem Datum austauschen, sobald Kantinenplan aktuell ist
         List<DataMensaMenu> dataList = new ArrayList<>();
-
-        Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_DATE + "= ?", new String[]{"2017.01.10"}, null, null, null);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        String mDate = simpleDateFormat.format(date);
+        Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_DATE + "= ?", new String[]{mDate}, null, null, null);
 
         if (cursor.getCount() > 0) {
             Log.d(LOG_TAG, String.valueOf(cursor.getCount()));
             dataList = cursorToList(cursor);
             cursor.close();
-        }
+        } else
+            dataList.add(new DataMensaMenu(0, mDate, "", 0, "Keine Daten zu " + mDate + " vorhanden", "", ""));
 
         return dataList;
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataMergedData;
 import com.example.liebherr_365_gesundheitsapp.Database.MergeData;
+import com.example.liebherr_365_gesundheitsapp.XMLParser.Parser;
 import com.example.liebherr_365_gesundheitsapp.viewAdapter.ListViewAdapterOverView;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +23,9 @@ public class Tab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab1, container, false);
+
+        Parser parser = new Parser(getContext());
+        parser.pullData();
 
         ListView listView = (ListView) rootView.findViewById(R.id.listViewTab1);
 

@@ -86,18 +86,12 @@ public class ListViewAdapterModuleHealth extends BaseAdapter {
                 tableRow.setBackgroundColor(context.getResources().getColor(R.color.colorLightGrey));
             tableLayout.addView(tableRow);
             TextView textViewperiod = new TextView(context);
-            TextView textViewlocation = new TextView(context);
             TextView textViewprice = new TextView(context);
             TextView textViewstatus = new TextView(context);
 
             textViewperiod.setText(list.get(i).getDate());
             textViewperiod.setLayoutParams(params4);
             tableRow.addView(textViewperiod);
-
-
-            textViewlocation.setText(list.get(i).getVenue());
-            textViewlocation.setLayoutParams(params2);
-            tableRow.addView(textViewlocation);
 
             textViewprice.setText(list.get(i).getPrice());
             textViewprice.setLayoutParams(params2);

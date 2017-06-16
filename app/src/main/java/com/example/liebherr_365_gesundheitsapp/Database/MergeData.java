@@ -1,6 +1,7 @@
 package com.example.liebherr_365_gesundheitsapp.Database;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class MergeData {
         mergedList.add(newList);
 
         for (DataParsedData item : dataList) {
+            Log.d("Item inhalt", item.getModul());
             DataMergedData data = new DataMergedData("News", item.getDate(), item.getTeaser(), item.getText(), "");
             List<DataMergedData> newsList = new ArrayList<>();
             newsList.add(data);

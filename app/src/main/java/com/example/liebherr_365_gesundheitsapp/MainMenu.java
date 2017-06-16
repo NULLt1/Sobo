@@ -18,6 +18,7 @@ import android.view.MenuItem;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceModules;
+import com.example.liebherr_365_gesundheitsapp.XMLParser.Parser;
 
 
 //s
@@ -68,6 +69,8 @@ public class MainMenu extends AppCompatActivity {
         // fill database with defaultmodules
         dbm = new DataSourceModules(this);
         dbm.open();
+
+
 
         // call function insertdefaultmodules
         dbm.insertdefaultmodules();

@@ -52,6 +52,8 @@
         <item>0</item>
     </string-array>
 
+    <string name="link_health_care"><a href="http://eid.dm.hs-furtwangen.de/joomla/index.php/gesundheitsangebote">http://eid.dm.hs-furtwangen.de/joomla/index.php/gesundheitsangebote</a></string>
+
     <!--Strings ModulMensa -->
     <string name="lastmodified">lastModified</string>
     <string name="week_of_the_year">KW %1$s</string>

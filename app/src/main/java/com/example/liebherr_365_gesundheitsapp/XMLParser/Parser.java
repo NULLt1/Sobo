@@ -84,7 +84,6 @@ public class Parser {
 
                     parseMenu(Jsoup.parse(new URL(url).openStream(), null, url));
                     parseNews(Jsoup.parse(new URL(url_push).openStream(), null, url));
-
                     parseHealthCare(Jsoup.parse(new URL(URL_HEALTH_CARE).openStream(), null, URL_HEALTH_CARE));
                 } catch (Exception e) {
                     Log.d(LOG_TAG, "Fehler: " + e.getMessage());
@@ -355,7 +354,7 @@ public class Parser {
                             stringBuilder.append("\n" + cleaned);
                             break;
                         case 4:
-                            stringBuilder.append("\n" + cleaned);
+                            stringBuilder.append(", " + cleaned);
                             break;
                         case 5:
                             price = cleaned;

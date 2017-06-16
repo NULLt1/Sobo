@@ -33,14 +33,6 @@
                 android:text="Zeitraum " />
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-
-                android:layout_weight="1"
-                android:text="Ort" />
-
-            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

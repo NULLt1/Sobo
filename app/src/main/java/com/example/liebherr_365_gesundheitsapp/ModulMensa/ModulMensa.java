@@ -32,8 +32,8 @@ public class ModulMensa extends AppCompatActivity {
     private ListView listview;
     private ListViewAdapterMensa adapter;
     private ListViewAdapterAdditionalMenu additionalAdapter;
-
-
+    TextView textViewKw;
+    String stringKw;
     private boolean isSet = false;
 
     private TextView textViewWeekOfTheYear;
@@ -54,7 +54,7 @@ public class ModulMensa extends AppCompatActivity {
 
         listview = (ListView) findViewById(R.id.listViewMensa);
         dataSource.open();
-        adapter = new ListViewAdapterMensa(ModulMensa.this, dataSource.getDataAsArrayList(2));
+        adapter = new ListViewAdapterMensa(ModulMensa.this, dataSource.getDataAsArrayList(Parser.getCurrentWeekOfTheYear()));
         dataSource.close();
 
         textViewWeekOfTheYear = (TextView) findViewById(R.id.textViewModulMensaKW);
@@ -77,6 +77,10 @@ public class ModulMensa extends AppCompatActivity {
         textViewFooter.setText(list.get(0).getHeader());
         textViewFooterIncredients.setText(list.get(0).getMenu());
 
+        stringKw = String.format("KW %1$s", String.valueOf(Parser.getCurrentWeekOfTheYear()));
+        textViewKw = (TextView) findViewById(R.id.textViewModulMensaKW);
+        textViewKw.setText(stringKw);
+
 
     }
 
@@ -98,8 +102,12 @@ public class ModulMensa extends AppCompatActivity {
         imageButtonLastWeek.setVisibility(View.VISIBLE);
         imageButtonNextWeek.setVisibility(View.INVISIBLE);
         dataSource.open();
-        adapter.updateResults(dataSource.getDataAsArrayList(Parser.getCurrentWeekOfTheYear()));
+        adapter.updateResults(dataSource.getDataAsArrayList(Parser.getnextWeekOfTheYear()));
         dataSource.close();
+        stringKw = String.format("KW %1$s", String.valueOf(Parser.getnextWeekOfTheYear()));
+        textViewKw = (TextView) findViewById(R.id.textViewModulMensaKW);
+        textViewKw.setText(stringKw);
+
     }
 
     public void showLastWeek(View view) {
@@ -107,8 +115,10 @@ public class ModulMensa extends AppCompatActivity {
         imageButtonLastWeek.setVisibility(View.INVISIBLE);
         imageButtonNextWeek.setVisibility(View.VISIBLE);
         dataSource.open();
-        adapter.updateResults(dataSource.getDataAsArrayList(2));
-
+        adapter.updateResults(dataSource.getDataAsArrayList(Parser.getCurrentWeekOfTheYear()));
+        stringKw = String.format("KW %1$s", String.valueOf(Parser.getCurrentWeekOfTheYear()));
+        textViewKw = (TextView) findViewById(R.id.textViewModulMensaKW);
+        textViewKw.setText(stringKw);
     }
 
     public void showAdditionalMenu(View view) {
