@@ -53,6 +53,7 @@ public class DataSourceModules {
             insertmodules("Tipp des Tages", "ModulTipOfTheDay", true);
             insertmodules("Trinken", "ModulDrink", false);
             insertmodules("Gesundheitsangebot", "ModulHealth", true);
+            insertmodules("Kaffee", "ModulCoffee", false);
         }
     }
 

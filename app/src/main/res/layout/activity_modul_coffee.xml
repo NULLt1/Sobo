@@ -28,13 +28,13 @@
         android:layout_below="@id/historie"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        custom:donut_finished_color="#2c60ad"
+        custom:donut_finished_color="#845a32"
         custom:donut_finished_stroke_width="15dp"
         custom:donut_progress="0"
         custom:donut_show_text="true"
-        custom:donut_text="Gläser (250ml)"
+        custom:donut_text="Tassen"
         custom:donut_text_color="#000000"
-        custom:donut_unfinished_color="#c0d0e8"
+        custom:donut_unfinished_color="#dec2a7"
         custom:donut_unfinished_stroke_width="15dp" />
 
     <Button
@@ -86,7 +86,7 @@
         android:gravity="center"
         android:text=""
         android:textAlignment="center"
-        android:textColor="#5CC053"
+        android:textColor="#c05853"
         android:textSize="26sp"
         android:textStyle="bold" />
 
