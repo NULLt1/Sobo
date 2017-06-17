@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp.ModulDrink;
+package com.example.liebherr_365_gesundheitsapp.ModulCoffee;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -16,7 +16,7 @@ import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-public class NumberPickerSingleDataRecordDrink extends DialogFragment {
+public class NumberPickerSingleDataRecordCoffee extends DialogFragment {
     private Context context;
     private DataSourceData dataSourceData;
     private int glasses;
@@ -54,9 +54,9 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
             }
         });
 
-        //Set interger Value 1-30
+        //Set interger Value 1-5
         glassespicker.setMinValue(1);
-        glassespicker.setMaxValue(30);
+        glassespicker.setMaxValue(5);
         glassespicker.setBackgroundColor(Color.GRAY);
         glassespicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
@@ -75,10 +75,10 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
             @Override
             public void onClick(View view) {
                 // type declaration
-                String type = "Gläser";
+                String type = "Tassen";
 
                 // modul declaration
-                String modulname = "ModulDrink";
+                String modulname = "ModulCoffee";
 
                 // new dataobject with values
                 Data wd = new Data(modulname, bundledatum, glasses, type);
@@ -91,7 +91,7 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
                 dataSourceData.updatedata(wd);
 
                 try {
-                    HistorieModulDrink.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList("ModulDrink"));
+                    HistorieModulCoffee.adapter.changeCursor(dataSourceData.getPreparedCursorForHistorieList("ModulCoffee"));
                 } catch (Exception e) {
                     Log.d("ERROR", String.valueOf(e));
                 }
@@ -114,12 +114,12 @@ public class NumberPickerSingleDataRecordDrink extends DialogFragment {
         dataSourceData.open();
 
         // get value of selected item
-        int value = (int) dataSourceData.getValueWithDatum("ModulDrink", bundledatum);
+        int value = (int) dataSourceData.getValueWithDatum("ModulCoffee", bundledatum);
 
         if (value != 0) {
             glasses.setValue(value);
         } else {
-            glasses.setValue(5);
+            glasses.setValue(2);
         }
 
 

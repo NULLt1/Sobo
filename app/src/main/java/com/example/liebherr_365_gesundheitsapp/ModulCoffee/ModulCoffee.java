@@ -1,4 +1,4 @@
-package com.example.liebherr_365_gesundheitsapp.ModulDrink;
+package com.example.liebherr_365_gesundheitsapp.ModulCoffee;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,20 +10,20 @@ import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
-import com.github.lzyzsd.circleprogress.DonutProgress;
-
-
+import com.example.liebherr_365_gesundheitsapp.ModulDrink.HistorieModulDrink;
+import com.example.liebherr_365_gesundheitsapp.ModulDrink.ModulDrink;
 import com.example.liebherr_365_gesundheitsapp.R;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class ModulDrink extends AppCompatActivity {
+public class ModulCoffee extends AppCompatActivity {
     // new DataSourceData
     private DataSourceData dataSourceData;
     private int glassCounter = 0;
     private float donutProgressCounter;
-    private int maxGlasses = 8;
+    private int maxGlasses = 4;
 
     @Override
     public void onResume() {
@@ -40,7 +40,7 @@ public class ModulDrink extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // setContentView
-        setContentView(R.layout.activity_modul_drink);
+        setContentView(R.layout.activity_modul_coffee);
 
         if (entryAlreadyExisting()) {
             // entryExisting
@@ -64,7 +64,7 @@ public class ModulDrink extends AppCompatActivity {
         DonutProgress donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
 
         // set donutProgess text
-        donutProgress.setPrefixText("Gläser");
+        donutProgress.setPrefixText("Tassen");
     }
 
     //function minusTrigger onklick @+id/minus
@@ -186,12 +186,12 @@ public class ModulDrink extends AppCompatActivity {
 
     // function countUpDonutProgressCounter
     private void countUpDonutProgressCounter() {
-        donutProgressCounter += 12.5f;
+        donutProgressCounter += 25f;
     }
 
     // function countDownDonutProgressCounter
     private void countDownDonutProgressCounter() {
-        donutProgressCounter -= 12.5f;
+        donutProgressCounter -= 25f;
     }
 
     // function setDonutProgress
@@ -207,11 +207,11 @@ public class ModulDrink extends AppCompatActivity {
 
         if (donutProgressCounter == 100) {
             // set finished color green
-            donutProgress.setFinishedStrokeColor(Color.parseColor("#5CC053"));
-            reached.setText(R.string.target_reached);
+            donutProgress.setFinishedStrokeColor(Color.parseColor("#c05853"));
+            reached.setText(R.string.limit_reached);
         } else {
             // set finished color blue
-            donutProgress.setFinishedStrokeColor(Color.parseColor("#2c60ad"));
+            donutProgress.setFinishedStrokeColor(Color.parseColor("#845a32"));
             reached.setText("");
         }
     }
@@ -231,7 +231,7 @@ public class ModulDrink extends AppCompatActivity {
         dataSourceData.open();
 
         //call function entryalreadyexisting
-        glassCounter = (int) dataSourceData.getLatestEntry("ModulDrink");
+        glassCounter = (int) dataSourceData.getLatestEntry("ModulCoffee");
 
         // close db connection
         dataSourceData.close();
@@ -289,10 +289,10 @@ public class ModulDrink extends AppCompatActivity {
         String actualdate = dateFormat.format(new java.util.Date());
 
         // type declaration
-        String type = "Gläser";
+        String type = "Tassen";
 
         // modul declaration
-        String modulweight = "ModulDrink";
+        String modulweight = "ModulCoffee";
 
         // new weightdateobject with values
         return new Data(modulweight, actualdate, glassCounter, type);
@@ -327,7 +327,7 @@ public class ModulDrink extends AppCompatActivity {
         dataSourceData.open();
 
         //call function entryalreadyexisting
-        result = dataSourceData.entryAlreadyExisting("ModulDrink");
+        result = dataSourceData.entryAlreadyExisting("ModulCoffee");
 
         // close db connection
         dataSourceData.close();
@@ -345,7 +345,7 @@ public class ModulDrink extends AppCompatActivity {
         dataSourceData.open();
 
         // getFirstWeight
-        int glasses = (int) dataSourceData.getLatestEntry("ModulDrink");
+        int glasses = (int) dataSourceData.getLatestEntry("ModulCoffee");
 
         // handle empty db
         if (glasses != 0) {
@@ -361,7 +361,7 @@ public class ModulDrink extends AppCompatActivity {
     //function viewgraph onklick @+id/historie
     public void historie(View view) {
         //Creatiing new intent, which navigates to HistorieModulDrink on call
-        Intent intent = new Intent(ModulDrink.this, HistorieModulDrink.class);
+        Intent intent = new Intent(ModulCoffee.this, HistorieModulCoffee.class);
         startActivity(intent);
     }
 
