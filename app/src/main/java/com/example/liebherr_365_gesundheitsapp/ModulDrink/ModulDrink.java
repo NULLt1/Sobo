@@ -202,15 +202,20 @@ public class ModulDrink extends AppCompatActivity {
         // bind donutProgress to DonutProgress
         DonutProgress donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
 
+        // bind TextView to reached
+        TextView reached = (TextView) findViewById(R.id.reached);
+
         // setDonutProgress
         donutProgress.setProgress(donutProgressCounter);
 
         if (donutProgressCounter == 100) {
             // set finished color green
             donutProgress.setFinishedStrokeColor(Color.parseColor("#5CC053"));
+            reached.setText("ZIEL ERREICHT");
         } else {
             // set finished color blue
             donutProgress.setFinishedStrokeColor(Color.parseColor("#2c60ad"));
+            reached.setText("");
         }
     }
 

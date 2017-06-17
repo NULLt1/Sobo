@@ -75,5 +75,20 @@
         android:text="@string/nullstring"
         android:textSize="28sp" />
 
+    <TextView
+        android:id="@+id/reached"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/plus"
+        android:layout_alignStart="@+id/minus"
+        android:layout_below="@+id/minus"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="ZIEL ERREICHT"
+        android:textAlignment="center"
+        android:textColor="#5CC053"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
 
 </RelativeLayout>
