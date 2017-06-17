@@ -33,6 +33,7 @@ public class HistorieModulDrink extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // selected item
                 String selecteddate = ((TextView) view.findViewById(R.id.datum)).getText().toString();
+
                 //deletedata(getWindow().getDecorView().getRootView());
 
                 // create bundle and fill with values
