@@ -129,7 +129,6 @@ public class ModulCoffee extends AppCompatActivity {
         historieButton.setEnabled(true);
 
         // set color
-        historieButton.setBackgroundResource(R.color.colorPrimaryDark);
         historieButton.setTextColor(Color.parseColor("#FFFFFF"));
 
         // change alpha
@@ -145,7 +144,6 @@ public class ModulCoffee extends AppCompatActivity {
         historieButton.setEnabled(false);
 
         // set color
-        historieButton.setBackgroundResource(R.color.colorLightGrey);
         historieButton.setTextColor(Color.parseColor("#403f3f"));
 
         // change alpha
@@ -161,7 +159,6 @@ public class ModulCoffee extends AppCompatActivity {
         minusButton.setEnabled(true);
 
         // set color
-        minusButton.setBackgroundResource(R.color.colorPrimaryDark);
         minusButton.setTextColor(Color.parseColor("#FFFFFF"));
 
         // change alpha
@@ -177,7 +174,6 @@ public class ModulCoffee extends AppCompatActivity {
         minusButton.setEnabled(false);
 
         // set color
-        minusButton.setBackgroundResource(R.color.colorLightGrey);
         minusButton.setTextColor(Color.parseColor("#403f3f"));
 
         // change alpha

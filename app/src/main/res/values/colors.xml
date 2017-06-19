@@ -8,4 +8,7 @@
     <color name="colorLightGrey">#e3dfe2</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorNegativeButton">#f7f7f7</color>
+    <color name="grey">#413f3f</color>
+    <color name="blue">#0000FF</color>
+    <color name="red">#FF0000</color>
 </resources>

@@ -129,7 +129,6 @@ public class ModulDrink extends AppCompatActivity {
         historieButton.setEnabled(true);
 
         // set color
-        historieButton.setBackgroundResource(R.color.colorPrimaryDark);
         historieButton.setTextColor(Color.parseColor("#FFFFFF"));
 
         // change alpha
@@ -145,8 +144,7 @@ public class ModulDrink extends AppCompatActivity {
         historieButton.setEnabled(false);
 
         // set color
-        historieButton.setBackgroundResource(R.color.colorLightGrey);
-        historieButton.setTextColor(Color.parseColor("#403f3f"));
+        historieButton.setTextColor(Color.parseColor("#BDBDBD"));
 
         // change alpha
         historieButton.getBackground().setAlpha(45);
@@ -161,7 +159,6 @@ public class ModulDrink extends AppCompatActivity {
         minusButton.setEnabled(true);
 
         // set color
-        minusButton.setBackgroundResource(R.color.colorPrimaryDark);
         minusButton.setTextColor(Color.parseColor("#FFFFFF"));
 
         // change alpha
@@ -177,12 +174,13 @@ public class ModulDrink extends AppCompatActivity {
         minusButton.setEnabled(false);
 
         // set color
-        minusButton.setBackgroundResource(R.color.colorLightGrey);
-        minusButton.setTextColor(Color.parseColor("#403f3f"));
+        minusButton.setTextColor(Color.parseColor("#BDBDBD"));
 
         // change alpha
         minusButton.getBackground().setAlpha(45);
     }
+
+
 
     // function countUpDonutProgressCounter
     private void countUpDonutProgressCounter() {
