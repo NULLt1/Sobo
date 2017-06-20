@@ -151,6 +151,7 @@ public class NumberPickerModulWeight extends DialogFragment {
                     ChangeDataFragment.show(getFragmentManager(), "changeData");
                     getDialog().dismiss();
                 } else {
+                    //TODO: BUGGY wenn das Datum kleiner ist als da heutige (erster Eintrag)
                     // new DBHelperDataSource
                     dataSourceData = new DataSourceData(context);
                     dataSourceData.open();

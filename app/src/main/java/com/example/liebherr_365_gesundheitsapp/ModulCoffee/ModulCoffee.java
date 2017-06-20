@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
-import com.example.liebherr_365_gesundheitsapp.ModulDrink.HistorieModulDrink;
-import com.example.liebherr_365_gesundheitsapp.ModulDrink.ModulDrink;
+
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
@@ -47,6 +47,7 @@ public class ModulCoffee extends AppCompatActivity {
             entryExists();
         }
 
+
         if (dataExisting()) {
             enableHistorieButton();
         } else {
@@ -59,6 +60,7 @@ public class ModulCoffee extends AppCompatActivity {
         } else {
             enableMinusButton();
         }
+
 
         // bind donutProgress to DonutProgress
         DonutProgress donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
@@ -123,7 +125,7 @@ public class ModulCoffee extends AppCompatActivity {
     // function enableButtons
     private void enableHistorieButton() {
         // bind historieButton to Button
-        Button historieButton = (Button) findViewById(R.id.historie);
+        Button historieButton = (Button) findViewById(R.id.historie_coffee);
 
         // enable Buttons
         historieButton.setEnabled(true);
@@ -132,13 +134,13 @@ public class ModulCoffee extends AppCompatActivity {
         historieButton.setTextColor(Color.parseColor("#FFFFFF"));
 
         // change alpha
-        historieButton.getBackground().setAlpha(255);
+        historieButton.getBackground().setAlpha(45);
     }
 
     // function disableButtons
     private void disableHistorieButton() {
         // bind historieButton to Button
-        Button historieButton = (Button) findViewById(R.id.historie);
+        Button historieButton = (Button) findViewById(R.id.historie_coffee);
 
         // disable Button
         historieButton.setEnabled(false);
@@ -152,32 +154,38 @@ public class ModulCoffee extends AppCompatActivity {
 
     // function enableButtons
     private void enableMinusButton() {
+        Log.d("TRIGGER", "~~~~~~~~");
+        Log.d("TRIGGER", "~~~~~~~~");
+        Log.d("TRIGGER", "~~~~~~~~");
+        Log.d("TRIGGER", "~~~~~~~~");
+        Log.d("TRIGGER", "~~~~~~~~");
+
         // bind minusButton to Button
-        Button minusButton = (Button) findViewById(R.id.minus);
+        Button minusButton = (Button) findViewById(R.id.minus_coffee);
 
         // enable Buttons
         minusButton.setEnabled(true);
 
-        // set color
-        minusButton.setTextColor(Color.parseColor("#FFFFFF"));
-
         // change alpha
         minusButton.getBackground().setAlpha(255);
+
+        // set color
+        minusButton.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     // function disableButtons
     private void disableMinusButton() {
         // bind minusButton to Button
-        Button minusButton = (Button) findViewById(R.id.minus);
+        Button minusButton = (Button) findViewById(R.id.minus_coffee);
 
         // disable Button
         minusButton.setEnabled(false);
 
-        // set color
-        minusButton.setTextColor(Color.parseColor("#403f3f"));
-
         // change alpha
         minusButton.getBackground().setAlpha(45);
+
+        // set color
+        minusButton.setTextColor(Color.parseColor("#403f3f"));
     }
 
     // function countUpDonutProgressCounter
