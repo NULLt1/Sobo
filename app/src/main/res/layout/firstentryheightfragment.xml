@@ -16,7 +16,8 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/größe"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp" />
 
     <NumberPicker
         android:id="@+id/height"
@@ -27,5 +28,8 @@
         android:id="@+id/weiter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/weiter" />
+        android:background="@color/colorAccent"
+        android:text="@string/weiter"
+        android:textColor="@color/colorButtonTextWhite"
+        android:textSize="14sp" />
 </LinearLayout>

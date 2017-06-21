@@ -16,7 +16,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/glasses"
-        android:textSize="18sp" />
+        android:textColor="@color/colorDarkGrey"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/save"
@@ -25,6 +26,6 @@
         android:layout_weight="1"
         android:background="@color/colorAccent"
         android:text="@string/speichern"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorButtonTextWhite"
         android:textSize="14sp" />
 </LinearLayout>

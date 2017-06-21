@@ -5,10 +5,12 @@
     <color name="colorAccent">#6cc0ae</color>
     <color name="colorLightGreen">#7f7d7f</color>
     <color name="colorDarkGrey">#7f7d7f</color>
-    <color name="colorLightGrey">#e3dfe2</color>
+    <color name="colorLightGrey">#f7f7f7</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorNegativeButton">#f7f7f7</color>
-    <color name="grey">#413f3f</color>
-    <color name="blue">#0000FF</color>
-    <color name="red">#FF0000</color>
+    <color name="colorRed">#bf0000</color>
+    <color name="colorBlue">#0a0c7f</color>
+    <color name="colorButtonText">#7f7d7f</color>
+    <color name="colorButtonTextWhite">#ffffff</color>
+    <color name="colorAccentLight">#cdf5ec</color>
 </resources>

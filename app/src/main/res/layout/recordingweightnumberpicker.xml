@@ -50,18 +50,23 @@
         android:id="@+id/speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/kg"
-        android:layout_alignRight="@+id/kg"
+        android:background="@color/colorAccent"
+        android:text="@string/speichern"
+        android:textColor="@color/colorButtonTextWhite"
+        android:textSize="14sp"
         android:layout_below="@+id/komma"
-        android:text="@string/speichern" />
+        android:layout_alignEnd="@+id/kg"
+        android:layout_toEndOf="@+id/komma" />
 
     <Button
         android:id="@+id/später"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/speichern"
-        android:layout_alignBottom="@+id/speichern"
-        android:layout_toLeftOf="@+id/speichern"
-        android:layout_toStartOf="@+id/speichern"
-        android:text="@string/später" />
+        android:background="@color/colorAccent"
+        android:text="@string/später"
+        android:textColor="@color/colorButtonTextWhite"
+        android:textSize="14sp"
+        android:layout_below="@+id/komma"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/speichern" />
 </RelativeLayout>

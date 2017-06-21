@@ -56,7 +56,7 @@ public class ListViewAdapterOverView extends BaseAdapter {
 
 
         ImageView icon = (ImageView) itemView.findViewById(R.id.imageViewOverViewIcon);
-        if(data.get(0).getModul().equals("Mensa")) {
+        if(data.get(0).getModul().equals("Kantine")) {
             icon.setImageResource(R.drawable.vector_modulmensa);
         }
         LinearLayout container = (LinearLayout) itemView.findViewById(R.id.linearLayoutOverViewContainer);

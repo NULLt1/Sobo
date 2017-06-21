@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.HistorieModulWeight;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
 
@@ -65,6 +68,7 @@ public class ModulDrink extends AppCompatActivity {
 
         // set donutProgess text
         donutProgress.setPrefixText("Gläser");
+        donutProgress.setTextColor(Color.parseColor("#7f7d7f"));
     }
 
     //function minusTrigger onklick @+id/minus
@@ -129,7 +133,8 @@ public class ModulDrink extends AppCompatActivity {
         historieButton.setEnabled(true);
 
         // set color
-        historieButton.setTextColor(Color.parseColor("#FFFFFF"));
+        historieButton.setBackgroundResource(R.color.colorWhite);
+        historieButton.setTextColor(Color.parseColor("#403f3f"));
 
         // change alpha
         historieButton.getBackground().setAlpha(255);
@@ -144,10 +149,11 @@ public class ModulDrink extends AppCompatActivity {
         historieButton.setEnabled(false);
 
         // set color
-        historieButton.setTextColor(Color.parseColor("#BDBDBD"));
+        historieButton.setBackgroundResource(R.color.colorWhite);
+        historieButton.setTextColor(Color.parseColor("#e3dfe2"));
 
         // change alpha
-        historieButton.getBackground().setAlpha(45);
+        //historieButton.getBackground().setAlpha(45);
     }
 
     // function enableButtons
@@ -159,10 +165,11 @@ public class ModulDrink extends AppCompatActivity {
         minusButton.setEnabled(true);
 
         // set color
-        minusButton.setTextColor(Color.parseColor("#FFFFFF"));
+        minusButton.setBackgroundResource(R.color.colorWhite);
+        minusButton.setTextColor(Color.parseColor("#403f3f"));
 
         // change alpha
-        minusButton.getBackground().setAlpha(255);
+        //minusButton.getBackground().setAlpha(255);
     }
 
     // function disableButtons
@@ -174,13 +181,12 @@ public class ModulDrink extends AppCompatActivity {
         minusButton.setEnabled(false);
 
         // set color
-        minusButton.setTextColor(Color.parseColor("#BDBDBD"));
+        minusButton.setBackgroundResource(R.color.colorWhite);
+        minusButton.setTextColor(Color.parseColor("#e3dfe2"));
 
         // change alpha
-        minusButton.getBackground().setAlpha(45);
+        //minusButton.getBackground().setAlpha(45);
     }
-
-
 
     // function countUpDonutProgressCounter
     private void countUpDonutProgressCounter() {

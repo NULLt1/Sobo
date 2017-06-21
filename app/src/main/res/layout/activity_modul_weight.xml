@@ -17,7 +17,7 @@
         android:drawableBottom="@drawable/ic_add_black_24dp"
         android:onClick="newweight"
         android:padding="15dp"
-        android:textColor="@color/colorLightGrey" />
+        android:textColor="@color/colorButtonTextWhite" />
 
     <ListView
         android:id="@+id/listview"
@@ -37,12 +37,12 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="viewgraph"
         android:text="@string/diagramm"
-        android:textColor="@color/colorLightGrey"
+        android:textColor="@color/colorButtonText"
         android:textSize="14sp" />
 
     <Button
@@ -54,12 +54,12 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="historie"
         android:text="@string/historie"
-        android:textColor="@color/colorLightGrey"
+        android:textColor="@color/colorButtonText"
         android:textSize="14sp" />
 
     <TextView
@@ -121,12 +121,11 @@
         android:id="@+id/weightdifference"
         android:layout_width="wrap_content"
         android:layout_height="26sp"
-        android:layout_alignBottom="@+id/firstweight"
-        android:layout_alignTop="@+id/firstweight"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/zero"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_above="@+id/plus"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
 

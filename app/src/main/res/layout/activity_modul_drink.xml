@@ -13,12 +13,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="historie"
         android:text="@string/historie"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorDarkGrey"
         android:textSize="14sp" />
 
     <com.github.lzyzsd.circleprogress.DonutProgress
@@ -28,68 +28,52 @@
         android:layout_below="@id/historie"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        custom:donut_finished_color="#2c60ad"
+        custom:donut_finished_color="@color/colorAccentLight"
         custom:donut_finished_stroke_width="15dp"
         custom:donut_progress="0"
         custom:donut_show_text="true"
         custom:donut_text="Gläser (250ml)"
         custom:donut_text_color="#000000"
-        custom:donut_unfinished_color="#c0d0e8"
+        custom:donut_unfinished_color="@color/colorAccentLight"
         custom:donut_unfinished_stroke_width="15dp" />
 
     <Button
         android:id="@+id/minus"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignStart="@+id/donut_progress"
         android:layout_below="@+id/donut_progress"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="20dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_toStartOf="@+id/historie"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:onClick="minusTrigger"
         android:text="@string/minus"
+        android:textColor="@color/colorButtonText"
         android:textSize="28sp" />
 
     <Button
         android:id="@+id/plus"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignEnd="@+id/donut_progress"
-        android:layout_below="@+id/donut_progress"
-        android:layout_marginEnd="20dp"
-        android:background="@color/grey"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:onClick="plusTrigger"
         android:text="@string/plus"
-        android:textColor="@color/colorPrimary"
-        android:textSize="28sp" />
+        android:textColor="@color/colorButtonText"
+        android:textSize="28sp"
+        android:layout_below="@+id/donut_progress"
+        android:layout_toEndOf="@+id/historie" />
 
     <TextView
         android:id="@+id/glasses"
         android:layout_width="70dp"
-        android:layout_height="100dp"
-        android:layout_alignBottom="@+id/plus"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/minus"
         android:layout_below="@+id/donut_progress"
-        android:layout_toEndOf="@+id/minus"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/nullstring"
-        android:textSize="28sp" />
-
-    <TextView
-        android:id="@+id/reached"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/plus"
-        android:layout_alignStart="@+id/minus"
-        android:layout_below="@+id/minus"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="#5CC053"
-        android:textSize="26sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorButtonText"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

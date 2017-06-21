@@ -11,6 +11,8 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp"
+    android:scrollIndicators="right"
+    android:scrollbarStyle="insideOverlay"
     android:scrollbars="horizontal"
     android:stretchMode="columnWidth"
     android:verticalSpacing="10dp"

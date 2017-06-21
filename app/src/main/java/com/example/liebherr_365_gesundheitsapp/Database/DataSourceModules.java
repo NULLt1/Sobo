@@ -48,7 +48,7 @@ public class DataSourceModules {
     public void insertdefaultmodules() {
         Cursor cursor = getAllDataCursor();
         if (cursor.getCount() == 0) {
-            insertmodules("Mensa", "ModulMensa", true);
+            insertmodules("Kantine", "ModulMensa", true);
             insertmodules("Gewicht", "ModulWeight", false);
             insertmodules("Tipp des Tages", "ModulTipOfTheDay", true);
             insertmodules("Trinken", "ModulDrink", false);

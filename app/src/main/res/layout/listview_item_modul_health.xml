@@ -30,14 +30,18 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="Zeitraum " />
+                android:background="@color/colorDarkGrey"
+                android:text="Zeitraum "
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Kosten" />
+                android:background="@color/colorDarkGrey"
+                android:text="Kosten"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -45,7 +49,10 @@
                 android:layout_height="match_parent"
 
                 android:layout_weight="1"
-                android:text="Status" />
+                android:background="@color/colorDarkGrey"
+                android:text="Status"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>
