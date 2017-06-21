@@ -237,25 +237,25 @@ public class ModulWeight extends AppCompatActivity {
     private static void disableButtons() {
         // set deletebutton disabled and change opacity
         diagrammbutton.setEnabled(false);
-        diagrammbutton.getBackground().setAlpha(45);
-        diagrammbutton.setTextColor(Color.parseColor("#BDBDBD"));
+        //diagrammbutton.getBackground().setAlpha(45);
+        diagrammbutton.setTextColor(Color.parseColor("#403f3f"));
 
         // set deletebutton disabled and change opacity
         historiebutton.setEnabled(false);
         historiebutton.getBackground().setAlpha(45);
-        historiebutton.setTextColor(Color.parseColor("#BDBDBD"));
+        historiebutton.setTextColor(Color.parseColor("#403f3f"));
     }
 
     private static void activateButtons() {
         // set deletebutton disabled and change opacity
         diagrammbutton.setEnabled(true);
-        diagrammbutton.getBackground().setAlpha(255);
-        diagrammbutton.setTextColor(Color.parseColor("#FFFFFF"));
+        //diagrammbutton.getBackground().setAlpha(255);
+        diagrammbutton.setTextColor(Color.parseColor("#403f3f"));
 
         // set deletebutton disabled and change opacity
         historiebutton.setEnabled(true);
-        historiebutton.getBackground().setAlpha(255);
-        historiebutton.setTextColor(Color.parseColor("#FFFFFF"));
+        //historiebutton.getBackground().setAlpha(255);
+        historiebutton.setTextColor(Color.parseColor("#403f3f"));
     }
 
     //function getWeightGoal

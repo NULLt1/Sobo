@@ -288,12 +288,12 @@ public class NumberPickerModulWeight extends DialogFragment {
         // set deletebutton enabled and change opacity, color
         diagrammbutton.setEnabled(true);
         diagrammbutton.getBackground().setAlpha(255);
-        diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+        diagrammbutton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
         // set deletebutton enabled and change opacity, color
         historiebutton.setEnabled(true);
         historiebutton.getBackground().setAlpha(255);
-        historiebutton.setTextColor(getResources().getColor(R.color.colorPrimary));
+        historiebutton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
     private void setWeightDifference(float weight) {
