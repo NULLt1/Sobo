@@ -159,8 +159,22 @@ public class NumberPickerModulWeight extends DialogFragment {
                     // call function insertdata
                     dataSourceData.insertdata(wd);
 
+                    //call function activatebuttons
+                    activatebuttons();
+
+
+                    // SOMETHING IS WRONG HERE!!!!
+
+
                     // getLatestEntryDatum
                     String lastdatum = dataSourceData.getLatestEntryDatum("ModulWeight");
+
+                    Log.d("FIRSTWEIGHT", String.valueOf(lastdatum));
+                    Log.d("FIRSTWEIGHT", String.valueOf(lastdatum));
+                    Log.d("FIRSTWEIGHT", String.valueOf(lastdatum));
+                    Log.d("FIRSTWEIGHT", String.valueOf(lastdatum));
+                    Log.d("FIRSTWEIGHT", String.valueOf(lastdatum));
+
 
                     String lastdaystring = lastdatum.substring(8, 10);
                     int lastday = Integer.parseInt(lastdaystring);
@@ -179,8 +193,7 @@ public class NumberPickerModulWeight extends DialogFragment {
 
                     ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
-                    //call function activatebuttons
-                    activatebuttons();
+
 
                     Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");
                     dataSourceData.close();

@@ -52,7 +52,14 @@ public class DataSourceData {
         values.put(Queries.COLUMN_PHYSICAL_VALUES, data.getPhysicalvalues());
         values.put(Queries.COLUMN_TYPE, data.getType());
 
-        databaseData.insert(Queries.TABLE_DATA, null, values);
+        try {
+            databaseData.beginTransaction();
+            databaseData.insert(Queries.TABLE_DATA, null, values);
+            databaseData.setTransactionSuccessful();
+        } finally {
+            databaseData.endTransaction();
+        }
+
     }
 
     //function deletesingledata in database
@@ -157,16 +164,20 @@ public class DataSourceData {
 
     //function getLatestWeight
     public float getLatestEntry(String modulname) {
-        String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
-        String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='" + modulname + "' ORDER BY " + Queries.COLUMN_DATE + " DESC";
+        Cursor databaseweightresult = databaseData.rawQuery(query, null);
 
-        Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
-        cursor.moveToFirst();
-        if (cursor.getCount() == 0) {
+        databaseweightresult.moveToFirst();
+        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
+        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
+        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
+        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
+        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
+        if (databaseweightresult.getCount() == 0) {
             return 0;
         } else {
-            int ID = cursor.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
-            float value = cursor.getFloat(ID);
+            int ID = databaseweightresult.getColumnIndex(Queries.COLUMN_PHYSICAL_VALUES);
+            float value = databaseweightresult.getFloat(ID);
 
             return value;
         }
@@ -174,16 +185,16 @@ public class DataSourceData {
 
     // function getFirstWeight
     public String getLatestEntryDatum(String modulname) {
-        String queryMaxDate = "(SELECT MAX(" + Queries.COLUMN_DATE + ") from " + Queries.TABLE_DATA + ")";
-        String queryWhere = Queries.COLUMN_DATE + " = " + queryMaxDate + " AND " + Queries.COLUMN_MODUL + " ='" + modulname + "'";
+        String query = "SELECT * FROM " + Queries.TABLE_DATA + " WHERE " + Queries.COLUMN_MODUL + "='" + modulname + "' ORDER BY " + Queries.COLUMN_DATE + " DESC";
+        Cursor databaseweightresult = databaseData.rawQuery(query, null);
 
-        Cursor cursor = databaseData.query(Queries.TABLE_DATA, COLUMNS, queryWhere, null, null, null, null);
-        cursor.moveToFirst();
-        if (cursor.getCount() == 0) {
+        databaseweightresult.moveToFirst();
+
+        if (databaseweightresult.getCount() == 0) {
             return null;
         } else {
-            int WeightID = cursor.getColumnIndex(Queries.COLUMN_DATE);
-            String latestEntryDatum = cursor.getString(WeightID);
+            int WeightID =databaseweightresult.getColumnIndex(Queries.COLUMN_DATE);
+            String latestEntryDatum =databaseweightresult.getString(WeightID);
 
             return latestEntryDatum;
         }

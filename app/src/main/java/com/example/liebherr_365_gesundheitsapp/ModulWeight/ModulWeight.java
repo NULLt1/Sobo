@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -129,7 +130,11 @@ public class ModulWeight extends AppCompatActivity {
 
         // getFirstWeight
         firstweight = dataSourceData.getLatestEntry("ModulWeight");
-
+        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
+        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
+        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
+        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
+        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
         // handle empty db
         if (firstweight == 0) {
             disableButtons();
