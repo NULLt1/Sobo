@@ -50,7 +50,7 @@ public class ModulesCursorAdapterSwitch extends CursorAdapter {
         // Extract properties from cursor
         final String modulName = cursor.getString(cursor.getColumnIndexOrThrow(Queries.COLUMN_NAME));
         Log.d("Modulname", modulName);
-        if (modulName.equals("Kantine")) {
+        if (modulName.equals("Mensa") | modulName.equals("Kantine")) {
             switchModuleStatus.setEnabled(false);
 
         }
