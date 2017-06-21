@@ -211,11 +211,11 @@ public class ModulDrink extends AppCompatActivity {
 
         if (donutProgressCounter == 100) {
             // set finished color green
-            donutProgress.setFinishedStrokeColor(Color.parseColor("#5CC053"));
+            donutProgress.setFinishedStrokeColor(Color.parseColor("#7f7d7f"));
             reached.setText(R.string.target_reached);
         } else {
             // set finished color blue
-            donutProgress.setFinishedStrokeColor(Color.parseColor("#2c60ad"));
+            donutProgress.setFinishedStrokeColor(Color.parseColor("#6cc0ae"));
             reached.setText("");
         }
     }

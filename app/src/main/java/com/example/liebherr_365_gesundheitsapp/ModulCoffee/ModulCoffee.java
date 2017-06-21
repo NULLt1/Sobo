@@ -131,10 +131,10 @@ public class ModulCoffee extends AppCompatActivity {
         historieButton.setEnabled(true);
 
         // set color
-        historieButton.setTextColor(Color.parseColor("#FFFFFF"));
+        historieButton.setTextColor(Color.parseColor("#7f7d7f"));
 
         // change alpha
-        historieButton.getBackground().setAlpha(45);
+        //historieButton.getBackground().setAlpha(45);
     }
 
     // function disableButtons
@@ -146,20 +146,14 @@ public class ModulCoffee extends AppCompatActivity {
         historieButton.setEnabled(false);
 
         // set color
-        historieButton.setTextColor(Color.parseColor("#403f3f"));
+        historieButton.setTextColor(Color.parseColor("#f7f7f7"));
 
         // change alpha
-        historieButton.getBackground().setAlpha(45);
+        //historieButton.getBackground().setAlpha(45);
     }
 
     // function enableButtons
     private void enableMinusButton() {
-        Log.d("TRIGGER", "~~~~~~~~");
-        Log.d("TRIGGER", "~~~~~~~~");
-        Log.d("TRIGGER", "~~~~~~~~");
-        Log.d("TRIGGER", "~~~~~~~~");
-        Log.d("TRIGGER", "~~~~~~~~");
-
         // bind minusButton to Button
         Button minusButton = (Button) findViewById(R.id.minus_coffee);
 
@@ -170,7 +164,7 @@ public class ModulCoffee extends AppCompatActivity {
         minusButton.getBackground().setAlpha(255);
 
         // set color
-        minusButton.setTextColor(Color.parseColor("#FFFFFF"));
+        minusButton.setTextColor(Color.parseColor("#7f7d7f"));
     }
 
     // function disableButtons
@@ -182,10 +176,10 @@ public class ModulCoffee extends AppCompatActivity {
         minusButton.setEnabled(false);
 
         // change alpha
-        minusButton.getBackground().setAlpha(45);
+        //minusButton.getBackground().setAlpha(45);
 
         // set color
-        minusButton.setTextColor(Color.parseColor("#403f3f"));
+        minusButton.setTextColor(Color.parseColor("#f7f7f7"));
     }
 
     // function countUpDonutProgressCounter

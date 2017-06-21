@@ -54,14 +54,14 @@
         android:id="@+id/plus"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_below="@+id/donut_progress"
+        android:layout_toEndOf="@+id/historie"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:onClick="plusTrigger"
         android:text="@string/plus"
         android:textColor="@color/colorButtonText"
-        android:textSize="28sp"
-        android:layout_below="@+id/donut_progress"
-        android:layout_toEndOf="@+id/historie" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/glasses"
@@ -75,5 +75,19 @@
         android:textColor="@color/colorButtonText"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/reached"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/plus"
+        android:layout_alignStart="@+id/minus"
+        android:layout_below="@+id/minus"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

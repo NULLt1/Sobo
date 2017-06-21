@@ -28,7 +28,7 @@
     <string name="ja">Ja</string>
     <string name="nein">Nein</string>
     <string name="weiter">Weiter</string>
-    <string name="firstentrytext">Das Gewichtsmodul benötigt vorab noch ein paar Informationen um den BMI berechnen zu können</string>
+    <string name="firstentrytext">Das Gewichtsmodul benötigt vorab noch ein paar Informationen, um den BMI berechnen zu können.</string>
     <string name="fertig">fertig</string>
     <string name="größe">Körpergröße in Zentimeter</string>
     <string name="alter">Alter</string>
