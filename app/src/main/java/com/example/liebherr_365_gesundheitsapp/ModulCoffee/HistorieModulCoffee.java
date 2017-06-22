@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
- import com.example.liebherr_365_gesundheitsapp.R;
+import com.example.liebherr_365_gesundheitsapp.R;
 
 public class HistorieModulCoffee extends AppCompatActivity {
     public static CursorAdapterCoffee adapter;
@@ -25,6 +25,9 @@ public class HistorieModulCoffee extends AppCompatActivity {
 
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
+
+        TextView historie = (TextView) findViewById(R.id.historie);
+        historie.setText(R.string.historie_coffee);
 
         // onItemClickListener
         weightlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -24,6 +24,9 @@ public class HistorieModulDrink extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_historie);
 
+        TextView historie = (TextView) findViewById(R.id.historie);
+        historie.setText(R.string.histore_drink);
+
         // bind weightlist to Listview
         ListView weightlist = (ListView) findViewById(R.id.listview);
 
