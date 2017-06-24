@@ -41,7 +41,7 @@ public class NumberPickerSingleDataRecordCoffee extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // inflate our custom layout for the dialog to a View
-        View view = li.inflate(R.layout.numberpickerdrink, null);
+        View view = li.inflate(R.layout.numberpickercoffee, null);
 
         //Intialize glasspicker as numberpicker to use functions
         final NumberPicker glassespicker = (NumberPicker) view.findViewById(R.id.glasses);
@@ -54,9 +54,11 @@ public class NumberPickerSingleDataRecordCoffee extends DialogFragment {
             }
         });
 
+        SavedSharedPrefrencesModulCoffee.setSharedPreferences(getContext());
+
         //Set interger Value 1-5
         glassespicker.setMinValue(1);
-        glassespicker.setMaxValue(5);
+        glassespicker.setMaxValue(SavedSharedPrefrencesModulCoffee.getCups());
         glassespicker.setBackgroundColor(Color.GRAY);
         glassespicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 

@@ -7,6 +7,9 @@
     <string name="komma">,</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Strings ModulCoffee -->
+    <string name="cups">Anzahl\nTassen</string>
+
     <!-- Strings ModulDrink -->
     <string name="minus">-</string>
     <string name="placeholder">-</string>

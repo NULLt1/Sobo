@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.DeleteDataDrink;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 public class SettingsActivityModulCoffee extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
