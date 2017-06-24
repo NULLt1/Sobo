@@ -96,6 +96,7 @@ public class SingleDataRecordWeight extends DialogFragment {
                     Log.d("Excecption", String.valueOf(e));
                 }
 
+                // change cursor
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
                 // handle empty db

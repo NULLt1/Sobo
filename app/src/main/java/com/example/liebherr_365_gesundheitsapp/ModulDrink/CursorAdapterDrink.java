@@ -32,7 +32,7 @@ class CursorAdapterDrink extends CursorAdapter {
         datum = formateDatum(datum);
         textViewdatum.setText(datum);
 
-        //set text weight
+        //set text glasses
         String glasses = cursor.getString(cursor.getColumnIndexOrThrow(Queries.getColumnPhysicalValues()));
 
         // add type
