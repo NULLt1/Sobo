@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.HistorieModulWeight;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.SettingsActivityModulWeight;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
 
@@ -28,13 +25,29 @@ import java.util.Locale;
 public class ModulDrink extends AppCompatActivity {
     // new DataSourceData
     private DataSourceData dataSourceData;
-    private int glassCounter = 0;
+    private static int glassCounter = 0;
     private float donutProgressCounter;
-    private int maxGlasses = 8;
+    static private float donutIncrement = 0f;
+    static int maxGlasses;
+    static int liter;
+
+    public static void resetGlassCounter() {
+        glassCounter = 0;
+    }
+
+    public static void setLiter(int liter) {
+        ModulDrink.liter = liter;// call function calculateDonutIncrement
+        calculateDonutIncrement();
+    }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        donutProgressCounter = 0;
+        countUpDonutProgressCounterLoop();
+        setDonutProgress();
+        setGlassesText();
 
         if (glassCounter == 0) {
             // disableButtons if glassCounter == 0
@@ -45,9 +58,15 @@ public class ModulDrink extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SavedSharedPrefrencesModulDrink.setSharedPreferences(this);
+
+        liter = SavedSharedPrefrencesModulDrink.getLiter();
 
         // setContentView
         setContentView(R.layout.activity_modul_drink);
+
+        // call function calculateDonutIncrement
+        calculateDonutIncrement();
 
         if (entryAlreadyExisting()) {
             // entryExisting
@@ -215,12 +234,30 @@ public class ModulDrink extends AppCompatActivity {
 
     // function countUpDonutProgressCounter
     private void countUpDonutProgressCounter() {
-        donutProgressCounter += 12.5f;
+        if (glassCounter >= maxGlasses) {
+            donutProgressCounter = 100f;
+        } else {
+            donutProgressCounter += donutIncrement;
+        }
     }
 
     // function countDownDonutProgressCounter
     private void countDownDonutProgressCounter() {
-        donutProgressCounter -= 12.5f;
+        if (glassCounter == 0) {
+            donutProgressCounter = 0f;
+        } else {
+            donutProgressCounter -= donutIncrement;
+        }
+    }
+
+    // function calculate donutIncrement
+    private static void calculateDonutIncrement() {
+        maxGlasses = liter * 1000 / 250;
+        donutIncrement = 100 / maxGlasses;
+
+        Log.d("Dount", String.valueOf(maxGlasses));
+
+        Log.d("Dount", String.valueOf(donutIncrement));
     }
 
     // function setDonutProgress
@@ -344,6 +381,15 @@ public class ModulDrink extends AppCompatActivity {
 
         // setDonutProgress
         setDonutProgress();
+    }
+
+    // function countUpDonutProgressCounterLoop
+    private void countUpDonutProgressCounterLoop() {
+        for (int i = 1; i <= glassCounter; i++) {
+            if (donutProgressCounter < 100) {
+                countUpDonutProgressCounter();
+            }
+        }
     }
 
     // function entryAlreadyExisting

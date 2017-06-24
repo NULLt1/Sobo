@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.ModulCoffee.ModulCoffee;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.NumberPickerSingleDataRecordWeight;
 import com.example.liebherr_365_gesundheitsapp.R;
 
@@ -85,6 +86,9 @@ public class SingleDataRecordDrink extends DialogFragment {
 
                 Data data = new Data(ModulDrinkString, datum);
 
+                if (datum.equals(dataSourceData.getLatestEntryDatum("ModulDrink"))) {
+                    ModulDrink.resetGlassCounter();
+                }
                 //call function deletesingledata
                 dataSourceData.deletesingledata(data);
 

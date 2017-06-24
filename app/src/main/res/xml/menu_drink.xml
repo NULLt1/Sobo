@@ -2,10 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="preferenceScreen">
 
-    <com.example.preference.NumberPickerPreference
-        android:defaultValue="55"
-        android:key="key_number"
-        android:title="Give me a number" />
+    <com.example.liebherr_365_gesundheitsapp.ModulDrink.NumberPickerPreferenceDrink
+        android:defaultValue="5"
+        android:key="glasses"
+        android:title="Wasser (in Liter)" />
 
     <Preference
         android:key="@string/deletedata"

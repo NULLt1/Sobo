@@ -258,7 +258,6 @@ public class ModulCoffee extends AppCompatActivity {
     // function calculate donutIncrement
     private static void calculateDonutIncrement() {
         donutIncrement = 100 / maxGlasses;
-        Log.d("donutIncrement", String.valueOf(donutIncrement));
     }
 
     // function setDonutProgress

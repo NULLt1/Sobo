@@ -19,13 +19,10 @@ public class SettingsActivityModulCoffee extends AppCompatPreferenceActivity imp
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.menu_coffee);
 
-        SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
-
         Preference button = findPreference(getString(R.string.deletedata));
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Log.d("Clicked", "Clicked");
                 DialogFragment deletedata = new DeleteDataCoffee();
                 deletedata.show(getFragmentManager(), "DeleteDataCoffee");
                 return true;

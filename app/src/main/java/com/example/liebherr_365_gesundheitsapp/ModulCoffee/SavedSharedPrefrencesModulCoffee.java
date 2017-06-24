@@ -19,6 +19,6 @@ class SavedSharedPrefrencesModulCoffee {
 
     static void setSharedPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        cups = Integer.parseInt(String.valueOf(sharedPreferences.getInt("cups", 0)));
+        cups = Integer.parseInt(String.valueOf(sharedPreferences.getInt("cups", 2)));
     }
 }
