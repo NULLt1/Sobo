@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="preferenceScreen">
+
+    <com.example.preference.NumberPickerPreference
+        android:defaultValue="55"
+        android:key="key_number"
+        android:title="Give me a number" />
+
+    <Preference
+        android:key="@string/deletedata"
+        android:title="Datensätze löschen" />
+</PreferenceScreen>

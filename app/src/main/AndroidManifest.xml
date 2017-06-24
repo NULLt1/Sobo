@@ -79,6 +79,14 @@
                 android:value=".MainMenu" />
         </activity>
         <activity
+            android:name=".ModulDrink.SettingsActivityModulDrink"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ModulDrink.ModulDrink" />
+        </activity>
+        <activity
             android:name=".ModulDrink.HistorieModulDrink"
             android:parentActivityName=".ModulDrink.ModulDrink"
             android:screenOrientation="portrait">
@@ -93,6 +101,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenu" />
+        </activity>
+        <activity
+            android:name=".ModulCoffee.SettingsActivityModulCoffee"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ModulCoffee.ModulCoffee" />
         </activity>
         <activity
             android:name=".ModulCoffee.HistorieModulCoffee"

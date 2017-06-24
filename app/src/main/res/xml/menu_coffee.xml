@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="preferenceScreen">
+
+    <com.example.liebherr_365_gesundheitsapp.ModulCoffee.NumberPickerPreferenceCoffee
+        android:defaultValue="4"
+        android:key="key_number"
+        android:title="Anzahl Tassen" />
+
+    <Preference
+        android:key="@string/deletedata"
+        android:title="Datensätze löschen" />
+</PreferenceScreen>

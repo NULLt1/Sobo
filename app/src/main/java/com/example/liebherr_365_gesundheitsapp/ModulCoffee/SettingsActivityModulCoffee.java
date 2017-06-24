@@ -1,49 +1,32 @@
-package com.example.liebherr_365_gesundheitsapp.ModulWeight;
-
+package com.example.liebherr_365_gesundheitsapp.ModulCoffee;
 
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
-import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
-import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.DeleteData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-public class SettingsActivityModulWeight extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsActivityModulCoffee extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.menu_weight);
+        addPreferencesFromResource(R.xml.menu_coffee);
+
+        /*
         SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
 
-        // height
-        EditTextPreference editTextPref = (EditTextPreference) findPreference("height");
-        editTextPref.setSummary(sp.getString("height", null) + " cm");
-
-        // age
-        editTextPref = (EditTextPreference) findPreference("age");
-        editTextPref.setSummary(sp.getString("age", null) + " Jahre");
-
-        // gender
-        Preference listPreference = getPreferenceManager().findPreference("gender");
-
-        // changelistener for gender
-        listPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                String userSelectedValue = (String) newValue;
-                SavedSharedPrefrencesModulWeight.setGender(Integer.parseInt(userSelectedValue));
-                BmiCalculator.setRecBmi();
-                return true;
-            }
-        });
+        // cups
+        EditTextPreference editTextPref = (EditTextPreference) findPreference("cups");
+        editTextPref.setSummary(sp.getString("Tassen", null));
+        */
 
         Preference button = findPreference(getString(R.string.deletedata));
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -56,6 +39,7 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
             }
         });
 
+        /*
         // new DBHelperDataSource
         DataSourceData dataSourceData = new DataSourceData(this);
         dataSourceData.open();
@@ -72,6 +56,7 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
 
         // close db connection
         dataSourceData.close();
+        */
     }
 
     @Override
@@ -105,6 +90,7 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         String value = "";
 
+        /*
         Preference pref = findPreference(key);
         if (pref instanceof EditTextPreference) {
             EditTextPreference etp = (EditTextPreference) pref;
@@ -115,14 +101,13 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
                 case "age":
                     value = " Jahre";
                     // call function setAge
-                    SavedSharedPrefrencesModulWeight.setAge(Integer.parseInt(etp.getText()));
-                    BmiCalculator.setRecBmi();
                     break;
                 default:
                     value = "";
             }
             pref.setSummary(etp.getText() + value);
         }
-        BmiCalculator.calculateBmi(this);
+        */
     }
 }
+

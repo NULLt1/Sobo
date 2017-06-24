@@ -130,11 +130,7 @@ public class ModulWeight extends AppCompatActivity {
 
         // getFirstWeight
         firstweight = dataSourceData.getLatestEntry("ModulWeight");
-        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
-        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
-        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
-        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
-        Log.d("FIRSTWEIGHT", String.valueOf(firstweight));
+
         // handle empty db
         if (firstweight == 0) {
             disableButtons();

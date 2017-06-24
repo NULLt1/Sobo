@@ -3,8 +3,11 @@ package com.example.liebherr_365_gesundheitsapp.ModulDrink;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.HistorieModulWeight;
 import com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.SettingsActivityModulWeight;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
 
@@ -69,6 +73,27 @@ public class ModulDrink extends AppCompatActivity {
         // set donutProgess text
         donutProgress.setPrefixText("Gläser");
         donutProgress.setTextColor(Color.parseColor("#7f7d7f"));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_moduldrink, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivityModulDrink.class);
+                startActivity(intent);
+                return true;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //function minusTrigger onklick @+id/minus
