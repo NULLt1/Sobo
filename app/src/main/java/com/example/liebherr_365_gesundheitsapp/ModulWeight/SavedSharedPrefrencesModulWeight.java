@@ -47,9 +47,6 @@ public class SavedSharedPrefrencesModulWeight {
     }
 
     static void setFirstentry(boolean flag) {
-        Log.d("TRIGGGGGER", "TRIGGGGGGER");
-        Log.d("TRIGGGGGER", "TRIGGGGGGER");
-
         SavedSharedPrefrencesModulWeight.firstentry = flag;
     }
 

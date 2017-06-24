@@ -4,7 +4,7 @@
 
     <com.example.liebherr_365_gesundheitsapp.ModulCoffee.NumberPickerPreferenceCoffee
         android:defaultValue="4"
-        android:key="key_number"
+        android:key="cups"
         android:title="Anzahl Tassen" />
 
     <Preference

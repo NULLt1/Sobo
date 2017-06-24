@@ -72,7 +72,6 @@ public class DataSourceData {
 
     //function updatedata in database
     public void updatedata(Data data) {
-        Log.d("UPDATE", "UPDATE");
         //call function deletedata
         deletesingledata(data);
         //call function insertdata
@@ -168,11 +167,7 @@ public class DataSourceData {
         Cursor databaseweightresult = databaseData.rawQuery(query, null);
 
         databaseweightresult.moveToFirst();
-        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
-        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
-        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
-        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
-        Log.d("CURSORCOUNT", String.valueOf(databaseweightresult.getCount()));
+
         if (databaseweightresult.getCount() == 0) {
             return 0;
         } else {

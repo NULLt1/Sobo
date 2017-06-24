@@ -1,8 +1,11 @@
 package com.example.liebherr_365_gesundheitsapp.ModulCoffee;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +18,7 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.Database.Data;
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.SettingsActivityModulWeight;
+
 import com.example.liebherr_365_gesundheitsapp.R;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
@@ -25,21 +28,34 @@ import java.util.Locale;
 public class ModulCoffee extends AppCompatActivity {
     // new DataSourceData
     private DataSourceData dataSourceData;
-    private int glassCounter = 0;
+    private static int glassCounter = 0;
     private float donutProgressCounter;
-    static int maxGlasses = 4;
+    static private float donutIncrement = 0f;
+    static int maxGlasses;
 
-    public static int getMaxGlasses() {
-        return maxGlasses;
+    public static void resetGlassCounter() {
+        glassCounter = 0;
     }
 
     public static void setMaxGlasses(int maxGlasses) {
-        ModulCoffee.maxGlasses = maxGlasses;
+        ModulCoffee.maxGlasses = maxGlasses;// call function calculateDonutIncrement
+        calculateDonutIncrement();
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
+
+        donutProgressCounter = 0;
+        countUpDonutProgressCounterLoop();
+        setDonutProgress();
+        setGlassesText();
+
+        if (dataExisting()) {
+            enableHistorieButton();
+        } else {
+            disableHistorieButton();
+        }
 
         if (glassCounter == 0) {
             // disableButtons if glassCounter == 0
@@ -50,15 +66,21 @@ public class ModulCoffee extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SavedSharedPrefrencesModulCoffee.setSharedPreferences(this);
+
+        maxGlasses = SavedSharedPrefrencesModulCoffee.getCups();
+        Log.d("MAXGLASSES", String.valueOf(maxGlasses));
 
         // setContentView
         setContentView(R.layout.activity_modul_coffee);
+
+        // call function calculateDonutIncrement
+        calculateDonutIncrement();
 
         if (entryAlreadyExisting()) {
             // entryExisting
             entryExists();
         }
-
 
         if (dataExisting()) {
             enableHistorieButton();
@@ -101,7 +123,6 @@ public class ModulCoffee extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     //function minusTrigger onklick @+id/minus
     public void minusTrigger(View view) {
@@ -218,12 +239,26 @@ public class ModulCoffee extends AppCompatActivity {
 
     // function countUpDonutProgressCounter
     private void countUpDonutProgressCounter() {
-        donutProgressCounter += 25f;
+        if (glassCounter == maxGlasses) {
+            donutProgressCounter = 100f;
+        } else {
+            donutProgressCounter += donutIncrement;
+        }
     }
 
     // function countDownDonutProgressCounter
     private void countDownDonutProgressCounter() {
-        donutProgressCounter -= 25f;
+        if (glassCounter == 0) {
+            donutProgressCounter = 0f;
+        } else {
+            donutProgressCounter -= donutIncrement;
+        }
+    }
+
+    // function calculate donutIncrement
+    private static void calculateDonutIncrement() {
+        donutIncrement = 100 / maxGlasses;
+        Log.d("donutIncrement", String.valueOf(donutIncrement));
     }
 
     // function setDonutProgress
@@ -339,14 +374,19 @@ public class ModulCoffee extends AppCompatActivity {
         setGlassesText();
 
         // countUpDonutProgressCounter foreach glass
+        countUpDonutProgressCounterLoop();
+
+        // setDonutProgress
+        setDonutProgress();
+    }
+
+    // function countUpDonutProgressCounterLoop
+    private void countUpDonutProgressCounterLoop() {
         for (int i = 1; i <= glassCounter; i++) {
             if (donutProgressCounter < 100) {
                 countUpDonutProgressCounter();
             }
         }
-
-        // setDonutProgress
-        setDonutProgress();
     }
 
     // function entryAlreadyExisting

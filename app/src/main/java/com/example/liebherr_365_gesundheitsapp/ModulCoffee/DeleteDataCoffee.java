@@ -1,30 +1,20 @@
-package com.example.liebherr_365_gesundheitsapp.ModulWeight;
+package com.example.liebherr_365_gesundheitsapp.ModulCoffee;
+
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.DataSourceData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
-import static android.preference.PreferenceActivity.*;
-import static com.example.liebherr_365_gesundheitsapp.ModulWeight.ModulWeight.adapter;
-
-
-public class DeleteData extends DialogFragment {
+public class DeleteDataCoffee extends DialogFragment {
     Context context;
     private DataSourceData dataSourceData;
 
@@ -54,12 +44,15 @@ public class DeleteData extends DialogFragment {
         buttonyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // call function resetGlassCounter
+                ModulCoffee.resetGlassCounter();
+
                 // new DBHelperDataSource
                 dataSourceData = new DataSourceData(context);
                 dataSourceData.open();
 
                 //call function deletedb
-                String ModulWeight = "ModulWeight";
+                String ModulWeight = "ModulCoffee";
                 dataSourceData.deletedb(ModulWeight);
 
                 Log.d("closesql", "<DATA>Die Datenquelle wird geschlossen.<DATA>");

@@ -5,6 +5,7 @@ package com.example.liebherr_365_gesundheitsapp.ModulCoffee;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
+
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.SavedSharedPrefrencesModulWeight;
 
 /**
  * A {@link android.preference.Preference} that displays a number picker as a dialog.
@@ -73,17 +76,24 @@ public class NumberPickerPreferenceCoffee extends DialogPreference {
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        return ModulCoffee.getMaxGlasses();
+        SavedSharedPrefrencesModulCoffee.setSharedPreferences(getContext());
+        return SavedSharedPrefrencesModulCoffee.getCups();
     }
 
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-        setValue(ModulCoffee.getMaxGlasses());
+        SavedSharedPrefrencesModulCoffee.setSharedPreferences(getContext());
+        setValue(SavedSharedPrefrencesModulCoffee.getCups());
     }
 
     public void setValue(int value) {
         this.value = value;
         ModulCoffee.setMaxGlasses(value);
+
+        SharedPreferences prefs = getSharedPreferences();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("cups", value);
+        editor.apply();
     }
 
     public int getValue() {

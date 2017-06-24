@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.liebherr_365_gesundheitsapp.AppCompatPreferenceActivity;
-import com.example.liebherr_365_gesundheitsapp.ModulWeight.DeleteData;
+import com.example.liebherr_365_gesundheitsapp.ModulWeight.DeleteDataDrink;
 import com.example.liebherr_365_gesundheitsapp.R;
 
 public class SettingsActivityModulDrink extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -31,7 +31,7 @@ public class SettingsActivityModulDrink extends AppCompatPreferenceActivity impl
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Log.d("Clicked", "Clicked");
-                DialogFragment deletedata = new DeleteData();
+                DialogFragment deletedata = new DeleteDataDrink();
                 deletedata.show(getFragmentManager(), "DeleteData");
                 return true;
             }

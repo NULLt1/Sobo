@@ -50,7 +50,7 @@ public class SettingsActivityModulWeight extends AppCompatPreferenceActivity imp
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Log.d("Clicked", "Clicked");
-                DialogFragment deletedata = new DeleteData();
+                DialogFragment deletedata = new DeleteDataDrink();
                 deletedata.show(getFragmentManager(), "DeleteData");
                 return true;
             }
