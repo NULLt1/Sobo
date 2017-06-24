@@ -90,13 +90,13 @@ public class SingleDataRecordWeight extends DialogFragment {
                 // get historieListCursor
                 Cursor historieListCursor = dataSourceData.getPreparedCursorForHistorieList("ModulWeight");
 
-                if (historieListCursor.getCount() > 0) {
-                    try {
-                        HistorieModulWeight.adapter.changeCursor(historieListCursor);
-                    } catch (Exception e) {
-                        Log.d("Excecption", String.valueOf(e));
-                    }
+
+                try {
+                    HistorieModulWeight.adapter.changeCursor(historieListCursor);
+                } catch (Exception e) {
+                    Log.d("Excecption", String.valueOf(e));
                 }
+
 
                 ModulWeight.adapter.changeCursor(dataSourceData.getPreparedCursorForWeightList());
 
