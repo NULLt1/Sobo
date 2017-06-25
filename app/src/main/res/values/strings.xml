@@ -152,4 +152,5 @@
     <string name="historie_coffee">Übersicht Kaffee</string>
     <string name="histore_drink">Übersicht Trinken</string>
     <string name="historie_weight">Übersicht Gewicht</string>
+    <string name="heutiges_gewicht">Bitte geben Sie ihr heutiges Gewicht ein</string>
 </resources>

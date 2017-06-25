@@ -6,12 +6,27 @@
     android:layout_height="match_parent"
     android:layout_weight="1">
 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/kg"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/heutiges_gewicht"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp" />
+
     <NumberPicker
         android:id="@+id/integer"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text" />
 
     <NumberPicker
         android:id="@+id/afterkomma"
@@ -26,13 +41,12 @@
         android:id="@+id/komma"
         android:layout_width="25dp"
         android:layout_height="180dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/integer"
-        android:layout_toRightOf="@+id/integer"
         android:gravity="center"
         android:text="@string/komma"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_below="@+id/text"
+        android:layout_toEndOf="@+id/integer" />
 
     <TextView
         android:id="@+id/kg"
@@ -50,23 +64,25 @@
         android:id="@+id/speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/kg"
+        android:layout_below="@+id/integer"
+        android:layout_toEndOf="@+id/komma"
         android:background="@color/colorAccent"
         android:text="@string/speichern"
         android:textColor="@color/colorButtonTextWhite"
-        android:textSize="14sp"
-        android:layout_below="@+id/komma"
-        android:layout_alignEnd="@+id/kg"
-        android:layout_toEndOf="@+id/komma" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/später"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/integer"
+        android:layout_toStartOf="@+id/speichern"
         android:background="@color/colorAccent"
         android:text="@string/später"
         android:textColor="@color/colorButtonTextWhite"
-        android:textSize="14sp"
-        android:layout_below="@+id/komma"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/speichern" />
+        android:textSize="14sp" />
+
+
 </RelativeLayout>
