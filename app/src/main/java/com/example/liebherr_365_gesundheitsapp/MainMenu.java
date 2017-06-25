@@ -71,7 +71,6 @@ public class MainMenu extends AppCompatActivity {
         dbm.open();
 
 
-
         // call function insertdefaultmodules
         dbm.insertdefaultmodules();
 
@@ -95,6 +94,7 @@ public class MainMenu extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
@@ -102,6 +102,10 @@ public class MainMenu extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);
 
         // new DataSourceModules
         dbm = new DataSourceModules(this);
