@@ -104,9 +104,17 @@ public class MainMenu extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        final int pos = 1;
+        mViewPager.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(pos);
+            }
+        }, 100);
+
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);
 
         // new DataSourceModules
         dbm = new DataSourceModules(this);
