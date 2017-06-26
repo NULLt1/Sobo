@@ -1,9 +1,12 @@
 package com.example.liebherr_365_gesundheitsapp.ModulTipOfTheDay;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -18,6 +21,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ModulTipOfTheDay extends AppCompatActivity {
     public static final String LOG_TAG = ModulTipOfTheDay.class.getSimpleName();
@@ -42,12 +47,33 @@ public class ModulTipOfTheDay extends AppCompatActivity {
     }
 
     public void showNewEntry(View view) {
-        dataSource.open();
-        dataSource.getNewTip();
-        adapter.updateData(dataSource.getSubscribedTips());
-        dataSource.close();
 
-        adapter.notifyDataSetChanged();
+        //shows new tip for every day
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        String stringCurrentDate = sdf.format(currentDate);
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+
+        if (!sharedPref.getString("currentDate", "").equals(stringCurrentDate)){
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("currentDate", stringCurrentDate);
+            editor.commit();
+
+            try {
+                dataSource.open();
+                dataSource.getNewTip();
+                adapter.updateData(dataSource.getSubscribedTips());
+                dataSource.close();
+
+                adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "Fehler beim aktualisieren von neuem Tipp: " + e.getMessage());
+            }
+        }
+
     }
 
     private class XMLParser extends AsyncTask {
@@ -68,7 +94,7 @@ public class ModulTipOfTheDay extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(ModulTipOfTheDay.this);
-            mProgressDialog.setTitle("Speiseplan");
+            mProgressDialog.setTitle("Tipp des Tages");
             mProgressDialog.setMessage("Laden...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();

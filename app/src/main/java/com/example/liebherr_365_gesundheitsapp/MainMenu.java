@@ -72,6 +72,7 @@ public class MainMenu extends AppCompatActivity {
 
 
         // call function insertdefaultmodules
+
         dbm.insertdefaultmodules();
 
         // call function getactivemodulesstringarray
@@ -120,7 +121,11 @@ public class MainMenu extends AppCompatActivity {
         // call function prepareRecording
         prepareRecording();
 
+        //refresh the fragments
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
     }
+
 
     // function resetFragmentCounter
     public static void resetFragmentCounter() {

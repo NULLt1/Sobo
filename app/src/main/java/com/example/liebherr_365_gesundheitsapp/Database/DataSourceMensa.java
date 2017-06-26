@@ -200,11 +200,10 @@ public class DataSourceMensa {
 
     public List<DataMensaMenu> getTodaysDataAsArrayList() {
 
-
-        //TODO:Datum mit aktuellem Datum austauschen, sobald Kantinenplan aktuell ist
         List<DataMensaMenu> dataList = new ArrayList<>();
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd.MM.yy");
         String mDate = simpleDateFormat.format(date);
         Cursor cursor = database.query(Queries.TABLE_MENSA, columns, Queries.COLUMN_DATE + "= ?", new String[]{mDate}, null, null, null);
 
@@ -212,9 +211,10 @@ public class DataSourceMensa {
             Log.d(LOG_TAG, String.valueOf(cursor.getCount()));
             dataList = cursorToList(cursor);
             cursor.close();
-        } else
+        } else {
+            mDate = simpleDateFormat2.format(date);
             dataList.add(new DataMensaMenu(0, mDate, "", 0, "Keine Daten zu " + mDate + " vorhanden", "", ""));
-
+        }
         return dataList;
     }
 

@@ -32,7 +32,7 @@ public class MergeData {
         dataSourceParsedData.close();
 
         for (DataMensaMenu item : mensaList) {
-            DataMergedData data = new DataMergedData("Mensa", item.getDate(), item.getHeader(), item.getMenu(), item.getPrice());
+            DataMergedData data = new DataMergedData("Kantine", item.getDate(), item.getHeader(), item.getMenu(), item.getPrice());
             newList.add(data);
         }
 

@@ -54,7 +54,9 @@ public class DataMensaMenu {
     }
 
     public String getPrice() {
-        return price + "€";
+        if (!price.equals(""))
+            return price + "€";
+        else return "";
     }
 
     public String getHeader() {

@@ -2,6 +2,7 @@ package com.example.liebherr_365_gesundheitsapp.viewAdapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.example.liebherr_365_gesundheitsapp.Database.DataMergedData;
 import com.example.liebherr_365_gesundheitsapp.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -102,5 +105,9 @@ public class ListViewAdapterOverView extends BaseAdapter {
         }
 
         return itemView;
+    }
+    public void updateResults(List<List<DataMergedData>> list){
+        this.list=list;
+        notifyDataSetChanged();
     }
 }

@@ -189,7 +189,7 @@ public class DataSourceParsedData {
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         Date currentDate = new Date();
 
-        String query = "SELECT * FROM " + Queries.TABLE_PARSED_DATA + " WHERE " + Queries.getColumnDate() + ">=" + "'" + dateFormat.format(currentDate) + "' AND "+Queries.COLUMN_MODUL+"= 'News'" ;
+        String query = "SELECT * FROM " + Queries.TABLE_PARSED_DATA + " WHERE " + Queries.getColumnDate() + ">=" + "'" + dateFormat.format(currentDate) + "' AND "+Queries.COLUMN_MODUL+"= 'News' ORDER BY "+Queries.COLUMN_ID +" DESC";
         Cursor cursor = database.rawQuery(query, null);
 
         return cursorToList(cursor);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.liebherr_365_gesundheitsapp.Database.Queries;
 
