@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/colorPrimary"
-            android:dividerHeight="10dp" />
+            android:dividerHeight="10dp"
+            android:paddingBottom="50dp" />
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

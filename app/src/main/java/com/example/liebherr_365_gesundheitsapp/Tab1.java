@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +33,8 @@ public class Tab1 extends Fragment {
         parser = new Parser(getContext());
         parser.pullData();
 
-        ListView listView = (ListView) rootView.findViewById(R.id.listViewTab1);
+        final ListView listView = (ListView) rootView.findViewById(R.id.listViewTab1);
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipelayout);
 
         mergeData = new MergeData(getContext());
 
@@ -45,9 +47,21 @@ public class Tab1 extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
         header.setText("Aktuelle Infos für den " + dateFormat.format(date));
 
+        //enable refresh layout only when list is at top of the screen
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
 
         //refresh data on swipe
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipelayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
