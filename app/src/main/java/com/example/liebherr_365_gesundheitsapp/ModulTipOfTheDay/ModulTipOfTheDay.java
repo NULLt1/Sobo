@@ -40,7 +40,7 @@ public class ModulTipOfTheDay extends AppCompatActivity {
         dataSource = new DataSourceParsedData(this);
 
         dataSource.open();
-        dataSource.deleteDB();
+
         dataSource.close();
 
         new XMLParser().execute();

@@ -111,7 +111,7 @@ public class MainMenu extends AppCompatActivity {
             public void run() {
                 mViewPager.setCurrentItem(pos);
             }
-        }, 100);
+        }, 50);
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
